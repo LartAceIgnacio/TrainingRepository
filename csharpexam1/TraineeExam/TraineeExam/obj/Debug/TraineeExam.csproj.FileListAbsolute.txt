@@ -1,0 +1,7 @@
+C:\Users\emagadia\Desktop\Blast_Training_Technical\TraineeExam\TraineeExam\bin\Debug\TraineeExam.exe.config
+C:\Users\emagadia\Desktop\Blast_Training_Technical\TraineeExam\TraineeExam\bin\Debug\TraineeExam.exe
+C:\Users\emagadia\Desktop\Blast_Training_Technical\TraineeExam\TraineeExam\bin\Debug\TraineeExam.pdb
+C:\Users\emagadia\Desktop\Blast_Training_Technical\TraineeExam\TraineeExam\obj\Debug\TraineeExam.csprojResolveAssemblyReference.cache
+C:\Users\emagadia\Desktop\Blast_Training_Technical\TraineeExam\TraineeExam\obj\Debug\TraineeExam.csproj.CoreCompileInputs.cache
+C:\Users\emagadia\Desktop\Blast_Training_Technical\TraineeExam\TraineeExam\obj\Debug\TraineeExam.exe
+C:\Users\emagadia\Desktop\Blast_Training_Technical\TraineeExam\TraineeExam\obj\Debug\TraineeExam.pdb
