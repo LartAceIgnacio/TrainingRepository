@@ -16,8 +16,6 @@ namespace TraineeExam
                 var newString = ""; // new string for reversed checking
                 var x = item.Replace(" ", string.Empty); // removing of spaces
 
-                var result = false; // for result
-
                 var ctr = x.Length - 1; // just my counter for reversing
 
                 for (int i = ctr; i >= 0; i--) // loop for generating new reversed string
@@ -25,12 +23,8 @@ namespace TraineeExam
                     newString += x[i];
                 }
 
-                if (x == newString) // new word and actual word checking
-                {
-                    result = true;
-                }
+                var result = x == newString ? true : false; // newString and Actualword comaparison
 
-                //Console.WriteLine(x.Length);
                 Console.WriteLine("Word : {0} / Result : {1}", item, result); // output result
             }
         }
