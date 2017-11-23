@@ -29,7 +29,6 @@ namespace TraineeExam
 
             Console.ReadKey();
 
-
             Console.WriteLine("==========================================");
             Console.WriteLine("Activity 2");
 
