@@ -1,0 +1,11 @@
+c:\users\jmatencio\source\repos\Part2_Exam\Part2_Exam\bin\Debug\netcoreapp2.0\Part2_Exam.deps.json
+c:\users\jmatencio\source\repos\Part2_Exam\Part2_Exam\bin\Debug\netcoreapp2.0\Part2_Exam.runtimeconfig.json
+c:\users\jmatencio\source\repos\Part2_Exam\Part2_Exam\bin\Debug\netcoreapp2.0\Part2_Exam.runtimeconfig.dev.json
+c:\users\jmatencio\source\repos\Part2_Exam\Part2_Exam\bin\Debug\netcoreapp2.0\Part2_Exam.dll
+c:\users\jmatencio\source\repos\Part2_Exam\Part2_Exam\bin\Debug\netcoreapp2.0\Part2_Exam.pdb
+c:\users\jmatencio\source\repos\Part2_Exam\Part2_Exam\obj\Debug\netcoreapp2.0\Part2_Exam.csprojResolveAssemblyReference.cache
+c:\users\jmatencio\source\repos\Part2_Exam\Part2_Exam\obj\Debug\netcoreapp2.0\Part2_Exam.csproj.CoreCompileInputs.cache
+c:\users\jmatencio\source\repos\Part2_Exam\Part2_Exam\obj\Debug\netcoreapp2.0\Part2_Exam.AssemblyInfoInputs.cache
+c:\users\jmatencio\source\repos\Part2_Exam\Part2_Exam\obj\Debug\netcoreapp2.0\Part2_Exam.AssemblyInfo.cs
+c:\users\jmatencio\source\repos\Part2_Exam\Part2_Exam\obj\Debug\netcoreapp2.0\Part2_Exam.dll
+c:\users\jmatencio\source\repos\Part2_Exam\Part2_Exam\obj\Debug\netcoreapp2.0\Part2_Exam.pdb
