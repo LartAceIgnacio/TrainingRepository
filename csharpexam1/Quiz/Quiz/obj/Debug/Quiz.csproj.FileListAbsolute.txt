@@ -1,0 +1,6 @@
+c:\users\rnebran\documents\visual studio 2017\Projects\Quiz\Quiz\bin\Debug\Quiz.exe.config
+c:\users\rnebran\documents\visual studio 2017\Projects\Quiz\Quiz\bin\Debug\Quiz.exe
+c:\users\rnebran\documents\visual studio 2017\Projects\Quiz\Quiz\bin\Debug\Quiz.pdb
+c:\users\rnebran\documents\visual studio 2017\Projects\Quiz\Quiz\obj\Debug\Quiz.exe
+c:\users\rnebran\documents\visual studio 2017\Projects\Quiz\Quiz\obj\Debug\Quiz.pdb
+c:\users\rnebran\documents\visual studio 2017\Projects\Quiz\Quiz\obj\Debug\Quiz.csprojResolveAssemblyReference.cache
