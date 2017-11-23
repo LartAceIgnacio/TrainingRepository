@@ -5,3 +5,10 @@ C:\Users\emagadia\Desktop\Blast_Training_Technical\TraineeExam\TraineeExam\obj\D
 C:\Users\emagadia\Desktop\Blast_Training_Technical\TraineeExam\TraineeExam\obj\Debug\TraineeExam.csproj.CoreCompileInputs.cache
 C:\Users\emagadia\Desktop\Blast_Training_Technical\TraineeExam\TraineeExam\obj\Debug\TraineeExam.exe
 C:\Users\emagadia\Desktop\Blast_Training_Technical\TraineeExam\TraineeExam\obj\Debug\TraineeExam.pdb
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\csharpexam1\TraineeExam\TraineeExam\bin\Debug\TraineeExam.exe.config
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\csharpexam1\TraineeExam\TraineeExam\bin\Debug\TraineeExam.exe
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\csharpexam1\TraineeExam\TraineeExam\bin\Debug\TraineeExam.pdb
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\csharpexam1\TraineeExam\TraineeExam\obj\Debug\TraineeExam.csprojResolveAssemblyReference.cache
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\csharpexam1\TraineeExam\TraineeExam\obj\Debug\TraineeExam.csproj.CoreCompileInputs.cache
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\csharpexam1\TraineeExam\TraineeExam\obj\Debug\TraineeExam.exe
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\csharpexam1\TraineeExam\TraineeExam\obj\Debug\TraineeExam.pdb
