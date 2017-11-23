@@ -1,0 +1,6 @@
+c:\users\ddeguzman\documents\visual studio 2017\Projects\TraineeExam\TraineeExam\bin\Debug\TraineeExam.exe.config
+c:\users\ddeguzman\documents\visual studio 2017\Projects\TraineeExam\TraineeExam\bin\Debug\TraineeExam.exe
+c:\users\ddeguzman\documents\visual studio 2017\Projects\TraineeExam\TraineeExam\bin\Debug\TraineeExam.pdb
+c:\users\ddeguzman\documents\visual studio 2017\Projects\TraineeExam\TraineeExam\obj\Debug\TraineeExam.csprojResolveAssemblyReference.cache
+c:\users\ddeguzman\documents\visual studio 2017\Projects\TraineeExam\TraineeExam\obj\Debug\TraineeExam.exe
+c:\users\ddeguzman\documents\visual studio 2017\Projects\TraineeExam\TraineeExam\obj\Debug\TraineeExam.pdb
