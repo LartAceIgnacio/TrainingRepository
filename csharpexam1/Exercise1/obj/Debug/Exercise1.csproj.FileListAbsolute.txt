@@ -1,0 +1,6 @@
+c:\users\mmendez\documents\visual studio 2017\Projects\ConsoleApp1\Exercise1\bin\Debug\Exercise1.exe.config
+c:\users\mmendez\documents\visual studio 2017\Projects\ConsoleApp1\Exercise1\bin\Debug\Exercise1.exe
+c:\users\mmendez\documents\visual studio 2017\Projects\ConsoleApp1\Exercise1\bin\Debug\Exercise1.pdb
+c:\users\mmendez\documents\visual studio 2017\Projects\ConsoleApp1\Exercise1\obj\Debug\Exercise1.csproj.CoreCompileInputs.cache
+c:\users\mmendez\documents\visual studio 2017\Projects\ConsoleApp1\Exercise1\obj\Debug\Exercise1.exe
+c:\users\mmendez\documents\visual studio 2017\Projects\ConsoleApp1\Exercise1\obj\Debug\Exercise1.pdb
