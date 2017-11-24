@@ -10,6 +10,8 @@ namespace GitMerge
     {
         static void Main(string[] args)
         {
+            var karl = "";
+
             Console.WriteLine("Hello World!");
             Console.ReadKey();
         }
