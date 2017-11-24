@@ -1,0 +1,13 @@
+C:\Users\jmatencio\Documents\gitTest\jmatencio\TrainingRepository\GitMerge\GitMerge\bin\Debug\GitMerge.exe.config
+C:\Users\jmatencio\Documents\gitTest\jmatencio\TrainingRepository\GitMerge\GitMerge\bin\Debug\GitMerge.exe
+C:\Users\jmatencio\Documents\gitTest\jmatencio\TrainingRepository\GitMerge\GitMerge\bin\Debug\GitMerge.pdb
+C:\Users\jmatencio\Documents\gitTest\jmatencio\TrainingRepository\GitMerge\GitMerge\obj\Debug\GitMerge.csprojResolveAssemblyReference.cache
+C:\Users\jmatencio\Documents\gitTest\jmatencio\TrainingRepository\GitMerge\GitMerge\obj\Debug\GitMerge.csproj.CoreCompileInputs.cache
+C:\Users\jmatencio\Documents\gitTest\jmatencio\TrainingRepository\GitMerge\GitMerge\obj\Debug\GitMerge.exe
+C:\Users\jmatencio\Documents\gitTest\jmatencio\TrainingRepository\GitMerge\GitMerge\obj\Debug\GitMerge.pdb
+C:\Users\eravina\Documents\TrainingRepository\GitMerge\GitMerge\bin\Debug\GitMerge.exe.config
+C:\Users\eravina\Documents\TrainingRepository\GitMerge\GitMerge\bin\Debug\GitMerge.exe
+C:\Users\eravina\Documents\TrainingRepository\GitMerge\GitMerge\bin\Debug\GitMerge.pdb
+C:\Users\eravina\Documents\TrainingRepository\GitMerge\GitMerge\obj\Debug\GitMerge.csprojResolveAssemblyReference.cache
+C:\Users\eravina\Documents\TrainingRepository\GitMerge\GitMerge\obj\Debug\GitMerge.exe
+C:\Users\eravina\Documents\TrainingRepository\GitMerge\GitMerge\obj\Debug\GitMerge.pdb
