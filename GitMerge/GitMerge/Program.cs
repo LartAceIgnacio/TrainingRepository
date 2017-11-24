@@ -13,7 +13,7 @@ namespace GitMerge
             Console.WriteLine("Hi World!");
             Console.WriteLine("Hello World");
 
-            Console.WriteLine("For Vs Testing");
+            Console.Write("For Vs Testing testing");
             
         }
     }
