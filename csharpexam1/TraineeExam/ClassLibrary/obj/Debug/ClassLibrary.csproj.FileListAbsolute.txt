@@ -1,0 +1,6 @@
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\csharpexam1\TraineeExam\ClassLibrary\bin\Debug\ClassLibrary.dll
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\csharpexam1\TraineeExam\ClassLibrary\bin\Debug\ClassLibrary.pdb
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\csharpexam1\TraineeExam\ClassLibrary\obj\Debug\ClassLibrary.csprojResolveAssemblyReference.cache
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\csharpexam1\TraineeExam\ClassLibrary\obj\Debug\ClassLibrary.csproj.CoreCompileInputs.cache
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\csharpexam1\TraineeExam\ClassLibrary\obj\Debug\ClassLibrary.dll
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\csharpexam1\TraineeExam\ClassLibrary\obj\Debug\ClassLibrary.pdb
