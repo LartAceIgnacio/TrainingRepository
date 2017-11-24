@@ -1,0 +1,6 @@
+C:\Users\cmanuel\Documents\TrainingRepository\GitMerge\GitMerge\bin\Debug\GitMerge.exe.config
+C:\Users\cmanuel\Documents\TrainingRepository\GitMerge\GitMerge\bin\Debug\GitMerge.exe
+C:\Users\cmanuel\Documents\TrainingRepository\GitMerge\GitMerge\bin\Debug\GitMerge.pdb
+C:\Users\cmanuel\Documents\TrainingRepository\GitMerge\GitMerge\obj\Debug\GitMerge.csprojResolveAssemblyReference.cache
+C:\Users\cmanuel\Documents\TrainingRepository\GitMerge\GitMerge\obj\Debug\GitMerge.exe
+C:\Users\cmanuel\Documents\TrainingRepository\GitMerge\GitMerge\obj\Debug\GitMerge.pdb

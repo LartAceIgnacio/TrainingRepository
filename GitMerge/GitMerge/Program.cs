@@ -11,6 +11,7 @@ namespace GitMerge
         static void Main(string[] args)
         {
             Console.WriteLine("Hi World");
+            Console.WriteLine("Hellooooooooo World");
             Console.ReadKey();
         }
     }
