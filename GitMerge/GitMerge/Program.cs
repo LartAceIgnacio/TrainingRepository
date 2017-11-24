@@ -13,7 +13,8 @@ namespace GitMerge
             Console.WriteLine("Hi World!");
             Console.WriteLine("Hello World");
 
-            Console.WriteLine("Fetch me nigga!");
+            Console.WriteLine("qweqweqwe");
         }
     }
 }
+
