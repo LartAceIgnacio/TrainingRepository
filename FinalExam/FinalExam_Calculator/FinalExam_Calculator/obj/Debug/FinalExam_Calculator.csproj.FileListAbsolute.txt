@@ -1,0 +1,5 @@
+c:\users\acelis\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\FinalExam_Calculator.exe.config
+c:\users\acelis\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\FinalExam_Calculator.exe
+c:\users\acelis\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\FinalExam_Calculator.pdb
+c:\users\acelis\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\FinalExam_Calculator.exe
+c:\users\acelis\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\FinalExam_Calculator.pdb
