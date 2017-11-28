@@ -1,0 +1,6 @@
+c:\users\eravina\documents\visual studio 2017\Projects\FinalExam_Ravina\FinalExam_Ravina\bin\Debug\FinalExam_Ravina.exe.config
+c:\users\eravina\documents\visual studio 2017\Projects\FinalExam_Ravina\FinalExam_Ravina\bin\Debug\FinalExam_Ravina.exe
+c:\users\eravina\documents\visual studio 2017\Projects\FinalExam_Ravina\FinalExam_Ravina\bin\Debug\FinalExam_Ravina.pdb
+c:\users\eravina\documents\visual studio 2017\Projects\FinalExam_Ravina\FinalExam_Ravina\obj\Debug\FinalExam_Ravina.csprojResolveAssemblyReference.cache
+c:\users\eravina\documents\visual studio 2017\Projects\FinalExam_Ravina\FinalExam_Ravina\obj\Debug\FinalExam_Ravina.exe
+c:\users\eravina\documents\visual studio 2017\Projects\FinalExam_Ravina\FinalExam_Ravina\obj\Debug\FinalExam_Ravina.pdb
