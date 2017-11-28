@@ -1,0 +1,6 @@
+c:\users\aolarte\documents\visual studio 2017\Projects\FinalExam_Fibonacci\FinalExam_Calculator\bin\Debug\FinalExam_Calculator.exe.config
+c:\users\aolarte\documents\visual studio 2017\Projects\FinalExam_Fibonacci\FinalExam_Calculator\bin\Debug\FinalExam_Calculator.exe
+c:\users\aolarte\documents\visual studio 2017\Projects\FinalExam_Fibonacci\FinalExam_Calculator\bin\Debug\FinalExam_Calculator.pdb
+c:\users\aolarte\documents\visual studio 2017\Projects\FinalExam_Fibonacci\FinalExam_Calculator\obj\Debug\FinalExam_Calculator.csprojResolveAssemblyReference.cache
+c:\users\aolarte\documents\visual studio 2017\Projects\FinalExam_Fibonacci\FinalExam_Calculator\obj\Debug\FinalExam_Calculator.exe
+c:\users\aolarte\documents\visual studio 2017\Projects\FinalExam_Fibonacci\FinalExam_Calculator\obj\Debug\FinalExam_Calculator.pdb
