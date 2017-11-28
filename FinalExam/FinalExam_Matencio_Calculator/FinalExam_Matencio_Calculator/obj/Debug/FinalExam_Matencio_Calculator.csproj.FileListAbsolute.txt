@@ -1,0 +1,7 @@
+c:\users\jmatencio\source\repos\FinalExam_Matencio_Calculator\FinalExam_Matencio_Calculator\bin\Debug\FinalExam_Matencio_Calculator.exe.config
+c:\users\jmatencio\source\repos\FinalExam_Matencio_Calculator\FinalExam_Matencio_Calculator\bin\Debug\FinalExam_Matencio_Calculator.exe
+c:\users\jmatencio\source\repos\FinalExam_Matencio_Calculator\FinalExam_Matencio_Calculator\bin\Debug\FinalExam_Matencio_Calculator.pdb
+c:\users\jmatencio\source\repos\FinalExam_Matencio_Calculator\FinalExam_Matencio_Calculator\obj\Debug\FinalExam_Matencio_Calculator.csprojResolveAssemblyReference.cache
+c:\users\jmatencio\source\repos\FinalExam_Matencio_Calculator\FinalExam_Matencio_Calculator\obj\Debug\FinalExam_Matencio_Calculator.csproj.CoreCompileInputs.cache
+c:\users\jmatencio\source\repos\FinalExam_Matencio_Calculator\FinalExam_Matencio_Calculator\obj\Debug\FinalExam_Matencio_Calculator.exe
+c:\users\jmatencio\source\repos\FinalExam_Matencio_Calculator\FinalExam_Matencio_Calculator\obj\Debug\FinalExam_Matencio_Calculator.pdb

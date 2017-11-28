@@ -1,0 +1,7 @@
+c:\users\jmatencio\source\repos\FinalExam_Matencio\FinalExam_Matencio\bin\Debug\FinalExam_Matencio.exe.config
+c:\users\jmatencio\source\repos\FinalExam_Matencio\FinalExam_Matencio\bin\Debug\FinalExam_Matencio.exe
+c:\users\jmatencio\source\repos\FinalExam_Matencio\FinalExam_Matencio\bin\Debug\FinalExam_Matencio.pdb
+c:\users\jmatencio\source\repos\FinalExam_Matencio\FinalExam_Matencio\obj\Debug\FinalExam_Matencio.csprojResolveAssemblyReference.cache
+c:\users\jmatencio\source\repos\FinalExam_Matencio\FinalExam_Matencio\obj\Debug\FinalExam_Matencio.csproj.CoreCompileInputs.cache
+c:\users\jmatencio\source\repos\FinalExam_Matencio\FinalExam_Matencio\obj\Debug\FinalExam_Matencio.exe
+c:\users\jmatencio\source\repos\FinalExam_Matencio\FinalExam_Matencio\obj\Debug\FinalExam_Matencio.pdb
