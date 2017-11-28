@@ -1,0 +1,6 @@
+C:\Users\labille\Documents\Visual Studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\FinalExam_Calculator.exe.config
+C:\Users\labille\Documents\Visual Studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\FinalExam_Calculator.exe
+C:\Users\labille\Documents\Visual Studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\FinalExam_Calculator.pdb
+C:\Users\labille\Documents\Visual Studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\FinalExam_Calculator.csprojResolveAssemblyReference.cache
+C:\Users\labille\Documents\Visual Studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\FinalExam_Calculator.exe
+C:\Users\labille\Documents\Visual Studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\FinalExam_Calculator.pdb
