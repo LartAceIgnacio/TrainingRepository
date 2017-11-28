@@ -1,0 +1,7 @@
+c:\users\mmendez\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\FinalExam_Calculator.exe.config
+c:\users\mmendez\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\FinalExam_Calculator.exe
+c:\users\mmendez\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\FinalExam_Calculator.pdb
+c:\users\mmendez\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\FinalExam_Calculator.csprojResolveAssemblyReference.cache
+c:\users\mmendez\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\FinalExam_Calculator.csproj.CoreCompileInputs.cache
+c:\users\mmendez\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\FinalExam_Calculator.exe
+c:\users\mmendez\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\FinalExam_Calculator.pdb
