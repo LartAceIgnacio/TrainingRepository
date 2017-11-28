@@ -1,0 +1,6 @@
+C:\Users\emagadia\Desktop\c#\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\FinalExam_Calculator.exe.config
+C:\Users\emagadia\Desktop\c#\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\FinalExam_Calculator.exe
+C:\Users\emagadia\Desktop\c#\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\FinalExam_Calculator.pdb
+C:\Users\emagadia\Desktop\c#\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\FinalExam_Calculator.csproj.CoreCompileInputs.cache
+C:\Users\emagadia\Desktop\c#\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\FinalExam_Calculator.exe
+C:\Users\emagadia\Desktop\c#\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\FinalExam_Calculator.pdb

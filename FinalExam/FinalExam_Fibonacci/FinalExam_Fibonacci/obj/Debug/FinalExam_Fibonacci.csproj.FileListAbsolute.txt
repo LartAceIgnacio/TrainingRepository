@@ -1,0 +1,7 @@
+C:\Users\emagadia\Desktop\c#\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\obj\Debug\FinalExam_Fibonacci.csprojResolveAssemblyReference.cache
+C:\Users\emagadia\Desktop\c#\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\obj\Debug\FinalExam_Fibonacci.csproj.CoreCompileInputs.cache
+C:\Users\emagadia\Desktop\c#\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\bin\Debug\FinalExam_Fibonacci.exe.config
+C:\Users\emagadia\Desktop\c#\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\bin\Debug\FinalExam_Fibonacci.exe
+C:\Users\emagadia\Desktop\c#\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\bin\Debug\FinalExam_Fibonacci.pdb
+C:\Users\emagadia\Desktop\c#\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\obj\Debug\FinalExam_Fibonacci.exe
+C:\Users\emagadia\Desktop\c#\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\obj\Debug\FinalExam_Fibonacci.pdb
