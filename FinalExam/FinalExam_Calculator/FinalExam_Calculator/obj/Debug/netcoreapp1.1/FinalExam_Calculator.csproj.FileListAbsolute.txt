@@ -1,0 +1,9 @@
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\netcoreapp1.1\FinalExam_Calculator.deps.json
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\netcoreapp1.1\FinalExam_Calculator.runtimeconfig.json
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\netcoreapp1.1\FinalExam_Calculator.runtimeconfig.dev.json
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\netcoreapp1.1\FinalExam_Calculator.csprojResolveAssemblyReference.cache
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\netcoreapp1.1\FinalExam_Calculator.AssemblyInfo.cs
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\netcoreapp1.1\FinalExam_Calculator.dll
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\bin\Debug\netcoreapp1.1\FinalExam_Calculator.pdb
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\netcoreapp1.1\FinalExam_Calculator.dll
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Calculator\FinalExam_Calculator\obj\Debug\netcoreapp1.1\FinalExam_Calculator.pdb

@@ -1,0 +1,9 @@
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\bin\Debug\netcoreapp1.1\FinalExam_Fibonacci.deps.json
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\bin\Debug\netcoreapp1.1\FinalExam_Fibonacci.runtimeconfig.json
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\bin\Debug\netcoreapp1.1\FinalExam_Fibonacci.runtimeconfig.dev.json
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\bin\Debug\netcoreapp1.1\FinalExam_Fibonacci.dll
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\bin\Debug\netcoreapp1.1\FinalExam_Fibonacci.pdb
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\obj\Debug\netcoreapp1.1\FinalExam_Fibonacci.csprojResolveAssemblyReference.cache
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\obj\Debug\netcoreapp1.1\FinalExam_Fibonacci.AssemblyInfo.cs
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\obj\Debug\netcoreapp1.1\FinalExam_Fibonacci.dll
+c:\users\jmagdaleno\documents\visual studio 2017\Projects\FinalExam_Fibonacci\FinalExam_Fibonacci\obj\Debug\netcoreapp1.1\FinalExam_Fibonacci.pdb
