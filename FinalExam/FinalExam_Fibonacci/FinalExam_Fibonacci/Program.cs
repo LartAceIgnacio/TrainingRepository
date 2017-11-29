@@ -10,18 +10,27 @@ namespace FinalExam_Fibonacci
     {
         static void Main(string[] args)
         {
-            List<int> resultList = new List<int>();
-            resultList.Add(0);
-            resultList.Add(1);
+            #region List
+            //List<int> resultList = new List<int>
+            //{
+            //    0,
+            //    1
+            //};
+            #endregion
             Console.WriteLine("Please Enter a number : ");
-            var input = int.Parse(Console.ReadLine());
+            var input = int.Parse(Console.ReadLine()) -3; // user input
+            #region Fibo
+            //for (int i = 0; i < input -2 ; i++)
+            //{
+            //    resultList.Add(resultList[i] + resultList.Last());
+            //}
 
-            for (int i = 0; i < input -2 ; i++)
-            {
-                resultList.Add(resultList[i] + resultList.Last());
-            }
+            #endregion
 
-            foreach (var item in resultList)
+            Fibo fb = new Fibo(input); // instantiate FIbo
+            var resultList = fb.GetFibo(); // get Fibo List
+
+            foreach (var item in resultList) // Print Fibo List
             {
                 Console.Write(item + " ");
             }
