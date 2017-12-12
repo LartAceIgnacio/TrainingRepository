@@ -1,0 +1,16 @@
+c:\users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Test.deps.json
+c:\users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Test.runtimeconfig.json
+c:\users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Test.runtimeconfig.dev.json
+c:\users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Test.csprojResolveAssemblyReference.cache
+c:\users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Test.AssemblyInfo.cs
+c:\users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp1.1\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+c:\users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp1.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+c:\users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp1.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+c:\users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Test.dll
+c:\users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Test.pdb
+c:\users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.dll
+c:\users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.pdb
+c:\users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Test.dll
+c:\users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Test.pdb
+C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.pdb
