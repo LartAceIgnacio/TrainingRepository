@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ValidUserNameRequiredException.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.7.145" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlastAsia.DigiBook.Domain.Models\BlastAsia.DigiBook.Domain.Models.csproj" />
+  </ItemGroup>
+
+</Project>
