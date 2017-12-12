@@ -1,0 +1,9 @@
+C:\Users\emagadia\Desktop\Blast_Training_Technical\UnitTesting\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.deps.json
+C:\Users\emagadia\Desktop\Blast_Training_Technical\UnitTesting\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\emagadia\Desktop\Blast_Training_Technical\UnitTesting\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\emagadia\Desktop\Blast_Training_Technical\UnitTesting\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.csprojResolveAssemblyReference.cache
+C:\Users\emagadia\Desktop\Blast_Training_Technical\UnitTesting\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.csproj.CoreCompileInputs.cache
+C:\Users\emagadia\Desktop\Blast_Training_Technical\UnitTesting\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.AssemblyInfoInputs.cache
+C:\Users\emagadia\Desktop\Blast_Training_Technical\UnitTesting\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.AssemblyInfo.cs
+C:\Users\emagadia\Desktop\Blast_Training_Technical\UnitTesting\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\emagadia\Desktop\Blast_Training_Technical\UnitTesting\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
