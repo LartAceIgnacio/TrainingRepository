@@ -1,0 +1,31 @@
+[1mdiff --git a/GitMerge/Program.cs b/GitMerge/Program.cs[m
+[1mindex 6a82f48..c316daf 100644[m
+[1m--- a/GitMerge/Program.cs[m
+[1m+++ b/GitMerge/Program.cs[m
+[36m@@ -1,17 +1,9 @@[m
+[31m-﻿using System;[m
+[31m-using System.Collections.Generic;[m
+[31m-using System.Linq;[m
+[31m-using System.Text;[m
+[31m-using System.Threading.Tasks;[m
+[31m-[m
+[31m-namespace GitMerge[m
+[31m-{[m
+[31m-    class Program[m
+[31m-    {[m
+[31m-        static void Main(string[] args)[m
+[31m-        {[m
+[31m-            Console.WriteLine("Hello World");[m
+[31m-            Console.WriteLine("Hi World");[m
+[31m-        }[m
+[31m-    }[m
+[31m-}[m
+[32m+[m[32m﻿using System;[m[41m[m
+[32m+[m[32musing System.Collections.Generic;[m[41m[m
+[32m+[m[32musing System.Linq;[m[41m[m
+[32m+[m[32musing System.Text;[m[41m[m
+[32m+[m[32musing System.Threading.Tasks;[m[41m[m
+[32m+[m[32m235675676656756765675756756dasdidasdasdasdasdasdsadasd[m[41m[m
+[32m+[m[32madssadasdsadas[m[41m[m
+[32m+[m	[32mdsadasdasd[m[41m[m
+[32m+[m[32mdasdasdasi[m[41m[m

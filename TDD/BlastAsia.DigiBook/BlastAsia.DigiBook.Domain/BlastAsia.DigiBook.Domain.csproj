@@ -6,6 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="Class1.cs" />
+    <Compile Remove="EmailInvalidFormatException.cs" />
+    <Compile Remove="IAccountRepository.cs" />
+    <Compile Remove="MinimumPasswordLengthException.cs" />
+    <Compile Remove="PasswordRequiredException.cs" />
+    <Compile Remove="RegistrationService.cs" />
+    <Compile Remove="StrongPasswordException.cs" />
+    <Compile Remove="UsernameRequiredException.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7042,10 +7042,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj",
+      "projectUniqueName": "C:\\Users\\roribello\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj",
       "projectName": "BlastAsia.DigiBook.Domain.Models",
-      "projectPath": "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj",
-      "outputPath": "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\obj\\",
+      "projectPath": "C:\\Users\\roribello\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj",
+      "outputPath": "C:\\Users\\roribello\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
