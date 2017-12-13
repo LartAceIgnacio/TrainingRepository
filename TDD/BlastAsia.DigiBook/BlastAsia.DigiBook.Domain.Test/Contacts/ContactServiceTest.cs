@@ -168,5 +168,20 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             _mockContactRepository.Verify(c => c.Create(_contact), Times.Never);
 
         }
+
+        [DataTestMethod]
+        [DataRow("mmendezblastasia.com")]
+        [DataRow("mmendezblastasia.com")]
+        [DataRow("mmendez.blastasia.com")]        
+        public void Create_InvalidEmailFormat_ThrowsInvalidEmailFormatException(string email)
+        {
+            _contact.EmailAddress = email;
+            // ACT
+            // ASSERT
+            Assert.ThrowsException<InvalidEmailFormatException>(
+                    () => _sut.Create(_contact));
+
+            _mockContactRepository.Verify(c => c.Create(_contact), Times.Never);
+        }
     }
 }
