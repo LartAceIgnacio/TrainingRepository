@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="LowercaseRequiredException.cs" />
+    <Compile Remove="NumberRequiredException.cs" />
+    <Compile Remove="SpecialCharacterRequiredException.cs" />
+    <Compile Remove="UppercaseRequiredException.cs" />
+    <Compile Remove="ValidateEmail.cs" />
+    <Compile Remove="ValidateRegistration.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlastAsia.DigiBook.Domain.Models\BlastAsia.DigiBook.Domain.Models.csproj" />
+  </ItemGroup>
+
+</Project>
