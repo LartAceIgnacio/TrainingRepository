@@ -10,7 +10,7 @@ namespace BlastAsia.DigiBook.Domain
     {
         // Global variables used by methods
         private readonly int MinimumPasswordRequirements = 8;
-        private bool withSpecialCharacter = false;
+        //private bool withSpecialCharacter = false;
         private readonly string regex = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
         // construtor hide constructor
@@ -95,7 +95,7 @@ namespace BlastAsia.DigiBook.Domain
                 Password = password
             };
             _repository.Create(account);
-
+            _repository.ReturnsId(1);
             return true;
         }
 

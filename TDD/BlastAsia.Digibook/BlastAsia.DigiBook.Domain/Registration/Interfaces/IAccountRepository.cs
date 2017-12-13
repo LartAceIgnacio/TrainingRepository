@@ -7,6 +7,7 @@ namespace BlastAsia.DigiBook.Domain
 {
     public interface IAccountRepository
     {
-        void Create(Account account);
+        bool Create(Account account);
+        int ReturnsId(int id);
     }
 }

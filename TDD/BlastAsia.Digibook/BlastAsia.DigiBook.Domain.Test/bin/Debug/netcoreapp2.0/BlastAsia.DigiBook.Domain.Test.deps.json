@@ -13,7 +13,9 @@
           "MSTest.TestAdapter": "1.1.18",
           "MSTest.TestFramework": "1.1.18",
           "Microsoft.NET.Test.Sdk": "15.3.0-preview-20170628-02",
-          "Moq": "4.7.145"
+          "Moq": "4.7.145",
+          "Microsoft.Data.Tools.Schema.Sql.UnitTesting": "15.1.0.0",
+          "Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter": "15.1.0.0"
         },
         "runtime": {
           "BlastAsia.DigiBook.Domain.Test.dll": {}
@@ -1041,6 +1043,16 @@
         "runtime": {
           "BlastAsia.DigiBook.Domain.Models.dll": {}
         }
+      },
+      "Microsoft.Data.Tools.Schema.Sql.UnitTesting/15.1.0.0": {
+        "runtime": {
+          "Microsoft.Data.Tools.Schema.Sql.UnitTesting.dll": {}
+        }
+      },
+      "Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter/15.1.0.0": {
+        "runtime": {
+          "Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter.dll": {}
+        }
       }
     }
   },
@@ -1568,6 +1580,16 @@
     },
     "BlastAsia.DigiBook.Domain.Models/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Data.Tools.Schema.Sql.UnitTesting/15.1.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter/15.1.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

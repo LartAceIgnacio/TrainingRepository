@@ -1,0 +1,9 @@
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Insfrastracture.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastracture.Persistence.deps.json
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Insfrastracture.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastracture.Persistence.dll
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Insfrastracture.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastracture.Persistence.pdb
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Insfrastracture.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastracture.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Insfrastracture.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastracture.Persistence.AssemblyInfoInputs.cache
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Insfrastracture.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastracture.Persistence.AssemblyInfo.cs
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Insfrastracture.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastracture.Persistence.dll
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Insfrastracture.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastracture.Persistence.pdb
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Insfrastracture.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastracture.Persistence.csprojResolveAssemblyReference.cache

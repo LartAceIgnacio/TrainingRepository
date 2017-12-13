@@ -23,6 +23,7 @@ namespace BlastAsia.DigiBook.Domain.Test
             password = "Bl@st123";
 
             mockRepository = new Mock<IAccountRepository>(); //instantiate mockRepository
+
             sut = new RegistrationService(mockRepository.Object); //pass the mockrepositry tobe a copy as an Object
 
         }
@@ -118,12 +119,27 @@ namespace BlastAsia.DigiBook.Domain.Test
         [TestMethod]
         public void Register_withValidUserNameAndPasswordShouldCallDependencies()
         {
+
+            //mockRepository
+            //    .Setup(framework => framework.Create(It.IsAny<Account>()))
+            //        .Throws<MinimumPasswordLengthRequiredException>();
+
+            mockRepository
+                .Setup(r => r.Create(It.IsAny<Account>()))
+                    .Returns(true);
+
+            mockRepository
+                .Setup(r => r.ReturnsId(It.IsAny<int>()))
+                    .Returns(It.IsAny<int>());
             // act
             sut.Register(username, password); // call the Register method on sut
             // assert
             mockRepository // then finally assert
                     .Verify(r => r.Create(It.IsAny<Account>()),
                                 Times.Once());
+            mockRepository // then finally assert
+                  .Verify(r => r.ReturnsId(It.IsAny<int>()),
+                              Times.Once());
         }
     }
 }
