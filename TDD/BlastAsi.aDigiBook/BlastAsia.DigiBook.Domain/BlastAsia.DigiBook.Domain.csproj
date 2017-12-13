@@ -5,10 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Contacts\CityAddressRequiredException.cs" />
+    <Compile Remove="IAccountRepository.cs" />
     <Compile Remove="PasswordDigitRequired.cs" />
     <Compile Remove="PasswordLowerCaseRequiredException.cs" />
+    <Compile Remove="PasswordMinimumLengthRequiredException.cs" />
+    <Compile Remove="PasswordRequiredException.cs" />
     <Compile Remove="PasswordSpecialCharacterRequiredException.cs" />
+    <Compile Remove="PasswordStrongTypedRequired.cs" />
     <Compile Remove="PasswordUpperCaseRequiredException.cs" />
+    <Compile Remove="RegistrationService.cs" />
+    <Compile Remove="UsernameRequiredException.cs" />
+    <Compile Remove="ValidEmailRequired.cs" />
   </ItemGroup>
 
   <ItemGroup>
