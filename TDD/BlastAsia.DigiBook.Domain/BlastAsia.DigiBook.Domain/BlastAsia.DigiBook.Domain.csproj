@@ -5,8 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Contacts\Exceptions\ValidEmailAddressException.cs" />
+    <Compile Remove="Contacts\NameRequiredException.cs" />
     <Compile Remove="LowercaseRequiredException.cs" />
     <Compile Remove="NumberRequiredException.cs" />
+    <Compile Remove="RegistrationService.cs" />
     <Compile Remove="SpecialCharacterRequiredException.cs" />
     <Compile Remove="UppercaseRequiredException.cs" />
     <Compile Remove="ValidateEmail.cs" />

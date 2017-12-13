@@ -1,7 +1,7 @@
 C:\Users\rnebran\documents\visual studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.deps.json
 C:\Users\rnebran\documents\visual studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.dll
 C:\Users\rnebran\documents\visual studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.pdb
-C:\Users\rnebran\documents\visual studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.csprojResolveAssemblyReference.cache
 C:\Users\rnebran\documents\visual studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.AssemblyInfo.cs
 C:\Users\rnebran\documents\visual studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.dll
 C:\Users\rnebran\documents\visual studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.csprojResolveAssemblyReference.cache
