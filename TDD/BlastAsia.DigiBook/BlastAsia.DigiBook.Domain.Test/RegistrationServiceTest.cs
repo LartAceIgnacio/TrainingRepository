@@ -10,6 +10,7 @@ namespace BlastAsia.DigiBook.Domain.Test
     {
         private string username;
         private string password;
+
         private Mock<IAccountRepository> mockRepository;
         RegistrationService sut;
 
@@ -18,6 +19,7 @@ namespace BlastAsia.DigiBook.Domain.Test
         {
             username = "eravina@blastasia.com";
             password = "Bl@st123";
+
             mockRepository = new Mock<IAccountRepository>();
             sut = new RegistrationService(mockRepository.Object);
         }
