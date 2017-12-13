@@ -1,0 +1,52 @@
+﻿using System;
+using BlastAsia.DigiBook.Domain.Models.Contacts;
+
+namespace BlastAsia.DigiBook.Domain.Contacts
+{
+    public class ContactService
+    {
+        private IContactRepository contactRepository;
+
+        public ContactService(IContactRepository contactRepository)
+        {
+            this.contactRepository = contactRepository;
+        }
+
+        public Contact Create(Contact contact)
+        {
+
+            if (string.IsNullOrEmpty(contact.FirstName))
+            {
+                throw new NameRequiredException("Firstname is required.");
+            }
+            if (string.IsNullOrEmpty(contact.LastName))
+            {
+                throw new NameRequiredException("Lastname is required.");
+            }
+            if (string.IsNullOrEmpty(contact.MobilePhone))
+            {
+                throw new MobileNumberRequiredException("Phone number is required.");
+            }
+            if (string.IsNullOrEmpty(contact.StreetAddress))
+            {
+                throw new AddressRequiredException("Street Address is required.");
+            }
+            if (string.IsNullOrEmpty(contact.CityAddress))
+            {
+                throw new AddressRequiredException("City Address is required.");
+            }
+            if (contact.ZipCode < 0)
+            {
+                throw new PositiveZipCodeRequiredException("Zip Code must not be less than zero.");
+            }
+            if (string.IsNullOrEmpty(contact.Country))
+            {
+                throw new CountryRequiredException("Country is required.");
+            }
+
+            var newContact = contactRepository.Create(contact);
+
+           return newContact;
+        }
+    }
+}
