@@ -11,7 +11,7 @@ namespace BlastAsia.DigiBook.Domain
     {
         private readonly IAccountRepository repository;
 
-        public RegistrationService(IAccountRepository repository)
+        public RegistrationService(IAccountRepository repository)  // Constructor Injection
         {
             this.repository = repository;
         }
@@ -72,9 +72,7 @@ namespace BlastAsia.DigiBook.Domain
                 Password = password
             };
             repository.Create(account);
-            
-
-            return true;
+        return true;
         }
 
     }

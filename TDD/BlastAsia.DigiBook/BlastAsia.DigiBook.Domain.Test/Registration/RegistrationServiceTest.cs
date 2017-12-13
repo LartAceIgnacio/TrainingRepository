@@ -13,7 +13,7 @@ namespace BlastAsia.DigiBook.Domain.Test
         private string username;
         private string password;
         RegistrationService sut;
-        private Mock<IAccountRepository> mockRepository;
+        private Mock<IAccountRepository> mockRepository; // Mock Object
 
         [TestInitialize] // Initialize values
         public void InitializeTest()
@@ -129,8 +129,6 @@ namespace BlastAsia.DigiBook.Domain.Test
             mockRepository
                 .Verify(r => r.Create(It.IsAny<Account>()),
                 Times.Once);
-
         }
-
     }
 }

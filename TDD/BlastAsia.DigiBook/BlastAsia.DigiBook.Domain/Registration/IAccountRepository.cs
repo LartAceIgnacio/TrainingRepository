@@ -8,6 +8,5 @@ namespace BlastAsia.DigiBook.Domain
     public interface IAccountRepository
     {
         void Create(Account account);
-        void Create(Func<Account> isAny);
     }
 }
