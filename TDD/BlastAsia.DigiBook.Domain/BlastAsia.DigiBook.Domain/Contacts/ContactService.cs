@@ -15,7 +15,7 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             this.contactRepository = contactRepository;
         }
 
-        public Contact Create(Contact contact)
+        public Contact Save(Contact contact)
         {
             if(string.IsNullOrEmpty(contact.FirstName) || string.IsNullOrEmpty(contact.LastName)) {
                 throw new NameRequiredException(string.IsNullOrEmpty(contact.LastName) ? "Last Name is Required" : "First Name is Required");
@@ -49,8 +49,15 @@ namespace BlastAsia.DigiBook.Domain.Contacts
                 throw new InvalidEmailAddressException("Invalid Email Address");
             }
 
-            var newContact = contactRepository.Create(contact);
-            return newContact;
+            Contact result = null;
+            var found = contactRepository.Retrieve(contact.ContactId);
+
+            if(found == null)
+                result = contactRepository.Create(contact);
+            else
+                result = contactRepository.Update(contact.ContactId, contact);
+
+            return result;
 
         }
     }

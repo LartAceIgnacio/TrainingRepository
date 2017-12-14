@@ -10,5 +10,9 @@ namespace BlastAsia.DigiBook.Domain.Contacts
     public interface IContactRepository
     {
         Contact Create(Contact contact);
+
+        Contact Retrieve(Guid id);
+
+        Contact Update(Guid id, Contact contact);
     }
 }
