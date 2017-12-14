@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Domain.csproj" />
-    <ProjectReference Include="..\BlastsAsia.DigiBook.Domain.Models\BlastsAsia.DigiBook.Domain.Models.csproj" />
+    <ProjectReference Include="..\BlastsAsia.DigiBook.Domain.Models\BlastAsia.DigiBook.Domain.Models.csproj" />
   </ItemGroup>
 
 </Project>

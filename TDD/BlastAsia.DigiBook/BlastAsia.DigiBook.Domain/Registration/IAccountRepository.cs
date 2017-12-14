@@ -1,9 +1,9 @@
-﻿using BlastsAsia.DigiBook.Domain.Models;
+﻿using BlastAsia.DigiBook.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlastAsia.DigiBook.Domain
+namespace BlastAsia.DigiBook.Domain.Registration
 {
     public interface IAccountRepository
     {

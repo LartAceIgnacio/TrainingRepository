@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BlastsAsia.DigiBook.Domain.Models.Contacts
+namespace BlastAsia.DigiBook.Domain.Models.Contacts
 {
     public class Contact
     {

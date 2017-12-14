@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.Domain.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.Domain", "BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Domain.csproj", "{A090D04E-EA1E-458F-A6D3-65C4A4E407E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastsAsia.DigiBook.Domain.Models", "BlastsAsia.DigiBook.Domain.Models\BlastsAsia.DigiBook.Domain.Models.csproj", "{E2D71979-B329-4A91-96DD-08C6090DA0E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.Domain.Models", "BlastsAsia.DigiBook.Domain.Models\BlastAsia.DigiBook.Domain.Models.csproj", "{E2D71979-B329-4A91-96DD-08C6090DA0E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.DigiBook.Infrastructure.Persistence", "BlastAsia.DigiBook.Infrastructure.Persistence\BlastAsia.DigiBook.Infrastructure.Persistence.csproj", "{115DA941-B7A4-4114-835C-431E8DC91B56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.Infrastructure.Persistence", "BlastAsia.DigiBook.Infrastructure.Persistence\BlastAsia.DigiBook.Infrastructure.Persistence.csproj", "{115DA941-B7A4-4114-835C-431E8DC91B56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
