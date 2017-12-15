@@ -3,8 +3,8 @@ using BlastAsia.DigiBook.Domain;
 using System.Text.RegularExpressions;
 using Moq;
 using BlastAsia.DigiBook.Domain.Models;
-using BlastAsia.DigiBook.Domain.Registration;
-using BlastAsia.DigiBook.Domain.Registration.RegistrationExceptions;
+using BlastAsia.DigiBook.Domain.Registrations;
+using BlastAsia.DigiBook.Domain.Registrations.RegistrationExceptions;
     
 namespace BlastAsia.DigiBook.Domain.Test.RegistrationTest
 
