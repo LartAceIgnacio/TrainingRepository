@@ -6,3 +6,4 @@ C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain.Mod
 C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.AssemblyInfo.cs
 C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
 C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.csprojResolveAssemblyReference.cache

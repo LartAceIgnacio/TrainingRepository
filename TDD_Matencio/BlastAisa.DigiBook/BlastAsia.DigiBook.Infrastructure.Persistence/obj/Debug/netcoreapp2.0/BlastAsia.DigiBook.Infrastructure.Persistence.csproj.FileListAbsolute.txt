@@ -1,9 +1,9 @@
 C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.deps.json
 C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.dll
 C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
-C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.csprojResolveAssemblyReference.cache
 C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.csproj.CoreCompileInputs.cache
 C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.AssemblyInfoInputs.cache
 C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.AssemblyInfo.cs
 C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.dll
 C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.csprojResolveAssemblyReference.cache
