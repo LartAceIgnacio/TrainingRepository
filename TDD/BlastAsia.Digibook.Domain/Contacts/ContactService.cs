@@ -12,7 +12,7 @@ namespace BlastAsia.Digibook.Domain.Contacts
             this.contactRepository = contactRepository;
         }
 
-        public Contact Create(Contact contact)
+        public Contact Save(Contact contact)
         {
             if (string.IsNullOrEmpty(contact.FirstName))
             {
@@ -43,9 +43,21 @@ namespace BlastAsia.Digibook.Domain.Contacts
                 throw new AddressRequiredException("Country is required.");
             }
 
-            var newContact = contactRepository.Create(contact);
+            Contact result = null;
 
-            return newContact;
+            var found = contactRepository
+                .Retrieve(contact.ContactId);
+
+            if (found == null)
+            {
+                result = contactRepository.Create(contact);
+            }
+            else
+            {
+                result = contactRepository.Update(contact.ContactId, contact);
+            }
+
+            return result;
         }
     }
 }
