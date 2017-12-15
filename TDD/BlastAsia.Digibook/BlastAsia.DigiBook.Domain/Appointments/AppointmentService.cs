@@ -30,22 +30,24 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             // inclusive appointmentTime
             if (appointment.EndTime < appointment.StartTime) throw new NotInclusiveStartAndEndTime("Appointment time should be inclusive");
 
+            // Check if guest is already existing
             var existingGuest = _contactRepository.Retrieve(appointment.GuestId);
-
             if (existingGuest == null)
             {
                 throw new InvalidGuestIdException("No Guest Record");
             }
 
+            // Check if host is already existing
             var existingHost = _employeeRepository.Retrieve(appointment.HostId);
-
             if (existingHost == null)
             {
                 throw new InvalidHostIdException("No Host Record");
             }
 
+            // Return value instantiate
             Appointment result = null;
 
+            // check if appointment is existing 
             var existingAppointment = _appointmentServiceRepository.Retrieve(appointment.AppointmentId);
             if (existingAppointment != null)
             {

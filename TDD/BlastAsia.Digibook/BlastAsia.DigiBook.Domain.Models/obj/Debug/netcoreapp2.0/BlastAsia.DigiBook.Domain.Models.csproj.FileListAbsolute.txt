@@ -15,4 +15,3 @@ C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digiboo
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.AssemblyInfo.cs
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
-C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.csprojResolveAssemblyReference.cache

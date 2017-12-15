@@ -58,6 +58,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
                   rc => rc.Retrieve(nonExistingGuestId)
               )
               .Returns<Contact>(null);
+
             // for existing guest id testing
             mockRepoContact
              .Setup(
@@ -71,18 +72,21 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
                   rc => rc.Retrieve(nonExistingHostId)
               )
               .Returns<Employee>(null);
+
             // for Existing Host Id testing
             mockRepoEmployee
               .Setup(
                   rc => rc.Retrieve(existingHostId)
               )
               .Returns(new Employee { FirstName = "emem", LastName = "Magada" });
+
             // for  non Existing Appointment id testing
             mockRepoAppointment
               .Setup(
                   rc => rc.Retrieve(nonExistingAppointmentId)
               )
               .Returns<Appointment>(null);
+
             // for   Existing Appointment id testing
             mockRepoAppointment
               .Setup(

@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.Domain",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.Domain.Models", "BlastAsia.DigiBook.Domain.Models\BlastAsia.DigiBook.Domain.Models.csproj", "{A27B9223-B6E0-437B-9F88-F8F26F3B64A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.DigiBook.Infrastracture.Persistence", "BlastAsia.DigiBook.Insfrastracture.Persistence\BlastAsia.DigiBook.Infrastracture.Persistence.csproj", "{363C2007-7C27-484E-AF95-62F2650E0D3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.Infrastracture.Persistence", "BlastAsia.DigiBook.Insfrastracture.Persistence\BlastAsia.DigiBook.Infrastracture.Persistence.csproj", "{363C2007-7C27-484E-AF95-62F2650E0D3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.DigiBook.Infrastracture.Persistence.Test", "BlastAsia.DigiBook.Infra.Data.Test\BlastAsia.DigiBook.Infrastracture.Persistence.Test.csproj", "{20EAA719-7201-4F91-A328-A7959B4FC264}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{363C2007-7C27-484E-AF95-62F2650E0D3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{363C2007-7C27-484E-AF95-62F2650E0D3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{363C2007-7C27-484E-AF95-62F2650E0D3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20EAA719-7201-4F91-A328-A7959B4FC264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20EAA719-7201-4F91-A328-A7959B4FC264}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20EAA719-7201-4F91-A328-A7959B4FC264}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20EAA719-7201-4F91-A328-A7959B4FC264}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
