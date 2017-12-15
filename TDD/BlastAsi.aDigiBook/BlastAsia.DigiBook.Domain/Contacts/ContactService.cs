@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Contacts
 {
-    public class ContactService
+    public class ContactService 
     {
         private IContactRepository contactRepository;
 
@@ -15,8 +15,9 @@ namespace BlastAsia.DigiBook.Domain.Contacts
 
         private readonly string validEmail = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
 
-        public Contact Create(Contact contact)
+        public Contact Save(Contact contact)
         {
+            //business rules
             if (string.IsNullOrEmpty(contact.FirstName))
             {
                 throw new NameRequiredException("First name is required");
@@ -43,7 +44,7 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             }
             if (string.IsNullOrEmpty(contact.Country))
             {
-                throw new AddressRequiredException("City address is required");
+                throw new AddressRequiredException("Country is required");
             }
             if (contact.ZipCode < 0)
             {
@@ -54,8 +55,21 @@ namespace BlastAsia.DigiBook.Domain.Contacts
                 throw new EmailAddressRequiredException("Valid email address required");
             }
 
-            var newContact = contactRepository.Create(contact);
-            return newContact;
+            Contact result = null;
+            var found = contactRepository
+                .Retrieve(contact.ContactId);
+
+            if(found == null)
+            {
+                result = contactRepository.Create(contact);
+            }
+            else
+            {
+                result = contactRepository.Update(contact.ContactId, contact);
+            }
+
+            
+            return result;
         }
     }
 }

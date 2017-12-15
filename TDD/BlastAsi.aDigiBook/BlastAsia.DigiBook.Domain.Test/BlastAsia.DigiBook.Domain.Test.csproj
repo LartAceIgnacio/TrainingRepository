@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Appointments\InclusiveStartTimeEndTimeRequiredException.cs" />
     <Compile Remove="RegistrationServiceTest.cs" />
   </ItemGroup>
 
