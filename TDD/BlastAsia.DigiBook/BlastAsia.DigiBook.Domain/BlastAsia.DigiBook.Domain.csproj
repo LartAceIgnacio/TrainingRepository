@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Appointments\IGuestRepository.cs" />
+    <Compile Remove="Appointments\IHostRepository.cs" />
+    <Compile Remove="Appointments\InclusiveTimeEndTimeLessThanStartTimeException.cs" />
     <Compile Remove="Class1.cs" />
     <Compile Remove="EmailInvalidFormatException.cs" />
+    <Compile Remove="Employees\EmployeeRequiredException.cs" />
     <Compile Remove="IAccountRepository.cs" />
     <Compile Remove="MinimumPasswordLengthException.cs" />
     <Compile Remove="PasswordRequiredException.cs" />
