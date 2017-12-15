@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Appointments\GuestIdRequiredException.cs" />
     <Compile Remove="RegistrationServiceTest.cs" />
   </ItemGroup>
 

@@ -14,6 +14,8 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
         private Contact contact;
         private Mock<IContactRepository> mockContactRepository;
         private ContactService sut;
+        private Guid existingContactId = Guid.NewGuid();
+        private Guid nonExistingContactId = Guid.Empty;
 
         [TestInitialize]
         public void Initialize()
@@ -33,6 +35,15 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             };
 
             mockContactRepository = new Mock<IContactRepository>();
+
+            mockContactRepository
+                .Setup(c => c.Retrieve(existingContactId))
+                .Returns(contact);
+
+            mockContactRepository
+                .Setup(c => c.Retrieve(nonExistingContactId))
+                .Returns<Contact>(null);
+
             sut = new ContactService(mockContactRepository.Object);
         }
 
@@ -43,18 +54,37 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
         }
 
         [TestMethod]
-        public void Create_WithValidData_ShouldCallRepositoryCreate()
+        public void Save_NewContactWithValidData_ShouldCallRepositoryCreate()
         {
             // Act
-            var result = sut.Create(contact);
+            var result = sut.Save(contact);
 
             // Assert
+            mockContactRepository
+                .Verify(c => c.Retrieve(nonExistingContactId), Times.Once());
+            
             mockContactRepository
                 .Verify(c => c.Create(contact), Times.Once());
         }
 
         [TestMethod]
-        public void Create_WithValidData_ReturnsNewContactWithContactId()
+        public void Save_WithExistingContact_CallsRepositoryUpdate()
+        {
+            // Arrange
+            contact.ContactId = existingContactId;
+
+            // Act
+            sut.Save(contact);
+
+            // Assert
+            mockContactRepository
+                .Verify(c => c.Retrieve(existingContactId), Times.Once);
+            mockContactRepository
+                .Verify(c => c.Update(existingContactId, contact), Times.Once);
+        }
+
+        [TestMethod]
+        public void Save_WithValidData_ReturnsNewContactWithContactId()
         {
             mockContactRepository
                 .Setup(c => c.Create(contact))
@@ -62,175 +92,92 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
                 .Returns(contact);
 
             // Act
-            var newContact = sut.Create(contact);
+            var newContact = sut.Save(contact);
 
             // Assert
             Assert.IsTrue(newContact.ContactId != Guid.Empty);
         }
 
         [TestMethod]
-        public void Create_WithBlankFirstName_ThrowsNameRequiredException()
+        public void Save_WithBlankFirstName_ThrowsNameRequiredException()
         {
             // Arrange
-            contact = new Contact
-            {
-                FirstName = "",
-                LastName = "Olarte",
-                MobilePhone = "09981642039",
-                StreetAddress = "#9 Kakawati Street, Pangarap Village",
-                CityAddress = "Caloocan City",
-                ZipCode = 1427,
-                Country = "Philippines",
-                EmailAddress = "abbieolarte@gmail.com",
-                IsActive = false,
-                DateActivated = new Nullable<DateTime>()
-            };
-            
+            contact.FirstName = "";
+
             // Assert
             Assert.ThrowsException<NameRequiredException>(
-                () => sut.Create(contact));
+                () => sut.Save(contact));
             mockContactRepository
                 .Verify(c => c.Create(contact), Times.Never());
         }
 
         [TestMethod]
-        public void Create_WithBlankLastName_ThrowsNameRequiredException()
+        public void Save_WithBlankLastName_ThrowsNameRequiredException()
         {
             // Arrange
-            contact = new Contact
-            {
-                FirstName = "Angela Blanche",
-                LastName = "",
-                MobilePhone = "09981642039",
-                StreetAddress = "#9 Kakawati Street, Pangarap Village",
-                CityAddress = "Caloocan City",
-                ZipCode = 1427,
-                Country = "Philippines",
-                EmailAddress = "abbieolarte@gmail.com",
-                IsActive = false,
-                DateActivated = new Nullable<DateTime>()
-            };
+            contact.LastName = "";
 
             // Assert
             Assert.ThrowsException<NameRequiredException>(
-               () => sut.Create(contact));
+               () => sut.Save(contact));
             mockContactRepository
                 .Verify(c => c.Create(contact), Times.Never());
         }
 
         [TestMethod]
-        public void Create_WithBlankPhoneNumber_ThrowsMobileNumberRequiredException()
+        public void Save_WithBlankPhoneNumber_ThrowsMobileNumberRequiredException()
         {
-            contact = new Contact
-            {
-                FirstName = "Angela Blanche",
-                LastName = "Olarte",
-                MobilePhone = "",
-                StreetAddress = "#9 Kakawati Street, Pangarap Village",
-                CityAddress = "Caloocan City",
-                ZipCode = 1427,
-                Country = "Philippines",
-                EmailAddress = "abbieolarte@gmail.com",
-                IsActive = false,
-                DateActivated = new Nullable<DateTime>()
-            };
+            contact.MobilePhone = "";
 
             Assert.ThrowsException<MobileNumberRequiredException>(
-               () => sut.Create(contact));
+               () => sut.Save(contact));
             mockContactRepository
                 .Verify(c => c.Create(contact), Times.Never());
         }
 
         [TestMethod]
-        public void Create_WithBlankStreetAddress_ThrowsAddressRequiredException()
+        public void Save_WithBlankStreetAddress_ThrowsAddressRequiredException()
         {
-            contact = new Contact
-            {
-                FirstName = "Angela Blanche",
-                LastName = "Olarte",
-                MobilePhone = "09981672039",
-                StreetAddress = "",
-                CityAddress = "Caloocan City",
-                ZipCode = 1427,
-                Country = "Philippines",
-                EmailAddress = "abbieolarte@gmail.com",
-                IsActive = false,
-                DateActivated = new Nullable<DateTime>()
-            };
+            contact.StreetAddress = "";
 
             Assert.ThrowsException<AddressRequiredException>(
-               () => sut.Create(contact));
+               () => sut.Save(contact));
             mockContactRepository
                 .Verify(c => c.Create(contact), Times.Never());
         }
 
         [TestMethod]
-        public void Create_WithBlankCityAddress_ThrowsAddressRequiredException()
+        public void Save_WithBlankCityAddress_ThrowsAddressRequiredException()
         {
-            contact = new Contact
-            {
-                FirstName = "Angela Blanche",
-                LastName = "Olarte",
-                MobilePhone = "09981642039",
-                StreetAddress = "#9 Kakawati Street, Pangarap Village",
-                CityAddress = "",
-                ZipCode = 1427,
-                Country = "Philippines",
-                EmailAddress = "abbieolarte@gmail.com",
-                IsActive = false,
-                DateActivated = new Nullable<DateTime>()
-            };
+            contact.CityAddress = "";
 
             Assert.ThrowsException<AddressRequiredException>(
-               () => sut.Create(contact));
+               () => sut.Save(contact));
             mockContactRepository
                 .Verify(c => c.Create(contact), Times.Never());
         }
 
         [TestMethod]
-        public void Create_WithNegativeValue_ThrowsPositiveZipCodeRequiredException()
+        public void Save_ZipWithNegativeValue_ThrowsPositiveZipCodeRequiredException()
         {
-            contact = new Contact
-            {
-                FirstName = "Angela Blanche",
-                LastName = "Olarte",
-                MobilePhone = "09981642039",
-                StreetAddress = "#9 Kakawati Street, Pangarap Village",
-                CityAddress = "Caloocan City",
-                ZipCode = -1427,
-                Country = "Philippines",
-                EmailAddress = "abbieolarte@gmail.com",
-                IsActive = false,
-                DateActivated = new Nullable<DateTime>()
-            };
+            contact.ZipCode = -1427;
 
             Assert.ThrowsException<PositiveZipCodeRequiredException>(
-              () => sut.Create(contact));
+              () => sut.Save(contact));
             mockContactRepository
                 .Verify(c => c.Create(contact), Times.Never());
         }
 
         [TestMethod]
-        public void Create_WithBlankCountry_ThrowsCountryRequiredException()
+        public void Save_WithBlankCountry_ThrowsCountryRequiredException()
         {
-            contact = new Contact
-            {
-                FirstName = "Angela Blanche",
-                LastName = "Olarte",
-                MobilePhone = "09981642039",
-                StreetAddress = "#9 Kakawati Street, Pangarap Village",
-                CityAddress = "Caloocan City",
-                ZipCode = 0,
-                Country = "",
-                EmailAddress = "abbieolarte@gmail.com",
-                IsActive = false,
-                DateActivated = new Nullable<DateTime>()
-            };
+            contact.Country = "";
 
             Assert.ThrowsException<CountryRequiredException>(
-              () => sut.Create(contact));
+              () => sut.Save(contact));
             mockContactRepository
                 .Verify(c => c.Create(contact), Times.Never());
         }
+
     }
 }
