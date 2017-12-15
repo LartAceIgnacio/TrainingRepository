@@ -6,7 +6,7 @@ using System.Text;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence
 {
-    public class DigiBookDbContext : DbContext
+    public class DigiBookDbContext : DbContext, IDigiBookDbContext
     {
         public DbSet<Contact> Contacts { get; set; }
 
@@ -22,5 +22,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
                 .ToTable("Contact")
                 .HasKey(k => k.ContactId);
         }
+        
     }
 }

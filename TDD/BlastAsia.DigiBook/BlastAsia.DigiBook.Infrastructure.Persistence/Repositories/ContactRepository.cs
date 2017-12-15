@@ -6,30 +6,12 @@ using BlastAsia.DigiBook.Domain.Models.Contacts;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
 {
-    public class ContactRepository : IContactRepository
+    public class ContactRepository : BaseRepository<Contact>, IContactRepository
     {
-        private DigiBookDbContext _context;
-
-        public ContactRepository(DigiBookDbContext context)
+        public ContactRepository(IDigiBookDbContext context)
+            : base(context)
         {
-            this._context = context;
-        }
 
-        public Contact Create(Contact entity)
-        {
-            _context.Contacts.Add(entity);
-            _context.SaveChanges();
-            return entity;
-        }
-
-        public Contact Retrieve(Guid contactId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Contact Update(Guid existingContactId, Contact contact)
-        {
-            throw new NotImplementedException();
         }
     }
 }

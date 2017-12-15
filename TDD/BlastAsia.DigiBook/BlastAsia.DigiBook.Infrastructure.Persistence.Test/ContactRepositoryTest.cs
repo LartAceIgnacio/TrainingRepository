@@ -11,12 +11,16 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
     [TestClass]
     public class ContactRepositoryTest
     {
-        [TestMethod]
-        [TestProperty("TestType", "Integration")]
-        public void Create_WithValidData_SavesRecordInTheDatabase ()
+        private Contact _contact = null;
+        private string _connectionString;
+        private DbContextOptions<DigiBookDbContext> _dbOptions;
+        private DigiBookDbContext _dbContext;
+        private ContactRepository _sut;
+
+        [TestInitialize]
+        public void Initialize()
         {
-            // Arrange
-            var contact = new Contact
+            _contact = new Contact
             {
                 Firstname = "Matt",
                 Lastname = "Mendez",
@@ -29,26 +33,101 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
                 DateActivated = new Nullable<DateTime>()
             };
 
-            var connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=DigiBookDb;Trusted_Connection=True;";
-            var dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
-                .UseSqlServer(connectionString)
+            _connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=DigiBookDb;Trusted_Connection=True;";
+            _dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
+                .UseSqlServer(_connectionString)
                 .Options;
 
-            var dbContext = new DigiBookDbContext(dbOptions);
-            dbContext.Database.EnsureCreated();
+            _dbContext = new DigiBookDbContext(_dbOptions);
 
-            var sut = new ContactRepository(dbContext);
+            _sut = new ContactRepository(_dbContext);
+            _dbContext.Database.EnsureCreated();
+        }
 
+        [TestCleanup]
+        public void CleanUp()
+        {
+            _dbContext.Dispose();
+            _dbContext = null;
+        }
+
+        [TestMethod]
+        [TestProperty("TestType", "Integration")]
+        public void Create_WithValidData_SavesRecordInTheDatabase ()
+        {
+            // Arrange
+            
+            
             // Act
-            var newContact = sut.Create(contact);
+            var newContact = _sut.Create(_contact);
 
             // Assert
             Assert.IsNotNull(newContact);
             Assert.IsTrue(newContact.ContactId != Guid.Empty);
 
             //Cleanup
-            dbContext.Contacts.Remove(newContact);
-            dbContext.SaveChanges();
+            _sut.Delete(newContact.ContactId);
+            
+        }
+
+        [TestMethod]
+        [TestProperty("TestType", "Integration")]
+        public void Delete_WithExistingContact_RemovesDataFromDatabase()
+        {
+            var newContact = _sut.Create(_contact);
+
+            _sut.Delete(_contact.ContactId);
+
+            // Assert
+            _contact = _sut.Retrieve(newContact.ContactId);
+            Assert.IsNull(_contact);
+        }
+
+        [TestMethod]
+        [TestProperty("TestType", "Integration")]
+        public void Retrieve_WithExistingContactId_ReturnsRecordFromDb()
+        {
+            // Arrange
+
+            var newcontact = _sut.Create(_contact);
+
+            // Act
+            var found = _sut.Retrieve(_contact.ContactId);
+
+            // Assert
+            Assert.IsNotNull(found);
+
+            //CleanUp
+            _sut.Delete(found.ContactId);
+
+
+        }
+
+        [TestMethod]
+        public void Update_WithExistingContactId_ShouldUpdateRecordFromDb()
+        {
+
+            var newcontact = _sut.Create(_contact);
+            var expectedFirstName = "James"; //Matt
+            var expectedLastName = "Montemagno"; //Mendez
+            var expectedEmail = "jmontemagno@xamarin.com"; //mmendez@blastasia.com
+
+            newcontact.Firstname = expectedFirstName;
+            newcontact.Lastname = expectedLastName;
+            newcontact.EmailAddress = expectedEmail;
+
+            // Act
+            _sut.Update(newcontact.ContactId, _contact);
+
+            //Assert
+            var updatedContact = _sut.Retrieve(newcontact.ContactId);
+            Assert.AreEqual(expectedFirstName, updatedContact.Firstname);
+            Assert.AreEqual(expectedLastName, updatedContact.Lastname);
+            Assert.AreEqual(expectedEmail, updatedContact.EmailAddress);
+
+            // CleanUp
+            _sut.Delete(updatedContact.ContactId);
+
         }
     }
 }
