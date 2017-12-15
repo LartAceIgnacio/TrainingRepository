@@ -6,10 +6,8 @@ using System.Text;
 
 namespace BlastAsia.DigiBook.Domain.Contacts
 {
-    public interface IContactRepository
+    public interface IContactRepository : IRepository<Contact>
     {
-        Contact Create(Contact contact);
-        Contact Retrieve(Guid contactId);
-        Contact Update(Guid existingContactId, Contact contact);
+
     }
 }

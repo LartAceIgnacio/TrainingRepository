@@ -25,25 +25,20 @@ namespace BlastAsia.DigiBook.Domain.Appointments.Services
 
         public Appointment Save(Appointment appointment)
         {
+            
             if (appointment.EndTime <= appointment.StartTime) throw new InvalidTimeScheduleException("Endtime must not less than start time");
             if (appointment.AppointmentDate < _datetimewrapper.GetNow()) throw new InvalidTimeScheduleException("Appointment date must be ahead of current date");
 
-            Appointment resultAppointment = null;
-
+            //Appointment resultAppointment = null;
             var foundAppointment = _appointmentRepo.Retrieve(appointment.AppointmentId);
             var foundGuest = _contactRepo.Retrieve(appointment.GuestId);
             var foundHost = _employeeRepo.Retrieve(appointment.HostId);
 
-
             if (foundHost == null) throw new HostRequiredException("Host is required.");
             if (foundGuest == null) throw new GuestRequiredException("Guest is required.");
+            
 
-            if (foundAppointment == null && foundGuest != null && foundHost != null)
-            {
-                resultAppointment = _appointmentRepo.Create(appointment);
-            }
-
-            return resultAppointment;
+            return (foundAppointment == null) ? _appointmentRepo.Create(appointment) : _appointmentRepo.Update(appointment.AppointmentId, appointment);
         }
     }
 }

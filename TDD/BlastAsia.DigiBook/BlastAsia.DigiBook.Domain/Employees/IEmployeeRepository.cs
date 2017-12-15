@@ -5,10 +5,7 @@ using System.Text;
 
 namespace BlastAsia.DigiBook.Domain.Employees
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeRepository : IRepository<Employee>
     {
-        Employee Retrieve(Guid EmployeeId);
-        Employee Create(Employee employee);
-        Employee Update(Guid id, Employee employee);
     }
 }

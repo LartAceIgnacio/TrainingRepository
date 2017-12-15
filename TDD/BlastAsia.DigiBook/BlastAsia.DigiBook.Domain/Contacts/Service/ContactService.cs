@@ -34,13 +34,13 @@ namespace BlastAsia.DigiBook.Domain.Contacts
 
             if (!Regex.IsMatch(contact.EmailAddress, rfc2822EmailPattern)) throw new InvalidEmailFormatException("Email address is not in correct format.");
 
-            Contact result = null;
+            //Contact result = null;
 
             var found = contactRepository.Retrieve(contact.ContactId);
             
-            result = (found == null) ? contactRepository.Create(contact) : contactRepository.Update(contact.ContactId, contact);
+            //result = (found == null) ? contactRepository.Create(contact) : contactRepository.Update(contact.ContactId, contact);
 
-            return result;
+            return (found == null) ? contactRepository.Create(contact) : contactRepository.Update(contact.ContactId, contact); ;
         }
         
 
