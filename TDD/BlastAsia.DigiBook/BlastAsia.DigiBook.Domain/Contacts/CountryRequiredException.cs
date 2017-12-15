@@ -4,9 +4,9 @@ using System.Text;
 
 namespace BlastAsia.DigiBook.Domain.Contacts
 {
-    public class AddressException : Exception
+    public class CountryRequiredException : Exception
     {
-        public AddressException(String message) : base(message)
+        public CountryRequiredException(String message) : base(message)
         {
 
         }

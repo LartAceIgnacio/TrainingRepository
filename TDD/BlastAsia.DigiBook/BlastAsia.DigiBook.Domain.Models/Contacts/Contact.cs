@@ -2,7 +2,7 @@
 
 namespace BlastAsia.DigiBook.Domain.Test.Contacts.Contacts
 {
-    public class Contact
+    public class Contact // Model Properties
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

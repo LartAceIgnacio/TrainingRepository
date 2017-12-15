@@ -8,20 +8,19 @@ namespace BlastAsia.DigiBook.Domain.Contacts
     {
         private IContactRepository contactRepository;
 
-        public ContactService(IContactRepository contactRepository)
+        public ContactService(IContactRepository contactRepository) // Inject
         {
             this.contactRepository = contactRepository;
         }
 
-        private readonly string emailregex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
-        @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
-        @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+        //private readonly string emailregex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+        //@"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+        //@".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
 
-        public Contact Create(Contact contact)
+        public Contact Save(Contact contact)
         {
             //throw new NotImplementedException();
             
-
             if (string.IsNullOrEmpty(contact.FirstName))
             {
                 throw new NameRequiredException("Firstname is required");
@@ -36,11 +35,11 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             }
             if (string.IsNullOrEmpty(contact.StreetAddress))
             {
-                throw new AddressException("Street Address is required");
+                throw new AddressRequiredException("Street Address is required");
             }
             if (string.IsNullOrEmpty(contact.CityAddress))
             {
-                throw new AddressException("Street Address is required");
+                throw new AddressRequiredException("Street Address is required");
             }
             if (contact.ZipCode <= 0)
             {
@@ -48,17 +47,32 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             }
             if (string.IsNullOrEmpty(contact.Country))
             {
-                throw new CountryException("Country is required");
+                throw new CountryRequiredException("Country is required");
             }
-            if (!string.IsNullOrEmpty(contact.EmailAddress))
+            //if (!string.IsNullOrEmpty(contact.EmailAddress))
+            //{
+            //    if (!Regex.IsMatch(contact.EmailAddress, emailregex, RegexOptions.IgnoreCase))
+            //    {
+            //        throw new ValidEmailRequiredException("Correct Email Format Required");
+            //    }
+            //}
+            Contact result = null;
+            var found = contactRepository
+                .Retrieve(contact.ContactId);
+
+            if (found == null)
             {
-                if (!Regex.IsMatch(contact.EmailAddress, emailregex, RegexOptions.IgnoreCase))
-                {
-                    throw new ValidEmailRequiredException("Correct Email Format Required");
-                }
+                result = contactRepository
+                    .Create(contact);
             }
-            var newContact = contactRepository.Create(contact);
-            return newContact;
+            else
+            {
+                result = contactRepository
+                    .Update(contact.ContactId, contact);
+            }
+
+            
+            return result;
             
         }
     }
