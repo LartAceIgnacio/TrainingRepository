@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Contacts
 {
-    public class ContactService
+    public class ContactService 
     {
         private IContactRepository _contactRepository;
         private readonly string regex = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
@@ -15,7 +15,7 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             _contactRepository = contactRepository;
         }
 
-        public Contact Create(Contact contact)
+        public Contact Save(Contact contact)
         {
             if (string.IsNullOrWhiteSpace(contact.FirstName))
             {
@@ -61,11 +61,26 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             // Check email format if correct
             if ((!string.IsNullOrWhiteSpace(contact.EmailAddress)) && (!Regex.IsMatch(contact.EmailAddress, regex)))
             {
-                throw new InvalidEmailException("Invali email format");
+                throw new InvalidEmailException("Invalid email format");
             }
 
-            var newContact = _contactRepository.Create(contact);
-            return newContact;
+            Contact result = null;
+
+            var found = _contactRepository.Retrieve(contact.ContactId);
+
+            #region Long If else
+            //if(found == null)
+            //{
+            //    result = _contactRepository.Create(contact);
+            //} else
+            //{
+            //    result = _contactRepository.Update(contact.ContactId, contact);
+            //}
+            #endregion
+
+            result = found == null ? _contactRepository.Create(contact) : _contactRepository.Update(contact.ContactId, contact);
+
+            return result;
         }
     }
 }
