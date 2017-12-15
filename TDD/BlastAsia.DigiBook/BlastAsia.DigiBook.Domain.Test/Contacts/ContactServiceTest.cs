@@ -15,6 +15,8 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
         private Contact contact;
         private Mock<IContactRepository> mockContactRepository;
         private ContactService sut;
+        private Guid existingContactId = Guid.NewGuid();
+        private Guid nonExistingContactId = Guid.Empty;
 
         [TestInitialize]
         public void Initialize()
@@ -37,32 +39,55 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             mockContactRepository = new Mock<IContactRepository>();
             sut = new ContactService(mockContactRepository.Object);
 
+            mockContactRepository
+               .Setup(c => c.Create(contact))
+               .Callback(() => contact.ContactId = Guid.NewGuid())
+               .Returns(contact);
+
+            mockContactRepository
+                .Setup(c => c.Retrieve(existingContactId))
+                .Returns(contact);
+
+            mockContactRepository
+              .Setup(c => c.Retrieve(nonExistingContactId))
+              .Returns<Contact>(null);
         }
-        
+
 
         [TestMethod]
-        public void Create_WithValidData_ShouldCallRepositoryCreate()
+        public void Save_NewContactWithValidData_ShouldCallRepositoryCreate()
         {
             // Act
-            var result = sut.Create(contact);
+            var result = sut.Save(contact);
 
             // Assert
+            mockContactRepository
+                .Verify(c => c.Retrieve(nonExistingContactId), Times.Once);
+
             mockContactRepository
                 .Verify(c => c.Create(contact), Times.Once());
         }
 
         [TestMethod]
-        public void Create_WithValidData_ReturnsNewContactWithContactId()
+        public void Save_WithValidData_ReturnsNewContactWithContactId()
         {
+            mockContactRepository
+               .Setup(c => c.Create(contact))
+               .Callback(() => contact.ContactId = Guid.NewGuid())
+               .Returns(contact);
 
             mockContactRepository
-                .Setup(c => c.Create(contact))
-                .Callback(() => contact.ContactId = Guid.NewGuid())
+                .Setup(c => c.Retrieve(existingContactId))
                 .Returns(contact);
+
+            mockContactRepository
+              .Setup(c => c.Retrieve(nonExistingContactId))
+              .Returns<Contact>(null);
+
 
             // Act
 
-            var newContact = sut.Create(contact);
+            var newContact = sut.Save(contact);
 
             //Assert
             Assert.IsTrue(newContact.ContactId != Guid.Empty);
@@ -70,53 +95,53 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
         }
 
         [TestMethod]
-        public void Create_WithBlankFirstName_ThrowsNameRequiredException()
+        public void Save_WithBlankFirstName_ThrowsNameRequiredException()
         {
             // Arrange 
             contact.FirstName = "";
 
             //Asert
             Assert.ThrowsException<NameRequiredException>(
-                () => sut.Create(contact));
+                () => sut.Save(contact));
 
             mockContactRepository
               .Verify(c => c.Create(contact), Times.Never());
         }
         [TestMethod]
-        public void Create_WithBlankLastName_ThrowsNameRequiredException()
+        public void Save_WithBlankLastName_ThrowsNameRequiredException()
         {
             // Arrange 
             contact.LastName = "";
 
             //Asert
             Assert.ThrowsException<NameRequiredException>(
-                () => sut.Create(contact));
+                () => sut.Save(contact));
 
             mockContactRepository
               .Verify(c => c.Create(contact), Times.Never());
         }
 
         [TestMethod]
-        public void Create_WithBlankMobilePhone_ThrowsMobileRequiredException()
+        public void Save_WithBlankMobilePhone_ThrowsMobileRequiredException()
         {
             contact.MobilePhone = "";
 
             //Asert
             Assert.ThrowsException<MobilePhoneRequiredException>(
-                () => sut.Create(contact));
+                () => sut.Save(contact));
 
             mockContactRepository
               .Verify(c => c.Create(contact), Times.Never());
         }
 
         [TestMethod]
-        public void Create_WithBlankStreetAddress_ThrowsStreetAddressRequiredException()
+        public void Save_WithBlankStreetAddress_ThrowsStreetAddressRequiredException()
         {
             contact.StreetAddress = "";
 
             //Asert
             Assert.ThrowsException<StrongAddressRequiredException>(
-                () => sut.Create(contact));
+                () => sut.Save(contact));
 
             mockContactRepository
               .Verify(c => c.Create(contact), Times.Never());
@@ -129,7 +154,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
 
             //Asert
             Assert.ThrowsException<StrongAddressRequiredException>(
-                () => sut.Create(contact));
+                () => sut.Save(contact));
 
             mockContactRepository
               .Verify(c => c.Create(contact), Times.Never());
@@ -142,7 +167,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
 
             //Asert
             Assert.ThrowsException<ZipCodeRequiredException>(
-                () => sut.Create(contact));
+                () => sut.Save(contact));
 
             mockContactRepository
               .Verify(c => c.Create(contact), Times.Never());
@@ -150,17 +175,36 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
         }
 
         [TestMethod]
-        public void Create_WithCountry_ThrowsCountryRequiredException()
+        public void Save_WithCountry_ThrowsCountryRequiredException()
         {
             contact.Country = "";
 
             //Asert
             Assert.ThrowsException<StrongAddressRequiredException>(
-                () => sut.Create(contact));
+                () => sut.Save(contact));
 
             mockContactRepository
               .Verify(c => c.Create(contact), Times.Never());
         }
+
+        [TestMethod]
+        public void Save_WithExistingContact_CallsRepositoryUpdate()
+        {
+            // Arrange 
+            contact.ContactId = existingContactId;
+
+            //Act 
+            sut.Save(contact);
+
+            //Assert
+            mockContactRepository
+                .Verify(c => c.Retrieve(existingContactId), Times.Once);
+
+            mockContactRepository
+               .Verify(c => c.Update(existingContactId,contact), Times.Once);
+        }
+      
+     
 
 
     }

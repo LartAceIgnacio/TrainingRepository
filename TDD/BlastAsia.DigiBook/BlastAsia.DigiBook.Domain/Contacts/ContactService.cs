@@ -11,8 +11,8 @@ namespace BlastAsia.DigiBook.Domain.Contacts
         {
             this.contactRepository = contactRepository;
         }
-
-        public Contact Create(Contact contact)
+        
+        public Contact Save(Contact contact)
         {
             if (string.IsNullOrEmpty(contact.FirstName))
             {
@@ -36,15 +36,30 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             }
             if (contact.ZipCode < 0)
             {
-                throw new ZipCodeRequiredException("ZipCode positive number is required!");
+                throw new ZipCodeRequiredException("Positive number in ZipCode is required!");
             }
             if (string.IsNullOrEmpty(contact.Country))
             {
                 throw new StrongAddressRequiredException("Country is required!");
             }
+           
 
-            var newContact = contactRepository.Create(contact);
-            return newContact;
+            Contact result = null;
+
+            var found = contactRepository
+                .Retrieve(contact.ContactId);
+
+            if (found == null)
+            {
+                result = contactRepository.Create(contact);
+            }
+            else
+            {
+                result = contactRepository
+                    .Update(contact.ContactId,contact);
+            }
+
+            return result;
         }
     }
 }

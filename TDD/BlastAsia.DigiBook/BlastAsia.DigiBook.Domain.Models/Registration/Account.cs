@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlastAsia.DigiBook.Domain.Models
+namespace BlastAsia.DigiBook.Domain.Models.Registration
 {
     public class Account
     {

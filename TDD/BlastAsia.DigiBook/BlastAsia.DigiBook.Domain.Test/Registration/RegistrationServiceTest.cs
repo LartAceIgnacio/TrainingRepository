@@ -1,7 +1,7 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using BlastAsia.DigiBook.Domain.Models;
+using BlastAsia.DigiBook.Domain.Models.Registration;
 
 namespace BlastAsia.DigiBook.Domain.Test
 {

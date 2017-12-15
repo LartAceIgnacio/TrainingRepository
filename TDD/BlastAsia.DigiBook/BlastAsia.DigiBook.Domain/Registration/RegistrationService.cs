@@ -1,4 +1,4 @@
-﻿using BlastAsia.DigiBook.Domain.Models;
+﻿using BlastAsia.DigiBook.Domain.Models.Registration;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;

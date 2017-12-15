@@ -8,8 +8,4 @@
     <Compile Remove="IAccountRepository.cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="NewFolder1\" />
-  </ItemGroup>
-
 </Project>
