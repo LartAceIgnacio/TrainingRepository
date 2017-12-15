@@ -117,6 +117,9 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
         public void Save_AppointmentWithValidData_ShouldCallRepositoryUpdate()
         {
             //Arrange
+            appointment.HostId = existingEmployeeId;
+            appointment.GuestId = existingContactId;
+            appointment.AppointmentId = existingAppointmentId;
 
             //Act
             sut.Save(appointment);
