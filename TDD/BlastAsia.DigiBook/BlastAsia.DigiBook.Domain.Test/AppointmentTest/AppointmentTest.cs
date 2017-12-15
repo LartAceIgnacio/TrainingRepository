@@ -143,7 +143,6 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
             _appointment.GuestId = Guid.Empty;
 
             // Act
-
             // Assert
             Assert.ThrowsException<GuestRequiredException>(
                 () => _sut.Save(_appointment));
@@ -192,5 +191,8 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
             _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Never);
             _mockAppointmentRepo.Verify(a => a.Create(_appointment), Times.Never);
         }
+
+
+
     }
 }

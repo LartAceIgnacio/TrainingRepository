@@ -25,9 +25,6 @@ namespace BlastAsia.DigiBook.Domain.Appointments.Services
 
         public Appointment Save(Appointment appointment)
         {
-
-            //if (appointment.HostId == Guid.Empty) throw new HostRequiredException("Host is required.");
-            //if (appointment.GuestId == Guid.Empty) throw new GuestRequiredException("Guest is required.");
             if (appointment.EndTime <= appointment.StartTime) throw new InvalidTimeScheduleException("Endtime must not less than start time");
             if (appointment.AppointmentDate < _datetimewrapper.GetNow()) throw new InvalidTimeScheduleException("Appointment date must be ahead of current date");
 
