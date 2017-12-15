@@ -7042,10 +7042,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\acelis\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj",
+      "projectUniqueName": "C:\\Users\\acelis\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj",
       "projectName": "BlastAsia.DigiBook.Infrastructure.Persistence",
-      "projectPath": "C:\\Users\\acelis\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj",
-      "outputPath": "C:\\Users\\acelis\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\obj\\",
+      "projectPath": "C:\\Users\\acelis\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj",
+      "outputPath": "C:\\Users\\acelis\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
