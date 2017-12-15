@@ -9,6 +9,8 @@ namespace BlastAsia.DigiBook.Domain.Appointments.Adapters
         DateTime GetNow();
 
         DateTime GetDate();
-        DateTime GetTime();
+        //DateTime GetTime();
+
+        TimeSpan GetTime();
     }
 }

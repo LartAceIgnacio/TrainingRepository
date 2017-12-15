@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Appointment\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BlastsAsia.DigiBook.Domain.Models\BlastAsia.DigiBook.Domain.Models.csproj" />
   </ItemGroup>
 

@@ -16,9 +16,14 @@ namespace BlastAsia.DigiBook.Domain.Appointments.Adapters
             return DateTime.Now.Date;
         }
 
-        public DateTime GetTime()
+        //public DateTime GetTime()
+        //{
+        //    return DateTime.Now.ToLocalTime();
+        //}
+
+        TimeSpan IDateTimeWrapper.GetTime()
         {
-            return DateTime.Now.ToLocalTime();
+            return DateTime.Now.TimeOfDay;
         }
     }
 }
