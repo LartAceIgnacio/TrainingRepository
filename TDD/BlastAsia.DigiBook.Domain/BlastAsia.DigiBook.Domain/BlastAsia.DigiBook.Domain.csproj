@@ -7,6 +7,11 @@
   <ItemGroup>
     <Compile Remove="Contacts\Exceptions\ValidEmailAddressException.cs" />
     <Compile Remove="Contacts\NameRequiredException.cs" />
+    <Compile Remove="Employees\Exceptions\MobilePhoneRequired.cs" />
+    <Compile Remove="Employees\Exceptions\MobilePhoneRequiredException.cs" />
+    <Compile Remove="Employees\Exceptions\NameRequiredExceptions.cs" />
+    <Compile Remove="Employees\Exceptions\OfficePhoneExtension.cs" />
+    <Compile Remove="Employees\Exceptions\OfficePhoneRequiredException.cs" />
     <Compile Remove="LowercaseRequiredException.cs" />
     <Compile Remove="NumberRequiredException.cs" />
     <Compile Remove="RegistrationService.cs" />
@@ -18,6 +23,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlastAsia.DigiBook.Domain.Models\BlastAsia.DigiBook.Domain.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Contacts\Interfaces\" />
   </ItemGroup>
 
 </Project>
