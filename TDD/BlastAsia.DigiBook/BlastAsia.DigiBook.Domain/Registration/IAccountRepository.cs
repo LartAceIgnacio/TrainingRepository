@@ -6,7 +6,7 @@ using System.Text;
 namespace BlastAsia.DigiBook.Domain
 {
     public interface IAccountRepository
+        : IRepository<Account>
     {
-       void Create(Account account);
     }
 }
