@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlastAsia.DigiBook.Domain.Registration
+namespace BlastAsia.DigiBook.Domain.Registrations
 {
     public interface IAccountRepository
     {

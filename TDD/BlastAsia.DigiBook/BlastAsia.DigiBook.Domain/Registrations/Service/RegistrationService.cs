@@ -2,9 +2,9 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using BlastAsia.DigiBook.Domain.Registration.RegistrationExceptions;
+using BlastAsia.DigiBook.Domain.Registrations.RegistrationExceptions;
 
-namespace BlastAsia.DigiBook.Domain.Registration
+namespace BlastAsia.DigiBook.Domain.Registrations
 {
     public class RegistrationService
     {

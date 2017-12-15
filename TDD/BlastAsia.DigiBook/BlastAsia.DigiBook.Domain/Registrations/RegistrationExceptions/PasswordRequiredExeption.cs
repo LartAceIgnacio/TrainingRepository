@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlastAsia.DigiBook.Domain.Registration.RegistrationExceptions
+namespace BlastAsia.DigiBook.Domain.Registrations.RegistrationExceptions
 {
     public class PasswordRequiredExeption : ApplicationException
     {
