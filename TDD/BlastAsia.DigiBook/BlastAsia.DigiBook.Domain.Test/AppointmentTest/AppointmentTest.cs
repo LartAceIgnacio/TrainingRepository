@@ -119,7 +119,21 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
             _mockAppointmentRepo.Verify(a => a.Create(_appointment), Times.Once);
 
         }
-        
+
+        [TestMethod]
+        public void Save_WithExistingAppointment_CallRepositoryUpdate()
+        {
+            // Arrange
+            _appointment.AppointmentId= _existingAppointmentId;
+
+            // Act
+            _sut.Save(_appointment);
+
+
+            // Assert
+            _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Once);
+            _mockAppointmentRepo.Verify(c => c.Update(_existingAppointmentId, _appointment), Times.Once);//Times.Once
+        }
 
         [TestMethod]
         public void Save_WithNotExistingHostId_ThrowsHostRequiredException()
@@ -192,7 +206,7 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
             _mockAppointmentRepo.Verify(a => a.Create(_appointment), Times.Never);
         }
 
-
+        
 
     }
 }
