@@ -133,7 +133,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             Assert.ThrowsException<InvalidAppointmentDateException>(
                 () => sut.Save(appointment));
             mockAppointmentRepository
-                .Verify(a => a.Retrieve(It.IsAny<Guid>()), Times.Never);
+                .Verify(a => a.Create(appointment), Times.Never);
         }
 
         [TestMethod]
