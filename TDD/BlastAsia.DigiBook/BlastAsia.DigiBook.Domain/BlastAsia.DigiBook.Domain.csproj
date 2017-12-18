@@ -8,4 +8,8 @@
     <ProjectReference Include="..\BlastsAsia.DigiBook.Domain.Models\BlastAsia.DigiBook.Domain.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Departments\" />
+  </ItemGroup>
+
 </Project>

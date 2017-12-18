@@ -53,7 +53,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 
         [TestMethod]
         [TestProperty("TestType", "Integration")]
-        public void Create_WithValidData_SavesRecordInTheDatabase ()
+        public void Create_WithValidContactData_SavesRecordInTheDatabase ()
         {
             // Arrange
             
@@ -88,7 +88,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Retrieve_WithExistingContactId_ReturnsRecordFromDb()
         {
             // Arrange
-
             var newcontact = _sut.Create(_contact);
 
             // Act

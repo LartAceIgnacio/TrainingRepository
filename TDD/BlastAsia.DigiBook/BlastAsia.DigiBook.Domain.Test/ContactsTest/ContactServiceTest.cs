@@ -79,7 +79,7 @@ namespace BlastAsia.DigiBook.Domain.Test.ContactsTest
 
             // Assert
             _mockContactRepository.Verify(c => c.Retrieve(_contact.ContactId), Times.Once);
-            _mockContactRepository.Verify(c => c.Update(_existingContactId, _contact), Times.Once);//Times.Once
+            _mockContactRepository.Verify(c => c.Update(_existingContactId, _contact), Times.Once);
 
         }
 
