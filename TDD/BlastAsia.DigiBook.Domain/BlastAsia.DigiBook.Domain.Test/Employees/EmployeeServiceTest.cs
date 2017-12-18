@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace BlastAsia.DigiBook.Domain.Test.Employees
@@ -27,12 +28,11 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
             employee = new Employee
             {
-                EmployeeId = new Guid(),
                 FirstName = "Jhoane",
                 LastName = "Garcia",
                 MobilePhone = "09123456789",
                 EmailAddress = "jgarcia@gmail.com",
-                Photo = "Photozzzzz",
+                Photo = new MemoryStream(),
                 OfficePhone = "9312062",
                 Extension = "012"
             };
@@ -159,7 +159,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
         [TestMethod]
         public void Save_EmployeeWithBlankPhoto_ShouldThrowPhotoRequiredException()
         {
-            employee.Photo = "";
+            employee.Photo = null;
 
             Assert.ThrowsException<PhotoRequiredException>(
                 () => sut.Save(employee));

@@ -5,11 +5,8 @@ using System.Text;
 
 namespace BlastAsia.DigiBook.Domain.Appointments
 {
-    public interface IAppointmentRepository
+    public interface IAppointmentRepository : IRepository<Appointment>
     {
-        Appointment Create(Appointment appointment);
-        Appointment Retrieve(Guid guestId);
-        Appointment Retrieve(Appointment appointmentId);
-        Appointment Update(Guid appointmentId);
+      
     }
 }

@@ -40,20 +40,21 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             Appointment result = null;
 
             var retrieveContact = _contactRepository.Retrieve(appointment.GuestId);
-            var retrieveEmployee = _employeeRepository.Retrieve(appointment.HostId);
-            var retrieveAppointment = _appointmentRepository.Retrieve(appointment.AppointmentId);
-
             if (retrieveContact == null)
             {
                 throw new InvalidGuestIdException("Invalid Guest ID!");
             }
+
+            var retrieveEmployee = _employeeRepository.Retrieve(appointment.HostId);
             if (retrieveEmployee == null)
             {
                 throw new InvalidHostIdException("Invalid Host ID!");
             }
+
+            var retrieveAppointment = _appointmentRepository.Retrieve(appointment.AppointmentId);
             if (retrieveAppointment != null)
             {
-                result = _appointmentRepository.Update(appointment.AppointmentId);
+                result = _appointmentRepository.Update(appointment.AppointmentId, appointment);
             }
             else
             { 

@@ -39,7 +39,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
             {
                 throw new EmailAddressException("Valid Email address is required!");
             }
-            if (string.IsNullOrEmpty(employee.Photo))
+            if (employee.Photo == null)
             {
                 throw new PhotoRequiredException("Photo is required!");
             }

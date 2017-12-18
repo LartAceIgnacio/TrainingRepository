@@ -163,7 +163,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
                 .Verify(ar => ar.Retrieve(appointment.AppointmentId), Times.Once);
 
             mockAppointRepository
-                .Verify(ar => ar.Update(appointment.AppointmentId), Times.Once);
+                .Verify(ar => ar.Update(appointment.AppointmentId,appointment), Times.Once);
         }
 
         [TestMethod]
