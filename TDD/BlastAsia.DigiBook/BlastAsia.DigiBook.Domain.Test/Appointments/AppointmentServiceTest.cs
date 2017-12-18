@@ -19,7 +19,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
         private Mock<IEmployeeRepository> mockEmployeeRepository;
         private Mock<IContactRepository> mockContactRepository;
         private AppointmentService sut;
-        private Appointement appointment;
+        private Appointment appointment;
         private Employee employee = new Employee();
         private Contact contact = new Contact();
         private Guid existingAppointId;
@@ -29,7 +29,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
         [TestInitialize]
         public void AppointmentInitialize()
         {
-            appointment = new Appointement
+            appointment = new Appointment
             {
                 AppointmnetDate = DateTime.Today,
                 StartTime = DateTime.Now.TimeOfDay,
@@ -59,7 +59,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
 
             mockAppointmentRepository
                .Setup(e => e.Retrieve(nonExistingAppointmentId))
-               .Returns<Appointement>(null);
+               .Returns<Appointment>(null);
 
             appointment.AppointmentId = nonExistingAppointmentId;
             employee.EmployeeId = Guid.NewGuid();
@@ -73,7 +73,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
                 .Verify(a => a.Retrieve(appointment.AppointmentId), Times.Once());
 
             mockAppointmentRepository
-                .Verify(a => a.Create(appointment, employee.EmployeeId, contact.ContactId), Times.Once());
+                .Verify(a => a.Create(appointment), Times.Once());
 
         }
 
@@ -83,11 +83,11 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
 
             //Arrange
             mockAppointmentRepository
-                .Setup(a => a.Create(appointment, employee.EmployeeId, contact.ContactId))
+                .Setup(a => a.Create(appointment))
                     .Callback(() => {
                         appointment.AppointmentId = Guid.NewGuid();
-                        employee.EmployeeId = Guid.NewGuid();
-                        contact.ContactId = Guid.NewGuid();
+                        appointment.HostId = Guid.NewGuid();
+                        appointment.GuestID = Guid.NewGuid();
                     })
                     .Returns(appointment);
 
@@ -136,7 +136,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
                 );
 
             mockAppointmentRepository
-                .Verify(e => e.Create(appointment, employee.EmployeeId, contact.ContactId), Times.Never());
+                .Verify(e => e.Create(appointment), Times.Never());
 
         }
 
@@ -153,7 +153,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
                 );
 
             mockAppointmentRepository
-                .Verify(e => e.Create(appointment, employee.EmployeeId, contact.ContactId), Times.Never());
+                .Verify(e => e.Create(appointment), Times.Never());
 
         }
 
@@ -170,7 +170,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
                 );
 
             mockAppointmentRepository
-                .Verify(e => e.Create(appointment, employee.EmployeeId, contact.ContactId), Times.Never());
+                .Verify(e => e.Create(appointment), Times.Never());
 
         }
 
@@ -188,7 +188,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
                 );
 
             mockAppointmentRepository
-                .Verify(e => e.Create(appointment, employee.EmployeeId, contact.ContactId), Times.Never());
+                .Verify(e => e.Create(appointment), Times.Never());
 
         }
 
@@ -205,9 +205,11 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
                 );
 
             mockAppointmentRepository
-                .Verify(e => e.Create(appointment, employee.EmployeeId, contact.ContactId), Times.Never());
+                .Verify(e => e.Create(appointment), Times.Never());
 
         }
+
+
 
     }
 }

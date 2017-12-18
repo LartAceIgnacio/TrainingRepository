@@ -5,9 +5,9 @@ using System;
 namespace BlastAsia.DigiBook.Domain.Appointments
 {
     public interface IAppointmentRepository
+        :IRepository<Appointment>
     {
-        Appointement Retrieve(Guid id);
-        Appointement Create(Appointement appointment, Guid id, Guid id2);
-        Appointement Update(Guid id, Appointement employee);
+        
+       
     }
 }

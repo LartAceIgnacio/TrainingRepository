@@ -21,7 +21,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             this.contactRepository = contactRepository;
         }
 
-        public Appointement Save(Appointement appointment, Employee employee, Contact contact)
+        public Appointment Save(Appointment appointment, Employee employee, Contact contact)
         {
 
             if (appointment.AppointmnetDate == null)
@@ -52,7 +52,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             }
 
  
-            Appointement result = null;
+            Appointment result = null;
 
             var found = appointmentRepository
                 .Retrieve(appointment.AppointmentId);
@@ -62,7 +62,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             {
                 if (employee.EmployeeId != null && contact.ContactId != null)
                 {
-                    result = appointmentRepository.Create(appointment,employee.EmployeeId,contact.ContactId);
+                    result = appointmentRepository.Create(appointment);
                 }
                 
             }

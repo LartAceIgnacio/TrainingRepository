@@ -2,7 +2,7 @@
 
 namespace BlastAsia.DigiBook.Domain.Models.Appointments
 {
-    public class Appointement
+    public class Appointment
     {
         public Guid AppointmentId { get; set; }
         public DateTime? AppointmnetDate { get; set; }
