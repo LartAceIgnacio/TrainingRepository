@@ -37,13 +37,16 @@ namespace BlastAsia.DigiBook.Domain.Appointments
            
             Appointment result = null;
             
-            var foundEmployeeId = employeeRepository.Retrieve(appointment.HostId);
             var foundGuestId = contactRepository.Retrieve(appointment.GuestId);
 
             if (foundGuestId == null)
             {
                 throw new InvalidGuestIdException("Guest ID should not be empty.");
             }
+
+
+            var foundEmployeeId = employeeRepository.Retrieve(appointment.HostId);
+
             if (foundEmployeeId == null)
             {
                 throw new InvalidEmployeeIdException("Employee ID should not be empty.");
@@ -51,11 +54,11 @@ namespace BlastAsia.DigiBook.Domain.Appointments
 
             var foundAppointmentId = appointmentRepository.Retrieve(appointment.appointmentId);
 
-            if(foundGuestId != null && foundEmployeeId != null && foundAppointmentId == null)
+            if (foundAppointmentId == null)
             {
                 result = appointmentRepository.Create(appointment);
             }
-            else if(foundGuestId != null && foundEmployeeId != null && foundAppointmentId != null)
+            else
             {
                 result = appointmentRepository.Update(appointment.appointmentId, appointment);
             }
