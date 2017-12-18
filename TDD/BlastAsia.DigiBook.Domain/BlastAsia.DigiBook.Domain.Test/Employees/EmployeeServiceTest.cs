@@ -52,6 +52,22 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
         }
 
         [TestMethod]
+        public void Save_WithValidData_ReturnsNewEmployeeWithEmployeeId()
+        {
+            //Arrange
+            mockEmployeeRepository
+                .Setup(x => x.Create(It.IsAny<Employee>()))
+                .Callback(() => employee.EmployeeId = Guid.NewGuid())
+                .Returns(employee);
+
+            //Act
+            var newEmployee = sut.Save(employee);
+
+            //Assert
+            Assert.IsTrue(newEmployee.EmployeeId != Guid.Empty);
+        }
+
+        [TestMethod]
         public void Save_NewEmployeeWithValidData_ShouldCallRepositoryCreate()
         {
             //Arrange

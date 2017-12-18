@@ -3,12 +3,7 @@ using System;
 
 namespace BlastAsia.DigiBook.Domain.Employees
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeRepository: IRepository<Employee>
     {
-        Employee Retrieve(Guid id);
-
-        Employee Create(Employee employee);
-
-        Employee Update(Guid id, Employee employee);
     }
 }

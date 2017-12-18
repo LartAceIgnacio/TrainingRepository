@@ -14,7 +14,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
             this.employeeRepository = employeeRepository;
         }
 
-        public void Save(Employee employee)
+        public Employee Save(Employee employee)
         {
             if (string.IsNullOrEmpty(employee.FirstName) || string.IsNullOrEmpty(employee.LastName))
                 throw new NameRequiredException(string.IsNullOrEmpty(employee.FirstName) ? "First Name is Required!" : "Last Name is Required!");
@@ -41,6 +41,8 @@ namespace BlastAsia.DigiBook.Domain.Employees
                 retrieveEmployee = employeeRepository.Create(employee);
             else
                 retrieveEmployee = employeeRepository.Update(employee.EmployeeId, employee);
+
+            return retrieveEmployee;
         }
     }
 }

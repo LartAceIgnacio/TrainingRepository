@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlastAsia.DigiBook.Domain.Models.Appoinments
+namespace BlastAsia.DigiBook.Domain.Models.Appointments
 {
-    public class Appoinment
+    public class Appointment
     {
         public Guid AppointmentId { get; set; }
         public DateTime AppointmentDate { get; set; }
