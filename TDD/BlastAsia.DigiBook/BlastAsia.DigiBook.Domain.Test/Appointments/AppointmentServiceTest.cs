@@ -25,8 +25,8 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
         private Guid existingEmployeeId = Guid.NewGuid();
         private Guid existingContactId = Guid.NewGuid();
         private Guid existingAppointmentId = Guid.NewGuid();
-        private Guid nonExistingHostId;
-        private readonly Guid nonExistingGuestId;
+        private Guid nonExistingHostId = Guid.Empty;
+        private Guid nonExistingGuestId = Guid.Empty;
 
         [TestInitialize]
         public void InitializeTest()
@@ -84,7 +84,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             mockAppointmentRepository
                 .Verify(a => a.Retrieve(appointment.AppointmentId), Times.Once);
             mockAppointmentRepository
-                .Verify(a => a.Create(employee.EmployeeId, contact.ContactId, appointment), Times.Once);
+                .Verify(a => a.Create(appointment), Times.Once);
         }
 
         [TestMethod]
@@ -109,7 +109,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             appointment.HostId = existingEmployeeId;
             appointment.GuestId = existingContactId;
             mockAppointmentRepository
-                .Setup(a => a.Create(employee.EmployeeId, contact.ContactId, appointment))
+                .Setup(a => a.Create(appointment))
                 .Callback(() =>
                 {
                     appointment.AppointmentId = Guid.NewGuid();
@@ -151,7 +151,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
 
             // Assert 
             mockAppointmentRepository
-                .Verify(a => a.Create(employee.EmployeeId, contact.ContactId, appointment), Times.Never);
+                .Verify(a => a.Create(appointment), Times.Never);
             Assert.ThrowsException<InclusiveTimeRequiredException>(
                 () => sut.Save(employee.EmployeeId, contact.ContactId, appointment));
         }
@@ -164,7 +164,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
 
             // Assert
             mockAppointmentRepository
-                .Verify(a => a.Create(employee.EmployeeId, contact.ContactId,appointment), Times.Never);
+                .Verify(a => a.Create(appointment), Times.Never);
             Assert.ThrowsException<AppointmentDateRequiredException>(
                 () => sut.Save(employee.EmployeeId, contact.ContactId, appointment));
             

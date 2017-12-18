@@ -6,6 +6,6 @@ namespace BlastAsia.DigiBook.Domain.Appointments
     public interface IAppointmentRepository
         : IRepository<Appointment>
     {
-        Appointment Create(Guid EmployeeId, Guid ContactId, Appointment appointment);
+        
     }
 }

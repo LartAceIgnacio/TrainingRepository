@@ -46,7 +46,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             }
             if (foundAppointment == null)
             {
-                result = appointmentRepository.Create(EmployeeId, ContactId, appointment);
+                result = appointmentRepository.Create(appointment);
             }
             else
             {

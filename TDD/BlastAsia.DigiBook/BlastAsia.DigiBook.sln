@@ -11,7 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.Domain.M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.Infrastructure.Persistence", "BlastAsia.DigiBook.Infrastructure.Persistence\BlastAsia.DigiBook.Infrastructure.Persistence.csproj", "{7DD92615-DAEF-419C-8CD8-CA23CE27DA62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.DigiBook.Infrastructure.Persistence.Test", "BlastAsia.DigiBook.Infrastructure.Persistence.Test\BlastAsia.DigiBook.Infrastructure.Persistence.Test.csproj", "{70500019-5315-4355-B438-04E62B4AB70F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.Infrastructure.Persistence.Test", "BlastAsia.DigiBook.Infrastructure.Persistence.Test\BlastAsia.DigiBook.Infrastructure.Persistence.Test.csproj", "{70500019-5315-4355-B438-04E62B4AB70F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.0 Presentation", "1.0 Presentation", "{BBE8CB95-18CC-4917-AB67-989C12E45C80}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.0 API", "2.0 API", "{86E121A8-032B-4F18-AEF7-29AC3BFD562E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.0 Domain", "3.0 Domain", "{DC5A093A-070A-497B-96E7-B0B249D0FB79}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.0 Persistence", "4.0 Persistence", "{8A8F1B72-E882-4640-9DEA-667D88D523B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.DigiBook.API", "BlastAsia.DigiBook.API\BlastAsia.DigiBook.API.csproj", "{DCECE089-690C-4B15-AFDD-4D076433A9CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,8 +49,20 @@ Global
 		{70500019-5315-4355-B438-04E62B4AB70F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70500019-5315-4355-B438-04E62B4AB70F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70500019-5315-4355-B438-04E62B4AB70F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCECE089-690C-4B15-AFDD-4D076433A9CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCECE089-690C-4B15-AFDD-4D076433A9CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCECE089-690C-4B15-AFDD-4D076433A9CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCECE089-690C-4B15-AFDD-4D076433A9CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{84ECABBF-0DA0-49BD-BB4E-7D076B4A102B} = {DC5A093A-070A-497B-96E7-B0B249D0FB79}
+		{2C2AD5F8-0A5A-4BA9-85FE-39C14E34AC31} = {DC5A093A-070A-497B-96E7-B0B249D0FB79}
+		{E8B79732-7B4A-4181-9DB1-4E5D6012BE59} = {DC5A093A-070A-497B-96E7-B0B249D0FB79}
+		{7DD92615-DAEF-419C-8CD8-CA23CE27DA62} = {8A8F1B72-E882-4640-9DEA-667D88D523B7}
+		{70500019-5315-4355-B438-04E62B4AB70F} = {8A8F1B72-E882-4640-9DEA-667D88D523B7}
+		{DCECE089-690C-4B15-AFDD-4D076433A9CA} = {86E121A8-032B-4F18-AEF7-29AC3BFD562E}
 	EndGlobalSection
 EndGlobal
