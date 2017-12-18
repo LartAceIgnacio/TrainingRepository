@@ -70,7 +70,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 
         [TestMethod]
         [TestProperty("TestType", "Integration")]
-        public void Delete_WithExistingEmployee_RemovesDataFromDatabase()
+        public void Delete_WithExistingEmployeeId_RemovesDataFromDatabase()
         {
             // Arrange
             var newEmployee = _sut.Create(_employee);
@@ -84,22 +84,50 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         }
 
         [TestMethod]
+        [TestProperty("TestType", "Integration")]
         public void Retrieve_WithExistingEmployeeId_ReturnsRecordFromDb()
         {
             // Arrange
-            var data = _sut.Create(_employee);
+            var newEmployee = _sut.Create(_employee);
 
             // Act
-            var found = _sut.Retrieve(data.Id);
+            var found = _sut.Retrieve(newEmployee.Id);
 
             // Assert
             Assert.IsNotNull(found);
+
+            //Cleanup
+            _sut.Delete(found.Id);
         }
 
         [TestMethod]
-        public void Retrieve_WithoutExistingEmployeeId_ReturnsNoRecordFromDb()
+        [TestProperty("TestType", "Integration")]
+        public void Update_WithExistingEmployeeId_ShouldReturnRecordFromDb()
         {
+            // Arrange
+            var newEmployee = _sut.Create(_employee);
+            var expectedFirstname = "Robert";
+            var expectedLastname = "Martin";
+            var expectedEmail = "rmartin@blastasia.com";
+            var expectedPhoto = new MemoryStream();
 
+            newEmployee.Lastname = expectedLastname;
+            newEmployee.Firstname = expectedFirstname;
+            newEmployee.EmailAddress = expectedEmail;
+            newEmployee.Photo = expectedPhoto;
+
+            // Act
+            _sut.Update(newEmployee.Id, _employee);
+
+            // Assert
+            var updatedEmployee = _sut.Retrieve(newEmployee.Id);
+            Assert.AreEqual(expectedFirstname, updatedEmployee.Firstname);
+            Assert.AreEqual(expectedLastname, updatedEmployee.Lastname);
+            Assert.AreEqual(expectedEmail, updatedEmployee.EmailAddress);
+            Assert.AreEqual(expectedPhoto, updatedEmployee.Photo);
+
+            // Cleanup
+            _sut.Delete(updatedEmployee.Id);
         }
 
 
