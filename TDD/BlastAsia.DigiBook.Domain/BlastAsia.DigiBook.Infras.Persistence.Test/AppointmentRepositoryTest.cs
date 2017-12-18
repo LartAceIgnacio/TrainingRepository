@@ -91,12 +91,16 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         [TestProperty("TestType", "Appointment")]
         public void Retrieve_WithAnExistingAppointmentId_ReturnsAppointmentRecordsFromDb()
         {
+            //arrange
             var newAppointment = sut.Create(appointment);
 
+            //act
             var retrieveAppointment = sut.Retrieve(newAppointment.AppointmentId);
 
+            //assert
             Assert.IsNotNull(retrieveAppointment);
 
+            //cleanup
             sut.Delete(newAppointment.AppointmentId);
         }
 
