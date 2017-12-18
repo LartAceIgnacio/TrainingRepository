@@ -58,14 +58,6 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             mockEmployeeRepository
                 .Setup(e => e.Retrieve(existingHostId))
                 .Returns(employee);
-
-            mockAppointmentRepository
-                .Setup(a => a.Retrieve(existingAppointmentId))
-                .Returns(appointment);
-
-            mockAppointmentRepository
-                .Setup(a => a.Retrieve(nonExistingAppointmentId))
-                .Returns<Appointment>(null);
         }
 
         [TestCleanup]
@@ -78,6 +70,10 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
         public void Save_NewAppointmentWithValidAppointmentData_ShouldCallRepositoryCreate()
         {
             //Arrange
+            mockAppointmentRepository
+                .Setup(a => a.Retrieve(nonExistingAppointmentId))
+                .Returns<Appointment>(null);
+
             appointment.AppointmentId = nonExistingAppointmentId;
 
             //Act
@@ -95,6 +91,10 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
         public void Save_AppointmentWithExistingData_ShouldCallRepositoryUpdate()
         {
             //Arrange
+            mockAppointmentRepository
+                .Setup(a => a.Retrieve(existingAppointmentId))
+                .Returns(appointment);
+
             appointment.AppointmentId = existingAppointmentId;
 
             //Act
@@ -113,6 +113,11 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
         {
             //Arrange
             var nonExistingGuestId = Guid.Empty;
+
+            mockContactRepository
+                .Setup(c => c.Retrieve(nonExistingGuestId))
+                .Returns<Contact>(null);
+
             appointment.GuestId = nonExistingGuestId;
 
             //Act
@@ -130,6 +135,11 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
         {
             //Arrange
             var nonExistingHostId = Guid.Empty;
+
+            mockEmployeeRepository
+                .Setup(c => c.Retrieve(nonExistingHostId))
+                .Returns<Employee>(null);
+
             appointment.HostId = nonExistingHostId;
 
             //Act

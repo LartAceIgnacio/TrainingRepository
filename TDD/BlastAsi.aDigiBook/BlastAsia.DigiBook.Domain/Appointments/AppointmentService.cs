@@ -54,7 +54,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             var foundAppointmentId = appointmentRepository.Retrieve(appointment.AppointmentId);
 
             //check if there is an existing appointment
-            if (foundAppointmentId == null) //none existing
+            if (foundAppointmentId == null) //non existing
             {
                 currentAppointment = appointmentRepository.Create(appointment);
             }
