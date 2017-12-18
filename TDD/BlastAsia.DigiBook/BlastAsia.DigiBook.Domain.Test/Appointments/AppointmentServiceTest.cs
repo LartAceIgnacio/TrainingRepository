@@ -15,7 +15,6 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
     [TestClass]
     public class AppointmentServiceTest
     {
-        private Appointment appointment;
         private Mock<IAppointmentRepository> mockAppointmentRepository;
         private Mock<IContactRepository> mockContactRepository;
         private Mock<IEmployeeRepository> mockEmployeeRepository;
@@ -26,6 +25,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
         private Guid nonExistingAppointmentId = Guid.Empty;
         private Contact contact;
         private Employee employee;
+        private Appointment appointment;
 
         [TestInitialize]
         public void Initialize()

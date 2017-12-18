@@ -4,4 +4,3 @@ C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastA
 C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.AssemblyInfo.cs
 C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.dll
 C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.pdb
-C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.csprojResolveAssemblyReference.cache
