@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Employees
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         
         private IEmployeeRepository employeeRepository;
@@ -17,7 +17,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
             this.employeeRepository = employeeRepository;
         }
 
-        public Employee Save(Employee employee)
+        public Employee Save(Guid id, Employee employee)
         {
 
             if (string.IsNullOrEmpty(employee.FirstName))
@@ -40,18 +40,18 @@ namespace BlastAsia.DigiBook.Domain.Employees
             {
                 throw new EmailRequiredException("Invalid Email");
             }
-            if (employee.Photo == null)
-            {
-                throw new PhotoRequiredException("Employee photo is required.");
-            }
+            //if (employee.Photo == null)
+            //{
+            //    throw new PhotoRequiredException("Employee photo is required.");
+            //}
             if (string.IsNullOrEmpty(employee.OfficePhone))
             {
-                throw new PhoneNumberRequiredException("Office phone nnumber is required.");
+                throw new PhoneNumberRequiredException("Office phone number is required.");
             }
             Employee result = null;
 
             var found = employeeRepository
-                .Retrieve(employee.EmployeeId);
+                .Retrieve(id);
 
             if (found == null)
             {
@@ -59,7 +59,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
             }
             else
             {
-                result = employeeRepository.Update(employee.EmployeeId,employee);
+                result = employeeRepository.Update(id,employee);
             }
 
             return result;

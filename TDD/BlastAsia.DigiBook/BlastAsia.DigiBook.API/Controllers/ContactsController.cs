@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using BlastAsia.DigiBook.Domain.Contacts;
+using Microsoft.AspNetCore.JsonPatch;
+using BlastAsia.DigiBook.API.Utils;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
@@ -13,80 +17,26 @@ namespace BlastAsia.DigiBook.API.Controllers
     [Route("api/Contacts")]
     public class ContactsController : Controller
     {
-        private static List<Contact> contacts 
-            = new List<Contact>();
+        private readonly IContactService contactService;
+        private readonly IContactRepository contactRepository;
 
-        private readonly DigiBookDbContext context;
-
-        public ContactsController(DigiBookDbContext context)
+        public ContactsController(IContactService contactService, IContactRepository contactRepository)
         {
-            this.context = context;
-
-            //if (contacts.Count == 0)
-            //{
-            //    contacts.Add(
-            //    new Contact
-            //    {
-            //        ContactId = Guid.NewGuid(),
-            //        FirstName = "Abbie",
-            //        LastName = "Olarte",
-            //        MobilePhone = "09981642039",
-            //        StreetAddress = "#9 Kakawati Street, Pangarap Village",
-            //        CityAddress = "Caloocan City",
-            //        ZipCode = 1427,
-            //        Country = "Philippines",
-            //        EmailAddress = "abbieolarte@yahoo.com",
-            //        IsActive = false,
-            //        DateActivated = new Nullable<DateTime>()
-            //    }
-            //        );
-            //    contacts.Add(
-            //        new Contact
-            //        {
-            //            ContactId = Guid.NewGuid(),
-            //            FirstName = "Blanche",
-            //            LastName = "Olarte",
-            //            MobilePhone = "09981642039",
-            //            StreetAddress = "#9 Kakawati Street, Pangarap Village",
-            //            CityAddress = "Caloocan City",
-            //            ZipCode = 1427,
-            //            Country = "Philippines",
-            //            EmailAddress = "abbieolarte@gmail.com",
-            //            IsActive = false,
-            //            DateActivated = new Nullable<DateTime>()
-            //        }
-            //            );
-            //    contacts.Add(
-            //        new Contact
-            //        {
-            //            ContactId = Guid.NewGuid(),
-            //            FirstName = "Angela",
-            //            LastName = "Olarte",
-            //            MobilePhone = "09981642039",
-            //            StreetAddress = "#9 Kakawati Street, Pangarap Village",
-            //            CityAddress = "Caloocan City",
-            //            ZipCode = 1427,
-            //            Country = "Philippines",
-            //            EmailAddress = "abbieolarte@gmail.com",
-            //            IsActive = false,
-            //            DateActivated = new Nullable<DateTime>()
-            //        }
-            //           );
-            //}
+            this.contactService = contactService;
+            this.contactRepository = contactRepository;
         }
 
         [HttpGet, ActionName("GetContacts")]
-        public IActionResult GetContactById(Guid? id)
+        public IActionResult GetContacts(Guid? id)
         {
             var result = new List<Contact>();
             if(id == null)
             {
-                result.AddRange(this.context.Contacts.ToList());
+                result.AddRange(this.contactRepository.Retrieve());
             }
             else
             {
-                var contact = this.context.Contacts
-                .FirstOrDefault(c => c.ContactId == id);
+                var contact = this.contactRepository.Retrieve(id.Value);
 
                 result.Add(contact);
             }  
@@ -94,11 +44,11 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostContact([FromBody] Contact contact)
+        public IActionResult CreateContact(
+            [FromBody]
+            Contact contact)
         {
-            contact.ContactId = Guid.NewGuid();
-            this.context.Contacts.Add(contact);
-            this.context.SaveChanges();
+            var result = this.contactService.Save(Guid.Empty, contact);
 
             return CreatedAtAction("GetContacts", new { id = contact.ContactId }, contact);
         }
@@ -106,22 +56,38 @@ namespace BlastAsia.DigiBook.API.Controllers
         [HttpDelete]
         public IActionResult DeleteContact(Guid id)
         {
-            var contactToDelete = context.Contacts.Find(id);
-
-            if (contactToDelete != null)
-            {
-                context.Contacts.Remove(contactToDelete);
-                context.SaveChanges();
-            }
-
-            return Ok();
+            this.contactRepository.Delete(id);
+            return NoContent();
         }
 
         [HttpPut]
-        public IActionResult UpdateContact([FromBody] Contact contact, Guid id)
+        public IActionResult UpdateContact(
+            [FromBody]
+            Contact contact, Guid id)
         {
-            this.context.Contacts.Update(contact);
-            this.context.SaveChanges();
+            var existingContact = contactRepository.Retrieve(id);
+            existingContact.ApplyChanges(contact);
+            this.contactService.Save(id, existingContact);
+            return Ok(contact);
+        }
+
+        [HttpPatch]
+        public IActionResult PatchContact(
+            [FromBody]JsonPatchDocument patchedContact, Guid id)
+        {
+            if (patchedContact == null)
+            {
+                return BadRequest();
+            }
+
+            var contact = contactRepository.Retrieve(id);
+            if (contact == null)
+            {
+                return NotFound();
+            }
+
+            patchedContact.ApplyTo(contact);
+            contactService.Save(id, contact);
 
             return Ok(contact);
         }

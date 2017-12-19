@@ -3,7 +3,7 @@ using BlastAsia.DigiBook.Domain.Models.Contacts;
 
 namespace BlastAsia.DigiBook.Domain.Contacts
 {
-    public class ContactService
+    public class ContactService : IContactService
     {
         private IContactRepository contactRepository;
 
@@ -12,7 +12,8 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             this.contactRepository = contactRepository;
         }
 
-        public Contact Save(Contact contact)
+        //from public Contact Save(Contact contact) to public Contact Save(Guid id, Contact contact)
+        public Contact Save(Guid id, Contact contact)
         {
 
             if (string.IsNullOrEmpty(contact.FirstName))
@@ -46,7 +47,7 @@ namespace BlastAsia.DigiBook.Domain.Contacts
 
             Contact result = null;
             var found = contactRepository
-                .Retrieve(contact.ContactId);
+                .Retrieve(id);
 
             if (found == null)
             {
@@ -54,17 +55,9 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             }
             else
             {
-                result = contactRepository
-                    .Update(contact.ContactId, contact);
+                result = contactRepository.Update(id, contact);
             }
             return result;
-
-            //var existingContact = contactRepository
-                //.Retrieve(contact.ContactId);
-
-            //var newContact = contactRepository.Create(contact);
-
-           //return newContact;
         }
     }
 }

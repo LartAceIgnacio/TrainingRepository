@@ -5,7 +5,7 @@ using System;
 
 namespace BlastAsia.DigiBook.Domain.Appointments
 {
-    public class AppointmentService
+    public class AppointmentService : IAppointmentService
     {
         private IAppointmentRepository appointmentRepository;
         private IContactRepository contactRepository;
@@ -20,7 +20,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
 
         
 
-        public Appointment Save(Appointment appointment)
+        public Appointment Save(Guid id, Appointment appointment)
         {
             if (appointment.AppointmentDate < DateTime.Today)
             {
@@ -51,7 +51,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
 
             Appointment result = null;
             var found = appointmentRepository
-                .Retrieve(appointment.AppointmentId);
+                .Retrieve(id);
 
             if (found == null)
             {
@@ -60,7 +60,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             else
             {
                 result = appointmentRepository
-                    .Update(appointment.AppointmentId, appointment);
+                    .Update(id, appointment);
             }
             return result;
 
