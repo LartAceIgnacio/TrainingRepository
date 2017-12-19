@@ -77,7 +77,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             appointment.AppointmentId = nonExistingAppointmentId;
 
             //Act
-            sut.Save(appointment);
+            sut.Save(appointment.AppointmentId,appointment);
 
             //Assert
             mockAppointmentRepository
@@ -98,7 +98,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             appointment.AppointmentId = existingAppointmentId;
 
             //Act
-            sut.Save(appointment);
+            sut.Save(appointment.AppointmentId, appointment);
 
             //Assert
             mockAppointmentRepository
@@ -124,7 +124,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
 
             //Assert
             Assert.ThrowsException<GuestIdDoesNotExistException>(
-                 () => sut.Save(appointment));
+                 () => sut.Save(appointment.AppointmentId, appointment));
 
             mockAppointmentRepository
                 .Verify(a => a.Create(appointment), Times.Never());
@@ -146,7 +146,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
 
             //Assert
             Assert.ThrowsException<HostIdDoesNotExistException>(
-                () => sut.Save(appointment));
+                () => sut.Save(appointment.AppointmentId, appointment));
 
             mockAppointmentRepository
                 .Verify(a => a.Create(appointment), Times.Never());
@@ -162,7 +162,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
 
             //Assert
             Assert.ThrowsException<ValidAppointmentDateRequiredException>(
-                () => sut.Save(appointment));
+                () => sut.Save(appointment.AppointmentId, appointment));
 
             mockAppointmentRepository
                 .Verify(a => a.Create(appointment), Times.Never());
@@ -178,7 +178,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
 
             //Assert
             Assert.ThrowsException<InclusiveStartTimeEndTimeRequiredException>(
-                () => sut.Save(appointment));
+                () => sut.Save(appointment.AppointmentId, appointment));
 
             mockAppointmentRepository
                 .Verify(a => a.Create(appointment), Times.Never());
@@ -194,7 +194,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
 
             //Assert
             Assert.ThrowsException<InclusiveStartTimeEndTimeRequiredException>(
-                () => sut.Save(appointment));
+                () => sut.Save(appointment.AppointmentId, appointment));
 
             mockAppointmentRepository
                 .Verify(a => a.Create(appointment), Times.Never());
@@ -210,7 +210,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
 
             //Assert
             Assert.ThrowsException<InclusiveStartTimeEndTimeRequiredException>(
-                () => sut.Save(appointment));
+                () => sut.Save(appointment.AppointmentId, appointment));
 
             mockAppointmentRepository
                 .Verify(a => a.Create(appointment), Times.Never());

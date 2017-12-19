@@ -52,7 +52,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             //Arrange
 
             //Act
-            var result = sut.Save(employee);
+            var result = sut.Save(employee.EmployeeId,employee);
 
             //Assert
             mockEmployeeRepository
@@ -73,7 +73,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             employee.EmployeeId = existingEmployeeId;
 
             //Act
-            var result = sut.Save(employee);
+            var result = sut.Save(employee.EmployeeId, employee);
 
             //Assert
             mockEmployeeRepository
@@ -93,7 +93,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
                 .Returns(employee);
 
             //Act
-            var newEmployee = sut.Save(employee);
+            var newEmployee = sut.Save(employee.EmployeeId, employee);
 
             //Assert
             Assert.IsTrue(newEmployee.EmployeeId != Guid.Empty);
@@ -107,7 +107,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
             //Assert
             Assert.ThrowsException<NameRequiredException>(
-                () => sut.Save(employee));
+                () => sut.Save(employee.EmployeeId, employee));
 
             mockEmployeeRepository
                 .Verify(c => c.Create(employee), Times.Never());
@@ -121,7 +121,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
             //Assert
             Assert.ThrowsException<NameRequiredException>(
-                () => sut.Save(employee));
+                () => sut.Save(employee.EmployeeId, employee));
 
             mockEmployeeRepository
                 .Verify(c => c.Create(employee), Times.Never());
@@ -135,7 +135,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
             //Assert
             Assert.ThrowsException<PhoneNumberRequiredException>(
-                () => sut.Save(employee));
+                () => sut.Save(employee.EmployeeId, employee));
 
             mockEmployeeRepository
                 .Verify(c => c.Create(employee), Times.Never());
@@ -149,7 +149,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
             //Assert
             Assert.ThrowsException<EmailAddressRequiredException>(
-                () => sut.Save(employee));
+                () => sut.Save(employee.EmployeeId, employee));
 
             mockEmployeeRepository
                 .Verify(c => c.Create(employee), Times.Never());
@@ -163,7 +163,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
             //Assert
             Assert.ThrowsException<PhotoRequiredException>(
-                () => sut.Save(employee));
+                () => sut.Save(employee.EmployeeId, employee));
 
             mockEmployeeRepository
                 .Verify(c => c.Create(employee), Times.Never());
@@ -177,7 +177,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
             //Assert
             Assert.ThrowsException<PhoneNumberRequiredException>(
-                () => sut.Save(employee));
+                () => sut.Save(employee.EmployeeId, employee));
 
             mockEmployeeRepository
                 .Verify(c => c.Create(employee), Times.Never());
@@ -191,7 +191,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
             //Assert
             Assert.ThrowsException<ExtensionRequiredException>(
-                () => sut.Save(employee));
+                () => sut.Save(employee.EmployeeId, employee));
 
             mockEmployeeRepository
                 .Verify(c => c.Create(employee), Times.Never());
@@ -205,7 +205,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
             //Assert
             Assert.ThrowsException<EmailAddressRequiredException>(
-                    () => sut.Save(employee));
+                    () => sut.Save(employee.EmployeeId, employee));
 
             mockEmployeeRepository
                 .Verify(c => c.Create(employee), Times.Never());

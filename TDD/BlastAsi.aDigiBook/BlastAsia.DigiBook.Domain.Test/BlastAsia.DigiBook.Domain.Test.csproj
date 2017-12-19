@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Compile Remove="Appointments\InclusiveStartTimeEndTimeRequiredException.cs" />
+    <Compile Remove="EServiceTest.cs" />
     <Compile Remove="RegistrationServiceTest.cs" />
   </ItemGroup>
 

@@ -16,3 +16,5 @@ C:\Users\jmagdaleno\Documents\Visual Studio 2017\Projects\BlastAsi.aDigiBook\Bla
 C:\Users\jmagdaleno\Documents\Visual Studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infra.Data.Test\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.pdb
 C:\Users\jmagdaleno\Documents\Visual Studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infra.Data.Test\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.pdb
 C:\Users\jmagdaleno\Documents\Visual Studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infra.Data.Test\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infra.Data.Test\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.Test.csproj.CoreCompileInputs.cache
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infra.Data.Test\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.Test.AssemblyInfoInputs.cache

@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Contacts
 {
-    public class ContactService 
+    public class ContactService : IContactService
     {
         private IContactRepository contactRepository;
 
@@ -15,7 +15,7 @@ namespace BlastAsia.DigiBook.Domain.Contacts
 
         private readonly string validEmail = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
 
-        public Contact Save(Contact contact)
+        public Contact Save(Guid id, Contact contact)
         {
             //business rules
             if (string.IsNullOrEmpty(contact.FirstName))
@@ -65,10 +65,17 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             }
             else
             {
-                result = contactRepository.Update(contact.ContactId, contact);
+                found.FirstName = contact.FirstName;
+                found.LastName = contact.LastName;
+                found.MobilePhone = contact.MobilePhone;
+                found.StreetAddress = contact.StreetAddress;
+                found.CityAddress = contact.CityAddress;
+                found.Country = contact.Country;
+                found.EmailAddress = contact.EmailAddress;
+                found.IsActive = contact.IsActive;
+                found.DateActivated = contact.DateActivated;
+                result = contactRepository.Update(found.ContactId, found);
             }
-
-            
             return result;
         }
     }

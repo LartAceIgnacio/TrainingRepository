@@ -1,9 +1,10 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Employees;
+using System;
 using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Employees
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private IEmployeeRepository employeeRepository;
 
@@ -14,7 +15,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
 
         private readonly string validEmail = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
 
-        public Employee Save(Employee employee)
+        public Employee Save(Guid id, Employee employee)
         {
             if (string.IsNullOrEmpty(employee.FirstName))
             {
@@ -32,10 +33,10 @@ namespace BlastAsia.DigiBook.Domain.Employees
             {
                 throw new EmailAddressRequiredException("Email address required");
             }
-            if (employee.Photo == null)
-            {
-                throw new PhotoRequiredException("Photo required");
-            }            
+            //if (employee.Photo == null)
+            //{
+            //    throw new PhotoRequiredException("Photo required");
+            //}
             if (string.IsNullOrEmpty(employee.OfficePhone))
             {
                 throw new PhoneNumberRequiredException("Office phone required");
@@ -58,6 +59,13 @@ namespace BlastAsia.DigiBook.Domain.Employees
             }
             else
             {
+                found.EmailAddress = employee.EmailAddress;
+                found.Extension = employee.Extension;
+                found.FirstName = employee.FirstName;
+                found.LastName = employee.LastName;
+                found.MobilePhone = employee.MobilePhone;
+                found.OfficePhone = employee.OfficePhone;
+                found.Photo = employee.Photo;
                 currentEmployee = employeeRepository.Update(employee.EmployeeId, employee);
             }
 

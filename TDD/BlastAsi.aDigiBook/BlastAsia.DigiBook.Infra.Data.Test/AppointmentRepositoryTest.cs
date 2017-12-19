@@ -75,7 +75,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Delete_WithAnExistingAppointment_RemovesRecordFromDatabase()
         {
             //Arrange
-
             var newAppointment = sut.Create(appointment);
 
             //Act

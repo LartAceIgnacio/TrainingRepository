@@ -14,3 +14,5 @@ c:\users\jmagdaleno\documents\visual studio 2017\Projects\BlastAsi.aDigiBook\Bla
 c:\users\jmagdaleno\documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.pdb
 C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.dll
 C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Test.csproj.CoreCompileInputs.cache
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Test.AssemblyInfoInputs.cache

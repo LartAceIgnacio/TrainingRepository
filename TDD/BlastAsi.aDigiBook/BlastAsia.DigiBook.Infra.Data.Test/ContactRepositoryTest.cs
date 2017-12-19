@@ -37,6 +37,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             connectionString =
                 @"Data Source=.;Database=DigiBookDb;Integrated Security=true;";
 
+
             dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
                 .UseSqlServer(connectionString)
                 .Options;
