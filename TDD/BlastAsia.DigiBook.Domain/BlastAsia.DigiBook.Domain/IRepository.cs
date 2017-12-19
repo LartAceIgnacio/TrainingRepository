@@ -11,6 +11,8 @@ namespace BlastAsia.DigiBook.Domain
 
         TEntity Retrieve(Guid id);
 
+        IEnumerable<TEntity> Retrieve();
+
         TEntity Update(Guid id, TEntity entity);
 
         void Delete(Guid id);

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Contacts
 {
-    public class ContactService
+    public class ContactService : IContactService
     {
         private IContactRepository contactRepository;
         private readonly string regex = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
@@ -15,7 +15,7 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             this.contactRepository = contactRepository;
         }
 
-        public Contact Save(Contact contact)
+        public Contact Save(Guid id, Contact contact)
         {
             if(string.IsNullOrEmpty(contact.FirstName) || string.IsNullOrEmpty(contact.LastName)) {
                 throw new NameRequiredException(string.IsNullOrEmpty(contact.LastName) ? "Last Name is Required" : "First Name is Required");
@@ -50,12 +50,23 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             }
 
             Contact result = null;
-            var found = contactRepository.Retrieve(contact.ContactId);
+            var found = contactRepository.Retrieve(id);
 
-            if(found == null)
+            if (found == null) {
                 result = contactRepository.Create(contact);
-            else
-                result = contactRepository.Update(contact.ContactId, contact);
+            }
+            else {
+                found.FirstName = contact.FirstName;
+                found.LastName = contact.LastName;
+                found.MobilePhone = contact.MobilePhone;
+                found.StreetAddress = contact.StreetAddress;
+                found.CityAddress = contact.CityAddress;
+                found.Country = contact.Country;
+                found.EmailAddress = contact.EmailAddress;
+                found.IsActive = contact.IsActive;
+                found.DateActivated = contact.DateActivated;
+                result = contactRepository.Update(found.ContactId, found);
+            }
 
             return result;
 

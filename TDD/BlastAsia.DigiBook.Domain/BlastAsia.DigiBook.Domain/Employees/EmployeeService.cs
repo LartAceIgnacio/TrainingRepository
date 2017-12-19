@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Employees
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private IEmployeeRepository employeeRepository;
         private readonly string regex = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
@@ -14,7 +14,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
             this.employeeRepository = employeeRepository;
         }
 
-        public Employee Save(Employee employee)
+        public Employee Save(Guid id, Employee employee)
         {
             if (string.IsNullOrEmpty(employee.FirstName) || string.IsNullOrEmpty(employee.LastName))
                 throw new NameRequiredException(string.IsNullOrEmpty(employee.FirstName) ? "First Name is Required!" : "Last Name is Required!");
@@ -28,19 +28,29 @@ namespace BlastAsia.DigiBook.Domain.Employees
             if (!Regex.IsMatch(employee.EmailAddress, regex))
                 throw new InvalidEmailAddressException("Invalid Email Address!");
 
-            if (employee.Photo == null)
-                throw new PhotoRequiredException("Photo is Required!");
+            //if (employee.Photo == null)
+            //    throw new PhotoRequiredException("Photo is Required!");
 
             if (string.IsNullOrEmpty(employee.Extension))
                 throw new ExtensionRequiredException("Photo is Required!");
 
             Employee retrieveEmployee = null;
-            var found = employeeRepository.Retrieve(employee.EmployeeId);
+            var found = employeeRepository.Retrieve(id);
 
-            if (found == null)
+            if (found == null) {
                 retrieveEmployee = employeeRepository.Create(employee);
-            else
-                retrieveEmployee = employeeRepository.Update(employee.EmployeeId, employee);
+            }
+            else {
+                found.EmailAddress = employee.EmailAddress;
+                found.Extension = employee.Extension;
+                found.FirstName = employee.FirstName;
+                found.LastName = employee.LastName;
+                found.MobilePhone = employee.MobilePhone;
+                found.OfficePhone = employee.OfficePhone;
+                found.Photo = employee.Photo;
+                found.PhotoByte = employee.PhotoByte;
+                retrieveEmployee = employeeRepository.Update(found.EmployeeId, found);
+            }
 
             return retrieveEmployee;
         }

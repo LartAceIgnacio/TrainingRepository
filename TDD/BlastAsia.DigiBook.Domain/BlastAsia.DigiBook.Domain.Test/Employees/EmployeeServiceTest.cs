@@ -61,7 +61,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
                 .Returns(employee);
 
             //Act
-            var newEmployee = sut.Save(employee);
+            var newEmployee = sut.Save(employee.EmployeeId, employee);
 
             //Assert
             Assert.IsTrue(newEmployee.EmployeeId != Guid.Empty);
@@ -74,7 +74,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
 
             //Act
-            sut.Save(employee);
+            sut.Save(employee.EmployeeId, employee);
 
             //Assert
             mockEmployeeRepository.Verify(x => x.Retrieve(nonExistingEmployeeId), Times.Once);
@@ -88,7 +88,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             employee.EmployeeId = existingEmployeeId;
 
             //Act
-            sut.Save(employee);
+            sut.Save(employee.EmployeeId, employee);
 
             //Assert
             mockEmployeeRepository.Verify(x => x.Retrieve(employee.EmployeeId), Times.Once);
@@ -104,7 +104,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             //Act
 
             //Assert
-            Assert.ThrowsException<NameRequiredException>(() => sut.Save(employee));
+            Assert.ThrowsException<NameRequiredException>(() => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository.Verify(x => x.Retrieve(It.IsAny<Guid>()), Times.Never);
         }
 
@@ -118,7 +118,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
 
             //Assert
-            Assert.ThrowsException<NameRequiredException>(() => sut.Save(employee));
+            Assert.ThrowsException<NameRequiredException>(() => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository.Verify(x => x.Retrieve(It.IsAny<Guid>()), Times.Never);
         }
 
@@ -132,7 +132,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
 
             //Assert
-            Assert.ThrowsException<PhoneRequiredException>(() => sut.Save(employee));
+            Assert.ThrowsException<PhoneRequiredException>(() => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository.Verify(x => x.Retrieve(It.IsAny<Guid>()), Times.Never);
         }
 
@@ -146,7 +146,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
 
             //Assert
-            Assert.ThrowsException<PhoneRequiredException>(() => sut.Save(employee));
+            Assert.ThrowsException<PhoneRequiredException>(() => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository.Verify(x => x.Retrieve(It.IsAny<Guid>()), Times.Never);
         }
 
@@ -160,7 +160,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
 
             //Assert
-            Assert.ThrowsException<EmailAddressRequiredException>(() => sut.Save(employee));
+            Assert.ThrowsException<EmailAddressRequiredException>(() => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository.Verify(x => x.Retrieve(It.IsAny<Guid>()), Times.Never);
         }
 
@@ -178,7 +178,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
 
             //Assert
-            Assert.ThrowsException<InvalidEmailAddressException>(() => sut.Save(employee));
+            Assert.ThrowsException<InvalidEmailAddressException>(() => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository.Verify(x => x.Retrieve(It.IsAny<Guid>()), Times.Never);
         }
 
@@ -192,7 +192,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
 
             //Assert
-            Assert.ThrowsException<PhotoRequiredException>(() => sut.Save(employee));
+            Assert.ThrowsException<PhotoRequiredException>(() => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository.Verify(x => x.Retrieve(It.IsAny<Guid>()), Times.Never);
         }
 
@@ -206,7 +206,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
 
             //Assert
-            Assert.ThrowsException<ExtensionRequiredException>(() => sut.Save(employee));
+            Assert.ThrowsException<ExtensionRequiredException>(() => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository.Verify(x => x.Retrieve(It.IsAny<Guid>()), Times.Never);
         }
     }

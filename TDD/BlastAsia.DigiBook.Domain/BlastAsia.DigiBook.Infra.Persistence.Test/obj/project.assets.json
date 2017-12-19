@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "targets": {
     ".NETCoreApp,Version=v1.1": {
       "Castle.Core/4.2.1": {
@@ -3212,6 +3212,12 @@
         "dependencies": {
           "BlastAsia.DigiBook.Domain.Models": "1.0.0",
           "Microsoft.NETCore.App": "1.1.2"
+        },
+        "compile": {
+          "bin/placeholder/BlastAsia.DigiBook.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlastAsia.DigiBook.Domain.dll": {}
         }
       },
       "BlastAsia.DigiBook.Domain.Models/1.0.0": {
@@ -3219,6 +3225,12 @@
         "framework": ".NETCoreApp,Version=v1.1",
         "dependencies": {
           "Microsoft.NETCore.App": "1.1.2"
+        },
+        "compile": {
+          "bin/placeholder/BlastAsia.DigiBook.Domain.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlastAsia.DigiBook.Domain.Models.dll": {}
         }
       },
       "BlastAsia.DigiBook.Domain.Test/1.0.0": {
@@ -3232,6 +3244,12 @@
           "Microsoft.NET.Test.Sdk": "15.0.0",
           "Microsoft.NETCore.App": "1.1.2",
           "Moq": "4.7.145"
+        },
+        "compile": {
+          "bin/placeholder/BlastAsia.DigiBook.Domain.Test.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlastAsia.DigiBook.Domain.Test.dll": {}
         }
       },
       "BlastAsia.DigiBook.Infrastructure.Persistence/1.0.0": {
@@ -3243,6 +3261,12 @@
           "Microsoft.EntityFrameworkCore": "1.1.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "1.1.5",
           "Microsoft.NETCore.App": "1.1.2"
+        },
+        "compile": {
+          "bin/placeholder/BlastAsia.DigiBook.Infrastructure.Persistence.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlastAsia.DigiBook.Infrastructure.Persistence.dll": {}
         }
       }
     }
@@ -9318,65 +9342,88 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\cmanuel\\.nuget\\packages\\": {}
+    "C:\\Users\\cmanuel\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {}
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
       "projectUniqueName": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infra.Persistence.Test\\BlastAsia.DigiBook.Infrastructure.Persistence.Test.csproj",
       "projectName": "BlastAsia.DigiBook.Infrastructure.Persistence.Test",
       "projectPath": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infra.Persistence.Test\\BlastAsia.DigiBook.Infrastructure.Persistence.Test.csproj",
+      "packagesPath": "C:\\Users\\cmanuel\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infra.Persistence.Test\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\cmanuel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+      ],
       "originalTargetFrameworks": [
         "netcoreapp1.1"
       ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj": {
-              "projectPath": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj"
-            },
-            "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj": {
-              "projectPath": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj"
-            },
             "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj": {
               "projectPath": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj"
             },
             "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.Test\\BlastAsia.DigiBook.Domain.Test.csproj": {
               "projectPath": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.Test\\BlastAsia.DigiBook.Domain.Test.csproj"
+            },
+            "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj": {
+              "projectPath": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj"
+            },
+            "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj": {
+              "projectPath": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj"
             }
           }
         }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
       }
     },
     "frameworks": {
       "netcoreapp1.1": {
         "dependencies": {
+          "MSTest.TestAdapter": {
+            "target": "Package",
+            "version": "[1.1.11, )"
+          },
           "MSTest.TestFramework": {
             "target": "Package",
-            "version": "1.1.11"
+            "version": "[1.1.11, )"
           },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
-            "version": "1.1.5"
-          },
-          "MSTest.TestAdapter": {
-            "target": "Package",
-            "version": "1.1.11"
-          },
-          "Microsoft.NETCore.App": {
-            "target": "Package",
-            "version": "1.1.2",
-            "autoReferenced": true
+            "version": "[1.1.5, )"
           },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
-            "version": "1.1.5"
+            "version": "[1.1.5, )"
           },
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
-            "version": "15.0.0"
+            "version": "[15.0.0, )"
+          },
+          "Microsoft.NETCore.App": {
+            "target": "Package",
+            "version": "[1.1.2, )",
+            "autoReferenced": true
           }
         }
       }

@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "targets": {
     ".NETCoreApp,Version=v1.1": {
       "Libuv/1.9.1": {
@@ -2621,6 +2621,12 @@
         "dependencies": {
           "BlastAsia.DigiBook.Domain.Models": "1.0.0",
           "Microsoft.NETCore.App": "1.1.2"
+        },
+        "compile": {
+          "bin/placeholder/BlastAsia.DigiBook.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlastAsia.DigiBook.Domain.dll": {}
         }
       },
       "BlastAsia.DigiBook.Domain.Models/1.0.0": {
@@ -2628,6 +2634,12 @@
         "framework": ".NETCoreApp,Version=v1.1",
         "dependencies": {
           "Microsoft.NETCore.App": "1.1.2"
+        },
+        "compile": {
+          "bin/placeholder/BlastAsia.DigiBook.Domain.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlastAsia.DigiBook.Domain.Models.dll": {}
         }
       }
     }
@@ -7755,30 +7767,53 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\cmanuel\\.nuget\\packages\\": {}
+    "C:\\Users\\cmanuel\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {}
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
       "projectUniqueName": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj",
       "projectName": "BlastAsia.DigiBook.Infrastructure.Persistence",
       "projectPath": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj",
+      "packagesPath": "C:\\Users\\cmanuel\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infrastructure.Persistence\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\cmanuel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+      ],
       "originalTargetFrameworks": [
         "netcoreapp1.1"
       ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj": {
-              "projectPath": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj"
-            },
             "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj": {
               "projectPath": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj"
+            },
+            "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj": {
+              "projectPath": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj"
             }
           }
         }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
       }
     },
     "frameworks": {
@@ -7786,16 +7821,16 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
-            "version": "1.1.5"
-          },
-          "Microsoft.NETCore.App": {
-            "target": "Package",
-            "version": "1.1.2",
-            "autoReferenced": true
+            "version": "[1.1.5, )"
           },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
-            "version": "1.1.5"
+            "version": "[1.1.5, )"
+          },
+          "Microsoft.NETCore.App": {
+            "target": "Package",
+            "version": "[1.1.2, )",
+            "autoReferenced": true
           }
         }
       }

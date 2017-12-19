@@ -16,8 +16,8 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
     public class AppointmentServiceTest
     {
         private Appointment appointment;
-        private Contact contact = new Contact();
-        private Employee employee = new Employee();
+        private Contact contact;
+        private Employee employee;
         private AppointmentService sut;
         private Mock<IAppointmentRepository> mockAppointmentRepository;
         private Mock<IEmployeeRepository> mockEmployeeRepository;
@@ -41,6 +41,9 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
                 IsDone = true,
                 Notes = "Sucess"
             };
+			
+			contact = new Contact();
+			employee = new Employee();
 
             mockAppointmentRepository = new Mock<IAppointmentRepository>();
             mockEmployeeRepository = new Mock<IEmployeeRepository>();
