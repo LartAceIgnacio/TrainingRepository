@@ -44,21 +44,13 @@ namespace BlastAsia.DigiBook.Domain
                 throw new EmployeeIdNotExistedException("No Host Found!");
             }
 
-            var foundAppointment = appointmentRepository.Retrieve(id);
+            //var foundAppointment = appointmentRepository.Retrieve(id);
 
-            if (foundAppointment == null) {
+            if (id == null || id == Guid.Empty) {
                 resultAppointment = appointmentRepository.Create(appointment);
             }
             else {
-                foundAppointment.AppointmentDate = appointment.AppointmentDate;
-                foundAppointment.EndTime = appointment.EndTime;
-                foundAppointment.GuestId = appointment.GuestId;
-                foundAppointment.HostId = appointment.HostId;
-                foundAppointment.IsCancelled = appointment.IsCancelled;
-                foundAppointment.IsDone = appointment.IsDone;
-                foundAppointment.Notes = appointment.Notes;
-                foundAppointment.StartTime = appointment.StartTime;
-                resultAppointment = appointmentRepository.Update(foundAppointment.AppointmentId, foundAppointment);
+                resultAppointment = appointmentRepository.Update(appointment.AppointmentId, appointment);
             }
 
             return resultAppointment;

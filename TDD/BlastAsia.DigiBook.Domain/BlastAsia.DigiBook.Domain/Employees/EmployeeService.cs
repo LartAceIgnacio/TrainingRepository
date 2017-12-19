@@ -35,21 +35,13 @@ namespace BlastAsia.DigiBook.Domain.Employees
                 throw new ExtensionRequiredException("Photo is Required!");
 
             Employee retrieveEmployee = null;
-            var found = employeeRepository.Retrieve(id);
+            //var found = employeeRepository.Retrieve(id);
 
-            if (found == null) {
+            if (id == null || id == Guid.Empty) {
                 retrieveEmployee = employeeRepository.Create(employee);
             }
             else {
-                found.EmailAddress = employee.EmailAddress;
-                found.Extension = employee.Extension;
-                found.FirstName = employee.FirstName;
-                found.LastName = employee.LastName;
-                found.MobilePhone = employee.MobilePhone;
-                found.OfficePhone = employee.OfficePhone;
-                found.Photo = employee.Photo;
-                found.PhotoByte = employee.PhotoByte;
-                retrieveEmployee = employeeRepository.Update(found.EmployeeId, found);
+                retrieveEmployee = employeeRepository.Update(employee.EmployeeId, employee);
             }
 
             return retrieveEmployee;

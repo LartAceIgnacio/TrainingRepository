@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Contacts;
 using Microsoft.AspNetCore.JsonPatch;
+using BlastAsia.DigiBook.API.Utils;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
@@ -63,9 +64,12 @@ namespace BlastAsia.DigiBook.API.Controllers
         public IActionResult UpdateContact(
             [Bind("FirstName", "LastName", "MobilePhone", "StreetAddress", "CityAddress", "ZipCode", "Country", "EmailAddress")] Contact contact, Guid id)
         {
+            var oldContact = this.contactRepository.Retrieve(id);
+            oldContact.ApplyNewChanges(contact);
+
             var result = this.contactService.Save(id, contact);
 
-            return Ok(contact);
+            return Ok(oldContact);
         }
 
         [HttpPatch]

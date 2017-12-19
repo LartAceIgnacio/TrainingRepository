@@ -46,7 +46,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
         {
             //var oldEntity = this.Retrieve(id);
             //context.Entry(entity).State = EntityState.Modified;
-            context.Update(entity);
+            //context.Update(entity);
             context.SaveChanges();
             return entity;
         }

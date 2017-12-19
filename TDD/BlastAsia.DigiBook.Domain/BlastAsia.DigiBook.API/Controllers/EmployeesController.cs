@@ -7,6 +7,7 @@ using BlastAsia.DigiBook.Domain.Models.Employees;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using BlastAsia.DigiBook.API.Utils;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
@@ -63,9 +64,12 @@ namespace BlastAsia.DigiBook.API.Controllers
         public IActionResult UpdateEmployee(
             [Bind("FirstName", "LastName", "MobilePhone", "EmailAddress", "OfficePhone", "Extension")] Employee employee, Guid id)
         {
+            var oldEmployee = this.employeeRepository.Retrieve(id);
+            oldEmployee.ApplyNewChanges(employee);
+
             var result = this.employeeService.Save(id, employee);
 
-            return Ok(result);
+            return Ok(oldEmployee);
         }
 
         [HttpPatch]
