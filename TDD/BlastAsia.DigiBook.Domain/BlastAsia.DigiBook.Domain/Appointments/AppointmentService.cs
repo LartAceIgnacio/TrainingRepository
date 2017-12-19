@@ -8,7 +8,7 @@ using BlastAsia.DigiBook.Domain.Employees;
 
 namespace BlastAsia.DigiBook.Domain.Appointments
 {
-    public class AppointmentService
+    public class AppointmentService : IAppointmentService
     {
         private IAppointmentRepository _appointmentRepository;
         private IContactRepository _contactRepository;
@@ -24,7 +24,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             _contactRepository = contactRepository;
         }
 
-        public Appointment Save(Appointment appointment)
+        public Appointment Save(Guid id,Appointment appointment)
         {
 
             if (appointment.AppointmentDate < DateTime.Now)

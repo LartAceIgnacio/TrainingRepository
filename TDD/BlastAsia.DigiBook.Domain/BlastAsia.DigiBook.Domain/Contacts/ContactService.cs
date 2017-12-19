@@ -7,8 +7,10 @@ using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Contacts
 {
-    public class ContactService
+    public class ContactService : IContactService
     {
+
+
         private IContactRepository _contactRepository;
         private readonly string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
          @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
@@ -18,7 +20,7 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             this._contactRepository = contactRepository;
         }
 
-        public Contact Save(Contact contact)
+        public Contact Save(Guid id,Contact contact)
         {
             if (string.IsNullOrEmpty(contact.FirstName))
             {
@@ -52,14 +54,23 @@ namespace BlastAsia.DigiBook.Domain.Contacts
 
             Contact result = null;
 
-            var found = _contactRepository.Retrieve(contact.ContactId);
+            var found = _contactRepository.Retrieve(id);
             if(found==null)
             {
                 result = _contactRepository.Create(contact);
             }
             else
             {
-                result = _contactRepository.Update(contact.ContactId, contact);
+                //found.FirstName = contact.FirstName;
+                //found.LastName = contact.LastName;
+                //found.MobilePhone = contact.MobilePhone;
+                //found.StreetAddress = contact.StreetAddress;
+                //found.CityAddress = contact.CityAddress;
+                //found.ZipCode = contact.ZipCode;
+                //found.Country = contact.Country;
+                //found.EmailAddress = contact.EmailAddress;
+
+                result = _contactRepository.Update(id, contact);
             }
             
             return result;

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace BlastAsia.DigiBook.Domain.Employees
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private IEmployeeRepository _employeeRepository;
         private readonly string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
@@ -17,7 +17,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
             _employeeRepository = employeeRepository;
         }
 
-        public Employee Save(Employee employee)
+        public Employee Save(Guid id,Employee employee)
         {
             if(string.IsNullOrEmpty(employee.FirstName))
             {
@@ -39,22 +39,22 @@ namespace BlastAsia.DigiBook.Domain.Employees
             {
                 throw new EmailAddressException("Valid Email address is required!");
             }
-            if (employee.Photo == null)
-            {
-                throw new PhotoRequiredException("Photo is required!");
-            }
+            //if (employee.Photo == null)
+            //{
+            //    throw new PhotoRequiredException("Photo is required!");
+            //}
             if (string.IsNullOrEmpty(employee.OfficePhone))
             {
                 throw new OfficePhoneException("Office phone is required!");
             }
-            if(!employee.MobilePhone.All(c => char.IsDigit(c)))
-            {
-                throw new MobilePhoneException("Valid Mobilephone is required!");
-            }
-            if (!employee.OfficePhone.All(c => char.IsDigit(c)))
-            {
-                throw new OfficePhoneException("Valid Officephone is required!");
-            }
+            //if(!employee.MobilePhone.All(c => char.IsDigit(c)))
+            //{
+            //    throw new MobilePhoneException("Valid Mobilephone is required!");
+            //}
+            //if (!employee.OfficePhone.All(c => char.IsDigit(c)))
+            //{
+            //    throw new OfficePhoneException("Valid Officephone is required!");
+            //}
             if (string.IsNullOrEmpty(employee.Extension))
             {
                 throw new ExtensionRequiredException("Extension is required!");

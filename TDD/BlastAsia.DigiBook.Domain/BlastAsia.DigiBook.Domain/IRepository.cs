@@ -9,6 +9,7 @@ namespace BlastAsia.DigiBook.Domain
     {
         TEntity Create(TEntity entity);
         TEntity Retrieve(Guid entityId);
+        IEnumerable<TEntity> Retrieve();
         TEntity Update(Guid entityId, TEntity entity);
         void Delete(Guid entityId);
     }
