@@ -8596,10 +8596,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Test\\BlastAsia.DigiBook.Domain.Test.csproj",
+      "projectUniqueName": "C:\\Users\\ddeguzman\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Test\\BlastAsia.DigiBook.Domain.Test.csproj",
       "projectName": "BlastAsia.DigiBook.Domain.Test",
-      "projectPath": "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Test\\BlastAsia.DigiBook.Domain.Test.csproj",
-      "outputPath": "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Test\\obj\\",
+      "projectPath": "C:\\Users\\ddeguzman\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Test\\BlastAsia.DigiBook.Domain.Test.csproj",
+      "outputPath": "C:\\Users\\ddeguzman\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Test\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
@@ -8607,8 +8607,8 @@
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj": {
-              "projectPath": "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj"
+            "C:\\Users\\ddeguzman\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj": {
+              "projectPath": "C:\\Users\\ddeguzman\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj"
             }
           }
         }

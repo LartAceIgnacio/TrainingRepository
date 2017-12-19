@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Employees
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private IEmployeeRepository employeeRepository;
         private readonly string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
@@ -14,7 +14,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
         {
             this.employeeRepository = employeeRepository;
         }
-        public Employee Save(Employee employee)
+        public Employee Save(Guid id, Employee employee)
         {
             if (string.IsNullOrEmpty(employee.FirstName))
             {

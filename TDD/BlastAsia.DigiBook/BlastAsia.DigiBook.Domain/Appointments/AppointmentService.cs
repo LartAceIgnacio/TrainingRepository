@@ -7,7 +7,7 @@ using System;
 
 namespace BlastAsia.DigiBook.Domain.Appointments
 {
-    public class AppointmentService
+    public class AppointmentService : IAppointmentService
     {
         private IAppointmentRepository appointmentRepository;
         private IEmployeeRepository employeeRepository;
@@ -21,7 +21,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             this.contactRepository = contactRepository;
         }
 
-        public Appointment Save(Guid EmployeeId, Guid ContactId, Appointment appointment)
+        public Appointment Save(Guid id, Appointment appointment)
         {
             if (appointment.EndTime < appointment.StartTime)
             {
@@ -33,24 +33,26 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             }
             
             Appointment result = null;
-            var foundGuest = contactRepository.Retrieve(appointment.GuestId);
             var foundHost = employeeRepository.Retrieve(appointment.HostId);
-            var foundAppointment = appointmentRepository.Retrieve(appointment.AppointmentId);
             if (foundHost == null)
             {
                 throw new InvalidHostIdException("Host Id is invalid");
             }
+
+            var foundGuest = contactRepository.Retrieve(appointment.GuestId);
             if (foundGuest == null)
             {
                 throw new InvalidGuestIdException("Guest Id is invalid");
             }
+
+            var foundAppointment = appointmentRepository.Retrieve(id);
             if (foundAppointment == null)
             {
                 result = appointmentRepository.Create(appointment);
             }
             else
             {
-                result = appointmentRepository.Update(appointment.AppointmentId, appointment);
+                result = appointmentRepository.Update(id, appointment);
             }
             return result;
 

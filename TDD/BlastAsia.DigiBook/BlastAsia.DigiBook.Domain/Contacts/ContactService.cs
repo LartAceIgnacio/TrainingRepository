@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Contacts
 {
-    public class ContactService
+    public class ContactService : IContactService
     {
         private IContactRepository contactRepository;
         private readonly string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
@@ -15,7 +15,7 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             this.contactRepository = contactRepository;
         }
 
-        public Contact Save(Contact contact)
+        public Contact Save(Guid id, Contact contact)
         {
             if (string.IsNullOrEmpty(contact.FirstName))
             {
@@ -53,16 +53,14 @@ namespace BlastAsia.DigiBook.Domain.Contacts
 
 
             Contact result = null;
-            var found = contactRepository
-                .Retrieve(contact.ContactId);
+            var found = contactRepository.Retrieve(id);
             if (found == null)
             {
                 result = contactRepository.Create(contact);
             }
             else
             {
-                result = contactRepository
-                    .Update(contact.ContactId, contact);
+                result = contactRepository.Update(id, contact);
             }
             return result;
         }
