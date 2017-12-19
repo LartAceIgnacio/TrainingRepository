@@ -46,7 +46,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             // Repositories
             var foundGuest = contactRepository.Retrieve(appointment.GuestId);
             var foundHost = employeeRepository.Retrieve(appointment.HostId);
-            
+
             // Check if GuestID is not null
             if (foundGuest == null)
             {
@@ -57,21 +57,18 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             {
                 throw new EmployeeIdRequiredException("Employee ID is required!");
             }
+           
 
             var foundAppointment = appointmentRepository.Retrieve(appointment.AppointmentId);
 
             // Create Appointment if ID of Appointment is not exist but the 2 ID exist
 
-            if (foundHost != null &&
-                foundGuest != null && 
-                foundAppointment == null)
+            if (foundAppointment == null)
             {
                 resultAppointment = appointmentRepository.Create(appointment);
             }
             // Update Appointment if all ID is existing
-            else if (foundHost != null  && 
-                    foundGuest != null && 
-                    foundAppointment != null)
+           if (foundAppointment != null)
             {
                 resultAppointment = appointmentRepository.Update(appointment.AppointmentId, appointment);
             }

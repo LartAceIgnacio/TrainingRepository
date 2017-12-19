@@ -29,8 +29,10 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             
         private Guid existingAppointmentId = Guid.NewGuid();
         private Guid nonExistingAppointmentId = Guid.Empty;
+
         private Guid existingContactId = Guid.NewGuid();
         private Guid nonExistingContactId = Guid.Empty;
+
         private Guid existingEmployeeId = Guid.NewGuid();
         private Guid nonExistingEmployeeId = Guid.Empty;
 
@@ -59,6 +61,11 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             sut = new AppointmentService(mockAppointmentRepository.Object, mockEmployeeRepository.Object,
                 mockContactRepository.Object);
 
+            //mockAppointmentRepository
+            // .Setup(a => a.Create(appointment))
+            // .Callback(() => appointment.AppointmentId = Guid.NewGuid())
+            // .Returns(appointment);
+
             mockEmployeeRepository
                .Setup(e => e.Retrieve(appointment.HostId))
                .Returns(employee);
@@ -70,6 +77,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             mockAppointmentRepository
                 .Setup(a => a.Retrieve(existingAppointmentId))
                 .Returns(appointment);
+            
 
             mockAppointmentRepository
                 .Setup(a => a.Retrieve(nonExistingAppointmentId))
@@ -84,7 +92,13 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
 
             //Assert
             mockAppointmentRepository
+              .Setup(a => a.Create(appointment))
+              .Callback(() => appointment.AppointmentId = Guid.NewGuid())
+              .Returns(appointment);
+
+            mockAppointmentRepository
                 .Verify(a => a.Retrieve(appointment.AppointmentId), Times.Once);
+
             mockAppointmentRepository
                 .Verify(a => a.Create(appointment), Times.Once);
         }
