@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
 using BlastAsia.DigiBook.Domain.Contacts;
+using Microsoft.AspNetCore.JsonPatch;
+using BlastAsia.DigiBook.API.Utils;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
@@ -15,7 +17,7 @@ namespace BlastAsia.DigiBook.API.Controllers
     public class ContactsController : Controller
     {
         private static List<Contact> contacts;
-            //= new List<Contact>() {
+         //   //= new List<Contact>() {
             //     new Contact {
             //        ContactId = Guid.NewGuid(),
             //        Firstname = "Matt",
@@ -35,13 +37,13 @@ namespace BlastAsia.DigiBook.API.Controllers
             //        CityAddress = "QC"
             //    }
             //};
-        private DigiBookDbContext context;
-        private IContactRepository c;
+        private IContactService contactService;
+        private IContactRepository contactRepository;
 
-        public ContactsController(DigiBookDbContext/*IDigiBookDbContext*/ context)
+        public ContactsController(IContactService contactService, IContactRepository contactRepository)
         {
-            this.context = context;
-            //if (contacts.Count == 0)
+            this.contactService = contactService;
+            this.contactRepository = contactRepository;
             
         }
         
@@ -49,15 +51,15 @@ namespace BlastAsia.DigiBook.API.Controllers
         [HttpGet, ActionName("GetContacts")]
         public IActionResult GetContactsById(Guid? id)
         {
-
+            
             var result = new List<Contact>();
             if (id == null)
             {
-                result.AddRange(this.context.Contacts.ToList());
+                result.AddRange(this.contactRepository.Retrieve());
             }
             else
             {
-                var contact = this.context.Contacts.FirstOrDefault(c => c.ContactId == id);
+                var contact = this.contactRepository.Retrieve(id.Value);
                 result.Add(contact);
             }
             
@@ -67,32 +69,45 @@ namespace BlastAsia.DigiBook.API.Controllers
         [HttpPost]
         public IActionResult PostContact([FromBody] Contact contact)
         {
-            contact.ContactId = Guid.NewGuid();
-            this.context.Contacts.Add(contact);
-            this.context.SaveChanges();
-
+            var result = this.contactService.Save(Guid.Empty, contact);
             return CreatedAtAction("GetContacts", new { id = contact.ContactId, contact });
         }
 
         [HttpDelete]
         public IActionResult DeleteContact(Guid id)
         {
-            var contactToDelete = context.Contacts.Find(id);
-            if (contactToDelete != null)
-            {
-                context.Contacts.Remove(contactToDelete);
-                context.SaveChanges();
-            }
-            return Ok();
+            this.contactRepository.Delete(id);
+            return NoContent();
         }
 
         [HttpPut]
-        public IActionResult UpdateConntact([FromBody] Contact contact, Guid id)
+        public IActionResult UpdateContact(/*[Bind("Firstname", "Lastname", "MobilePhone", "StreetAddress", "CityAddress",
+            "ZipCode", "Country", "EmailAddress")]*/[FromBody] Contact contact, Guid id)
         {
-            
-            this.context.Contacts.Update(contact);
-            this.context.SaveChanges();
 
+            var existingEmployee = this.contactRepository.Retrieve(id);
+
+            existingEmployee.ApplyChanges(contact);
+
+            this.contactService.Save(id, contact);
+            //contact
+            return Ok();
+        }
+
+        [HttpPatch]
+        public IActionResult PatchContact([FromBody]JsonPatchDocument patchedContact, Guid id)
+        {
+            if (patchedContact == null)
+            {
+                return BadRequest();
+            }
+
+            var contact = contactRepository.Retrieve(id);
+
+            if (contact == null) return NotFound();
+
+            patchedContact.ApplyTo(contact);
+            contactService.Save(id, contact);
             return Ok(contact);
         }
     }

@@ -112,7 +112,7 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
         public void Save_NewAppointmentWithValidData_ShouldCallRepositoryCreate()
         {
             //Act
-            _sut.Save(_appointment);
+            _sut.Save(_appointment.AppointmentId,_appointment);
 
             //Assert
             _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Once);
@@ -127,7 +127,7 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
             _appointment.AppointmentId= _existingAppointmentId;
 
             // Act
-            _sut.Save(_appointment);
+            _sut.Save(_appointment.AppointmentId, _appointment);
 
 
             // Assert
@@ -145,7 +145,7 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
 
             // Assert
             Assert.ThrowsException<HostRequiredException>(
-                () => _sut.Save(_appointment));
+                () => _sut.Save(_appointment.AppointmentId, _appointment));
             _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Once);
             _mockAppointmentRepo.Verify(a => a.Create(_appointment), Times.Never);
         }
@@ -159,7 +159,7 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
             // Act
             // Assert
             Assert.ThrowsException<GuestRequiredException>(
-                () => _sut.Save(_appointment));
+                () => _sut.Save(_appointment.AppointmentId, _appointment));
             _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Once);
             _mockAppointmentRepo.Verify(a => a.Create(_appointment), Times.Never);
         }
@@ -173,7 +173,7 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
             // Act
             // Assert
             Assert.ThrowsException<InvalidTimeScheduleException>(
-                () => _sut.Save(_appointment));
+                () => _sut.Save(_appointment.AppointmentId, _appointment));
             _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Never);
             _mockAppointmentRepo.Verify(a => a.Create(_appointment), Times.Never);
 
@@ -188,7 +188,7 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
             // Act
             // Assert
             Assert.ThrowsException<InvalidTimeScheduleException>(
-                () => _sut.Save(_appointment));
+                () => _sut.Save(_appointment.AppointmentId, _appointment));
             _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Never);
             _mockAppointmentRepo.Verify(a => a.Create(_appointment), Times.Never);
         }
@@ -201,7 +201,7 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
             // Act
             // Assert
             Assert.ThrowsException<InvalidTimeScheduleException>(
-                () => _sut.Save(_appointment));
+                () => _sut.Save(_appointment.AppointmentId, _appointment));
             _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Never);
             _mockAppointmentRepo.Verify(a => a.Create(_appointment), Times.Never);
         }

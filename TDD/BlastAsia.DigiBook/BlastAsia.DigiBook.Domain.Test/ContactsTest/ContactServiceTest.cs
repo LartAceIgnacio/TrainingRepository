@@ -60,7 +60,7 @@ namespace BlastAsia.DigiBook.Domain.Test.ContactsTest
         {
 
             // Act
-            var result = _sut.Save(_contact);
+            var result = _sut.Save(_contact.ContactId, _contact);
 
             //Assert
             _mockContactRepository.Verify(c => c.Retrieve(_nonExistingContactId), Times.Once);
@@ -74,7 +74,7 @@ namespace BlastAsia.DigiBook.Domain.Test.ContactsTest
             _contact.ContactId = _existingContactId;
 
             // Act
-            _sut.Save(_contact);
+            _sut.Save(_existingContactId, _contact);
 
 
             // Assert
@@ -94,7 +94,7 @@ namespace BlastAsia.DigiBook.Domain.Test.ContactsTest
                 .Returns(_contact);
 
             // Act
-            var newContact = _sut.Save(_contact);
+            var newContact = _sut.Save(_contact.ContactId, _contact);
 
             // Assert
             Assert.IsTrue(newContact.ContactId != Guid.Empty);
@@ -108,7 +108,7 @@ namespace BlastAsia.DigiBook.Domain.Test.ContactsTest
 
             // Act
             // Assert
-            Assert.ThrowsException<NameRequiredException>(() => _sut.Save(_contact));
+            Assert.ThrowsException<NameRequiredException>(() => _sut.Save(_contact.ContactId, _contact));
 
             _mockContactRepository.Verify(c => c.Create(_contact), Times.Never);
         }
@@ -123,7 +123,7 @@ namespace BlastAsia.DigiBook.Domain.Test.ContactsTest
             // Assert
 
             Assert.ThrowsException<NameRequiredException>(
-                    () => _sut.Save(_contact));
+                    () => _sut.Save(_contact.ContactId,_contact));
             _mockContactRepository.Verify(c => c.Create(_contact), Times.Never);
         }
 
@@ -137,7 +137,7 @@ namespace BlastAsia.DigiBook.Domain.Test.ContactsTest
             // Assert
 
             Assert.ThrowsException<AddressRequiredException>(
-                () => _sut.Save(_contact));
+                () => _sut.Save(_contact.ContactId, _contact));
 
             _mockContactRepository.Verify(c => c.Create(_contact), Times.Never);
         }
@@ -152,7 +152,7 @@ namespace BlastAsia.DigiBook.Domain.Test.ContactsTest
             // Assert
 
             Assert.ThrowsException<ContactNumberRequiredException>(
-                () => _sut.Save(_contact));
+                () => _sut.Save(_contact.ContactId, _contact));
 
             _mockContactRepository.Verify(c => c.Create(_contact), Times.Never);
         }
@@ -167,7 +167,7 @@ namespace BlastAsia.DigiBook.Domain.Test.ContactsTest
             // Assert
 
             Assert.ThrowsException<ContactNumberMinimumLength>(
-                () => _sut.Save(_contact));
+                () => _sut.Save(_contact.ContactId, _contact));
 
             _mockContactRepository.Verify(c => c.Create(_contact), Times.Never);
         }
@@ -181,7 +181,7 @@ namespace BlastAsia.DigiBook.Domain.Test.ContactsTest
             // Act
             // Assert
             Assert.ThrowsException<CityAddressRequiredException>(
-                () => _sut.Save(_contact));
+                () => _sut.Save(_contact.ContactId, _contact));
 
             _mockContactRepository.Verify(c => c.Create(_contact), Times.Never);
         }
@@ -195,7 +195,7 @@ namespace BlastAsia.DigiBook.Domain.Test.ContactsTest
             // Act
             // Assert
             Assert.ThrowsException<InvalidZipCodeException>(
-                ()=> _sut.Save(_contact));
+                ()=> _sut.Save(_contact.ContactId, (_contact)));
 
             _mockContactRepository.Verify(c => c.Create(_contact), Times.Never);
 
@@ -210,7 +210,7 @@ namespace BlastAsia.DigiBook.Domain.Test.ContactsTest
             // Act
             // Assert
             Assert.ThrowsException<InvalidZipCodeException>(
-                () => _sut.Save(_contact));
+                () => _sut.Save(_contact.ContactId, _contact));
 
             _mockContactRepository.Verify(c => c.Create(_contact), Times.Never);
 
@@ -226,7 +226,7 @@ namespace BlastAsia.DigiBook.Domain.Test.ContactsTest
             // ACT
             // ASSERT
             Assert.ThrowsException<InvalidEmailFormatException>(
-                    () => _sut.Save(_contact));
+                    () => _sut.Save(_contact.ContactId, _contact));
 
             _mockContactRepository.Verify(c => c.Create(_contact), Times.Never);
         }

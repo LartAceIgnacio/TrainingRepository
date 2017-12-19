@@ -7,6 +7,6 @@ namespace BlastAsia.DigiBook.Domain.Contacts
 {
     public interface IContactService
     {
-        Contact Save(Contact contact);
+        Contact Save(Guid id, Contact contact);
     }
 }

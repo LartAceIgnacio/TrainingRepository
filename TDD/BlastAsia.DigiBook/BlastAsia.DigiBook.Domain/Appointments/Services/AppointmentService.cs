@@ -23,7 +23,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments.Services
             this._datetimewrapper = datetimewrapper;
         }
 
-        public Appointment Save(Appointment appointment)
+        public Appointment Save(Guid id, Appointment appointment)
         {
             
             if (appointment.EndTime <= appointment.StartTime) throw new InvalidTimeScheduleException("Endtime must not less than start time");
@@ -36,9 +36,24 @@ namespace BlastAsia.DigiBook.Domain.Appointments.Services
 
             if (foundHost == null) throw new HostRequiredException("Host is required.");
             if (foundGuest == null) throw new GuestRequiredException("Guest is required.");
-            
 
-            return (foundAppointment == null) ? _appointmentRepo.Create(appointment) : _appointmentRepo.Update(appointment.AppointmentId, appointment);
+            Appointment result = null;
+
+            var found = _appointmentRepo.Retrieve(id);
+
+            //result = (found == null) ? contactRepository.Create(contact) : contactRepository.Update(contact.ContactId, contact);
+
+            if (found == null)
+            {
+                result = _appointmentRepo.Create(appointment);
+            }
+            else
+            {
+                result = _appointmentRepo.Update(id, appointment);
+            }
+
+
+            return result;
         }
     }
 }

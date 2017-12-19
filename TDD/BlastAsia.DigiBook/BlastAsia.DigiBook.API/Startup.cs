@@ -12,6 +12,9 @@ using Microsoft.EntityFrameworkCore;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
 using BlastAsia.DigiBook.Domain.Contacts;
 using BlastAsia.DigiBook.Infrastructure.Persistence.Repositories;
+using BlastAsia.DigiBook.Domain.Employees.Services;
+using BlastAsia.DigiBook.Domain.Employees;
+using BlastAsia.DigiBook.Domain.Appointments.Services;
 
 namespace BlastAsia.DigiBook.API
 {
@@ -30,10 +33,19 @@ namespace BlastAsia.DigiBook.API
             services.AddDbContext<DigiBookDbContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddTransient<IDigiBookDbContext, DigiBookDbContext>();
-            //services.AddTransient<IContactRepository, ContactRepository>();
-            
+            services.AddScoped<IDigiBookDbContext, DigiBookDbContext>();
+            services.AddTransient<IContactService, ContactService>();
+            services.AddScoped<IContactRepository, ContactRepository>();
+            services.AddTransient<IEmployeeService, EmployeeService>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddTransient<IAppointmentService, AppointmentService>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+
             services.AddMvc();
+
+            services.AddSwaggerGen(o => {
+                o.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "DigiBook API" } );
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +55,12 @@ namespace BlastAsia.DigiBook.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(o =>
+            {
+                o.SwaggerEndpoint("/swagger/v1/swagger.json","DigiBook Api 1");
+            });
 
             app.UseMvc();
         }

@@ -29,9 +29,9 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
                 .ToTable("Employee")
                 .HasKey(k => k.Id);
 
-            //modelBuilder.Entity<Appointment>()
-            //    .ToTable("Appointment")
-            //    .HasKey(a => a.AppointmentId);
+            modelBuilder.Entity<Appointment>()
+                .ToTable("Appointment")
+                .HasKey(a => a.AppointmentId);
         }
         
     }

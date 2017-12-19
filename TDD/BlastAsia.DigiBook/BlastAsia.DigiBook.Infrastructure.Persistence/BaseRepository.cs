@@ -1,6 +1,7 @@
 ﻿using BlastAsia.DigiBook.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence
@@ -37,12 +38,15 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
 
         public TEntity Update(Guid existingEntityId, TEntity entity)
         {
-            Retrieve(existingEntityId);
-            _context.Update(entity);
+            var found = Retrieve(existingEntityId);
+            _context.Update(found);
             _context.SaveChanges();
             return entity;
         }
 
-
+        public IEnumerable<TEntity> Retrieve()
+        {
+            return _context.Set<TEntity>().ToList();
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace BlastAsia.DigiBook.Domain.Employees.Services
             this._empRepository = repository;
         }
 
-        public Employee Save(Employee employee)
+        public Employee Save(Guid id, Employee employee)
         {
             if (string.IsNullOrEmpty(employee.Firstname)) throw new NameRequiredException("Firstname is required.");
             if (string.IsNullOrEmpty(employee.Lastname)) throw new NameRequiredException("Lastname is required.");
@@ -33,7 +33,7 @@ namespace BlastAsia.DigiBook.Domain.Employees.Services
 
 
             Employee emp = null;
-            var employeeExists = _empRepository.Retrieve(employee.Id);
+            var employeeExists = _empRepository.Retrieve(id);
 
             if (employeeExists == null)
             {
@@ -41,7 +41,7 @@ namespace BlastAsia.DigiBook.Domain.Employees.Services
             }
             else
             {
-                emp = _empRepository.Update(employee.Id, employee);
+                emp = _empRepository.Update(id, employee);
             }
 
             return emp;

@@ -14,7 +14,7 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             this.contactRepository = contactRepository;
         }
 
-        public Contact Save(Contact contact)
+        public Contact Save(Guid id, Contact contact)
         {
             if (string.IsNullOrEmpty(contact.Firstname)) throw new NameRequiredException("Firstname is required.");
 
@@ -34,13 +34,22 @@ namespace BlastAsia.DigiBook.Domain.Contacts
 
             if (!Regex.IsMatch(contact.EmailAddress, rfc2822EmailPattern)) throw new InvalidEmailFormatException("Email address is not in correct format.");
 
-            //Contact result = null;
+            Contact result = null;
 
-            var found = contactRepository.Retrieve(contact.ContactId);
-            
+            var found = contactRepository.Retrieve(id);
+
             //result = (found == null) ? contactRepository.Create(contact) : contactRepository.Update(contact.ContactId, contact);
 
-            return (found == null) ? contactRepository.Create(contact) : contactRepository.Update(contact.ContactId, contact); ;
+            if (found == null)
+            {
+                result = contactRepository.Create(contact);
+            }
+            else
+            {
+                result = contactRepository.Update(id, contact);
+            }
+
+            return result;
         }
         
 

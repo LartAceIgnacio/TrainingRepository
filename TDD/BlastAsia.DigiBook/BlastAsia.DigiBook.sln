@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.0 Domain", "3.0 Domain", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.0 Persistence", "4.0 Persistence", "{EF900050-C541-426A-8AA4-C426846C52D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.DigiBook.API", "BlastAsia.DigiBook.API\BlastAsia.DigiBook.API.csproj", "{1D406E1F-6697-4DCC-B58D-CC1D4B450C3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.API", "BlastAsia.DigiBook.API\BlastAsia.DigiBook.API.csproj", "{1D406E1F-6697-4DCC-B58D-CC1D4B450C3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
