@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Contacts
 {
-    public class ContactService
+    public class ContactService : IContactService
     {
         private readonly int minimumZipcode = 0;
 
@@ -15,7 +15,7 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             this.contactRepository = contactRepository;
         }
 
-        public Contact Save(Contact contact)
+        public Contact Save(Guid id, Contact contact)
         {
             if(string.IsNullOrEmpty(contact.FirstName))
             {
@@ -55,7 +55,17 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             }
             else
             {
-                result = contactRepository.Update(contact.ContactId, contact);
+                //result = contactRepository.Update(contact.ContactId, contact);
+                found.FirstName = contact.FirstName;
+                found.LastName = contact.LastName;
+                found.MobilePhone = contact.MobilePhone;
+                found.StreetAddress = contact.StreetAddress;
+                found.CityAddress = contact.CityAddress;
+                found.Country = contact.Country;
+                found.EmailAddress = contact.EmailAddress;
+                found.isActive = contact.isActive;
+                found.DateActivated = contact.DateActivated;
+                result = contactRepository.Update(found.ContactId, found);
             }
 
             return result;

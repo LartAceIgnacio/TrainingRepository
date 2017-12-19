@@ -7,7 +7,7 @@ using BlastAsia.DigiBook.Domain.Models.Appointments;
 
 namespace BlastAsia.DigiBook.Domain.Appointments
 {
-    public class AppointmentService
+    public class AppointmentService : IAppointmentService
     {
         private IAppointmentRepository appointmentRepository;
         private IEmployeeRepository employeeRepository;
@@ -24,7 +24,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             this.contactRepository = contactRepository;
         }
 
-        public Appointment Save(Appointment appointment)
+        public Appointment Save(Guid id, Appointment appointment)
         {
             if(appointment.AppointmentDate <DateTime.Today)
             {
@@ -52,7 +52,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
                 throw new InvalidEmployeeIdException("Employee ID should not be empty.");
             }
 
-            var foundAppointmentId = appointmentRepository.Retrieve(appointment.appointmentId);
+            var foundAppointmentId = appointmentRepository.Retrieve(id);
 
             if (foundAppointmentId == null)
             {
@@ -60,7 +60,16 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             }
             else
             {
-                result = appointmentRepository.Update(appointment.appointmentId, appointment);
+                foundAppointmentId.AppointmentDate = appointment.AppointmentDate;
+                foundAppointmentId.appointmentId = appointment.appointmentId;
+                foundAppointmentId.EndTime = appointment.EndTime;
+                foundAppointmentId.GuestId = appointment.GuestId;
+                foundAppointmentId.HostId = appointment.HostId;
+                foundAppointmentId.StartTime = appointment.StartTime;
+                foundAppointmentId.IsCancelled = appointment.IsCancelled;
+                foundAppointmentId.IsDone = appointment.IsDone;
+                foundAppointmentId.Notes = appointment.Notes;
+                result = appointmentRepository.Update(foundAppointmentId.appointmentId, foundAppointmentId);
             }
 
             return result;

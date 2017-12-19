@@ -1,6 +1,7 @@
 ﻿using BlastAsia.DigiBook.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence
@@ -40,5 +41,10 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
             context.SaveChanges();
             return entity;
         }
+        public IEnumerable<TEntity> Retreive()
+        {
+            return context.Set<TEntity>().ToList();
+        }
+        
     }
 }

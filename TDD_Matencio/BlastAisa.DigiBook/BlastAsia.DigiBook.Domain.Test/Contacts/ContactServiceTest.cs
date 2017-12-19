@@ -73,7 +73,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
         {
             //Arrange
             //Act
-            var result = sut.Save(contact);
+            var result = sut.Save(contact.ContactId, contact);
             // Assert
             mockContactRepository
                 .Verify(cr => cr.Retrieve(nonExistingContactId), Times.Once());
@@ -88,7 +88,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             // Arrange
             contact.ContactId = existingContactId;
             // act
-            sut.Save(contact);
+            sut.Save(contact.ContactId,contact);
             // assert
             mockContactRepository
                 .Verify(cr => cr.Retrieve(existingContactId), Times.Once);
@@ -116,7 +116,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
                 .Returns<Contact>(null);
 
             //Act
-            var newContact = sut.Save(contact);
+            var newContact = sut.Save(contact.ContactId, contact);
             //Assert
             Assert.IsTrue(newContact.ContactId != Guid.Empty);
         }
@@ -129,7 +129,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             //Act
             //Assert
             Assert.ThrowsException<NameRequiredException>(
-                () => sut.Save(contact));
+                () => sut.Save(contact.ContactId, contact));
             mockContactRepository.
               Verify(c => c.Create(contact), Times.Never);
         }
@@ -142,7 +142,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             //Act
             //Assert
             Assert.ThrowsException<NameRequiredException>(
-                () => sut.Save(contact));
+                () => sut.Save(contact.ContactId, contact));
             mockContactRepository.
               Verify(c => c.Create(contact), Times.Never);
         }
@@ -155,7 +155,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             //Act
             //Assert
             Assert.ThrowsException<MobilePhoneRequiredException>(
-                () => sut.Save(contact));
+                () => sut.Save(contact.ContactId, contact));
             mockContactRepository.
               Verify(c => c.Create(contact), Times.Never);
         }
@@ -169,7 +169,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
 
             //Assert
             Assert.ThrowsException<AddressRequiredException>(
-                () => sut.Save(contact));
+                () => sut.Save(contact.ContactId, contact));
             mockContactRepository.
               Verify(c => c.Create(contact), Times.Never);
         }
@@ -182,7 +182,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             //Act
             //Assert
             Assert.ThrowsException<AddressRequiredException>(
-                () => sut.Save(contact));
+                () => sut.Save(contact.ContactId, contact));
             mockContactRepository.
               Verify(c => c.Create(contact), Times.Never);
         }
@@ -195,7 +195,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             //Act
             //Assert
             Assert.ThrowsException<ZipcodeShouldBePositiveException>(
-                () => sut.Save(contact));
+                () => sut.Save(contact.ContactId, contact));
             mockContactRepository.
               Verify(c => c.Create(contact), Times.Never);
         }
@@ -208,7 +208,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             //Act
             //Assert
             Assert.ThrowsException<CountryRequiredException>(
-                () => sut.Save(contact));
+                () => sut.Save(contact.ContactId, contact));
             mockContactRepository.
               Verify(c => c.Create(contact), Times.Never);
         }

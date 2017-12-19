@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
+using BlastAsia.DigiBook.Domain.Contacts;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
@@ -15,25 +17,26 @@ namespace BlastAsia.DigiBook.API.Controllers
     {
         private static List<Contact> contacts = new List<Contact>();
   
-        private readonly DigiBookDbContext context;
-        public ContactsController(DigiBookDbContext context)
+        private readonly IContactService contactService;
+        private readonly IContactRepository contactRepository;
+        public ContactsController(IContactService contactService, IContactRepository contactRepository)
         {
-            this.context = context;
+            this.contactService = contactService;
+            this.contactRepository = contactRepository;
         }
 
-        [HttpGet, ActionName("CreateContact")]
+        [HttpGet]
         public IActionResult GetContacts(Guid? id)
 
         {
             var result = new List<Contact>();
             if (id == null)
             {
-                result.AddRange(this.context.Contacts.ToList());
+                result.AddRange(this.contactRepository.Retreive());
             }
             else
             {
-                var contact = this.context.Contacts.FirstOrDefault
-                    (c => c.ContactId == id);
+                var contact = this.contactRepository.Retrieve(id.Value);
                 result.Add(contact);
             }
 
@@ -41,32 +44,46 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostContacts([FromBody] Contact contact)
+        public IActionResult CreateContact(
+            [FromBody] Contact contact)
         {
-            contact.ContactId = Guid.NewGuid();
-            this.context.Contacts.Add(contact);
-            this.context.SaveChanges();
+            var result = this.contactService.Save(Guid.Empty, contact);
 
-            return CreatedAtAction("CreateContact", new { id = contact.ContactId }, contact);
+            return CreatedAtAction("GetContacts",
+                new { id = contact.ContactId }, result);
         }
 
         [HttpDelete]
         public IActionResult DeleteContact(Guid id)
         {
-            var contactToDelete = context.Contacts.Find(id);
-            if (contactToDelete != null)
-            {
-                context.Contacts.Remove(contactToDelete);
-                context.SaveChanges();
-            }
-            return Ok();
+            this.contactRepository.Delete(id);
+            return NoContent();
         }
 
         [HttpPut]
-        public IActionResult UpdateContact([FromBody] Contact contact,Guid id)
+        public IActionResult UpdateContact(
+            [FromBody] Contact contact, Guid id)
         {
-            this.context.Contacts.Update(contact);
-            this.context.SaveChanges();
+            this.contactService.Save(id, contact);
+
+            return Ok(contact);
+        }
+
+        [HttpPatch]
+        public IActionResult PatchContact(
+            [FromBody]JsonPatchDocument patchedContact, Guid id)
+        {
+            if(patchedContact == null)
+            {
+                return BadRequest();
+            }
+            var contact = contactRepository.Retrieve(id);
+            if(contact == null)
+            {
+                return NotFound();
+            }
+            patchedContact.ApplyTo(contact);
+            contactService.Save(id, contact);
 
             return Ok(contact);
         }

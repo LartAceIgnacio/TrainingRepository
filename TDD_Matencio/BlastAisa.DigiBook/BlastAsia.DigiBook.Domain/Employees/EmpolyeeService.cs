@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BlastAsia.DigiBook.Domain.Employees
 {
-    public class EmpolyeeService 
+    public class EmpolyeeService : IEmpolyeeService
     {
         private IEmployeeRepository employeeRepository;
         public EmpolyeeService(IEmployeeRepository employeeRepository)
@@ -12,7 +12,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
             this.employeeRepository = employeeRepository;
         }
 
-        public Employee Save(Employee employee)
+        public Employee Save(Guid id, Employee employee)
         {
             if(string.IsNullOrEmpty(employee.firstName))
             {
@@ -30,10 +30,10 @@ namespace BlastAsia.DigiBook.Domain.Employees
             {
                 throw new EmailAddressRequiredException();
             }
-            if(employee.photo == null)
-            {
-                throw new PhotoRequiredException();
-            }
+            //if(employee.photo == null)
+            //{
+            //    throw new PhotoRequiredException();
+            //}
             if(string.IsNullOrEmpty(employee.officePhone))
             {
                 throw new OfficePhoneRequiredException();
@@ -57,14 +57,22 @@ namespace BlastAsia.DigiBook.Domain.Employees
 
             Employee result = null;
 
-            var found = employeeRepository.Retrieve(employee.employeeId);
+            var found = employeeRepository.Retrieve(id);
             if (found == null)
             {
                 result = employeeRepository.Create(employee);
             }
             else
             {
-                result = employeeRepository.Update(employee.employeeId, employee);
+                //result = employeeRepository.Update(employee.employeeId, employee);
+                found.firstName = employee.firstName;
+                found.lastName = employee.lastName;
+                found.mobilePhone = employee.mobilePhone;
+                found.emailAddress = employee.emailAddress;
+                found.photo = employee.photo;
+                found.officePhone = employee.officePhone;
+                found.extension = employee.extension;
+                result = employeeRepository.Update(found.employeeId, found);
             }
 
             return result;
