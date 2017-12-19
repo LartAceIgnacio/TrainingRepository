@@ -13,8 +13,8 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
     [TestClass]
     public class EmployeeRepositoryTest
     {
-        private Employee employee;
-        private DbContextOptions<DigiBookDbContext> dbOptions;
+        private Employee employee; // model 
+        private DbContextOptions<DigiBookDbContext> dbOptions; //
         private DigiBookDbContext dbContext;
         private readonly string connectionString = @"Data Source=.; Database=DigiBookDb; Integrated Security=true;";
         private EmployeeRepository sut;

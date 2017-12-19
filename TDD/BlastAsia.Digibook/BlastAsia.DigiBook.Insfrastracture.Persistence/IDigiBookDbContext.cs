@@ -14,5 +14,9 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence
 
         EntityEntry<TEntity> Update<TEntity>(TEntity entity)
             where TEntity : class;
+
+        //EntityEntry<TEntity> Entry<TEntity>( TEntity entity) where TEntity : class;
+
+        //EntityEntry<TEntity> Attach<TEntity>(TEntity entity) where TEntity : class;
     }
 }

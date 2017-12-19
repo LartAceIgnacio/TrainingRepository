@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using BlastAsia.DigiBook.Domain.Models.Employees;
 using BlastAsia.DigiBook.Domain.Contacts;
 using BlastAsia.DigiBook.Domain.Contacts.Exception;
@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Employees
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private readonly string regex = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
@@ -16,7 +16,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
             _employeeRepo = employeeService;
         }
 
-        public Employee Save(Employee employee)
+        public Employee Save(Guid id , Employee employee)
         {
             // First Name Validation
             if (string.IsNullOrWhiteSpace(employee.FirstName) || string.IsNullOrEmpty(employee.FirstName)) throw new NameRequiredException("First Name is required");
@@ -36,7 +36,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
                 }
             }
             // Photo Stream Validation
-            if (employee.Photo == null) throw new PhotoRequiredException("Photo is required");
+           // if (employee.Photo == null) throw new PhotoRequiredException("Photo is required");
             // Office Phone validation
             if (string.IsNullOrWhiteSpace(employee.OfficePhone) || string.IsNullOrEmpty(employee.OfficePhone)) throw new MobilePhoneRequiredException("Mobile Number is required");
             // Extention validation

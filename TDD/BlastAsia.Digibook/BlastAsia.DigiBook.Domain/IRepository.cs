@@ -4,12 +4,16 @@ using System.Text;
 
 namespace BlastAsia.DigiBook.Domain
 {
-    public interface IRepository<TEntity>
-        where TEntity: class
+
+    public interface IRepository<TEntitity>
+        where TEntitity : class
     {
-        TEntity Create(TEntity entity);
-        TEntity Retrieve(Guid id);
-        TEntity Update(Guid id, TEntity entity);
+        TEntitity Create(TEntitity entitity);
+        TEntitity Retrieve(Guid id);
+        IEnumerable<TEntitity> Retrieve();
+        TEntitity Update(Guid id, TEntitity entity);
         void Delete(Guid id);
     }
+
+
 }

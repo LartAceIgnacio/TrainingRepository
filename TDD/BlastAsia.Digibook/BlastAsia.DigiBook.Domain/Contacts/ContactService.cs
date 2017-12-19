@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Contacts
 {
-    public class ContactService 
+    public class ContactService : IContactService
     {
         private IContactRepository _contactRepository;
         private readonly string regex = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
@@ -15,7 +15,7 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             _contactRepository = contactRepository;
         }
 
-        public Contact Save(Contact contact)
+        public Contact Save(Guid id, Contact contact)
         {
             if (string.IsNullOrWhiteSpace(contact.FirstName))
             {
@@ -78,7 +78,7 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             //}
             #endregion
 
-            result = found == null ? _contactRepository.Create(contact) : _contactRepository.Update(contact.ContactId, contact);
+            result = found == null ? _contactRepository.Create(contact) : _contactRepository.Update(id, contact);
 
             return result;
         }

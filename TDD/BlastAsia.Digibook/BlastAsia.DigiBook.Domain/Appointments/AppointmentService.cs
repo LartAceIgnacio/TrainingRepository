@@ -6,7 +6,7 @@ using BlastAsia.DigiBook.Domain.Appointments.Exceptions;
 
 namespace BlastAsia.DigiBook.Domain.Appointments
 {
-    public class AppointmentService
+    public class AppointmentService : IAppointmentService
     {
         private IAppointmentRepository _appointmentServiceRepository;
         private IContactRepository _contactRepository;
@@ -23,7 +23,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             _employeeRepository = employeeRepository;
         }
 
-        public Appointment Save(Appointment appointment)
+        public Appointment Save(Guid id, Appointment appointment)
         {
             // appointment date validation
             if (appointment.AppointmentDate < DateTime.Now) throw new InvalidAppointmentDateException("Appointment Should not be less than date today");
