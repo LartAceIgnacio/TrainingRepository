@@ -58,7 +58,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
 
             //Act
 
-            var result = sut.Save(contact);
+            var result = sut.Save(contact.ContactId, contact);
 
             //Assert
             mockContactRepository
@@ -78,7 +78,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             contact.ContactId = existingContactId;
 
             //Act
-            sut.Save(contact);
+            sut.Save(contact.ContactId, contact);
 
             //Assert
             mockContactRepository
@@ -100,7 +100,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
                 .Returns(contact);
 
             //Act
-            var newContact = sut.Save(contact);
+            var newContact = sut.Save(contact.ContactId, contact);
 
             //Assert
 
@@ -119,7 +119,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             
 
             Assert.ThrowsException<NameRequiredException>(
-                () => sut.Save(contact)
+                () => sut.Save(contact.ContactId, contact)
                 );
 
             mockContactRepository
@@ -136,7 +136,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
 
 
             Assert.ThrowsException<NameRequiredException>(
-                () => sut.Save(contact)
+                () => sut.Save(contact.ContactId, contact)
                 );
 
             mockContactRepository
@@ -154,7 +154,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
 
 
             Assert.ThrowsException<MobileNumberRquiredException>(
-                () => sut.Save(contact)
+                () => sut.Save(contact.ContactId, contact)
                 );
 
             mockContactRepository
@@ -171,7 +171,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
 
 
             Assert.ThrowsException<StreetAddressRquiredException>(
-                () => sut.Save(contact)
+                () => sut.Save(contact.ContactId, contact)
                 );
 
             mockContactRepository
@@ -188,7 +188,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
 
 
             Assert.ThrowsException<CityAddressRquiredException>(
-                () => sut.Save(contact)
+                () => sut.Save(contact.ContactId, contact)
                 );
 
             mockContactRepository
@@ -205,7 +205,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
 
 
             Assert.ThrowsException<ZipCodeNegativeException>(
-                () => sut.Save(contact)
+                () => sut.Save(contact.ContactId, contact)
                 );
 
             mockContactRepository
@@ -222,7 +222,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
 
 
             Assert.ThrowsException<CountryRequiredException>(
-                () => sut.Save(contact)
+                () => sut.Save(contact.ContactId,contact)
                 );
 
             mockContactRepository
