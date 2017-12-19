@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using BlastAsia.DigiBook.Domain.Appointments;
 using BlastAsia.DigiBook.Domain.Models.Appointments;
 using Microsoft.AspNetCore.JsonPatch;
+using BlastAsia.DigiBook.API.Utils;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
@@ -62,7 +63,12 @@ namespace BlastAsia.DigiBook.API.Controllers
         public IActionResult UpdateAppointment(
             [FromBody] Appointment appointment, Guid id)
         {
-            this.appointmentService.Save(id, appointment);
+            var existingAppointment = appointmentRepository.Retrieve(id);
+
+            existingAppointment.ApplyChanges(appointment);
+
+            this.appointmentService.Save(id, existingAppointment);
+
 
             return Ok(appointment);
         }
