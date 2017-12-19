@@ -60,16 +60,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             }
             else
             {
-                foundAppointmentId.AppointmentDate = appointment.AppointmentDate;
-                foundAppointmentId.appointmentId = appointment.appointmentId;
-                foundAppointmentId.EndTime = appointment.EndTime;
-                foundAppointmentId.GuestId = appointment.GuestId;
-                foundAppointmentId.HostId = appointment.HostId;
-                foundAppointmentId.StartTime = appointment.StartTime;
-                foundAppointmentId.IsCancelled = appointment.IsCancelled;
-                foundAppointmentId.IsDone = appointment.IsDone;
-                foundAppointmentId.Notes = appointment.Notes;
-                result = appointmentRepository.Update(foundAppointmentId.appointmentId, foundAppointmentId);
+                result = appointmentRepository.Update(id, appointment);
             }
 
             return result;

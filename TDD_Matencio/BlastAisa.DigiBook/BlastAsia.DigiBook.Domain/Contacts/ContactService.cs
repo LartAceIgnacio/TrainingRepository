@@ -48,24 +48,14 @@ namespace BlastAsia.DigiBook.Domain.Contacts
 
             Contact result = null;
 
-            var found = contactRepository.Retrieve(contact.ContactId);
+            var found = contactRepository.Retrieve(id);
             if (found == null)
             {
                 result = contactRepository.Create(contact);
             }
             else
             {
-                //result = contactRepository.Update(contact.ContactId, contact);
-                found.FirstName = contact.FirstName;
-                found.LastName = contact.LastName;
-                found.MobilePhone = contact.MobilePhone;
-                found.StreetAddress = contact.StreetAddress;
-                found.CityAddress = contact.CityAddress;
-                found.Country = contact.Country;
-                found.EmailAddress = contact.EmailAddress;
-                found.isActive = contact.isActive;
-                found.DateActivated = contact.DateActivated;
-                result = contactRepository.Update(found.ContactId, found);
+                result = contactRepository.Update(id, contact);
             }
 
             return result;

@@ -8,6 +8,7 @@ using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
 using BlastAsia.DigiBook.Domain.Contacts;
 using Microsoft.AspNetCore.JsonPatch;
+using BlastAsia.DigiBook.Api.Utils;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
@@ -64,7 +65,11 @@ namespace BlastAsia.DigiBook.API.Controllers
         public IActionResult UpdateContact(
             [FromBody] Contact contact, Guid id)
         {
-            this.contactService.Save(id, contact);
+            var existingContact = contactRepository.Retrieve(id);
+
+            existingContact.ApplyChanges(contact);
+
+            this.contactService.Save(id, existingContact);
 
             return Ok(contact);
         }

@@ -64,15 +64,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
             }
             else
             {
-                //result = employeeRepository.Update(employee.employeeId, employee);
-                found.firstName = employee.firstName;
-                found.lastName = employee.lastName;
-                found.mobilePhone = employee.mobilePhone;
-                found.emailAddress = employee.emailAddress;
-                found.photo = employee.photo;
-                found.officePhone = employee.officePhone;
-                found.extension = employee.extension;
-                result = employeeRepository.Update(found.employeeId, found);
+                result = employeeRepository.Update(id, employee);
             }
 
             return result;
