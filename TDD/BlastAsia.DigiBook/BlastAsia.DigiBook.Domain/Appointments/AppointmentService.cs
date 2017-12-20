@@ -10,7 +10,7 @@ using System.Text;
 
 namespace BlastAsia.DigiBook.Domain.Appointments
 {
-    public class AppointmentService
+    public class AppointmentService : IAppointmentService
     {
         private IAppointmentRepository appointmentRepository;
         public IEmployeeRepository employeeRepository;
@@ -24,10 +24,10 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             this.contactRepository = contactRepository;
         }
 
-        public void Save(Appointment appointment)
+        public Appointment Save(Guid id,Appointment appointment)
         {
             //Appointment Date
-            if (appointment.AppointmentDate < DateTime.Today)
+            if (appointment.AppointmentDate <= DateTime.Today)
             {
                 throw new AppointmentDateLessThanDateTodayException("Appointment Date should be greater or equal to Date Today!");
             }
@@ -59,7 +59,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             }
            
 
-            var foundAppointment = appointmentRepository.Retrieve(appointment.AppointmentId);
+            var foundAppointment = appointmentRepository.Retrieve(id);
 
             // Create Appointment if ID of Appointment is not exist but the 2 ID exist
 
@@ -70,11 +70,12 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             // Update Appointment if all ID is existing
            if (foundAppointment != null)
             {
-                resultAppointment = appointmentRepository.Update(appointment.AppointmentId, appointment);
+                resultAppointment = appointmentRepository.Update(id, appointment);
             }
 
-        }
+            return resultAppointment;
 
+        }
     }
 }
 

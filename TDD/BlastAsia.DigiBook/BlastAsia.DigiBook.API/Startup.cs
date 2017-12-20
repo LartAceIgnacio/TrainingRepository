@@ -9,6 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using BlastAsia.DigiBook.Domain.Contacts;
+using BlastAsia.DigiBook.Infrastructure.Persistence.Repositories;
+using Swashbuckle.AspNetCore.Swagger;
+using BlastAsia.DigiBook.Domain.Employees;
+using BlastAsia.DigiBook.Domain.Appointments;
 
 namespace BlastAsia.DigiBook.API
 {
@@ -37,6 +42,23 @@ namespace BlastAsia.DigiBook.API
              );
             // Add framework services.
             services.AddMvc();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1",
+                    new Info { Title = "DigiBook API" });
+            });
+
+            services.AddScoped<IDigiBookDbContext, DigiBookDbContext>();
+
+            services.AddTransient<IContactService, ContactService>();
+            services.AddScoped<IContactRepository, ContactRepositories>();
+
+            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IEmployeeRepository,EmployeeRepository>();
+
+            services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +67,12 @@ namespace BlastAsia.DigiBook.API
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json",
+                    "DigiBook Api V1");
+            });
             app.UseMvc();
         }
     }

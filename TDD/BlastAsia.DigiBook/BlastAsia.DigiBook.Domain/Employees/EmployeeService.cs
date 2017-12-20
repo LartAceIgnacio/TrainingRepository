@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BlastAsia.DigiBook.Domain.Employees
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private IEmployeeRepository employeeRepository;
 
@@ -16,7 +16,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
         {
             this.employeeRepository = employeeRepository;
         }
-        public Employee Save(Employee employee)
+        public Employee Save(Guid id,Employee employee)
         {
             if (string.IsNullOrEmpty(employee.FirstName))
             {
@@ -34,10 +34,10 @@ namespace BlastAsia.DigiBook.Domain.Employees
             {
                 throw new EmailAddressRequiredException("EmailAddress is Required");
             }
-            if (employee.Photo == null)
-            {
-                throw new PhotoRequiredException("Photo is Required");
-            }
+            //if (employee.Photo == null)
+            //{
+            //    throw new PhotoRequiredException("Photo is Required");
+            //}
             if (string.IsNullOrEmpty(employee.OfficePhone))
             {
                 throw new OfficePhoneRequiredException("OfficePhone is Required");
@@ -49,8 +49,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
 
             Employee result = null;
 
-            var found = employeeRepository
-                .Retrieve(employee.EmployeeId);
+            var found = employeeRepository.Retrieve(id);
 
             if (found == null)
             {
@@ -58,8 +57,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
             }
             else
             {
-                result = employeeRepository
-                    .Update(employee.EmployeeId, employee);
+                result = employeeRepository.Update(id, employee);
             }
             return result;
         }
