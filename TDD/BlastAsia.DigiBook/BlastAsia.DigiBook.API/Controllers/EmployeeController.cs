@@ -48,7 +48,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         [HttpPost]
         public IActionResult PostEmployee([FromBody] Employee employee)
         {
-            this.employeeRepo.Create(employee);
+            
             var result = this.employeeService.Save(Guid.Empty, employee);
             
 
@@ -85,7 +85,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
             if (employeeFound == null) return NotFound();
             patchedDocuments.ApplyTo(employeeFound);
-            this.employeeService.Save(employee.Id, employee);
+            this.employeeService.Save(employee.Id, employeeFound);
 
             return Ok(employee);
         }

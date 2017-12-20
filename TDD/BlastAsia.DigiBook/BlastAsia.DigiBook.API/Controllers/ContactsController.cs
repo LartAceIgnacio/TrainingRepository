@@ -17,26 +17,26 @@ namespace BlastAsia.DigiBook.API.Controllers
     public class ContactsController : Controller
     {
         private static List<Contact> contacts;
-         //   //= new List<Contact>() {
-            //     new Contact {
-            //        ContactId = Guid.NewGuid(),
-            //        Firstname = "Matt",
-            //        Lastname = "Mendez",
-            //        CityAddress = "QC"
-            //    },
-            //    new Contact {
-            //        ContactId = Guid.NewGuid(),
-            //        Firstname = "Em",
-            //        Lastname = "Magadia",
-            //        CityAddress = "QC"
-            //    },
-            //    new Contact {
-            //        ContactId = Guid.NewGuid(),
-            //        Firstname = "Chris",
-            //        Lastname = "Manuel",
-            //        CityAddress = "QC"
-            //    }
-            //};
+        //   //= new List<Contact>() {
+        //     new Contact {
+        //        ContactId = Guid.NewGuid(),
+        //        Firstname = "Matt",
+        //        Lastname = "Mendez",
+        //        CityAddress = "QC"
+        //    },
+        //    new Contact {
+        //        ContactId = Guid.NewGuid(),
+        //        Firstname = "Em",
+        //        Lastname = "Magadia",
+        //        CityAddress = "QC"
+        //    },
+        //    new Contact {
+        //        ContactId = Guid.NewGuid(),
+        //        Firstname = "Chris",
+        //        Lastname = "Manuel",
+        //        CityAddress = "QC"
+        //    }
+        //};
         private IContactService contactService;
         private IContactRepository contactRepository;
 
@@ -44,14 +44,14 @@ namespace BlastAsia.DigiBook.API.Controllers
         {
             this.contactService = contactService;
             this.contactRepository = contactRepository;
-            
+
         }
-        
+
 
         [HttpGet, ActionName("GetContacts")]
-        public IActionResult GetContactsById(Guid? id)
+        public IActionResult GetContacts(Guid? id)
         {
-            
+
             var result = new List<Contact>();
             if (id == null)
             {
@@ -62,20 +62,37 @@ namespace BlastAsia.DigiBook.API.Controllers
                 var contact = this.contactRepository.Retrieve(id.Value);
                 result.Add(contact);
             }
-            
+
             return Ok(result);
         }
 
         [HttpPost]
         public IActionResult PostContact([FromBody] Contact contact)
         {
-            var result = this.contactService.Save(Guid.Empty, contact);
-            return CreatedAtAction("GetContacts", new { id = contact.ContactId, contact });
+
+            try
+            {
+                if (contact == null)
+                {
+                    return BadRequest();
+                }
+
+                var result = this.contactService.Save(Guid.Empty, contact);
+                return CreatedAtAction("GetContacts", new { id = contact.ContactId, result });
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete]
         public IActionResult DeleteContact(Guid id)
         {
+
+            var result = this.contactRepository.Retrieve(id);
+            if (result == null) return NotFound();
+
             this.contactRepository.Delete(id);
             return NoContent();
         }
@@ -85,13 +102,20 @@ namespace BlastAsia.DigiBook.API.Controllers
             "ZipCode", "Country", "EmailAddress")]*/[FromBody] Contact contact, Guid id)
         {
 
-            var existingEmployee = this.contactRepository.Retrieve(id);
+            try
+            {
+                var existingEmployee = this.contactRepository.Retrieve(id);
 
-            existingEmployee.ApplyChanges(contact);
+                existingEmployee.ApplyChanges(contact);
 
-            this.contactService.Save(id, contact);
-            //contact
-            return Ok();
+                this.contactService.Save(id, contact);
+                return Ok();
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
         }
 
         [HttpPatch]

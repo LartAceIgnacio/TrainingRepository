@@ -31,7 +31,7 @@ namespace BlastAsia.DigiBook.API.Utils
             employee.MobilePhone = from.MobilePhone;
             employee.Extension = from.Extension;
             employee.OfficePhone = employee.OfficePhone;
-            employee.Photo = employee.Photo;
+            //employee.Photo = employee.Photo;
 
             return employee;
         }

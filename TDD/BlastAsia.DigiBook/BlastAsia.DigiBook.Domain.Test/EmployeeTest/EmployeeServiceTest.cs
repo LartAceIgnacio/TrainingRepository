@@ -34,7 +34,7 @@ namespace BlastAsia.DigiBook.Domain.Test.EmployeeTest
                 Lastname = "Quilicol",
                 MobilePhone = "09123456789",
                 EmailAddress = "rquilicol@xyz.com",
-                Photo = new MemoryStream(),
+                //Photo = new MemoryStream(),
                 OfficePhone = "1234567",
                 Extension = "02"
             };
@@ -158,7 +158,7 @@ namespace BlastAsia.DigiBook.Domain.Test.EmployeeTest
         [TestMethod]
         public void Save_WithNullPhoto_ThrowsEmployeeImageException()
         {
-            _employee.Photo = Stream.Null;
+            //_employee.Photo = Stream.Null;
 
             Assert.ThrowsException<EmployeeImageException>(
                 () => _sut.Save(_employee.Id, _employee));

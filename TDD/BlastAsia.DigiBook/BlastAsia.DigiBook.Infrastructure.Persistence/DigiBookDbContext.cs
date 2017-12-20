@@ -25,7 +25,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
                 .HasKey(k => k.ContactId);
 
             modelBuilder.Entity<Employee>()
-                .Ignore(i => i.Photo)
+                //.Ignore(i => i.Photo)
                 .ToTable("Employee")
                 .HasKey(k => k.Id);
 

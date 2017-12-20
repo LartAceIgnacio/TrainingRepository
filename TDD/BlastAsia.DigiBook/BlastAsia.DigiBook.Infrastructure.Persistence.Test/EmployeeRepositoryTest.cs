@@ -29,7 +29,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
                  EmailAddress = "mmendez@blastasia.com",
                  OfficePhone = "1234567",
                  Extension = "02",
-                 Photo = new MemoryStream()
+                 //Photo = new MemoryStream()
             };
 
             _connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=DigiBookDb;Trusted_Connection=True;";
@@ -114,7 +114,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             newEmployee.Lastname = expectedLastname;
             newEmployee.Firstname = expectedFirstname;
             newEmployee.EmailAddress = expectedEmail;
-            newEmployee.Photo = expectedPhoto;
+            //newEmployee.Photo = expectedPhoto;
 
             // Act
             _sut.Update(newEmployee.Id, _employee);
@@ -124,7 +124,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             Assert.AreEqual(expectedFirstname, updatedEmployee.Firstname);
             Assert.AreEqual(expectedLastname, updatedEmployee.Lastname);
             Assert.AreEqual(expectedEmail, updatedEmployee.EmailAddress);
-            Assert.AreEqual(expectedPhoto, updatedEmployee.Photo);
+            //Assert.AreEqual(expectedPhoto, updatedEmployee.Photo);
 
             // Cleanup
             _sut.Delete(updatedEmployee.Id);

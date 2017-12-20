@@ -26,7 +26,7 @@ namespace BlastAsia.DigiBook.Domain.Employees.Services
             if (string.IsNullOrEmpty(employee.MobilePhone)) throw new ContactNumberRequiredException("Mobile phone is required.");
             if (employee.MobilePhone.Length < 11) throw new ContactNumberMinimumLength("Mobile number invalid length.");
             if (!Regex.IsMatch(employee.EmailAddress, rfc2822EmailPattern)) throw new InvalidEmailFormatException("Invalid email format.");
-            if (employee.Photo == Stream.Null) throw new EmployeeImageException("Image is required.");
+            //if (employee.Photo == Stream.Null) throw new EmployeeImageException("Image is required.");
             if (string.IsNullOrEmpty(employee.OfficePhone)) throw new ContactNumberRequiredException("Office phone is required.");
             if (employee.OfficePhone.Length < 7) throw new ContactNumberMinimumLength("Office number invalid length.");
             if (string.IsNullOrEmpty(employee.Extension)) throw new ExtensionNumberException("Extension number is required");
