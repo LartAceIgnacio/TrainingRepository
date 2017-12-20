@@ -7,6 +7,7 @@ using BlastAsia.DigiBook.Domain.Models.Appointments;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using BlastAsia.DigiBook.API.Utils;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
@@ -64,7 +65,7 @@ namespace BlastAsia.DigiBook.API.Controllers
                 return BadRequest();
             }
 
-            var appointment = appointmentRepository.Retrieve(id);
+            var appointment = this.appointmentRepository.Retrieve(id);
             if (appointment == null)
             {
                 return NotFound();
@@ -82,7 +83,12 @@ namespace BlastAsia.DigiBook.API.Controllers
             //    "EndTime","IsCancelled","IsDone", "Notes" )]
             [FromBody] Appointment appointment, Guid id)
         {
+            var existingAppointment = appointmentRepository.Retrieve(id);
+
+            existingAppointment.ApplyChanges(appointment);
+
             this.appointmentService.Save(id, appointment);
+
             return Ok(appointment);
         }
     }

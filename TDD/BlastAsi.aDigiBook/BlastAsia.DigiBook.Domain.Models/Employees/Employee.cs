@@ -10,8 +10,8 @@ namespace BlastAsia.DigiBook.Domain.Models.Employees
         public string MobilePhone { get; set; }
         public string EmailAddress { get; set; }
         public Stream Photo { get; set; } 
-        public string OfficePhone { get; set; }
         public string Extension { get; set; }
+        public string OfficePhone { get; set; }
         public Guid EmployeeId { get; set; } //CANNOT BE SET
     }
 }

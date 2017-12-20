@@ -50,28 +50,20 @@ namespace BlastAsia.DigiBook.Domain.Appointments
                 throw new HostIdDoesNotExistException("Host id not found.");
             }
 
-            Appointment currentAppointment = null;
+            Appointment result = null;
             var found = appointmentRepository.Retrieve(id);
 
             //check if there is an existing appointment
             if (found == null) //non existing
             {
-                currentAppointment = appointmentRepository.Create(appointment);
+                result = appointmentRepository.Create(appointment);
             }
             else //existing
             {
-                found.AppointmentDate = appointment.AppointmentDate;
-                found.GuestId = appointment.GuestId;
-                found.HostId = appointment.HostId;
-                found.StartTime = appointment.StartTime;
-                found.EndTime = appointment.EndTime;
-                found.IsCancelled = appointment.IsCancelled;
-                found.IsDone = appointment.IsDone;
-                found.Notes = appointment.Notes;
-                currentAppointment = appointmentRepository.Update(found.AppointmentId, found);
+                result = appointmentRepository.Update(id, appointment);
             }
 
-            return currentAppointment;
+            return result;
         }
     }
 }

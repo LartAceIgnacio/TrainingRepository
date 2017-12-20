@@ -43,7 +43,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
         public TEntity Update(Guid id, TEntity entity)
         {
             //Retrieve(id);
-            context.Update(entity);
+            //context.Update(entity);
             context.SaveChanges();
             return entity;
         }
