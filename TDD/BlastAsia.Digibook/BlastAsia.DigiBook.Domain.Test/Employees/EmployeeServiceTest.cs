@@ -84,7 +84,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             .Returns(employee);
 
             // act
-            var newContact = sut.Save(employee);
+            var newContact = sut.Save(employee.EmployeeId, employee);
 
             // assert 
             Assert.IsTrue(newContact.EmployeeId != Guid.Empty);
@@ -97,7 +97,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             // arrange
             employee.EmployeeId = existingEmployeeId;
             // act
-            sut.Save(employee);
+            sut.Save(employee.EmployeeId, employee);
             // assert
             // if exist it should call both Retrieve and Update
             mockEmployeeServiceRepository
@@ -117,7 +117,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             // arrange
             employee.EmployeeId = nonExistingEmployeeId;
             // act
-            sut.Save(employee);
+            sut.Save(employee.EmployeeId, employee);
             // assert 
             // if not exist it should call both Retrieve and Create
             mockEmployeeServiceRepository
@@ -144,7 +144,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             // act
             // assert
             Assert.ThrowsException<NameRequiredException>(
-                () => sut.Save(employee)
+                () => sut.Save(employee.EmployeeId, employee)
                 );
 
             mockEmployeeServiceRepository
@@ -163,7 +163,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             // act
             // assert
             Assert.ThrowsException<NameRequiredException>(
-                () => sut.Save(employee)
+                () => sut.Save(employee.EmployeeId, employee)
                 );
 
             mockEmployeeServiceRepository
@@ -182,7 +182,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             // act
             // assert
             Assert.ThrowsException<MobilePhoneRequiredException>(
-                () => sut.Save(employee)
+                () => sut.Save(employee.EmployeeId, employee)
                 );
 
             mockEmployeeServiceRepository
@@ -205,7 +205,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             // act
             // assert
             Assert.ThrowsException<InvalidEmailException>(
-                () => sut.Save(employee)
+                () => sut.Save(employee.EmployeeId, employee)
                 );
 
             mockEmployeeServiceRepository
@@ -214,22 +214,22 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
                 );
         }
 
-        [TestMethod]
-        public void Save_WithNullPhoto_ShouldThrowPhotoRequiredException()
-        {
-            // arrange
-            employee.Photo = null;
-            // act
-            // assert
-            Assert.ThrowsException<PhotoRequiredException>(
-                () => sut.Save(employee)
-                );
+        //[TestMethod]
+        //public void Save_WithNullPhoto_ShouldThrowPhotoRequiredException()
+        //{
+        //    // arrange
+        //    employee.Photo = null;
+        //    // act
+        //    // assert
+        //    Assert.ThrowsException<PhotoRequiredException>(
+        //        () => sut.Save(employee.EmployeeId, employee)
+        //        );
 
-            mockEmployeeServiceRepository
-                .Verify(
-                    er => er.Create(employee), Times.Never()
-                );
-        }
+        //    mockEmployeeServiceRepository
+        //        .Verify(
+        //            er => er.Create(employee), Times.Never()
+        //        );
+        //}
 
         [DataTestMethod]
         [DataRow("")]
@@ -241,7 +241,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             // act
             // assert
             Assert.ThrowsException<MobilePhoneRequiredException>(
-                () => sut.Save(employee)
+                () => sut.Save(employee.EmployeeId, employee)
                 );
 
             mockEmployeeServiceRepository
@@ -260,7 +260,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             // act
             // assert
             Assert.ThrowsException<MobilePhoneRequiredException>(
-                () => sut.Save(employee)
+                () => sut.Save(employee.EmployeeId, employee)
                 );
 
             mockEmployeeServiceRepository

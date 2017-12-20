@@ -115,7 +115,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
                 .Returns(appointment);
 
             // act 
-            var result = sut.Save(appointment);
+            var result = sut.Save(appointment.AppointmentId, appointment);
 
             Assert.IsTrue(result.AppointmentId != Guid.Empty);
         }
@@ -127,7 +127,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             appointment.GuestId = nonExistingGuestId;
             // assert
             Assert.ThrowsException<InvalidGuestIdException>(
-                () => sut.Save(appointment)
+                () => sut.Save(appointment.AppointmentId, appointment)
                 );
 
             mockRepoContact
@@ -152,7 +152,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
 
             // assert
             Assert.ThrowsException<InvalidHostIdException>(
-                () => sut.Save(appointment)
+                () => sut.Save(appointment.AppointmentId, appointment)
                 );
 
             mockRepoEmployee
@@ -171,7 +171,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
         public void Save_AppointmentWithExistingGuestAndHostId_ShouldInvokeEmployeeAndContactRepositoryRetrieveAndAppointmentCreateRepository()
         {
             // act 
-            sut.Save(appointment);
+            sut.Save(appointment.AppointmentId, appointment);
             // assert
             // employee
             mockRepoEmployee
@@ -196,7 +196,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             //arrange
             appointment.AppointmentId = existingAppointmentId;
             // act 
-            sut.Save(appointment);
+            sut.Save(appointment.AppointmentId, appointment);
             // assert
             // retrieve
             mockRepoAppointment
@@ -216,7 +216,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             //arrange
             appointment.AppointmentId = nonExistingAppointmentId;
             // act 
-            sut.Save(appointment);
+            sut.Save(appointment.AppointmentId, appointment);
             // assert
             // retrieve
             mockRepoAppointment
@@ -238,7 +238,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             // act
             // assert
             Assert.ThrowsException<InvalidAppointmentDateException>(
-                () => sut.Save(appointment)
+                () => sut.Save(appointment.AppointmentId, appointment)
                 );
 
             mockRepoAppointment
@@ -258,7 +258,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             // act
             // assert
             Assert.ThrowsException<NotInclusiveStartAndEndTime>(
-                () => sut.Save(appointment)
+                () => sut.Save(appointment.AppointmentId, appointment)
                 );
 
             mockRepoAppointment
