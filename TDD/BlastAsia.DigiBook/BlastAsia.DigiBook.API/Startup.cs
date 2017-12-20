@@ -54,10 +54,10 @@ namespace BlastAsia.DigiBook.API
             services.AddTransient<IContactService, ContactService>();
             services.AddScoped<IContactRepository, ContactRepositories>();
 
-            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddScoped<IEmployeeRepository,EmployeeRepository>();
 
-            services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
         }
 
