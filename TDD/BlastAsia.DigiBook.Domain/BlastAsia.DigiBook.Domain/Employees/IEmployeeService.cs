@@ -5,6 +5,6 @@ namespace BlastAsia.DigiBook.Domain.Employees
 {
     public interface IEmployeeService
     {
-        Employee Save(Guid id, Employee contact);
+        Employee Save(Guid id, Employee employee);
     }
 }

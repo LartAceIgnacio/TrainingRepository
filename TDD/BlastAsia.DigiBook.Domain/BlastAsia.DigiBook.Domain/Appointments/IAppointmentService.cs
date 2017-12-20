@@ -5,6 +5,6 @@ namespace BlastAsia.DigiBook.Domain.Appointments
 {
     public interface IAppointmentService
     {
-        Appointment Save(Guid id, Appointment contact);
+        Appointment Save(Guid id, Appointment appointment);
     }
 }
