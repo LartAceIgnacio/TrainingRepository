@@ -66,7 +66,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             var result = sut.Save(contact.ContactId, contact);
 
             //Assert
-            mockContactRepository.Verify(x => x.Retrieve(nonExistingContactId), Times.Once());
+            //mockContactRepository.Verify(x => x.Retrieve(nonExistingContactId), Times.Once());
             mockContactRepository.Verify(x => x.Create(It.IsAny<Contact>()), Times.Once());
         }
 
@@ -80,7 +80,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             sut.Save(contact.ContactId, contact);
 
             //Assert
-            mockContactRepository.Verify(x => x.Retrieve(contact.ContactId), Times.Once());
+            //mockContactRepository.Verify(x => x.Retrieve(contact.ContactId), Times.Once());
             mockContactRepository.Verify(x => x.Update(contact.ContactId, It.IsAny<Contact>()), Times.Once());
         }
 
