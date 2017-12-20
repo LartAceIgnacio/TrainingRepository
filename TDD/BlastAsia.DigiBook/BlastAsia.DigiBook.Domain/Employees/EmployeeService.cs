@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Employees
 {
-    public class EmployeeService
+    public class EmployeeService: IEmployeeService
     {
         private IEmployeeRepository employeeRepository;
         private readonly string pattern = @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
@@ -16,7 +16,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
             this.employeeRepository = employeeRepository;
         }
 
-        public Employee Save(Employee employee)
+        public Employee Save(Guid id, Employee employee)
         {
             if (string.IsNullOrEmpty(employee.FirstName))
             {
@@ -46,14 +46,14 @@ namespace BlastAsia.DigiBook.Domain.Employees
             {
                 throw new EmailInvalidFormatException();
             }
-            if (employee.Photo == null)
-            {
-                throw new EmployeeDetailRequiredException("Photo is required");
-            }
+            //if (employee.Photo == null)
+            //{
+            //    throw new EmployeeDetailRequiredException("Photo is required");
+            //}
            
             Employee result = null;
             var found = employeeRepository
-                        .Retrieve(employee.EmployeeeId);
+                        .Retrieve(employee.EmployeeId);
 
             if (found == null)
             {
@@ -62,7 +62,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
             else
             {
                 result = employeeRepository
-                    .Update(employee.EmployeeeId, employee);
+                    .Update(employee.EmployeeId, employee);
             }
 
             return result;

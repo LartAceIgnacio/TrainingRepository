@@ -5,7 +5,7 @@ using BlastAsia.DigiBook.Domain.Employees;
 
 namespace BlastAsia.DigiBook.Domain.Appointments
 {
-    public class AppointmentService
+    public class AppointmentService: IAppointmentService
     {
         private IAppointmentRepository appointmentRepository;
         private IContactRepository guestRepository;
@@ -18,13 +18,13 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             this.hostRepository = hostRepository;
         }
 
-        public Appointment Create(Appointment appointment)
+        public Appointment Save(Guid id, Appointment appointment)
         {
             if (appointment.AppointmentDate < DateTime.Today)
             {
                 throw new AppointmentDateLapsedAlreadyException("Date Already Lapsed");
             }
-            if (appointment.StartTime == appointment.EndTime)
+            if (appointment.StartTime.ToString(@"hh\:mm") == appointment.EndTime.ToString(@"hh\:mm"))
             {
                 throw new InclusiveTimeException("Start Time and End Time should not be equal");
             }
@@ -63,5 +63,6 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             }
             return result;
         }
+        
     }
 }

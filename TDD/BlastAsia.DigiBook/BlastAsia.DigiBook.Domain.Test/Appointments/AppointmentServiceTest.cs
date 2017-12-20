@@ -45,9 +45,6 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
                 IsDone = false,
                 Notes = "Interview"
             };
-
-           
-
             mockGuestRepository
                 .Setup(gr => gr.Retrieve(appointment.GuestId))
                 .Returns(contact);
@@ -63,7 +60,6 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             mockAppointmentRepository
                 .Setup(c => c.Retrieve(nonExistingAppointmentId))
                 .Returns<Appointment>(null);
-
         }
 
         [TestCleanup]
@@ -75,7 +71,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
         [TestMethod]
         public void Create_NewAppointmentWithValidData_ShouldCallSaveRepository()
         {
-            sut.Create(appointment);
+            sut.Save(appointment.AppointmentId, appointment);
             mockAppointmentRepository
                 .Verify(c => c.Retrieve(nonExistingAppointmentId), Times.Once);
             mockAppointmentRepository
@@ -89,7 +85,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             appointment.AppointmentId = existingAppointmentId;
 
             //Act
-            sut.Create(appointment);
+            sut.Save(appointment.AppointmentId, appointment);
 
             //Assert
             mockAppointmentRepository
@@ -107,7 +103,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             appointment.AppointmentDate = new DateTime(2017, 12, 11);
 
             Assert.ThrowsException<AppointmentDateLapsedAlreadyException>(
-                () => sut.Create(appointment));
+                () => sut.Save(appointment.AppointmentId, appointment));
             mockAppointmentRepository
                 .Verify(ar => ar.Create(appointment), Times.Never());
         }
@@ -119,7 +115,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             appointment.StartTime = DateTime.Now.TimeOfDay.Add(TimeSpan.Parse("4:00:00"));
 
             Assert.ThrowsException<InclusiveTimeException>(
-                () => sut.Create(appointment));
+                () => sut.Save(appointment.AppointmentId, appointment));
             mockAppointmentRepository
                 .Verify(ar => ar.Create(appointment), Times.Never());
         }
@@ -133,7 +129,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
                 .Returns<Contact>(null);
 
             Assert.ThrowsException<NonExistingContactException>(
-                () => sut.Create(appointment));
+                () => sut.Save(appointment.AppointmentId, appointment));
             mockGuestRepository
                 .Verify(gr => gr.Retrieve(appointment.GuestId), Times.Once());
             mockAppointmentRepository
@@ -148,7 +144,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
                 .Returns<Employee>(null);
 
             Assert.ThrowsException<NonExistingEmployeeException>(
-                () => sut.Create(appointment));
+                () => sut.Save(appointment.AppointmentId, appointment));
             mockHostRepository
                 .Verify(hr => hr.Retrieve(appointment.HostId), Times.Once());
             mockAppointmentRepository
@@ -162,7 +158,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             appointment.EndTime = DateTime.Now.TimeOfDay;
 
             Assert.ThrowsException<InclusiveTimeException>(
-                () => sut.Create(appointment));
+                () => sut.Save(appointment.AppointmentId, appointment));
             mockAppointmentRepository
                 .Verify(ar => ar.Create(appointment), Times.Never());
         }

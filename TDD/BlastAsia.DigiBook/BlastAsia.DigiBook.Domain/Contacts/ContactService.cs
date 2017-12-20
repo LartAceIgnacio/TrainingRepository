@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Contacts
 {
-    public class ContactService
+    public class ContactService: IContactService
     {
         private IContactRepository contactRepository;
         private readonly string pattern = @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
@@ -13,11 +13,8 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             this.contactRepository = contactRepository;
         }
 
-        public Contact Save(Contact contact)
+        public Contact Save(Guid id, Contact contact)
         {
-            //var contactRespository = new IContactRepository();
-           
-
             if (string.IsNullOrEmpty(contact.FirstName))
             {
                 throw new NameRequiredException("Firstname is required");
