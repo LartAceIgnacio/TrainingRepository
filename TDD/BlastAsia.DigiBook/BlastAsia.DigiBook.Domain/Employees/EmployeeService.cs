@@ -1,60 +1,65 @@
 ﻿using System;
 using BlastAsia.DigiBook.Domain.Models.Employees;
-using BlastAsia.DigiBook.Domain.Employees.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Employees
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private IEmployeeRepository employeeRepository;
+        private readonly string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+         @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+         @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
         public EmployeeService(IEmployeeRepository employeeRepository)
         {
             this.employeeRepository = employeeRepository;
         }
-        public Employee Create(Employee employee)
+        public Employee Save(Guid id, Employee employee)
         {
             if (string.IsNullOrEmpty(employee.FirstName))
             {
-                throw new NameRequiredException("First Name is required");
+                throw new NameRequiredException("Firstname is required");
             }
             if (string.IsNullOrEmpty(employee.LastName))
             {
-                throw new NameRequiredException("Last Name is required");
+                throw new NameRequiredException("Lastname is required");
             }
-            if (string.IsNullOrEmpty(employee.MobileNumber))
+            if (string.IsNullOrEmpty(employee.MobilePhone))
             {
-                throw new MobilePhoneRequiredException("Mobile Phone is required");
+                throw new MobilePhoneRequiredException("Mobile phone is required");
             }
-            if (string.IsNullOrEmpty(employee.EmailAddress))
+            if ((!string.IsNullOrWhiteSpace(employee.EmailAddress)))
             {
-                throw new EmailAddressRequiredException("Email Address is required");
+                if (!Regex.IsMatch(employee.EmailAddress, strRegex, RegexOptions.IgnoreCase))
+                    throw new InvalidEmailAddressException("Valid Email address is required!");
             }
-            if (employee.Photo == null)
+            if (string.IsNullOrEmpty(employee.Photo))
             {
                 throw new PhotoRequiredException("Photo is required");
             }
             if (string.IsNullOrEmpty(employee.OfficePhone))
             {
-                throw new OfficePhoneRequiredException("Office Phone is required");
+                throw new OfficePhoneRequiredException("Office phone is required");
             }
             if (string.IsNullOrEmpty(employee.Extension))
             {
                 throw new ExtensionRequiredException("Extension is required");
             }
+
             Employee result = null;
             var found = employeeRepository
                 .Retrieve(employee.EmployeeId);
-            if(found == null)
+            if (found == null)
             {
-                result = employeeRepository
-                    .Create(employee);
-            }else
+                result = employeeRepository.Create(employee);
+            }
+            else
             {
                 result = employeeRepository
                     .Update(employee.EmployeeId, employee);
             }
-
             return result;
         }
+        
     }
 }

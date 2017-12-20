@@ -1,67 +1,62 @@
-﻿using BlastAsia.DigiBook.Domain.Appointments.Exceptions;
-using BlastAsia.DigiBook.Domain.Contacts;
+﻿using BlastAsia.DigiBook.Domain.Contacts;
 using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Models.Appointments;
+using BlastAsia.DigiBook.Domain.Models.Contacts;
+using BlastAsia.DigiBook.Domain.Models.Employees;
 using System;
+using System.Collections.Generic;
 
 namespace BlastAsia.DigiBook.Domain.Appointments
 {
-    public class AppointmentService
+    public class AppointmentService : IAppointmentService
     {
-        public IAppointmentRepository appointmentRepository;
-        public IEmployeeRepository employeeRepository;
-        public IContactRepository contactRepository;
-
-        public AppointmentService(IAppointmentRepository appointmentRepository, 
-            IEmployeeRepository employeeRepository,
-            IContactRepository contactRepository)
+        private IAppointmentRepository appointmentRepository;
+        private IEmployeeRepository employeeRepository;
+        private IContactRepository contactRepository;
+        public AppointmentService(IAppointmentRepository appointmentRepository
+            , IEmployeeRepository employeeRepository
+            , IContactRepository contactRepository)
         {
             this.appointmentRepository = appointmentRepository;
             this.employeeRepository = employeeRepository;
             this.contactRepository = contactRepository;
         }
-        public void Create(Appointment appointment)
+
+       public Appointment Save(Guid id, Appointment appointment)
         {
-            if (appointment.AppointmentDate < DateTime.Now)
+            if (appointment.EndTime < appointment.StartTime)
             {
-                throw new AppointmentDateException("Appointment Date Is Less Than Date Today");
+                throw new InclusiveTimeRequiredException("Inclusive Time is required");
             }
-            if (appointment.StartTime > appointment.EndTime)
+            if (appointment.AppointmentDate < DateTime.Today)
             {
-                throw new TimeInclusiveException("Start Time Should Be Less Than End Time");
-            }
-            if (appointment.StartTime == appointment.EndTime)
-            {
-                throw new TimeInclusiveException("Start Time Should Not Be Equal");
+                throw new AppointmentDateRequiredException("Appointment Date is invalid");
             }
 
-            Appointment Result = null;
-            var AppointmentId = appointmentRepository.Retrieve(appointment.AppointmentId);
+            Appointment result = null;
             var GuestId = contactRepository.Retrieve(appointment.GuestId);
             var HostId = employeeRepository.Retrieve(appointment.HostId);
-            
-            if (GuestId == null)
-            {
-                throw new GuestIdException("No Guest Id");
-            }
+            var AppointmentId = appointmentRepository.Retrieve(appointment.AppointmentId);
 
             if (HostId == null)
             {
-                throw new EmployeeIdException("No Employee Id");
+                throw new InvalidHostIdException("Host Id is invalid");
             }
-
-
-            if (HostId != null && GuestId != null && AppointmentId == null)
+            if (GuestId == null)
             {
-                Result = appointmentRepository
-                    .Create(appointment);
+                throw new InvalidGuestIdException("Guest Id is invalid");
             }
-            else if (HostId != null && GuestId != null && AppointmentId != null)
+            if (AppointmentId == null)
             {
-                Result = appointmentRepository
-                    .Update(appointment.AppointmentId, appointment);
+                result = appointmentRepository.Create(appointment);
             }
-          
+            else
+            {
+                result = appointmentRepository.Update(appointment.AppointmentId, appointment);
+            }
+            return result;
+
         }
+        
     }
 }

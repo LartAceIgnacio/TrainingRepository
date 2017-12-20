@@ -1,15 +1,12 @@
-﻿using BlastAsia.DigiBook.Domain.Test.Contacts.Contacts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using BlastAsia.DigiBook.Domain.Models.Contacts;
 
 namespace BlastAsia.DigiBook.Domain.Contacts
 {
-    public interface IContactRepository // MOQ DataBase Injectable
+    public interface IContactRepository
+        : IRepository<Contact>
     {
-        Contact Create(Contact contact); // Create contact
-
-        Contact Retrieve(Guid contact); // Retrieve contact
-        Contact Update(Guid id, Contact contact);
     }
 }

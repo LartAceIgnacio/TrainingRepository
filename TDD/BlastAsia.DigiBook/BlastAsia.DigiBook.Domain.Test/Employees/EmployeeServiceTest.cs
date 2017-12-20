@@ -1,10 +1,9 @@
-﻿using BlastAsia.DigiBook.Domain.Employees;
-using BlastAsia.DigiBook.Domain.Employees.Exceptions;
+﻿
+using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Models.Employees;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
-using System.IO;
 
 namespace BlastAsia.DigiBook.Domain.Test.Employees
 {
@@ -12,60 +11,64 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
     public class EmployeeServiceTest
     {
         private Mock<IEmployeeRepository> mockEmployeeRepository;
-        EmployeeService sut;
         private Employee employee;
+        private EmployeeService sut;
         private Guid existingEmployeeId = Guid.NewGuid();
         private Guid nonExistingEmployeeId = Guid.Empty;
 
+
+
         [TestInitialize]
-        public void initializeTest()
+        public void InitializeTest()
         {
-            mockEmployeeRepository = new Mock<IEmployeeRepository>();
-            sut = new EmployeeService(mockEmployeeRepository.Object);
             employee = new Employee
             {
-                FirstName = "Luigi Antonio",
+                EmployeeId = new Guid(),
+                FirstName = "Luigi",
                 LastName = "Abille",
-                MobileNumber = "09568717617",
+                MobilePhone = "09568717617",
                 EmailAddress = "luigiabille@gmail.com",
-                Photo = new MemoryStream(),
+                Photo = "samplee.jpg",
                 OfficePhone = "9111111",
-                Extension = "8080"
+                Extension = "32"
+
             };
+
+            mockEmployeeRepository = new Mock<IEmployeeRepository>();
+            sut = new EmployeeService(mockEmployeeRepository.Object);
+           
             mockEmployeeRepository
-                .Setup(c => c.Retrieve(existingEmployeeId))
+                .Setup(e => e.Retrieve(existingEmployeeId))
                 .Returns(employee);
             mockEmployeeRepository
-                .Setup(c => c.Retrieve(nonExistingEmployeeId))
-                .Returns<Employee>(null);
+               .Setup(e => e.Retrieve(nonExistingEmployeeId))
+               .Returns<Employee>(null);
+
         }
 
         [TestCleanup]
-        public void testCleanup()
+        public void CleanupTest()
         {
 
         }
 
         [TestMethod]
-        public void Create_NewEmployeeWithValidData_ShouldCallRepositoryCreate()
+        public void Save_NewEmployeeWithValidData_ShouldCallRepositoryCreate()
         {
-            // Arrange
-
             // Act
 
-            var result = sut.Create(employee);
+            var result = sut.Save(employee.EmployeeId ,employee);
 
             // Assert
 
             mockEmployeeRepository
-                .Verify(c => c.Retrieve(nonExistingEmployeeId),
-                Times.Once());
+                .Verify(e => e.Retrieve(nonExistingEmployeeId), Times.Once);
             mockEmployeeRepository
-                .Verify(c => c.Create(employee),
-                Times.Once());
+                .Verify(e => e.Create(employee), Times.Once);
         }
+
         [TestMethod]
-        public void Create_WithExostingEmployee_CallsRepositoryUpdate()
+        public void Save_WithExistingEmployee_ShouldCallRepositoryUpdate()
         {
             // Arrange
 
@@ -73,153 +76,141 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
 
             // Act
 
-            sut.Create(employee);
+            sut.Save(employee.EmployeeId, employee);
 
             // Assert
 
             mockEmployeeRepository
-                .Verify(c => c.Retrieve(employee.EmployeeId),
-                Times.Once);
+                .Verify(e => e.Retrieve(existingEmployeeId), Times.Once);
             mockEmployeeRepository
-                .Verify(c => c.Update(existingEmployeeId, employee),
-                Times.Once);
+                .Verify(e => e.Update(existingEmployeeId, employee), Times.Once);
         }
+
         [TestMethod]
-        public void Create_WithValidData_ReturnsNewEmployeeWithEmployeeId()
+        public void Save_EmployeeWithValidData_ReturnsNewEmployeeWithEmployeeId()
         {
             // Arrange
 
             mockEmployeeRepository
-                .Setup(c => c.Create(employee))
+                .Setup(e => e.Create(employee))
                 .Callback(() => employee.EmployeeId = Guid.NewGuid())
                 .Returns(employee);
 
             // Act
 
-            var newEmployee = sut.Create(employee);
+             sut.Save(employee.EmployeeId, employee);
 
             // Assert
 
-            Assert.IsTrue(
-                newEmployee.EmployeeId != Guid.Empty);
+            Assert.IsTrue(employee.EmployeeId != Guid.Empty);
         }
+
         [TestMethod]
-        public void Create_WithBlankFirstName_ThrowsNameRequiredException()
+        public void Save_WithBlankFirstName_ThrowsNameRequiredException()
         {
             // Arrange
 
             employee.FirstName = "";
 
-            // Act
-
             // Assert
 
-            Assert.ThrowsException<NameRequiredException>(
-                () => sut.Create(employee));
             mockEmployeeRepository
-                .Verify(c => c.Create(employee), Times.Never());
+                .Verify(e => e.Create(employee), Times.Never);
+            Assert.ThrowsException<NameRequiredException>(
+                () => sut.Save(employee.EmployeeId, employee));
         }
+
         [TestMethod]
-        public void Create_WithBlankLastName_ThrowsNameRequiredException()
+        public void Save_WithBlankLastName_ThrowsNameRequiredException()
         {
             // Arrange
 
             employee.LastName = "";
 
-            // Act
-
             // Assert
 
+            mockEmployeeRepository
+                .Verify(e => e.Create(employee), Times.Never);
             Assert.ThrowsException<NameRequiredException>(
-                () => sut.Create(employee));
-            mockEmployeeRepository
-                .Verify(c => c.Create(employee),
-                Times.Never());
+                () => sut.Save(employee.EmployeeId, employee));
         }
+
         [TestMethod]
-        public void Create_WithBlankMobilePhone_ThrowsMobilePhoneRequiredExcecption()
+        public void Save_WithBlankMobilePhone_ThrowsMobilePhoneRequiredException()
         {
             // Arrange
 
-            employee.MobileNumber = "";
-
-            // Act
+            employee.MobilePhone = "";
 
             // Assert
 
+            mockEmployeeRepository
+                .Verify(e => e.Create(employee), Times.Never);
             Assert.ThrowsException<MobilePhoneRequiredException>(
-                () => sut.Create(employee));
-            mockEmployeeRepository
-                .Verify(c => c.Create(employee),
-                Times.Never());
+                () => sut.Save(employee.EmployeeId, employee));
         }
+
+        [DataTestMethod]
+        [DataRow("luigiabille.com")]
+        [DataRow("luigiabille@gmail..com")]
+        [DataRow("luigiabille@gmail.com.")]
         [TestMethod]
-        public void Create_WithBlankEmailAddress_ThrowsEmailAddressRequiredException()
+        public void Save_WithInvalidEmailAddress_ThrowsInvalidEmailRequiredException(string EmailAddress)
         {
             // Arrange
 
-            employee.EmailAddress = "";
-
-            // Act
-
+            employee.EmailAddress = EmailAddress;
+            
             // Assert
 
-            Assert.ThrowsException<EmailAddressRequiredException>(
-                () => sut.Create(employee));
             mockEmployeeRepository
-                .Verify(c => c.Create(employee),
-                Times.Never());
+                .Verify(e => e.Create(employee), Times.Never);
+            Assert.ThrowsException<InvalidEmailAddressException>(
+                () => sut.Save(employee.EmployeeId, employee));
         }
+
         [TestMethod]
-        public void Create_WithBlankPhoto_ThrowsPhotoRequiredException()
+        public void Save_WithBlankPhoto_ThrowsPhotoRequiredException()
         {
             // Arrange
 
-            employee.Photo = null;
-
-            // Act
+            employee.Photo = "";
 
             // Assert
 
+            mockEmployeeRepository
+                .Verify(e => e.Create(employee), Times.Never);
             Assert.ThrowsException<PhotoRequiredException>(
-                () => sut.Create(employee));
-            mockEmployeeRepository
-                .Verify(c => c.Create(employee),
-                Times.Never());
+                () => sut.Save(employee.EmployeeId, employee));
         }
         [TestMethod]
-        public void Create_WithBlankOfficePhone_ThrowsOfficePhoneRequiredException()
+        public void Save_WithBlankOfficePhone_ThrowsOfficePhoneRequiredException()
         {
             // Arrange
 
             employee.OfficePhone = "";
 
-            // Act
-
             // Assert
 
-            Assert.ThrowsException<OfficePhoneRequiredException>(
-                () => sut.Create(employee));
             mockEmployeeRepository
-                .Verify(c => c.Create(employee),
-                Times.Never());
+                .Verify(e => e.Create(employee), Times.Never);
+            Assert.ThrowsException<OfficePhoneRequiredException>(
+                () => sut.Save(employee.EmployeeId, employee));
         }
+
         [TestMethod]
-        public void Create_WithBlankExtension_ThrowsExtensionRequiredException()
+        public void Save_WithBlankExtension_ThrowsExtenstionRequiredException()
         {
             // Arrange
 
             employee.Extension = "";
 
-            // Act
-
             // Assert
 
-            Assert.ThrowsException<ExtensionRequiredException>(
-                () => sut.Create(employee));
             mockEmployeeRepository
-                .Verify(c => c.Create(employee),
-                Times.Never());
+                .Verify(e => e.Create(employee), Times.Never);
+            Assert.ThrowsException<ExtensionRequiredException>(
+                () => sut.Save(employee.EmployeeId, employee));
         }
     }
 }

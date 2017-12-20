@@ -1,26 +1,22 @@
 ﻿using System;
-using BlastAsia.DigiBook.Domain.Test.Contacts.Contacts;
+using BlastAsia.DigiBook.Domain.Models.Contacts;
 using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain.Contacts
 {
-    public class ContactService
+    public class ContactService : IContactService
     {
         private IContactRepository contactRepository;
-
-        public ContactService(IContactRepository contactRepository) // Inject
+        private readonly string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+         @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+         @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+        public ContactService(IContactRepository contactRepository)
         {
             this.contactRepository = contactRepository;
         }
 
-        //private readonly string emailregex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
-        //@"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
-        //@".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
-
-        public Contact Save(Contact contact)
+        public Contact Save(Guid id, Contact contact)
         {
-            //throw new NotImplementedException();
-            
             if (string.IsNullOrEmpty(contact.FirstName))
             {
                 throw new NameRequiredException("Firstname is required");
@@ -31,49 +27,44 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             }
             if (string.IsNullOrEmpty(contact.MobilePhone))
             {
-                throw new MobilePhoneRequiredException("Mobile number is required");
+                throw new MobilePhoneRequiredException("Mobilephone is required");
             }
             if (string.IsNullOrEmpty(contact.StreetAddress))
             {
-                throw new AddressRequiredException("Street Address is required");
+                throw new AddressRequiredException("Street address is required");
             }
             if (string.IsNullOrEmpty(contact.CityAddress))
             {
-                throw new AddressRequiredException("Street Address is required");
+                throw new AddressRequiredException("City address is required");
             }
-            if (contact.ZipCode <= 0)
+            if (contact.ZipCode < 0)
             {
-                throw new ZipCodeException("Non Negative Zip Code is required");
+                throw new AddressRequiredException("Zipcode is invalid");
             }
             if (string.IsNullOrEmpty(contact.Country))
             {
-                throw new CountryRequiredException("Country is required");
+                throw new AddressRequiredException("Country is required");
             }
-            //if (!string.IsNullOrEmpty(contact.EmailAddress))
-            //{
-            //    if (!Regex.IsMatch(contact.EmailAddress, emailregex, RegexOptions.IgnoreCase))
-            //    {
-            //        throw new ValidEmailRequiredException("Correct Email Format Required");
-            //    }
-            //}
+            if ((!string.IsNullOrWhiteSpace(contact.EmailAddress)))
+            {
+                if (!Regex.IsMatch(contact.EmailAddress, strRegex, RegexOptions.IgnoreCase))
+                    throw new InvalidEmailAddressException("Valid Email address is required!");
+            }
+
+
             Contact result = null;
             var found = contactRepository
                 .Retrieve(contact.ContactId);
-
             if (found == null)
             {
-                result = contactRepository
-                    .Create(contact);
+                result = contactRepository.Create(contact);
             }
             else
             {
                 result = contactRepository
                     .Update(contact.ContactId, contact);
             }
-
-            
             return result;
-            
         }
     }
 }

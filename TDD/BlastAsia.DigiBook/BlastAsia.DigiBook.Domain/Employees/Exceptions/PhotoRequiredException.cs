@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace BlastAsia.DigiBook.Domain.Employees.Exceptions
+namespace BlastAsia.DigiBook.Domain.Employees
 {
-    public class PhotoRequiredException : Exception
+    public class PhotoRequiredException
+        : Exception
     {
-        public PhotoRequiredException(String message) : base(message)
+        public PhotoRequiredException(string message)
+            : base(message)
         {
 
         }

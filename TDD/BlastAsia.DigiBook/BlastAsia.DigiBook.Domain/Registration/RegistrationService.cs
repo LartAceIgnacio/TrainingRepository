@@ -1,8 +1,6 @@
 ﻿using BlastAsia.DigiBook.Domain.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace BlastAsia.DigiBook.Domain
@@ -10,70 +8,65 @@ namespace BlastAsia.DigiBook.Domain
     public class RegistrationService
     {
         private readonly IAccountRepository repository;
-
-        public RegistrationService(IAccountRepository repository)  // Constructor Injection
+        public RegistrationService(IAccountRepository repository)
         {
             this.repository = repository;
         }
-
-        private readonly int passwordMinimumLength = 8;
-
-        private readonly string emailregex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
-        @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
-        @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
-
+        private readonly int PasswordMinimumLength = 8;
+        private readonly string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+         @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+         @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
         public bool Register(string username, string password)
         {
-            // Call the data access layer to save the record.
-
-            if (string.IsNullOrEmpty(username)) // Blank Username
+            // Check business rules
+            if (string.IsNullOrEmpty(username))
             {
-                throw new UsernameRequiredException();
+                throw new UserNameRequiredException();
             }
-
-            if (!Regex.IsMatch(username, emailregex, RegexOptions.IgnoreCase))// Valid Email
+            if (!Regex.IsMatch(username, strRegex, RegexOptions.IgnoreCase))
             {
-                throw new EmailRequiredException(); 
+                throw new ValidEmailRequiredException();
             }
-
-            if (string.IsNullOrEmpty(password)) // Blank Password
+            if (string.IsNullOrEmpty(password))
             {
                 throw new PasswordRequiredException();
             }
 
-            if (password.Length < passwordMinimumLength) //At least 8 characters
+            if (password.Length < PasswordMinimumLength)
             {
-                throw new PasswordMinimumLenghtException();
+                throw new PasswordMinimumLengthRequiredException();
             }
 
-            if (!password.Any(c => char.IsUpper(c))) //Must have Upper case
+            if (!password.Any(c => char.IsUpper(c)))
             {
-                throw new StrongPasswordException();
+                throw new StrongPasswordRequiredException();
             }
 
-            if (!password.Any(c => char.IsLower(c))) // Must Have Lower Case
+            if (!password.Any(c => char.IsLower(c)))
             {
-                throw new StrongPasswordException();
-            }
-            
-            if (!password.Any(c => ! char.IsLetterOrDigit(c))) //Must Have Special Character
-            {
-                throw new StrongPasswordException();
+                throw new StrongPasswordRequiredException();
             }
 
-            if (!password.Any(c => char.IsDigit(c))) // Must Have A Number
+            if (!password.Any(c => char.IsDigit(c)))
             {
-                throw new StrongPasswordException();
+                throw new StrongPasswordRequiredException();
             }
 
+            if (!password.Any(c => char.IsPunctuation(c)))
+            {
+                throw new StrongPasswordRequiredException();
+            }
+            // Call the data ccess layer to save the record
             var account = new Account
             {
                 Username = username,
-                Password = password
+                Password = username
             };
             repository.Create(account);
-        return true;
-        }
 
+            return true;
+        }
+        
     }
+
 }

@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace BlastAsia.DigiBook.Domain.Employees.Exceptions
+namespace BlastAsia.DigiBook.Domain.Employees
 {
-    public class NameRequiredException : Exception
+    public class NameRequiredException
+        : Exception
     {
-        public NameRequiredException(String message) : base(message)
+        public NameRequiredException(string message)
+            : base(message)
         {
-
         }
     }
 }

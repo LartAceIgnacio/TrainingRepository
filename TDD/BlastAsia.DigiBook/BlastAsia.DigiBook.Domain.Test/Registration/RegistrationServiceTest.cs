@@ -1,42 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using BlastAsia.DigiBook.Domain.Models;
 
 namespace BlastAsia.DigiBook.Domain.Test
 {
+    
     [TestClass]
     public class RegistrationServiceTest
     {
         private string username;
         private string password;
-        RegistrationService sut;
-        private Mock<IAccountRepository> mockRepository; // Mock Object
+        private RegistrationService sut;
+        private Mock<IAccountRepository> mockRepository;
 
-        [TestInitialize] // Initialize values
+        [TestInitialize]
         public void InitializeTest()
         {
             username = "luigiabille@gmail.com";
             password = "Bl@st123";
             mockRepository = new Mock<IAccountRepository>();
-            sut = new RegistrationService(mockRepository.Object); //System under test
-            
-        }
-        [TestCleanup] // Cleanup TestInitialize
-        public void cleanUp()
+            sut = new RegistrationService(mockRepository.Object);
+        }  
+
+        [TestCleanup]
+        public void CleanUpTest()
         {
 
         }
 
-        [TestMethod] //Valid Username & Password
+        [TestMethod]
         public void Register_ValidUserNameAndPassword_RegistersAccount()
         {
             // Arrange
 
-            
-            var expecterResult = true;
+            var expectedResult = true;
 
             // Act
 
@@ -44,91 +41,88 @@ namespace BlastAsia.DigiBook.Domain.Test
 
             // Assert
 
-            Assert.AreEqual(expecterResult, actualResult);
-        }
-        [TestMethod] // Blank Username
-        public void Register_BlankUsername_ThrowsUsernameRequiredException()
-        {
-
-            //Arrange
-
-            var username = "";
-
-            // Act
-
-            // Assert
-
-            Assert.ThrowsException<UsernameRequiredException>(
-                () => sut.Register(username, password));
+            Assert.AreEqual(expectedResult, actualResult);
         }
 
-
-        [DataTestMethod] // Valid Email
-        [DataRow("luigiabillegmailcom")]
-        [DataRow("luigiabille@gmailcom")]
-        [DataRow("luigiabillegmail.com")]
-        public void Register_ValidEmail_ThrowsEmailRequiredException(string username)
+        [TestMethod]
+        public void Register_BlankUserName_ThrowsUserNameRequiredException()
         {
             // Arrange
 
-            // Act
+            var username = "";
 
             // Assert
-            Assert.ThrowsException<EmailRequiredException>(
+
+            Assert.ThrowsException<UserNameRequiredException>(
+                 () => sut.Register(username, password));
+        }
+
+        [DataTestMethod]
+        [DataRow("luigiabillegmailcom")]
+        [DataRow("luigi.abillegmail.com")]
+        [DataRow("luigiabille@gmailcom")]
+        public void Register_UserNameNotValidEmail_ThrowsValidEmailRequiredException(string username)
+        {
+            // Assert
+
+            Assert.ThrowsException<ValidEmailRequiredException>(
                 () => sut.Register(username, password));
         }
 
-        [TestMethod] // Blank Password
+        [TestMethod]
         public void Register_BlankPassword_ThrowsPasswordRequiredException()
         {
             // Arrange
 
-            password = "";
-
-            // Act
+            var password = "";
 
             // Assert
 
             Assert.ThrowsException<PasswordRequiredException>(
-                () => sut.Register(username, password));
+                 () => sut.Register(username, password));
         }
 
-        [TestMethod] // Less than 8 characters
-        public void Register_PasswordLessThanMinimum_ThrowsMinimumLengthException()
+        [TestMethod]
+        public void Register_PasswordLessThanMinimum_ThrowsPasswordMinimumLengthRequiredException()
         {
             // Arrange
-            password = "Bl@st12";
 
-            // Act
+            var password = "Bl@st12";
 
             // Assert
-            Assert.ThrowsException<PasswordMinimumLenghtException>(
-                () => sut.Register(username, password));
 
-        }
-        
-        [DataTestMethod] // Password needs Upper Case , Lower Case , Special Character, Number
-        [DataRow("Bl@stabxw")]
-        [DataRow("Blast123")]
-        [DataRow("BLAST123")]
-        [DataRow("bl@st123")]
-        public void Register_PasswordNeedsUpperCaseLowerCaseSpecialCharacterAndNumberException_ThrowsStrongPasswordException(string password)
-        {
-            Assert.ThrowsException<StrongPasswordException>(
+            Assert.ThrowsException<PasswordMinimumLengthRequiredException>(
                 () => sut.Register(username, password));
         }
+
+        [DataTestMethod]
+        [DataRow("BL@ST123")]
+        [DataRow("bl@st123")]
+        [DataRow("Bl@stabc")]
+        public void Register_PasswordNotStrong_ThrowsStrongPasswordRequiredException(string password)
+        {
+
+            // Assert
+
+            Assert.ThrowsException<StrongPasswordRequiredException>(
+                () => sut.Register(username, password));
+        }
+
         [TestMethod]
-        public void Register_WithValidUsernameAndPassword_ShouldCallRepository()
+        public void Register_WithValidUserNameandPassword_ShouldCallRepositoryCreate()
         {
             // Arrange
 
             // Act
+
             sut.Register(username, password);
 
             // Assert
+
             mockRepository
                 .Verify(r => r.Create(It.IsAny<Account>()),
-                Times.Once);
+                    Times.Once());
+
         }
     }
 }

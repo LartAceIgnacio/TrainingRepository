@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace BlastAsia.DigiBook.Domain.Employees.Exceptions
+namespace BlastAsia.DigiBook.Domain.Employees
 {
-    public class MobilePhoneRequiredException : Exception
+    public class MobilePhoneRequiredException
+        : Exception
     {
-        public MobilePhoneRequiredException(String message) : base(message)
+        public MobilePhoneRequiredException(string message)
+            : base(message)
         {
 
         }

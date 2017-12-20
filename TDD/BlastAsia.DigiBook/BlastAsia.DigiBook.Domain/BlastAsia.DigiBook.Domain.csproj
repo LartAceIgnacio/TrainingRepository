@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Appointments\IGuestRepository.cs" />
-    <Compile Remove="Appointments\IHostRepository.cs" />
-    <Compile Remove="Contacts\StreetAddressException.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BlastAsia.DigiBook.Domain.Models\BlastAsia.DigiBook.Domain.Models.csproj" />
   </ItemGroup>
 

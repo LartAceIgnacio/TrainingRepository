@@ -1,10 +1,9 @@
 ﻿using BlastAsia.DigiBook.Domain.Appointments;
-using BlastAsia.DigiBook.Domain.Appointments.Exceptions;
 using BlastAsia.DigiBook.Domain.Contacts;
 using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Models.Appointments;
+using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Employees;
-using BlastAsia.DigiBook.Domain.Test.Contacts.Contacts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -14,203 +13,177 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
     [TestClass]
     public class AppointmentServiceTest
     {
-        private Appointment appointment;
-        private Contact contact = new Contact();
-        private Employee employee = new Employee();
-        private AppointmentService sut;
-        private Mock<IAppointmentRepository> mockAppoinmentRepository;
+        private Mock<IAppointmentRepository> mockAppointmentRepository;
         private Mock<IEmployeeRepository> mockEmployeeRepository;
         private Mock<IContactRepository> mockContactRepository;
-
-        private Guid existingAppoinmentId = Guid.NewGuid();
-        private Guid nonExistingAppoinmentId = Guid.Empty;
-        private Guid existingContactId = Guid.NewGuid();
+        private Appointment appointment;
+        private Employee employee = new Employee();
+        private Contact contact = new Contact();
+        private AppointmentService sut;
         private Guid existingEmployeeId = Guid.NewGuid();
+        private Guid existingContactId = Guid.NewGuid();
+        private Guid existingAppointmentId = Guid.NewGuid();
+        private Guid nonExistingHostId = Guid.Empty;
+        private Guid nonExistingGuestId = Guid.Empty;
 
         [TestInitialize]
-        public void Initialize()
+        public void InitializeTest()
         {
-            mockAppoinmentRepository = new Mock<IAppointmentRepository>();
+            appointment = new Appointment
+            {
+                AppointmentId = new Guid(),
+                AppointmentDate = DateTime.Today,
+                GuestId = existingContactId,
+                HostId = existingEmployeeId,
+                StartTime = new DateTime().TimeOfDay,
+                EndTime = new DateTime().TimeOfDay.Add(TimeSpan.Parse("01:00:00")),
+                IsCancelled = false,
+                IsDone = true,
+                Notes = ""
+
+            };
+
+            mockAppointmentRepository = new Mock<IAppointmentRepository>();
             mockEmployeeRepository = new Mock<IEmployeeRepository>();
             mockContactRepository = new Mock<IContactRepository>();
 
-            sut = new AppointmentService(
-                mockAppoinmentRepository.Object,
-                mockEmployeeRepository.Object,
-                mockContactRepository.Object);
+            sut = new AppointmentService(mockAppointmentRepository.Object, mockEmployeeRepository.Object, mockContactRepository.Object);
 
-            appointment = new Appointment
-            {
-                AppointmentDate = DateTime.Today.AddDays(1),
-                GuestId = existingContactId,
-                HostId = existingEmployeeId,
-                StartTime = DateTime.Now.TimeOfDay,
-                EndTime = DateTime.Now.TimeOfDay.Add(TimeSpan.Parse("02:00:00")),
-                IsCancelled = false,
-                IsDone = false,
-                Notes = "Sample"
-            };
-
-            mockAppoinmentRepository
-                .Setup(c => c.Retrieve(existingAppoinmentId))
-                .Returns(appointment); // AppointmentID
+            mockEmployeeRepository
+                .Setup(e => e.Retrieve(appointment.HostId))
+                .Returns(employee);
             mockContactRepository
                 .Setup(c => c.Retrieve(appointment.GuestId))
-                .Returns(contact); // GuestID
-            mockEmployeeRepository
-                .Setup(c => c.Retrieve(appointment.HostId))
-                .Returns(employee); // HostID
-            mockAppoinmentRepository
-                .Setup(c => c.Retrieve(nonExistingAppoinmentId))
+                .Returns(contact);
+            mockAppointmentRepository
+               .Setup(a => a.Retrieve(existingAppointmentId))
+               .Returns(appointment);
+            mockAppointmentRepository
+                .Setup(a => a.Retrieve(appointment.AppointmentId))
                 .Returns<Appointment>(null);
         }
 
         [TestCleanup]
-        public void Cleanup()
+        public void CleanupTest()
         {
 
         }
 
         [TestMethod]
-        public void Create_NewAppointmentWithValidData_ShouldCallRepositoryCreate()
+        public void Save_NewAppointmentWithValidData_ShouldCallRepositoryCreate()
         {
             //Arrange
 
-            appointment.GuestId = existingContactId;
+            employee.EmployeeId = existingEmployeeId;
+            contact.ContactId = existingContactId;
+
+            //Act
+
+            sut.Save(appointment.AppointmentId, appointment);
+
+            //Assert
+
+            mockAppointmentRepository
+                .Verify(a => a.Retrieve(appointment.AppointmentId), Times.Once);
+            mockAppointmentRepository
+                .Verify(a => a.Create(appointment), Times.Once);
+        }
+
+        [TestMethod]
+        public void Save_WithExistingAppointment_ShouldCallRepositoryUpdate()
+        {
+            // Arrange 
+
+            appointment.AppointmentId = existingAppointmentId;
+
+            // Act
+
+            sut.Save(appointment.AppointmentId, appointment);
+
+            // Assert
+
+            mockAppointmentRepository
+                .Verify(a => a.Retrieve(appointment.AppointmentId), Times.Once);
+            mockAppointmentRepository
+                .Verify(a => a.Update(appointment.AppointmentId, appointment), Times.Once);
+        }
+
+        [TestMethod]
+        public void Create_AppointmentWithValidData_ShouldReturnNewAppointmentWithAppointmentId()
+        {
+            // Arrange 
+
             appointment.HostId = existingEmployeeId;
-
-
-            //Act
-
-            sut.Create(appointment);
-
-            //Assert
-
-            mockAppoinmentRepository
-                .Verify(c => c.Retrieve(appointment.AppointmentId)
-                , Times.Once);
-            mockAppoinmentRepository
-                .Verify(c => c.Create(appointment)
-                , Times.Once);
-        }
-
-        [TestMethod]
-        public void Create_WithValidData_ShouldCallRepositoryUpdate()
-        {
-            //Arrange
-
-            appointment.AppointmentId = existingAppoinmentId;
             appointment.GuestId = existingContactId;
-            appointment.HostId = existingEmployeeId;
+            mockAppointmentRepository
+                .Setup(a => a.Create(appointment))
+                .Callback(() =>
+                {
+                    appointment.AppointmentId = Guid.NewGuid();
+                    employee.EmployeeId = Guid.NewGuid();
+                    contact.ContactId = Guid.NewGuid();
+                })
+                .Returns(appointment);
+
+            // Act 
+
+            var result = sut.Save(appointment.AppointmentId, appointment);
+
+            // Assert
+
+            Assert.IsTrue(result.AppointmentId != Guid.Empty);
+        }
+
+        [TestMethod]
+        public void Save_AppointmentWithNonExistingHostId_ShouldThrowInvalidHostIdException()
+        {
+            appointment.HostId = nonExistingHostId;
+
+            Assert.ThrowsException<InvalidHostIdException>(
+                    () => sut.Save(appointment.AppointmentId, appointment));
+        }
+
+        [TestMethod]
+        public void Save_AppointmentWithNonExistingGuestId_ShouldThrowInvalidGuestIdException()
+        {
+            appointment.GuestId = nonExistingGuestId;
+
+            Assert.ThrowsException<InvalidGuestIdException>(
+                    () => sut.Save(appointment.AppointmentId, appointment));
+        }
+        [TestMethod]
+        public void Create_EndTimeLessThanStartTime_ThrowsInclusiveTimeRequiredException()
+        {
+            // Arrange
+
+            appointment.StartTime = new DateTime().TimeOfDay.Add(TimeSpan.Parse("01:00:00"));
+            appointment.EndTime = new DateTime().TimeOfDay;
+
+            // Assert 
+
+            mockAppointmentRepository
+                .Verify(a => a.Create(appointment), Times.Never);
+            Assert.ThrowsException<InclusiveTimeRequiredException>(
+                () => sut.Save(appointment.AppointmentId, appointment));
+        }
+
+        [TestMethod]
+        public void Create_AppointmentWithAppointmentDateLessThanToday_ThrowsAppointmentDateInvalidException()
+        {
+            // Arrange
+
+            appointment.AppointmentDate = new DateTime(2017, 08, 19);
+
+            // Assert
+
+            mockAppointmentRepository
+                .Verify(a => a.Create(appointment), Times.Never);
+            Assert.ThrowsException<AppointmentDateRequiredException>(
+                () => sut.Save(appointment.AppointmentId, appointment));
             
-            //Act
-
-            sut.Create(appointment);
-
-            //Assert
-
-            mockAppoinmentRepository
-                .Verify(c => c.Retrieve(appointment.AppointmentId)
-                , Times.Once);
-            mockAppoinmentRepository
-                .Verify(c => c.Update(appointment.AppointmentId, appointment)
-                , Times.Once);
         }
 
-        [TestMethod]
-        public void Create_WithGuestIdNotExisting_ThrowsGuestIdException()
-        {
-            //Arrange
-
-            appointment.AppointmentId = existingAppoinmentId;
-            appointment.GuestId = Guid.Empty;
-            appointment.HostId = existingEmployeeId;
-         
-            //Act
-
-            //Assert
-
-            Assert.ThrowsException<GuestIdException>(
-                () => sut.Create(appointment));
-            mockAppoinmentRepository
-                .Verify(c => c.Create(appointment)
-                , Times.Never);
-        }
-
-        [TestMethod]
-        public void Create_WithHostIdNotExisting_ThrowsEmployeeIdException()
-        {
-            //Arrange
-
-            appointment.AppointmentId = existingAppoinmentId;            
-            appointment.GuestId = existingContactId;
-            appointment.HostId = Guid.Empty;
-            
-            //Act
-
-            //Assert
-            Assert.ThrowsException<EmployeeIdException>(
-                () => sut.Create(appointment));
-            mockAppoinmentRepository
-                .Verify(c => c.Create(appointment)
-                , Times.Never);
-        }
-
-        [TestMethod]
-        public void Create_WithAppointmentDateLessThanDateToday_ThrowsAppointmentDateException()
-        {
-            //Arrange
-
-            appointment.AppointmentDate = DateTime.Today.AddMonths(-1);
-
-            //Act
-
-
-            //Assert
-
-            Assert.ThrowsException<AppointmentDateException>(
-                () => sut.Create(appointment));
-            mockAppoinmentRepository
-                .Verify(c => c.Create(appointment)
-            , Times.Never);
-        }
-
-        [TestMethod]
-        public void Create_WithStartTimeGreaterThanEndTime_ThrowsTimeInclusiveException()
-        {
-            //Arrange
-
-            appointment.StartTime = DateTime.Now.TimeOfDay
-                  .Add(TimeSpan.Parse("05:00:00"));
-            appointment.EndTime = DateTime.Now.TimeOfDay;
-            
-            //Act
-            
-            //Assert
-
-            Assert.ThrowsException<TimeInclusiveException>(
-                () => sut.Create(appointment));
-            mockAppoinmentRepository
-                .Verify(c => c.Create(appointment)
-                , Times.Never);
-        }
-
-        [TestMethod]
-        public void Create_WithStartTimeEqualToEndTime_ThrowsTimeInclusiveException()
-        {
-            //Arrange
-
-            appointment.StartTime = DateTime.Now.TimeOfDay;
-            appointment.EndTime = DateTime.Now.TimeOfDay;
-            //Act
-
-            //Assert
-
-            Assert.ThrowsException<TimeInclusiveException>(
-                () => sut.Create(appointment));
-            mockAppoinmentRepository
-                .Verify(c => c.Create(appointment)
-                , Times.Never);
-        }
     }
+    
+
 }
