@@ -3,7 +3,7 @@ using BlastAsia.Digibook.Domain.Models.Contacts;
 
 namespace BlastAsia.Digibook.Domain.Contacts
 {
-    public class ContactService
+    public class ContactService:IContactService
     {
         private IContactRepository contactRepository;
 
@@ -12,7 +12,7 @@ namespace BlastAsia.Digibook.Domain.Contacts
             this.contactRepository = contactRepository;
         }
 
-        public Contact Save(Contact contact)
+        public Contact Save(Guid id,Contact contact)
         {
             if (string.IsNullOrEmpty(contact.FirstName))
             {

@@ -5,7 +5,7 @@ using System;
 
 namespace BlastAsia.Digibook.Domain.Appointments
 {
-    public class AppointmentService
+    public class AppointmentService: IAppointmentService
     {
         private IAppointmentRepository appointmentRepository;
         private IContactRepository contactRepository;
@@ -80,7 +80,7 @@ namespace BlastAsia.Digibook.Domain.Appointments
             }
             else
             {
-                result = appointmentRepository.Update(appointment, appointment.AppointmentId);
+                result = appointmentRepository.Update(appointment.AppointmentId,appointment);
             }
 
             return result;

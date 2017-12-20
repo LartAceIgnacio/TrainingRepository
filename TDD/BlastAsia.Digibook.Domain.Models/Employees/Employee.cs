@@ -22,7 +22,7 @@ namespace BlastAsia.Digibook.Domain.Models.Employees
         [Required]
         public string EmailAddress { get; set; }
 
-        [Required]
+        //[Required]
         public Stream Photo { get; set; }
 
         [Required]
@@ -30,5 +30,7 @@ namespace BlastAsia.Digibook.Domain.Models.Employees
 
         [Required]
         public string Extension { get; set; }
+
+        public Byte[] PhotoByte { get; set; }
     }
 }

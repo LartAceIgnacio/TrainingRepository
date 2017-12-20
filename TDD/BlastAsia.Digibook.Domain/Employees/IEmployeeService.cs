@@ -5,7 +5,8 @@ using System.Text;
 
 namespace BlastAsia.Digibook.Domain.Employees
 {
-    public interface IEmployeeRepository:IRepository<Employee>
+    public interface IEmployeeService
     {
+        Employee Save(Employee employee);
     }
 }

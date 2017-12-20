@@ -3,12 +3,7 @@ using System;
 
 namespace BlastAsia.Digibook.Domain.Appointments
 {
-    public interface IAppointmentRepository
+    public interface IAppointmentRepository:IRepository<Appointment>
     {
-        Appointment Retrieve(Guid appointmentId);
-
-        Appointment Create(Appointment appointment);
-
-        Appointment Update(Appointment appointment, Guid appointmentId);
     }
 }

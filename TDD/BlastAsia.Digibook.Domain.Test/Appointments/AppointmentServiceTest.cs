@@ -9,6 +9,7 @@ using Moq;
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace BlastAsia.Digibook.Domain.Test.Appointments
@@ -21,6 +22,8 @@ namespace BlastAsia.Digibook.Domain.Test.Appointments
         private Mock<IEmployeeRepository> mockEmployeeRepository;
         private AppointmentService sut;
         private Appointment appointment;
+        private Employee employee;
+        private Contact contact;
         private Guid guestId = Guid.NewGuid();
         private Guid hostId = Guid.NewGuid();
         private Guid existingAppointmentId = Guid.NewGuid();
@@ -51,6 +54,31 @@ namespace BlastAsia.Digibook.Domain.Test.Appointments
                 Notes = "test"
             };
 
+            contact = new Contact
+            {
+                FirstName = "Alex",
+                LastName = "Cano",
+                MobilePhone = "09173723594",
+                StreetAddress = "16 J. Cruz St., Parang",
+                CityAddress = "Marikina City",
+                ZipCode = 1809,
+                Country = "Philippines",
+                EmailAddress = "gcano@blastasia.com",
+                IsActive = false,
+                DateActive = DateTime.Now
+            };
+
+            employee = new Employee
+            {
+                FirstName = "Glenn Alexander",
+                LastName = "Cano",
+                MobilePhone = "09173723594",
+                EmailAddress = "gcano@blastasia.com",
+                Photo = new MemoryStream(),
+                OfficePhone = "9144456",
+                Extension = "421"
+            };
+
             mockAppointmentRepository
                 .Setup(ar => ar.Create(appointment))
                 .Callback(() => appointment.AppointmentId = Guid.NewGuid());
@@ -67,6 +95,19 @@ namespace BlastAsia.Digibook.Domain.Test.Appointments
         [TestMethod]
         public void Set_NewAppointment_ShouldCreateAppointment()
         {
+            employee.EmployeeId = existingAppointmentId;
+            contact.ContactId = existingAppointmentId;
+            appointment.HostId = employee.EmployeeId;
+            appointment.GuestId = contact.ContactId;
+
+            mockContactRepository
+                .Setup(ar => ar.Retrieve(existingAppointmentId))
+                .Returns(contact);
+
+            mockEmployeeRepository
+                .Setup(ar => ar.Retrieve(existingAppointmentId))
+                .Returns(employee);
+
             var result = sut.Set(appointment);
 
             mockAppointmentRepository
@@ -79,6 +120,19 @@ namespace BlastAsia.Digibook.Domain.Test.Appointments
         [TestMethod]
         public void Set_ExistingAppointment_ShouldUpdateAppointment()
         {
+            employee.EmployeeId = existingAppointmentId;
+            contact.ContactId = existingAppointmentId;
+            appointment.HostId = employee.EmployeeId;
+            appointment.GuestId = contact.ContactId;
+
+            mockContactRepository
+                .Setup(ar => ar.Retrieve(existingAppointmentId))
+                .Returns(contact);
+
+            mockEmployeeRepository
+                .Setup(ar => ar.Retrieve(existingAppointmentId))
+                .Returns(employee);
+
             appointment.AppointmentId = existingAppointmentId;
             var result = sut.Set(appointment);
 
@@ -86,12 +140,25 @@ namespace BlastAsia.Digibook.Domain.Test.Appointments
                 .Verify(c => c.Retrieve(appointment.AppointmentId), Times.Once);
 
             mockAppointmentRepository
-                .Verify(c => c.Update(appointment,appointment.AppointmentId), Times.Once);
+                .Verify(c => c.Update(appointment.AppointmentId,appointment), Times.Once);
         }
 
         [TestMethod]
         public void Set_NewAppointment_ReturnsNewAppointmentWithId()
         {
+            employee.EmployeeId = existingAppointmentId;
+            contact.ContactId = existingAppointmentId;
+            appointment.HostId = employee.EmployeeId;
+            appointment.GuestId = contact.ContactId;
+
+            mockContactRepository
+                .Setup(ar => ar.Retrieve(existingAppointmentId))
+                .Returns(contact);
+
+            mockEmployeeRepository
+                .Setup(ar => ar.Retrieve(existingAppointmentId))
+                .Returns(employee);
+
             mockAppointmentRepository
                 .Setup(a => a.Create(appointment))
                 .Callback(() => appointment.AppointmentId = Guid.NewGuid())

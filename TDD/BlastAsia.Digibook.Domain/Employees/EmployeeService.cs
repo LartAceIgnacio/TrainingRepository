@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BlastAsia.Digibook.Domain.Employees
 {
-    public class EmployeeService
+    public class EmployeeService:IEmployeeService
     {
         private IEmployeeRepository employeeRepository;
 
@@ -36,10 +36,10 @@ namespace BlastAsia.Digibook.Domain.Employees
                 throw new InvalidEmailAddressFormatException();
             }
 
-            if(employee.Photo == null)
+            /*if(employee.Photo == null)
             {
                 throw new InvalidPhotoException();
-            }
+            }*/
 
             if (string.IsNullOrEmpty(employee.OfficePhone))
             {
@@ -61,7 +61,7 @@ namespace BlastAsia.Digibook.Domain.Employees
             }
             else
             {
-                result = employeeRepository.Update(employee,employee.EmployeeId);
+                result = employeeRepository.Update(employee.EmployeeId,employee);
             }
 
             return result;

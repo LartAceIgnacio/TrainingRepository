@@ -5,11 +5,7 @@ using BlastAsia.Digibook.Domain.Models.Contacts;
 
 namespace BlastAsia.Digibook.Domain.Contacts
 {
-    public interface IContactRepository
+    public interface IContactRepository:IRepository<Contact>
     {
-        Contact Create(Contact contact);
-
-        Contact Retrieve(Guid id);
-        Contact Update(Guid id, Contact contact);
     }
 }
