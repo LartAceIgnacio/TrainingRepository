@@ -13,13 +13,13 @@ namespace BlastAsia.DigiBook.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/Employee")]
-    public class EmployeeController : Controller
+    public class EmployeesController : Controller
     {
         private static List<Employee> employees = new List<Employee>();
 
         private readonly IEmployeeRepository employeeRepository;
         private readonly IEmployeeService employeeService;
-        public EmployeeController(IEmployeeRepository employeeRepository, IEmployeeService employeeService)
+        public EmployeesController(IEmployeeRepository employeeRepository, IEmployeeService employeeService)
         {
             this.employeeRepository = employeeRepository;
             this.employeeService = employeeService;
@@ -45,8 +45,20 @@ namespace BlastAsia.DigiBook.Api.Controllers
         [HttpPost]
         public IActionResult CreateEmployee([FromBody] Employee employee)
         {
-            var result = this.employeeService.Save(Guid.Empty, employee);
-            return CreatedAtAction("GetEmployees", new { id = employee.EmployeeId }, result);
+            try
+            {
+                if (employee == null)
+                {
+                    return BadRequest();
+                }
+
+                var result = this.employeeService.Save(Guid.Empty, employee);
+                return CreatedAtAction("GetEmployees", new { id = employee.EmployeeId }, result);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete]
@@ -70,38 +82,66 @@ namespace BlastAsia.DigiBook.Api.Controllers
                     Guid id
             )
         {
-            var employeeToUpdate = employeeRepository.Retrieve(id);
-
-            if (employeeToUpdate == null)
+            try
             {
-                return NotFound();
+
+                if (employee == null)
+                {
+                    return BadRequest();
+                }
+
+                var employeeToUpdate = employeeRepository.Retrieve(id);
+
+                if (employeeToUpdate == null)
+                {
+                    return NotFound();
+                }
+
+                employeeToUpdate.ApplyChanges(employee);
+
+                var result = employeeService.Save(id, employeeToUpdate);
+                return Ok(result);
             }
-
-            employeeToUpdate.ApplyChanges(employee);
-
-            var result = employeeService.Save(id, employeeToUpdate);
-            return Ok(result);
-
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPatch]
         public IActionResult PatchEmployee([FromBody]JsonPatchDocument patchedEmployee, Guid id)
         {
-            if (patchedEmployee == null)
+
+
+            try
+            {
+
+                if (patchedEmployee == null)
+                {
+                    return BadRequest();
+                }
+
+                if (patchedEmployee == null)
+                {
+                    return BadRequest();
+                }
+
+                var contact = employeeRepository.Retrieve(id);
+                if (contact == null)
+                {
+                    return NotFound();
+                }
+
+                patchedEmployee.ApplyTo(contact);
+                employeeService.Save(id, contact);
+
+                return Ok(contact);
+            }
+            catch (Exception)
             {
                 return BadRequest();
             }
 
-            var contact = employeeRepository.Retrieve(id);
-            if (contact == null)
-            {
-                return NotFound();
-            }
-
-            patchedEmployee.ApplyTo(contact);
-            employeeService.Save(id, contact);
-
-            return Ok(contact);
         }
     }
 }

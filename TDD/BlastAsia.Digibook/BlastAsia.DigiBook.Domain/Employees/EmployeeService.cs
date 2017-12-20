@@ -10,10 +10,10 @@ namespace BlastAsia.DigiBook.Domain.Employees
     {
         private readonly string regex = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
-        private IEmployeeRepository _employeeRepo;
+        private IEmployeeRepository employeeRepo;
         public EmployeeService(IEmployeeRepository employeeService)
         {
-            _employeeRepo = employeeService;
+            this.employeeRepo = employeeService;
         }
 
         public Employee Save(Guid id , Employee employee)
@@ -45,9 +45,9 @@ namespace BlastAsia.DigiBook.Domain.Employees
 
             // If Everything is good then  go
             Employee result;
-            var existing = _employeeRepo.Retrieve(employee.EmployeeId);
+            var existing = this.employeeRepo.Retrieve(employee.EmployeeId);
 
-            result = existing != null ? _employeeRepo.Update(employee.EmployeeId, employee) : _employeeRepo.Create(employee);
+            result = existing != null ? this.employeeRepo.Update(employee.EmployeeId, employee) : this.employeeRepo.Create(employee);
 
             return result;
         }

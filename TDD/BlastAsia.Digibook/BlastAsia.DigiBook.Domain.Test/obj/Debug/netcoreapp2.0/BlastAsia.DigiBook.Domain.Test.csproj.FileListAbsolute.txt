@@ -42,6 +42,8 @@ C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digiboo
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.pdb
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\Microsoft.Data.Tools.Schema.Sql.UnitTesting.dll
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter.dll
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.csprojResolveAssemblyReference.cache
@@ -50,5 +52,3 @@ C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digiboo
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.AssemblyInfo.cs
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.dll
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.pdb
-C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\Microsoft.Data.Tools.Schema.Sql.UnitTesting.dll
-C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter.dll

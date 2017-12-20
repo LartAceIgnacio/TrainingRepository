@@ -14,11 +14,11 @@ namespace BlastAsia.DigiBook.Domain
         private readonly string regex = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
         // construtor hide constructor
-        private readonly IAccountRepository _repository;
+        private readonly IAccountRepository repository;
         //construtor injection
         public RegistrationService(IAccountRepository repository)
         {
-            _repository = repository; // 
+            this.repository = repository; // 
         }
 
         public bool Register(string username, string password)
@@ -88,14 +88,14 @@ namespace BlastAsia.DigiBook.Domain
             //}
             #endregion
 
-            // if passed, then execute _repository.Create();
+            // if passed, then execute this.repository.Create();
             var account = new Account
             {
                 Username = username,
                 Password = password
             };
-            _repository.Create(account);
-            _repository.ReturnsId(1);
+            this.repository.Create(account);
+            this.repository.ReturnsId(1);
             return true;
         }
 

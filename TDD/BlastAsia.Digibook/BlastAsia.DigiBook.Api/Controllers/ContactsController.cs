@@ -45,10 +45,21 @@ namespace BlastAsia.DigiBook.Api.Controllers
         public IActionResult CreateContact(
             [FromBody] Contact contact)
         {
-            var result = this.contactService.Save(Guid.Empty, contact);
-            return CreatedAtAction("GetContacts", new { id = contact.ContactId }, result);
-        }
+            try
+            {
+                if (contact == null)
+                {
+                    return BadRequest();
+                }
 
+                var result = this.contactService.Save(Guid.Empty, contact);
+                return CreatedAtAction("GetContacts", new { id = contact.ContactId }, result);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
 
         [HttpDelete]
         public IActionResult DeleteContact(Guid id)
@@ -56,7 +67,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
             var contactToDelete = this.contactRepository.Retrieve(id);
             if (contactToDelete == null)
             {
-                NotFound();
+                return NotFound();
             }
 
             contactRepository.Delete(id);
@@ -70,55 +81,71 @@ namespace BlastAsia.DigiBook.Api.Controllers
                     Guid id
             )
         {
-          
-
-            var contactToEdit = this.contactRepository.Retrieve(id);
-
-           
-            if (contactToEdit == null)
+            try
             {
-                return NotFound();
+
+                if (contact == null)
+                {
+                    return BadRequest();
+                }
+
+                var contactToEdit = this.contactRepository.Retrieve(id);
+                if (contactToEdit == null)
+                {
+                    return NotFound();
+                }
+
+                #region Reflection
+                //Type type = typeof(Contact);
+                //PropertyInfo[] properties = type.GetProperties();
+                //foreach (PropertyInfo property in properties)
+                //{
+                //    Console.WriteLine("{0} = {1}", property.Name, property.GetValue(contact, null));
+                //    var x = property.GetValue(contact, null);
+
+                //    contactToEdit.GetType().GetProperty(property.Name).SetValue(contactToEdit, x);
+
+                //}
+                #endregion
+
+                contactToEdit.ApplyChanges(contact);
+
+                var result = contactService.Save(id, contactToEdit);
+                return Ok(result);
             }
-
-            #region Refelction
-            //Type type = typeof(Contact);
-            //PropertyInfo[] properties = type.GetProperties();
-            //foreach (PropertyInfo property in properties)
-            //{
-            //    Console.WriteLine("{0} = {1}", property.Name, property.GetValue(contact, null));
-            //    var x = property.GetValue(contact, null);
-
-            //    contactToEdit.GetType().GetProperty(property.Name).SetValue(contactToEdit, x);
-
-            //}
-
-            #endregion
-
-            contactToEdit.ApplyChanges(contact);
-
-           // contactToEdit.ContactId = id;
-
-            var result = contactService.Save(id, contactToEdit);
-            return Ok(result);
-        }
-        [HttpPatch]
-        public IActionResult PatchContact([FromBody]JsonPatchDocument patchedContact, Guid id)
-        {
-            if (patchedContact == null)
+            catch (Exception)
             {
                 return BadRequest();
             }
 
-            var contact = contactRepository.Retrieve(id);
-            if (contact == null)
+
+        }
+        [HttpPatch]
+        public IActionResult PatchContact([FromBody]JsonPatchDocument patchedContact, Guid id)
+        {
+            try
             {
-                return NotFound();
+                if (patchedContact == null)
+                {
+                    return BadRequest();
+                }
+
+                var contact = contactRepository.Retrieve(id);
+                if (contact == null)
+                {
+                    return NotFound();
+                }
+
+                patchedContact.ApplyTo(contact);
+                contactService.Save(id, contact);
+
+                return Ok(contact);
             }
-
-            patchedContact.ApplyTo(contact);
-            contactService.Save(id, contact);
-
-            return Ok(contact);
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            
         }
 
     }

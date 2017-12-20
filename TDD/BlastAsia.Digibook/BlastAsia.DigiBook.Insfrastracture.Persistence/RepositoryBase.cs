@@ -11,40 +11,40 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence
     public abstract class RepositoryBase <TEntity>
         : IRepository<TEntity> where TEntity : class
     {
-        private readonly IDigiBookDbContext _context;
+        private readonly IDigiBookDbContext context;
         public RepositoryBase(IDigiBookDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         public TEntity Create(TEntity entity)
         {
-            _context.Set<TEntity>().Add(entity);
-            _context.SaveChanges();
+            this.context.Set<TEntity>().Add(entity);
+            this.context.SaveChanges();
             return entity;
         }
 
         public void Delete(Guid id)
         {
             var contact = this.Retrieve(id);
-            _context.Set<TEntity>().Remove(contact);
-            _context.SaveChanges();
+            this.context.Set<TEntity>().Remove(contact);
+            this.context.SaveChanges();
         }
 
         public TEntity Retrieve(Guid id)
         {
-            return _context.Set<TEntity>().Find(id);
+            return this.context.Set<TEntity>().Find(id);
         }
 
         public IEnumerable<TEntity> Retrieve()
         {
-            return _context.Set<TEntity>().ToList();
+            return this.context.Set<TEntity>().ToList();
         }
 
         public TEntity Update(Guid id, TEntity entity)
         {
-            _context.Update(entity);
-            _context.SaveChanges();
+            this.context.Update(entity);
+            this.context.SaveChanges();
             return entity;
         }
     }

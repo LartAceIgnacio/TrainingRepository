@@ -7,12 +7,12 @@ namespace BlastAsia.DigiBook.Domain.Contacts
 {
     public class ContactService : IContactService
     {
-        private IContactRepository _contactRepository;
+        private IContactRepository contactRepository;
         private readonly string regex = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
         public ContactService (IContactRepository contactRepository)
         {
-            _contactRepository = contactRepository;
+            this.contactRepository = contactRepository;
         }
 
         public Contact Save(Guid id, Contact contact)
@@ -66,19 +66,19 @@ namespace BlastAsia.DigiBook.Domain.Contacts
 
             Contact result = null;
 
-            var found = _contactRepository.Retrieve(contact.ContactId);
+            var found = this.contactRepository.Retrieve(contact.ContactId);
 
             #region Long If else
             //if(found == null)
             //{
-            //    result = _contactRepository.Create(contact);
+            //    result = this.contactRepository.Create(contact);
             //} else
             //{
-            //    result = _contactRepository.Update(contact.ContactId, contact);
+            //    result = this.contactRepository.Update(contact.ContactId, contact);
             //}
             #endregion
 
-            result = found == null ? _contactRepository.Create(contact) : _contactRepository.Update(id, contact);
+            result = found == null ? this.contactRepository.Create(contact) : this.contactRepository.Update(id, contact);
 
             return result;
         }
