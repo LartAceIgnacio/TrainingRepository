@@ -66,6 +66,9 @@ namespace BlastAsia.DigiBook.API.Controllers
             [FromBody] Appointment appointment, Guid id)
         {
             var oldAppointment = this.appointmentRepository.Retrieve(id);
+            if (oldAppointment == null) {
+                return NotFound();
+            }
             oldAppointment.ApplyNewChanges(appointment);
 
             var result = this.appointmentService.Save(id, appointment);

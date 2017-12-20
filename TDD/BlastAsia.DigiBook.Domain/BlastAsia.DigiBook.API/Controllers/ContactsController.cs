@@ -65,6 +65,10 @@ namespace BlastAsia.DigiBook.API.Controllers
             [Bind("FirstName", "LastName", "MobilePhone", "StreetAddress", "CityAddress", "ZipCode", "Country", "EmailAddress")] Contact contact, Guid id)
         {
             var oldContact = this.contactRepository.Retrieve(id);
+            if(oldContact == null) {
+                return NotFound();
+            }
+
             oldContact.ApplyNewChanges(contact);
 
             var result = this.contactService.Save(id, contact);

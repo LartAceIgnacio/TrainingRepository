@@ -65,6 +65,9 @@ namespace BlastAsia.DigiBook.API.Controllers
             [Bind("FirstName", "LastName", "MobilePhone", "EmailAddress", "OfficePhone", "Extension")] Employee employee, Guid id)
         {
             var oldEmployee = this.employeeRepository.Retrieve(id);
+            if (oldEmployee == null) {
+                return NotFound();
+            }
             oldEmployee.ApplyNewChanges(employee);
 
             var result = this.employeeService.Save(id, employee);
