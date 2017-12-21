@@ -1,8 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\BlastAsia.DigiBook.Domain.Test\\Contact",
-    "\\BlastAsia.DigiBook.Domain.Test\\Contacts"
+    "\\BlastAsia.DigiBook.API.Test"
   ],
+  "SelectedNode": "\\BlastAsia.DigiBook.API.Test\\EmployeesControllerTest.cs",
   "PreviewInSolutionExplorer": false
 }

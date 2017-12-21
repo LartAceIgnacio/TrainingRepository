@@ -42,34 +42,59 @@ namespace BlastAsia.DigiBook.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete]
-        public IActionResult DeleteAppointment(Guid id)
-        {
-            this.appointmentRepository.Delete(id);
-
-            return Ok();
-        }
-
         [HttpPost]
         public IActionResult CreateAppointment(
            [FromBody]Appointment appointment)
         {
-            var result = this.appointmentService.Save(Guid.Empty, appointment);
+            try
+            {
+                if (appointment == null)
+                {
+                    return BadRequest();
+                }
 
-            return CreatedAtAction("GetAppointments", new { id = result.AppointmentId }, result);
+                var result = this.appointmentService.Save(Guid.Empty, appointment);
+
+                return CreatedAtAction("GetAppointment",
+                    new { id = appointment.AppointmentId }, result);
+            }
+
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteAppointment(Guid id)
+        {
+            var appointmentToDelete = this.appointmentRepository.Retrieve(id);
+            if (appointmentToDelete == null)
+            {
+                return NotFound();
+            }
+
+            appointmentRepository.Delete(id);
+            return NoContent();
         }
 
         [HttpPut]
         public IActionResult UpdateAppointment(
             [FromBody] Appointment appointment, Guid id)
         {
-            var existingAppointment = appointmentRepository.Retrieve(id);
+            if (appointment == null)
+            {
+                return BadRequest();
+            }
 
-            existingAppointment.ApplyChanges(appointment);
+            var appointmentToUpdate = appointmentRepository.Retrieve(id);
+            if (appointmentToUpdate == null)
+            {
+                return NotFound();
+            }
 
-            this.appointmentService.Save(id, existingAppointment);
-
-
+            appointmentToUpdate.ApplyChanges(appointment);
+            this.appointmentService.Save(id, appointmentToUpdate);
             return Ok(appointment);
         }
         [HttpPatch]
