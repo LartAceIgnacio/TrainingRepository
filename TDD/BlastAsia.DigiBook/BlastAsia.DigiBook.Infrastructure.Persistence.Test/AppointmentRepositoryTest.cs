@@ -34,7 +34,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
                 Notes = "Sucess"
             };
 
-            _connectionString = @"Data Source=.;Database=DigiBookDb;Integrated Security=true;";
+            _connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=DigiBookDb;Trusted_Connection=True;";
             _dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
                 .UseSqlServer(_connectionString)
                 .Options;
