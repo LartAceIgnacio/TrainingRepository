@@ -48,14 +48,33 @@ namespace BlastAsia.DigiBook.API.Controllers
             [FromBody]
             Contact contact)
         {
-            var result = this.contactService.Save(Guid.Empty, contact);
+            try
+            {
+                if (contact == null)
+                {
+                    return BadRequest();
+                }
 
-            return CreatedAtAction("GetContacts", new { id = contact.ContactId }, contact);
+                var result = this.contactService.Save(Guid.Empty, contact);
+
+                return CreatedAtAction("GetContacts",
+                    new { id = contact.ContactId }, result);
+            }
+
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete]
         public IActionResult DeleteContact(Guid id)
         {
+            var contactToDelete = this.contactRepository.Retrieve(id);
+            if (contactToDelete == null)
+            {
+                return NotFound();
+            }
             this.contactRepository.Delete(id);
             return NoContent();
         }
@@ -65,10 +84,29 @@ namespace BlastAsia.DigiBook.API.Controllers
             [FromBody]
             Contact contact, Guid id)
         {
-            var existingContact = contactRepository.Retrieve(id);
-            existingContact.ApplyChanges(contact);
-            this.contactService.Save(id, existingContact);
-            return Ok(contact);
+            try
+            {
+                if (contact == null)
+                {
+                    return BadRequest();
+                }
+
+                var existingContact = contactRepository.Retrieve(id);
+                if (existingContact == null)
+                {
+                    return NotFound();
+                }
+
+                existingContact.ApplyChanges(contact);
+
+                var result = this.contactService.Save(id, existingContact);
+
+                return Ok(contact);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPatch]

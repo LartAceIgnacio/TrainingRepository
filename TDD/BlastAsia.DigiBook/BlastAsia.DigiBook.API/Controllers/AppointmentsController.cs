@@ -10,6 +10,7 @@ using BlastAsia.DigiBook.API.Utils;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class AppointmentsController : Controller
     {
@@ -41,13 +42,32 @@ namespace BlastAsia.DigiBook.API.Controllers
         [HttpPost]
         public IActionResult CreateAppointment([FromBody] Appointment appointment)
         {
-            var result = this.appointmentService.Save(Guid.Empty, appointment);
-            return CreatedAtAction("GetAppointments", new { id = appointment.AppointmentId }, appointment);
+            try
+            {
+                if (appointment == null)
+                {
+                    return BadRequest();
+                }
+
+                var result = this.appointmentService.Save(Guid.Empty, appointment);
+
+                return CreatedAtAction("GetAppointments", new { id = appointment.AppointmentId }, appointment);
+            }
+
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete]
         public IActionResult DeleteAppointment(Guid id)
         {
+            var appointmentToDelete = this.appointmentRepository.Retrieve(id);
+            if (appointmentToDelete == null)
+            {
+                return NotFound();
+            }
             this.appointmentRepository.Delete(id);
             return NoContent();
         }
@@ -55,10 +75,29 @@ namespace BlastAsia.DigiBook.API.Controllers
         [HttpPut]
         public IActionResult UpdateAppointment([FromBody] Appointment appointment, Guid id)
         {
-            var existingAppointment = appointmentRepository.Retrieve(id);
-            existingAppointment.ApplyChanges(appointment);
-            this.appointmentService.Save(id, existingAppointment);
-            return Ok(appointment);
+            try
+            {
+                if (appointment == null)
+                {
+                    return BadRequest();
+                }
+
+                var existingAppointment = appointmentRepository.Retrieve(id);
+                if (existingAppointment == null)
+                {
+                    return NotFound();
+                }
+
+                existingAppointment.ApplyChanges(appointment);
+
+                var result = this.appointmentService.Save(id, existingAppointment);
+
+                return Ok(appointment);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }          
         }
 
         [HttpPatch]

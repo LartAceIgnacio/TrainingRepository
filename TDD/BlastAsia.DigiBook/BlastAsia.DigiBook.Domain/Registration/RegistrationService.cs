@@ -36,7 +36,7 @@ namespace BlastAsia.DigiBook.Domain
             }
             if (password.Length < MinimumPasswordLength)
             {
-                throw new MinimumLengthRequiredException();
+                throw new MinimumLengthRequiredException("");
             }
             if (!password.Any(c => char.IsUpper(c)))
             {

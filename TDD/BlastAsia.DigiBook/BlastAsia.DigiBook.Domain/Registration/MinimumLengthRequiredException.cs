@@ -7,5 +7,8 @@ namespace BlastAsia.DigiBook.Domain
     public class MinimumLengthRequiredException
         : Exception
     {
+        public MinimumLengthRequiredException(string message) : base(message)
+        {
+        }
     }
 }

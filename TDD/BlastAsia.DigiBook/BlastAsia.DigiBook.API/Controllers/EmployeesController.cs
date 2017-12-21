@@ -45,14 +45,32 @@ namespace BlastAsia.DigiBook.API.Controllers
             [FromBody]
             Employee employee)
         {
-            var result = this.employeeService.Save(Guid.Empty, employee);
+            try
+            {
+                if (employee == null)
+                {
+                    return BadRequest();
+                }
 
-            return CreatedAtAction("GetEmployees", new { id = employee.EmployeeId }, employee);
+                var result = this.employeeService.Save(Guid.Empty, employee);
+
+                return CreatedAtAction("GetEmployees", new { id = employee.EmployeeId }, employee);
+            }
+
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete]
         public IActionResult DeleteEmployee(Guid id)
         {
+            var employeeToDelete = this.employeeRepository.Retrieve(id);
+            if (employeeToDelete == null)
+            {
+                return NotFound();
+            }
             this.employeeRepository.Delete(id);
             return NoContent();
         }
@@ -62,10 +80,29 @@ namespace BlastAsia.DigiBook.API.Controllers
             [FromBody]
             Employee employee, Guid id)
         {
-            var existingEmployee = employeeRepository.Retrieve(id);
-            existingEmployee.ApplyChanges(employee);
-            this.employeeService.Save(id, existingEmployee);
-            return Ok(employee);
+            try
+            {
+                if (employee == null)
+                {
+                    return BadRequest();
+                }
+
+                var existingEmployee = employeeRepository.Retrieve(id);
+                if (existingEmployee == null)
+                {
+                    return NotFound();
+                }
+
+                existingEmployee.ApplyChanges(employee);
+
+                var result = this.employeeService.Save(id, existingEmployee);
+
+                return Ok(employee);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPatch]

@@ -50,6 +50,16 @@ namespace BlastAsia.DigiBook.Domain.Test.Departments
                 .Verify(d => d.Save(department), Times.Once);
         }
 
+        public void Save_ExistingDepartment_ShouldCallRepositoryUpdate()
+        {
+            // Arrange
+            var existingDepartmentId = Guid.NewGuid();
+
+            // Act
+
+            // Assert
+        }
+
         [TestMethod]
         public void Save_BlankDepartmentName_ThrowsDepartmentNameRequiredException()
         {
@@ -68,6 +78,8 @@ namespace BlastAsia.DigiBook.Domain.Test.Departments
             department.DepartmentName = "Depar";
 
             // Assert
+            Assert.ThrowsException<MinimumLengthRequiredException>(
+                () => sut.Save(department));
 
         }
     }
