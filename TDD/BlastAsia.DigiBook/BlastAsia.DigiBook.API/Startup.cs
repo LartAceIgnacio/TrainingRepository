@@ -15,6 +15,7 @@ using BlastAsia.DigiBook.Infrastructure.Persistence.Repositories;
 using BlastAsia.DigiBook.Domain.Employees.Services;
 using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Appointments.Services;
+using BlastAsia.DigiBook.Domain.Appointments.Adapters;
 
 namespace BlastAsia.DigiBook.API
 {
@@ -40,6 +41,7 @@ namespace BlastAsia.DigiBook.API
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddTransient<IDateTimeWrapper, DateTimeWrapper>();
 
             services.AddMvc();
 
