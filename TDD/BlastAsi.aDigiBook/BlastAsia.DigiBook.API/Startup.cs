@@ -45,6 +45,7 @@ namespace BlastAsia.DigiBook.API
            });
 
             services.AddScoped<IDigiBookDbContext, DigiBookDbContext>();
+
             services.AddTransient<IContactService, ContactService>();
             services.AddScoped<IContactRepository, ContactRepository>();
 

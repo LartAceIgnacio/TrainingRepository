@@ -43,37 +43,61 @@ namespace BlastAsia.DigiBook.API.Controllers
         public IActionResult CreateEmployee(
             [FromBody] Employee employee)
         {
-            var result = this.employeeService.Save(Guid.Empty, employee);
-            return CreatedAtAction("GetEmployees", new { id = result.EmployeeId }, result);
+            try
+            {
+                if (employee == null)
+                {
+                    return BadRequest();
+                }
+
+                var result = this.employeeService.Save(Guid.Empty, employee);
+                return CreatedAtAction("GetEmployees", new { id = result.EmployeeId }, result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
 
         [HttpDelete]
         public IActionResult DeleteEmployee(Guid id)
         {
-            this.employeeRepository.Delete(id);
-            return NoContent();
+            var employeeToDelete = this.employeeRepository.Retrieve(id);
+            if (employeeToDelete != null)
+            {
+                this.employeeRepository.Delete(id);
+                return NoContent();
+            }
+            return NotFound();
         }
 
         [HttpPatch]
         public IActionResult PatchEmployee(
             [FromBody] JsonPatchDocument patchedEmployee, Guid id)
         {
-            if(patchedEmployee == null)
+            try
             {
-                return BadRequest();
-            }
+                if (patchedEmployee == null)
+                {
+                    return BadRequest();
+                }
 
-            var employee = this.employeeRepository.Retrieve(id);
-            if(employee == null)
+                var employee = this.employeeRepository.Retrieve(id);
+                if (employee == null)
+                {
+                    return NotFound();
+                }
+
+                patchedEmployee.ApplyTo(employee);
+                employeeService.Save(id, employee);
+
+                return Ok(employee);
+            }
+            catch (Exception e)
             {
-                return NotFound();
+                return BadRequest(e.Message);
             }
-
-            patchedEmployee.ApplyTo(employee);
-            employeeService.Save(id, employee);
-
-            return Ok(employee);
         }
 
         [HttpPut]
@@ -82,13 +106,29 @@ namespace BlastAsia.DigiBook.API.Controllers
              //   "OfficePhone", "Extension", "EmployeeId")] Employee employee, Guid id)
              [FromBody] Employee employee, Guid id)
         {
-            var existingEmployee = employeeRepository.Retrieve(id);
+            try
+            {
+                if (employee == null)
+                {
+                    return BadRequest();
+                }
 
-            existingEmployee.ApplyChanges(employee);
+                var oldEmployee = this.employeeRepository.Retrieve(id);
+                if (oldEmployee == null)
+                {
+                    return NotFound();
+                }
 
-            this.employeeService.Save(id, employee);
+                oldEmployee.ApplyChanges(employee);
 
-            return Ok(employee);
+                var result = this.employeeService.Save(id, employee);
+
+                return Ok(oldEmployee);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

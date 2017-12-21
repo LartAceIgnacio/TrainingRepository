@@ -44,37 +44,59 @@ namespace BlastAsia.DigiBook.API.Controllers
         public IActionResult CreateAppointment(
             [FromBody] Appointment appointment)
         {
-            var result = this.appointmentService.Save(Guid.Empty,appointment);
-
-            return CreatedAtAction("GetAppointments", new { id = result.AppointmentId }, result);
+            try
+            {
+                if (appointment == null)
+                {
+                    return BadRequest();
+                }
+                var result = this.appointmentService.Save(Guid.Empty, appointment);
+                return CreatedAtAction("GetContacts", new { id = result.AppointmentId }, result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpDelete]
         public IActionResult DeleteAppointment(Guid id)
         {
-            this.appointmentRepository.Delete(id);
-            return NoContent();
+            var contactToDelete = this.appointmentRepository.Retrieve(id);
+            if (contactToDelete != null)
+            {
+                this.appointmentRepository.Delete(id);
+                return NoContent();
+            }
+            return NotFound();
         }
 
         [HttpPatch]
         public IActionResult PatchAppointment(
             [FromBody] JsonPatchDocument patchedAppointment, Guid id)
         {
-            if (patchedAppointment == null)
+            try
             {
-                return BadRequest();
-            }
+                if (patchedAppointment == null)
+                {
+                    return BadRequest();
+                }
 
-            var appointment = this.appointmentRepository.Retrieve(id);
-            if (appointment == null)
+                var appointment = this.appointmentRepository.Retrieve(id);
+                if (appointment == null)
+                {
+                    return NotFound();
+                }
+
+                patchedAppointment.ApplyTo(appointment);
+                appointmentService.Save(id, appointment);
+
+                return Ok(appointment);
+            }
+            catch (Exception e)
             {
-                return NotFound();
+                return BadRequest(e.Message);
             }
-
-            patchedAppointment.ApplyTo(appointment);
-            appointmentService.Save(id, appointment);
-
-            return Ok(appointment);
         }
 
         [HttpPut]
@@ -83,13 +105,29 @@ namespace BlastAsia.DigiBook.API.Controllers
             //    "EndTime","IsCancelled","IsDone", "Notes" )]
             [FromBody] Appointment appointment, Guid id)
         {
-            var existingAppointment = appointmentRepository.Retrieve(id);
+            try
+            {
+                if (appointment == null)
+                {
+                    return BadRequest();
+                }
 
-            existingAppointment.ApplyChanges(appointment);
+                var oldAppointment = this.appointmentRepository.Retrieve(id);
+                if (oldAppointment == null)
+                {
+                    return NotFound();
+                }
 
-            this.appointmentService.Save(id, appointment);
+                oldAppointment.ApplyChanges(appointment);
 
-            return Ok(appointment);
+                var result = this.appointmentService.Save(id, appointment);
+
+                return Ok(oldAppointment);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
