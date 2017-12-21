@@ -146,19 +146,19 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
                .Verify(c => c.Create(employee), Times.Never());
         }
 
-        [TestMethod]
-        public void Save_WithBlankPhoto_ThrowsPhotoRequiredException()
-        {
-            // Arrange
-            employee.Photo = null;
+        //[TestMethod]
+        //public void Save_WithBlankPhoto_ThrowsPhotoRequiredException()
+        //{
+        //    // Arrange
+        //    employee.Photo = null;
 
-            //Assert
-            Assert.ThrowsException<PhotoRequiredException>(
-                () => sut.Save(employee.EmployeeId, employee));
+        //    //Assert
+        //    Assert.ThrowsException<PhotoRequiredException>(
+        //        () => sut.Save(employee.EmployeeId, employee));
 
-            mockEmployeeRepository
-               .Verify(c => c.Create(employee), Times.Never());
-        }
+        //    mockEmployeeRepository
+        //       .Verify(c => c.Create(employee), Times.Never());
+        //}
 
         [TestMethod]
         public void Save_WithEmployeeOfficePhone_ThrowsOfficePhoneRequiredException()

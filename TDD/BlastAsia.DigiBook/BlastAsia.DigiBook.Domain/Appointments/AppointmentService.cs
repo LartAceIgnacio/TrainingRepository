@@ -27,7 +27,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
         public Appointment Save(Guid id,Appointment appointment)
         {
             //Appointment Date
-            if (appointment.AppointmentDate <= DateTime.Today)
+            if (appointment.AppointmentDate < DateTime.Today)
             {
                 throw new AppointmentDateLessThanDateTodayException("Appointment Date should be greater or equal to Date Today!");
             }

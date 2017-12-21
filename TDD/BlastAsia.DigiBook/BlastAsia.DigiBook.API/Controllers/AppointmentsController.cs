@@ -26,7 +26,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpGet, ActionName("GetAppointments")]
-        public IActionResult GetContact(Guid? id)
+        public IActionResult GetAppointment(Guid? id)
         {
             var result = new List<Appointment>();
             if (id == null)
@@ -46,50 +46,94 @@ namespace BlastAsia.DigiBook.API.Controllers
         public IActionResult CreateAppointment(
             [FromBody] Appointment appointment)
         {
-            var result = this.appointmentService.Save(Guid.Empty, appointment);
+            try
+            {
+                if (appointment == null)
+                {
+                    return BadRequest();
+                }
+                var result = this.appointmentService.Save(Guid.Empty, appointment);
 
-            return CreatedAtAction("GetAppointments",
+                return CreatedAtAction("GetAppointments",
                 new { id = appointment.AppointmentId }, result);
+            }
+            catch (Exception exc)
+            {
+                return BadRequest(exc.Message);
+            }
+
+            
+
+           
         }
         [HttpDelete]
-        public IActionResult DeleteContact(Guid id)
+        public IActionResult DeleteAppointment(Guid id)
         {
+            var appointmentToDelete = this.appointmentRepository.Retrieve(id);
+            if (appointmentToDelete != null)
+            {
+                this.appointmentRepository.Delete(id);
+                return NoContent();
+            }
+            return NotFound();
 
-            this.appointmentRepository.Delete(id);
-            return NoContent();
+          
         }
 
         [HttpPut]
         public IActionResult UpdateAppointment(
        [FromBody] Appointment appointment, Guid id)
         {
-            var existingAppointment = appointmentRepository.Retrieve(id);
+            try
+            {
+                if (appointment == null)
+                {
+                    return BadRequest();
+                }
 
-            existingAppointment.ApplyChanges(appointment);
+                var existingAppointment = appointmentRepository.Retrieve(id);
+                if (existingAppointment == null)
+                {
+                    return NotFound();
+                }
+                existingAppointment.ApplyChanges(appointment);
 
-            this.appointmentService.Save(id, existingAppointment);
-            return Ok(appointment);
+                var result = this.appointmentService.Save(id, existingAppointment);
+
+                return Ok(appointment);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }  
         }
 
         [HttpPatch]
         public IActionResult PatchAppointment(
         [FromBody]JsonPatchDocument patchedAppointment, Guid id)
         {
-            if (patchedAppointment == null)
+            try
+            {
+                if (patchedAppointment == null)
+                {
+                    return BadRequest();
+                }
+
+                var appointment = appointmentRepository.Retrieve(id);
+                if (appointment == null)
+                {
+                    return NotFound();
+                }
+
+                patchedAppointment.ApplyTo(appointment);
+                appointmentService.Save(id, appointment);
+
+                return Ok(appointment);
+            }
+            catch (Exception)
             {
                 return BadRequest();
             }
-
-            var appointment = appointmentRepository.Retrieve(id);
-            if (appointment == null)
-            {
-                return NotFound();
-            }
-
-            patchedAppointment.ApplyTo(appointment);
-            appointmentService.Save(id, appointment);
-
-            return Ok(appointment);
         }
     }
 }
