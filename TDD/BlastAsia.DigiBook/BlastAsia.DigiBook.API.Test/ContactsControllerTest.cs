@@ -47,7 +47,7 @@ namespace BlastAsia.DigiBook.API.Test
                     new Contact()
                 });
 
-            
+
             //_mockContactRepository.Setup(c => c.Create(null))
             //    .Returns<Contact>(null);
 
@@ -125,7 +125,7 @@ namespace BlastAsia.DigiBook.API.Test
 
         [TestMethod]
         [TestProperty("API Test", "ContactsController")]
-        public void DeleteContact_WithInvalidId_ReturnsBadRequest()
+        public void DeleteContact_WithInvalidId_ReturnsNotFoundResult()
         {
             // Act
 
