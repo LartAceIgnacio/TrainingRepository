@@ -1,6 +1,7 @@
 using BlastAsia.DigiBook.API.Controllers;
 using BlastAsia.DigiBook.Domain.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Contacts;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -159,14 +160,47 @@ namespace BlastAsia.DigiBook.API.Test
                 .Throws<Exception>();
 
             // Act
-            
-
             var result = _sut.UpdateContact(contact, contact.ContactId);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(BadRequestResult));
             _mockContactRepository.Verify(repo => repo.Retrieve(contact.ContactId), Times.Once);
             _mockContactService.Verify(service => service.Save(contact.ContactId, contact), Times.Once);
+        }
+
+        [TestMethod]
+        [TestProperty("API Test", "ContactsController")]
+        public void Patch_WithNullPatchContact_ReturnsBadRequest()
+        {
+            // Arrange
+
+            // Act
+            var result = _sut.PatchContact(null, contact.ContactId);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+            _mockContactRepository.Verify(repo => repo.Retrieve(contact.ContactId), Times.Never);
+            _mockContactService.Verify(service => service.Save(contact.ContactId, contact), Times.Never);
+        }
+
+        [TestMethod]
+        [TestProperty("API Test", "ContactsController")]
+        public void Patch_WithoutRetrievedContact_ReturnsNotFounnd()
+        {
+            // Arrange
+            var patchedDoc = new JsonPatchDocument();
+            var guid = Guid.Empty;
+
+            _mockContactService.Setup(service => service.Save(Guid.Empty, contact))
+                .Returns<Contact>(null);
+
+            // Act
+            var result = _sut.PatchContact(patchedDoc, guid);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+            _mockContactRepository.Verify(repo => repo.Retrieve(guid), Times.Once);
+            _mockContactService.Verify(service => service.Save(guid, contact), Times.Never);
         }
     }
 }
