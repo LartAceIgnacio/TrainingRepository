@@ -28,7 +28,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
 
         [HttpGet, ActionName("GetEmployees")]
-        public IActionResult GetAllEmployee(Guid? id)
+        public IActionResult GetEmployee(Guid? id)
         {
             var result = new List<Employee>();
 
@@ -48,16 +48,27 @@ namespace BlastAsia.DigiBook.API.Controllers
         [HttpPost]
         public IActionResult PostEmployee([FromBody] Employee employee)
         {
-            
-            var result = this.employeeService.Save(Guid.Empty, employee);
-            
 
-            return CreatedAtAction("GetEmployees", new { id = employee.Id, employee });
+            try
+            {
+                var result = this.employeeService.Save(Guid.Empty, employee);
+
+
+                return CreatedAtAction("GetEmployees", new { id = employee.Id, employee });
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
         }
 
         [HttpDelete]
         public IActionResult DeleteEmployee(Guid id)
         {
+            var result = this.employeeRepo.Retrieve(id);
+            if (result == null) return NotFound();
+
             this.employeeRepo.Delete(id);
             return NoContent();
         }
@@ -65,29 +76,38 @@ namespace BlastAsia.DigiBook.API.Controllers
         [HttpPut]
         public IActionResult UpdateEmployee([FromBody]Employee employee, Guid id)
         {
-            var existingEmployee = this.employeeRepo.Retrieve(id);
-            existingEmployee.ApplyChanges(employee);
-            this.employeeService.Save(id, existingEmployee);
+            try
+            {
+                var existingEmployee = this.employeeRepo.Retrieve(id);
+                existingEmployee.ApplyChanges(employee);
+                this.employeeService.Save(id, employee);
 
-            return Ok();
+                return Ok();
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
         }
 
 
         [HttpPatch]
-        public IActionResult PatchEmployee([FromBody]JsonPatchDocument patchedDocuments, Employee employee)
+        public IActionResult PatchEmployee([FromBody]JsonPatchDocument patchedDocuments, Guid id)
         {
             if (patchedDocuments == null)
             {
                 return BadRequest();
             }
 
-            var employeeFound = this.employeeRepo.Retrieve(employee.Id);
+            var employeeFound = this.employeeRepo.Retrieve(id);
 
             if (employeeFound == null) return NotFound();
-            patchedDocuments.ApplyTo(employeeFound);
-            this.employeeService.Save(employee.Id, employeeFound);
 
-            return Ok(employee);
+            patchedDocuments.ApplyTo(employeeFound);
+            this.employeeService.Save(id, employeeFound);
+
+            return Ok(employeeFound);
         }
     }
 }
