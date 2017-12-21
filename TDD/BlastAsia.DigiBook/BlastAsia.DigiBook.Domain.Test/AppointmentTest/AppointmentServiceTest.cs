@@ -15,7 +15,7 @@ using System.Text;
 namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
 {
     [TestClass]
-    public class AppointmentTest
+    public class AppointmentServiceTest
     {
         private Appointment _appointment;
         private AppointmentService _sut;
@@ -101,7 +101,6 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
             _mockAppointmentRepo
                 .Setup(x => x.Retrieve(_nonExistingAppointmentId))
                 .Returns<Appointment>(null);
-
             
         }
 
@@ -112,7 +111,7 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
         public void Save_NewAppointmentWithValidData_ShouldCallRepositoryCreate()
         {
             //Act
-            _sut.Save(_appointment.AppointmentId,_appointment);
+            _sut.Save(Guid.Empty, _appointment);
 
             //Assert
             _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Once);
@@ -131,8 +130,8 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
 
 
             // Assert
-            _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Once);
-            _mockAppointmentRepo.Verify(c => c.Update(_existingAppointmentId, _appointment), Times.Once);//Times.Once
+            _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.AtLeastOnce);// since calling a retrieve to check if existing object and retrieve first before update
+            _mockAppointmentRepo.Verify(c => c.Update(_existingAppointmentId, _appointment), Times.Once);
         }
 
         [TestMethod]

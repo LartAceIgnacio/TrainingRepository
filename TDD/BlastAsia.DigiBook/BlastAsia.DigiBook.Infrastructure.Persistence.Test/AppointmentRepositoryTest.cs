@@ -44,7 +44,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             _sut = new AppointmentRepository(_dbContext);
         }
 
-
         [TestCleanup]
         public void Cleanup()
         {
@@ -61,8 +60,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             // act 
             var newAppointment = _sut.Create(_appointment);
 
-
-
+            
             // assert
             Assert.IsNotNull(newAppointment);
             Assert.IsTrue(newAppointment.AppointmentId != Guid.Empty);
@@ -70,8 +68,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             // Cleanup
             _sut.Delete(newAppointment.AppointmentId);
         }
-
-
 
         [TestMethod]
         [TestProperty("TestType", "Appointment")]
@@ -84,7 +80,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             _sut.Delete(newAppointment.AppointmentId);
 
             //Assert
-
             _appointment = _sut.Retrieve(newAppointment.AppointmentId);
             Assert.IsNull(_appointment);
         }
