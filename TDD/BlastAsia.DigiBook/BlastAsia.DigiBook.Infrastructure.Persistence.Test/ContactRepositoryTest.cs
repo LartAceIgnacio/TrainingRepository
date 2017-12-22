@@ -27,7 +27,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
                 MobilePhone = "09158959384",
                 StreetAddress = "264 Quezon st Cuyab",
                 CityAddress = "San Pedro, Laguna",
-                ZipCode = 4023,
+                ZipCode = 4023, 
                 Country = "Philippines",
                 EmailAddress = "dlfdeguzman@outlook.com",
                 IsActive = false,
@@ -38,7 +38,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
                 .UseSqlServer(connectionString)
                 .Options;
 
-            dbContext = new DigiBookDbContext(dbOptions); // ORM
+            dbContext = new DigiBookDbContext(dbOptions);
             dbContext.Database.EnsureCreated();
 
             sut = new ContactRepository(dbContext);
@@ -53,11 +53,11 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 
         [TestMethod]
         [TestProperty("TestType", "Integration")]
-        public void Create_WithValidData_SavesRecordInTheDatabase()
+        public void Create_WithValidData_SavesRecordInTheDatabase() 
         {
             // Act
             var newContact = sut.Create(contact);
-
+            
             // Assert
             Assert.IsNotNull(newContact);
             Assert.IsTrue(newContact.ContactId != Guid.Empty);
