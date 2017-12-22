@@ -41,6 +41,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
         public IActionResult CreateContact([FromBody] Venue venue)
         {
             try
@@ -60,6 +61,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
             }
         }
 
+        [HttpDelete]
         public IActionResult DeleteContact(Guid id)
         {
             var venueToDelete = this.repo.Retrieve(id);
@@ -75,7 +77,8 @@ namespace BlastAsia.DigiBook.Api.Controllers
             return NoContent();
         }
 
-        public object UpdateVenue(Venue venue, Guid id)
+        [HttpPut]
+        public IActionResult UpdateVenue([FromBody] Venue venue, Guid id)
         {
             try
             {
@@ -103,7 +106,8 @@ namespace BlastAsia.DigiBook.Api.Controllers
             }
         }
 
-        public object PatchVenue(JsonPatchDocument patch, Guid id)
+        [HttpPatch]
+        public IActionResult PatchVenue([FromBody] JsonPatchDocument patch, Guid id)
         {
             try
             {

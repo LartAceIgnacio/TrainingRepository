@@ -156,7 +156,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         }
 
         [TestMethod]
-        public void Save_WithExistingVenueId_ShoulCallRepositoryRetrieveAndCreate()
+        public void Save_WithExistingVenueId_ShoulCallRepositoryRetrieveAndUpdate()
         {
             // arrange
             mockRepo
