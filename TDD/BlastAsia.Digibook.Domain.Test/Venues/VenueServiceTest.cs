@@ -15,6 +15,8 @@ namespace BlastAsia.Digibook.Domain.Test.Venues
         private Mock<IVenueService> venueService;
         VenueService sut;
         Venue venue;
+        Guid existingId = Guid.NewGuid();
+        Guid nonExistingId = Guid.Empty;
 
         [TestInitialize]
         public void InitializeData()
@@ -31,12 +33,20 @@ namespace BlastAsia.Digibook.Domain.Test.Venues
         [TestMethod]
         public void SaveVenue_WithValidData_ShouldCallRepositoryCreate()
         {
-
-            var result = sut.Save(venue);
+            var result = sut.Save(nonExistingId,venue);
 
             venueRepository
                 .Verify(vr => vr.Create(venue), Times.Once);
+        }
 
+        [TestMethod]
+        public void SaveVenue_WithValidData_ShouldCallRepositoryUpdate()
+        {
+            venue.VenueId = existingId;
+            var result = sut.Save(existingId,venue);
+
+            venueRepository
+                .Verify(vr => vr.Update(venue.VenueId,venue), Times.Once);
         }
 
         [TestMethod]
@@ -45,7 +55,7 @@ namespace BlastAsia.Digibook.Domain.Test.Venues
             venue.VenueName = "less 50 less 50 less 50 less 50 less 50 less 50 less 50";
 
             Assert.ThrowsException<InvalidStringLenghtException>(
-                ()=> sut.Save(venue));
+                ()=> sut.Save(nonExistingId,venue));
 
             venueRepository
                 .Verify(vr => vr.Create(venue), Times.Never);
@@ -58,7 +68,7 @@ namespace BlastAsia.Digibook.Domain.Test.Venues
             venue.VenueName = "";
 
             Assert.ThrowsException<InvalidStringLenghtException>(
-                () => sut.Save(venue));
+                () => sut.Save(nonExistingId,venue));
 
             venueRepository
                 .Verify(vr => vr.Create(venue), Times.Never);
@@ -70,7 +80,7 @@ namespace BlastAsia.Digibook.Domain.Test.Venues
             venue.Description = "more than 100 asldjfaklsdfjoqwiehfaksldkhfowaefjasldhgfaowlefhaopfhajoslfjaoslkhfjaoslefjao;lsdifhaosdkfjaosdlfkjaosdl";
 
             Assert.ThrowsException<InvalidStringLenghtException>(
-                () => sut.Save(venue));
+                () => sut.Save(nonExistingId,venue));
 
             venueRepository
                 .Verify(vr => vr.Create(venue), Times.Never);

@@ -14,6 +14,7 @@ using BlastAsia.Digibook.Infrastracture.Persistence.Repositories;
 using Swashbuckle.AspNetCore.Swagger;
 using BlastAsia.Digibook.Domain.Employees;
 using BlastAsia.Digibook.Domain.Appointments;
+using BlastAsia.Digibook.Domain.Venues;
 
 namespace BlastAsia.Digibook.API
 {
@@ -50,6 +51,9 @@ namespace BlastAsia.Digibook.API
 
             services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+
+            services.AddTransient<IVenueService, VenueService>();
+            services.AddScoped<IVenueRepository, VenueRepository>();
 
             services.AddSwaggerGen(
                 c => c.SwaggerDoc("v1", new Info { Title = "DigiBook API" })

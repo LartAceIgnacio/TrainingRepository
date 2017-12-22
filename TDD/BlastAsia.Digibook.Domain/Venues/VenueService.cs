@@ -8,15 +8,13 @@ namespace BlastAsia.Digibook.Domain.Venues
     public class VenueService:IVenueService
     {
         private IVenueRepository venueRepository;
-        private IVenueService venueService;
 
-        public VenueService(IVenueRepository venueRepository, IVenueService venueService)
+        public VenueService(IVenueRepository venueRepository)
         {
             this.venueRepository = venueRepository;
-            this.venueService = venueService;
         }
 
-        public Venue Save(Venue venue)
+        public Venue Save(Guid id,Venue venue)
         {
             if(venue.VenueName.Length == 0)
             {
@@ -33,7 +31,17 @@ namespace BlastAsia.Digibook.Domain.Venues
                 throw new InvalidStringLenghtException("Description must be less than 100 characters");
             }
 
-            var result = venueRepository.Create(venue);
+            Venue result;
+
+            if(id == Guid.Empty)
+            {
+                result = venueRepository.Create(venue);
+            }
+            else
+            {
+                result = venueRepository.Update(id, venue);
+            }
+
             return result;
         }
     }

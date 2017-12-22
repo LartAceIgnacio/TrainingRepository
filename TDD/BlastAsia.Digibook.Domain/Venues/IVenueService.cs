@@ -7,6 +7,6 @@ namespace BlastAsia.Digibook.Domain.Venues
 {
     public interface IVenueService
     {
-        Venue Save(Venue venue);
+        Venue Save(Guid id, Venue venue);
     }
 }
