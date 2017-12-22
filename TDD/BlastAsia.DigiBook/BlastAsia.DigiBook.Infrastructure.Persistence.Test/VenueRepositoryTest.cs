@@ -14,8 +14,8 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         private Venue venue = null;
         private string connectionString= null;
         private DbContextOptions<DigiBookDbContext> dbOptions = null;
-        DigiBookDbContext dbContext = null;
-        VenueRepository sut = null;
+        private DigiBookDbContext dbContext = null;
+        private VenueRepository sut = null;
 
         [TestInitialize]
         public void Initialize()
@@ -100,7 +100,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 
         [TestMethod]
         [TestProperty("TestType", "Integration")]
-        public void MyTestMethod()
+        public void Update_WithValidData_SavesUpdatesInDb()
         {
             //Arrange
             var newVenue = sut.Create(venue);

@@ -47,7 +47,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
 
 
         [TestMethod]
-        public void Save_WithBlanVenueName_ThrowsVenueNameRequiredException()
+        public void Save_WithBlankVenueName_ThrowsVenueNameRequiredException()
         {
             //Arrange
             venue.VenueName = "";
@@ -62,7 +62,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         }
 
         [TestMethod]
-        public void Save_WithVenueNameLenthGreaterThanFifty_ThrowsVenueNameLengthRequiredException()
+        public void Save_WithVenueNameLengthGreaterThanFifty_ThrowsVenueNameLengthRequiredException()
         {
             //Arrange
             venue.VenueName = "qwertyuiopqwiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop";
@@ -79,7 +79,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         }
 
         [TestMethod]
-        public void Save_WithDescriptionLenthGreaterThanHundred_ThrowsDescriptionLengthRequiredException()
+        public void Save_WithDescriptionLengthGreaterThanHundred_ThrowsDescriptionLengthRequiredException()
         {
             //Arrange
             venue.Description = "qwertyuiopqwiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopwertyuiopqwiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiwertyuiopqwiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyui";

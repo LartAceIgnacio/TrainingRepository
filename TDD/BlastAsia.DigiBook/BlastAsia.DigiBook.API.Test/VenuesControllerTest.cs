@@ -53,7 +53,7 @@ namespace BlastAsia.DigiBook.API.Test
 
 
         [TestMethod]
-        public void GetVenues_WithNoId_ShouldOkObjectValue()
+        public void GetVenues_WithNoId_ShouldReturnOkObjectValue()
         {
             //Arrange
             
@@ -67,7 +67,7 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void GetVenues_WithExistingId_ShouldOkObjectValue()
+        public void GetVenues_WithExistingId_ShouldReturnOkObjectValue()
         {
             //Arrange
 
@@ -80,7 +80,7 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void CreateVenue_WithEmptyVenue_ReturnBadRequestResult()
+        public void CreateVenue_WithEmptyVenue_ShouldReturnBadRequestResult()
         {
             //Arrange
             venue = null;
