@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BlastAsia.DigiBook.Domain.Appointments;
+﻿using BlastAsia.DigiBook.Domain.Appointments;
 using BlastAsia.DigiBook.Domain.Contacts;
 using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
@@ -70,11 +66,6 @@ namespace BlastAsia.DigiBook.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json",
                     "DigiBook Api v1");
             });
-
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
 
             app.UseMvc();
         }
