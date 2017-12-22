@@ -16,7 +16,6 @@ using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Appointments;
 using BlastAsia.DigiBook.Domain.Departments;
 using BlastAsia.DigiBook.Domain.Venues;
-using BlastAsia.DigiBook.Infrastructure.Persistence.Venues;
 
 namespace BlastAsia.DigiBook.API
 {

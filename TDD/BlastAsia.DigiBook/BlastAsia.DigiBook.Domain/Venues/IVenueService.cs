@@ -1,9 +1,10 @@
-﻿using BlastAsia.DigiBook.Domain.Models.Venues;
+﻿using System;
+using BlastAsia.DigiBook.Domain.Models.Venues;
 
 namespace BlastAsia.DigiBook.Domain.Venues
 {
     public interface IVenueService
     {
-        Venue Save(Venue venue);
+        Venue Save(Guid id, Venue venue);
     }
 }

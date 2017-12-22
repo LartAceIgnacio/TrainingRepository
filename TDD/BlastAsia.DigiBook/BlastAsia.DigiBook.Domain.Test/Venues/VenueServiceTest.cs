@@ -12,15 +12,15 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
     public class VenueServiceTest
     {
         private Venue venue;
-        Mock<IVenueRepository> mockVenueRepository;
-        VenueService sut;
+        private Mock<IVenueRepository> mockVenueRepository;
+        private VenueService sut;
 
         [TestInitialize]
         public void Initialize()
         {
             venue = new Venue
             {
-                VenueName = "Venue",
+                VenueName = "VenueVenueVenueVenueVenueVenueVenueVenueVenueVenue Venue",
                 Description = "This is a Venue"
             };
 
@@ -38,8 +38,13 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         [TestMethod]
         public void Save_VenueWithValidData_ShouldCallRepositoryCreate()
         {
+            // Arrange
+            mockVenueRepository
+                .Setup(a => a.Retrieve())
+                .Returns(new List<Venue>());
+
             // Act
-            sut.Save(venue);
+            sut.Save(venue.VenueId, venue);
 
             // Assert
             mockVenueRepository.Verify(v => v.Create(venue), Times.Once);
@@ -54,7 +59,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
                 .Returns(venue);
 
             // Act
-            sut.Save(venue);
+            sut.Save(venue.VenueId, venue);
 
             // Assert
             mockVenueRepository.Verify(v => v.Create(venue), Times.Once);
@@ -69,7 +74,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
                 .Returns(venue);
 
             // Act
-            sut.Save(venue);
+            sut.Save(venue.VenueId, venue);
 
             // Assert
             mockVenueRepository.Verify(v => v.Retrieve(venue.VenueId), Times.Once);
@@ -84,7 +89,20 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
 
             // Assert
             Assert.ThrowsException<VenueNameRequiredException>(
-                ()=> sut.Save(venue));
+                ()=> sut.Save(venue.VenueId, venue));
+            mockVenueRepository.Verify(v => v.Retrieve(venue.VenueId), Times.Never);
+            mockVenueRepository.Verify(v => v.Update(venue.VenueId, venue), Times.Never);
+        }
+
+        [TestMethod]
+        public void Save_VenueNameWithLessThanMinimumCharacters_ThrowsMinimumLengthRequiredException()
+        {
+            // Arrange
+            venue.VenueName = "Venue";
+
+            // Assert
+            Assert.ThrowsException<MinimumLengthRequiredException>(
+                () => sut.Save(venue.VenueId, venue));
             mockVenueRepository.Verify(v => v.Retrieve(venue.VenueId), Times.Never);
             mockVenueRepository.Verify(v => v.Update(venue.VenueId, venue), Times.Never);
         }

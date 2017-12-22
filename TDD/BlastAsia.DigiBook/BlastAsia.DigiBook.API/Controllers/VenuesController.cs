@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BlastAsia.DigiBook.Domain.Venues;
 using BlastAsia.DigiBook.Domain.Models.Venues;
+using BlastAsia.DigiBook.API.Utils;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
@@ -39,11 +41,85 @@ namespace BlastAsia.DigiBook.API.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
         public IActionResult CreateVenue([FromBody]Venue venue)
         {
-            var result = this.venueService.Save(venue);
+            try
+            {
+                if (venue == null)
+                {
+                    return BadRequest();
+                }
+                var result = this.venueService.Save(venue.VenueId, venue);
 
-            return CreatedAtAction("GetVenues", new { id = venue.VenueId }, venue);
+                return CreatedAtAction("GetVenues", new { id = venue.VenueId }, venue);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteVenue(Guid venueId)
+        {
+            var venueToDelete = this.venueRepository.Retrieve(venueId);
+            if (venueToDelete == null)
+            {
+                return NotFound();
+            }
+            this.venueRepository.Delete(venueId);
+
+            return NoContent();
+        }
+
+        [HttpPut]
+        public IActionResult UpdateVenue([FromBody]Venue venue, Guid venueId)
+        {
+            try
+            {
+                if (venue == null)
+                {
+                    return BadRequest();
+                }
+
+                var existingVenue = venueRepository.Retrieve(venueId);
+                if (existingVenue == null)
+                {
+                    return NotFound();
+                }
+                existingVenue.ApplyChanges(venue);
+
+                this.venueService.Save(venueId, existingVenue);
+
+                return Ok(venue);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPatch]
+        public IActionResult PatchVenue([FromBody]JsonPatchDocument patchVenue, Guid venueId)
+        {
+
+            if (patchVenue == null)
+            {
+                return BadRequest();
+            }
+
+            var venue = venueRepository.Retrieve(venueId);
+
+            if (venue == null)
+            {
+                return NotFound();
+            }
+
+            patchVenue.ApplyTo(venue);
+            venueService.Save(venueId, venue);
+
+            return Ok(venue);
         }
     }
 }

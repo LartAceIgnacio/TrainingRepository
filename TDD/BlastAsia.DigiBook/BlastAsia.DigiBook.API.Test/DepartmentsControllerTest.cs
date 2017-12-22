@@ -15,8 +15,8 @@ namespace BlastAsia.DigiBook.API.Test
     {
         private Department department;
 
-        Mock<IDepartmentRepository> mockDepartmentRepository;
-        Mock<IDepartmentService> mockDepartmentService;
+        private Mock<IDepartmentRepository> mockDepartmentRepository;
+        private Mock<IDepartmentService> mockDepartmentService;
 
         DepartmentsController sut;
 
@@ -25,7 +25,6 @@ namespace BlastAsia.DigiBook.API.Test
         {
             department = new Department
             {
-                DepartmentId = Guid.NewGuid(),
                 DepartmentName = "IT",
                 DepartmentHeadId = Guid.NewGuid()
             };
@@ -45,10 +44,10 @@ namespace BlastAsia.DigiBook.API.Test
         [TestMethod]
         public void GetDepartments_WithEmptyDepartmentId_ReturnObjectResult()
         {
-            // Arrange
-            //mockDepartmentRepository
-            //    .Setup(d => d.Retrieve())
-            //    .Returns(new List<Department>());
+            //Arrange
+            mockDepartmentRepository
+                .Setup(d => d.Retrieve())
+                .Returns(new List<Department>());
 
             // Act
             var result = sut.GetDepartments(null);
@@ -103,6 +102,11 @@ namespace BlastAsia.DigiBook.API.Test
         [TestMethod]
         public void DeleteDepartment_DeleteDepartmentWithValidId_ReturnNoContentResult()
         {
+            // Arrange
+            mockDepartmentRepository
+                .Setup(d => d.Retrieve(department.DepartmentId))
+                .Returns(department);
+
             // Act
             var result = sut.DeleteDepartment(department.DepartmentId);
 

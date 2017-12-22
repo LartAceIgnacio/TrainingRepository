@@ -25,8 +25,8 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
 
         public void Delete(Guid id)
         {
-            var contact = this.Retrieve(id);
-            context.Set<TEntity>().Remove(contact);
+            var entity = this.Retrieve(id);
+            context.Set<TEntity>().Remove(entity);
             context.SaveChanges();
         }
 

@@ -149,7 +149,7 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void UpdateAppointment_AppointmentWithoutValue_ReturnNotFoundResult()
+        public void UpdateAppointment_AppointmentWithoutValue_ReturnBadRequestResult()
         {
             // Arrange
             appointment = null;
@@ -164,7 +164,7 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void UpdateAppointment_WithNoExistingAppointment_ReturnNotFoundResult()
+        public void UpdateAppointment_WithNoExistingAppointmentId_ReturnNotFoundResult()
         {
             // Arrange
             appointment.AppointmentId = Guid.Empty;
@@ -191,7 +191,7 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void PatchAppointment_WithoutExistingAppointmentDataAndId_ReturnOkObjectResult()
+        public void PatchAppointment_WithoutExistingAppointmentDataAndId_ReturnNotFoundResult()
         {
             // Arrange
             mockAppointmentRepository

@@ -6,16 +6,21 @@ namespace BlastAsia.DigiBook.Domain.Venues
     public class VenueService : IVenueService
     {
         private IVenueRepository venueRepository;
+        private readonly int venueNameMinimumLength = 50;
         public VenueService(IVenueRepository venueRepository)
         {
             this.venueRepository = venueRepository;
         }
 
-        public Venue Save(Venue venue)
+        public Venue Save(Guid id, Venue venue)
         {
             if (string.IsNullOrEmpty(venue.VenueName))
             {
                 throw new VenueNameRequiredException("Venue name is required.");
+            }
+            if (venue.VenueName.Length < venueNameMinimumLength)
+            {
+                throw new MinimumLengthRequiredException("At least 50 characters");
             }
 
             Venue result;
