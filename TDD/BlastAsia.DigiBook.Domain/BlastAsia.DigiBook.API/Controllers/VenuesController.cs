@@ -15,6 +15,7 @@ namespace BlastAsia.DigiBook.API.Controllers
     [Route("api/Venues")]
     public class VenuesController : Controller
     {
+        private static List<Venue> venues = new List<Venue>();
         private IVenueRepository venueRepository;
         private IVenueService venueService;
 
@@ -57,6 +58,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             }
         }
 
+        [HttpDelete]
         public IActionResult DeleteVenue(Guid id)
         {
             var venueToDelete = this.venueRepository.Retrieve(id);
@@ -68,6 +70,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             return NoContent();
         }
 
+        [HttpPut]
         public IActionResult UpdateVenue([FromBody] Venue venue, Guid id)
         {
             try {
@@ -90,6 +93,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             }
         }
 
+        [HttpPatch]
         public object PatchVenue([FromBody]JsonPatchDocument patchedVenue, Guid venueId)
         {
             try {
