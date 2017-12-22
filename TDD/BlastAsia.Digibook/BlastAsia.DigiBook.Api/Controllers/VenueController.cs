@@ -6,6 +6,8 @@ using BlastAsia.DigiBook.Domain.Venues;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BlastAsia.DigiBook.Domain.Models.Venues;
+using BlastAsia.DigiBook.Api.Utils;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
@@ -30,7 +32,8 @@ namespace BlastAsia.DigiBook.Api.Controllers
             if (id == null)
             {
                 result.AddRange(this.repo.Retrieve());
-            } else
+            }
+            else
             {
                 result.Add(this.repo.Retrieve(id.Value));
             }
@@ -46,9 +49,9 @@ namespace BlastAsia.DigiBook.Api.Controllers
                 {
                     return BadRequest();
                 }
-             
+
                 var result = this.service.Save(Guid.Empty, venue);
-                return CreatedAtAction("GetContact", new { venue.VenueId}, result);
+                return CreatedAtAction("GetContact", new { venue.VenueId }, result);
             }
             catch (Exception)
             {
@@ -60,14 +63,69 @@ namespace BlastAsia.DigiBook.Api.Controllers
         public IActionResult DeleteContact(Guid id)
         {
             var venueToDelete = this.repo.Retrieve(id);
-            if (venueToDelete == null) {
+            if (venueToDelete == null)
+            {
                 return NotFound();
-            } else
+            }
+            else
             {
                 this.repo.Delete(id);
             }
 
             return NoContent();
+        }
+
+        public object UpdateVenue(Venue venue, Guid id)
+        {
+            try
+            {
+                if (venue == null)
+                {
+                    return BadRequest();
+                }
+
+                var venueToUpdate = this.repo.Retrieve(id);
+
+                if (venueToUpdate == null)
+                {
+                    return NotFound();
+                }
+
+                venueToUpdate.ApplyChages(venue);
+
+                var result = service.Save(id, venue);
+
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        public object PatchVenue(JsonPatchDocument patch, Guid id)
+        {
+            try
+            {
+                if (patch == null)
+                {
+                    return BadRequest();
+                }
+
+                var venueToPatch = repo.Retrieve(id);
+                if (venueToPatch == null)
+                {
+                    return BadRequest();
+                }
+                patch.ApplyTo(venueToPatch);
+
+                var result = service.Save(id, venueToPatch);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
     }
 }

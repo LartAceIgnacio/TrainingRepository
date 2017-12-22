@@ -1,6 +1,7 @@
 ﻿using BlastAsia.DigiBook.Api.Controllers;
 using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Domain.Venues;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -15,6 +16,7 @@ namespace BlastAsia.DigiBook.Api.Test
     public class VenueControllerTest
     {
         private Venue venue;
+        private JsonPatchDocument patch;
         private Mock<IVenueRepository> mockRepo;
         private Mock<IVenueService> mockService;
         private VenueController sut;
@@ -32,6 +34,8 @@ namespace BlastAsia.DigiBook.Api.Test
                 VenueName = "Name",
                 Description = "Desc"
             };
+
+            patch = new JsonPatchDocument();
 
             mockRepo = new Mock<IVenueRepository>();
             mockService = new Mock<IVenueService>();
@@ -183,7 +187,124 @@ namespace BlastAsia.DigiBook.Api.Test
             // act 
             var result = sut.UpdateVenue(venue, existingId);
             // assert
-            Assert.IsInstanceOfType(result, );
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(existingId), Times.Never()
+                );
+
+            mockRepo
+                .Verify(
+                    r => r.Update(existingId, venue), Times.Never
+                );
+
+        }
+
+        [TestMethod]
+        public void Update_WithNonExistingId_ShouldReturnNotFound()
+        {
+            // arrange
+            // act 
+            var result = sut.UpdateVenue(venue, nonExistingId);
+            // assert
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(nonExistingId), Times.Once()
+                );
+
+            mockRepo
+                .Verify(
+                    r => r.Update(nonExistingId, venue), Times.Never
+                );
+
+        }
+
+        [TestMethod]
+        public void Update_WithValidData_ShouldReturnOkObjectResult()
+        {
+            // arrange
+            // act 
+            var result = sut.UpdateVenue(venue, existingId);
+            // assert
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(existingId), Times.Once()
+                );
+
+            mockService
+                .Verify(
+                    r => r.Save(existingId, venue), Times.Once
+                );
+
+        }
+
+        [TestMethod]
+        public void Patch_WithNullVenue_ShouldReturnBadRequest()
+        {
+            // arrange
+            patch = null;
+            // act 
+            var result = sut.PatchVenue(patch, existingId);
+            // assert
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(existingId), Times.Never()
+                );
+
+            mockRepo
+                .Verify(
+                    r => r.Update(existingId, venue), Times.Never
+                );
+
+        }
+
+        [TestMethod]
+        public void Patch_WithNonExistingId_ShouldReturnBadRequest()
+        {
+            // arrange
+            // act 
+            var result = sut.PatchVenue(patch, nonExistingId);
+            // assert
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(nonExistingId), Times.Once()
+                );
+
+            mockRepo
+                .Verify(
+                    r => r.Update(nonExistingId, venue), Times.Never
+                );
+
+        }
+
+        [TestMethod]
+        public void Patch_WithValidData_ShouldReturnOkObjectResult()
+        {
+            // arrange
+            // act 
+            var result = sut.PatchVenue(patch, existingId);
+            // assert
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(existingId), Times.Once()
+                );
+
+            mockService
+                .Verify(
+                    r => r.Save(existingId, venue), Times.Once
+                );
+
         }
     }
 }

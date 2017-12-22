@@ -6,6 +6,7 @@ using System.Text;
 using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Domain.Venues;
 using BlastAsia.DigiBook.Domain.Venues.Exceptions;
+using BlastAsia.DigiBook.Domain.Models.Venues.Exceptions;
 
 namespace BlastAsia.DigiBook.Domain.Test.Venues
 {
@@ -91,6 +92,42 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
                 );
         }
 
+
+        [TestMethod]
+        public void Save_WithInvalidVenueNameLength_ShouldThrowInvalidVenueNameException()
+        {
+            // arrange
+            venue.VenueName = "asdasdasddasd asdasddasdasdasddasdas dasddasdasdasddasdasdasdd";
+            // act 
+
+            // assert
+            Assert.ThrowsException<InvalidVenueNameException>(
+                () => sut.Save(venue.VenueId, venue)
+                );
+
+            mockRepo
+                .Verify(
+                    r => r.Create(venue), Times.Never
+                );
+        }
+
+        [TestMethod]
+        public void Save_WithInvalidDescriptionLength_ShouldThrowInvalidDescriptionException()
+        {
+            // arrange
+            venue.Description = "asdasdasddasd asdasddasdasdasddasdas dasddasdasdasddasdasdasdd asdasdasddasd asdasddasdasdasddasdas dasddasdasdasddasdasdasdd asdasdasddasd asdasddasdasdasddasdas dasddasdasdasddasdasdasdd";
+            // act 
+
+            // assert
+            Assert.ThrowsException<InvalidDescriptionLengthException>(
+                () => sut.Save(venue.VenueId, venue)
+                );
+
+            mockRepo
+                .Verify(
+                    r => r.Create(venue), Times.Never
+                );
+        }
 
         [TestMethod]
         public void Save_WithNonExistingVenueId_ShoulCallRepositoryRetrieveAndCreate()
