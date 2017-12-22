@@ -92,7 +92,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
             // Assert
             mockVenueRepository
                 .Verify(v => v.Create(venue), Times.Never);
-            Assert.ThrowsException<VenueNameRequired>(
+            Assert.ThrowsException<VenueNameRequiredException>(
                 () => sut.Save(venue.VenueId, venue));
         }
 
@@ -105,7 +105,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
             // Assert
             mockVenueRepository
                 .Verify(v => v.Create(venue), Times.Never);
-            Assert.ThrowsException<VenueNameInvalid>(
+            Assert.ThrowsException<VenueNameInvalidException>(
                 () => sut.Save(venue.VenueId, venue));
         }
 
@@ -118,7 +118,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
             // Assert
             mockVenueRepository
                 .Verify(v => v.Create(venue), Times.Never);
-            Assert.ThrowsException<DescriptionTooLong>(
+            Assert.ThrowsException<DescriptionTooLongException>(
                 () => sut.Save(venue.VenueId, venue));
         }
     }

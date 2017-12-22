@@ -9,9 +9,9 @@ namespace BlastAsia.DigiBook.Domain.Appointments
 {
     public class AppointmentService : IAppointmentService
     {
-        private IAppointmentRepository appointmentRepository;
-        private IEmployeeRepository employeeRepository;
-        private IContactRepository contactRepository;
+        private readonly IAppointmentRepository appointmentRepository;
+        private readonly IEmployeeRepository employeeRepository;
+        private readonly IContactRepository contactRepository;
         public AppointmentService(IAppointmentRepository appointmentRepository
             ,IEmployeeRepository employeeRepository
             ,IContactRepository contactRepository)

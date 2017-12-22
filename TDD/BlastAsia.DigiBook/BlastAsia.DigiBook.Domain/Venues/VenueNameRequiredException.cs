@@ -2,10 +2,10 @@
 
 namespace BlastAsia.DigiBook.Domain.Venues
 {
-    public class VenueNameRequired
+    public class VenueNameRequiredException
         : Exception
     {
-        public VenueNameRequired(string message)
+        public VenueNameRequiredException(string message)
             :base(message)
         {
 

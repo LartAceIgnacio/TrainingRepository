@@ -2,13 +2,13 @@
 
 namespace BlastAsia.DigiBook.Domain.Venues
 {
-    public class VenueNameInvalid
+    public class DescriptionTooLongException
         : Exception
     {
-        public VenueNameInvalid(string message)
+        public DescriptionTooLongException(string message)
             : base(message)
         {
-                
+
         }
     }
 }
