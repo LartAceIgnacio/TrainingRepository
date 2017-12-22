@@ -14,20 +14,44 @@ namespace BlastAsia.DigiBook.API.Test
     [TestClass]
     public class VenueControllerTest
     {
+        private Mock<IVenueRepository> mockVenueRepository;
+        private Mock<IVenueService> mockVenueService;
+        private Venue venue;
+        private JsonPatchDocument patchedVenue;
+        private Guid existingVenue;
+        private Guid nonExistingVenue;
+        private VenuesController sut;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            mockVenueRepository = new Mock<IVenueRepository>();
+            mockVenueService = new Mock<IVenueService>();
+            sut = new VenuesController(
+                mockVenueRepository.Object
+                , mockVenueService.Object);
+
+            venue = new Venue();
+            patchedVenue = new JsonPatchDocument();
+
+            existingVenue = Guid.NewGuid();
+            existingVenue = Guid.Empty;
+
+            mockVenueRepository
+                .Setup(c => c.Retrieve(existingVenue))
+                .Returns(venue);
+
+            mockVenueRepository
+               .Setup(c => c.Retrieve(existingVenue))
+               .Returns<Venue>(null);
+
+        }
+
         [TestMethod]
         public void GetVenues_WithEmptyVenueId_ReturnsOkObjectResult()
         {
             // Arrange
-
-            var mockVenueRepository = new Mock<IVenueRepository>();
-
-            var mockVenueService = new Mock<IVenueService>();
-
-            var sut = new VenuesController(
-                mockVenueRepository.Object
-                , mockVenueService.Object);
             
-           
             // Act
 
             var result = sut.GetVenues(null);
@@ -46,27 +70,19 @@ namespace BlastAsia.DigiBook.API.Test
         public void GetVenues_WithExistingVenueId_ReturnsOkResult()
         {
             // Arrange
-
-            var mockVenueRepository = new Mock<IVenueRepository>();
-
-            var mockVenueService = new Mock<IVenueService>();
-
-            var sut = new VenuesController(
-                mockVenueRepository.Object
-                , mockVenueService.Object);
-
-            var existingVenueId = Guid.NewGuid();
+            
+            existingVenue = Guid.NewGuid();
 
             // Act
 
-            var result = sut.GetVenues(existingVenueId);
+            var result = sut.GetVenues(existingVenue);
 
             // Assert
 
             Assert.IsNotInstanceOfType(result, typeof(OkResult));
 
             mockVenueRepository
-                .Verify(c => c.Retrieve(existingVenueId)
+                .Verify(c => c.Retrieve(existingVenue)
                 ,Times.Once);
 
         }
@@ -75,17 +91,7 @@ namespace BlastAsia.DigiBook.API.Test
         public void CreateVenue_WithValidVenueData_ReturnsCreatedAtActionResult()
         {
             // Arrange
-
-            var mockVenueRepository = new Mock<IVenueRepository>();
-
-            var mockVenueService = new Mock<IVenueService>();
-
-            var sut = new VenuesController(
-                mockVenueRepository.Object
-                , mockVenueService.Object);
-
-            var venue = new Venue();
-
+            
             // Act
 
             var result = sut.CreateVenue(venue);
@@ -103,16 +109,8 @@ namespace BlastAsia.DigiBook.API.Test
         public void CreateVenue_WithNullVenueData_ReturnsBadRequestResult()
         {
             //Arrange
-
-            var mockVenueRepository = new Mock<IVenueRepository>();
-
-            var mockVenueService = new Mock<IVenueService>();
-
-            var sut = new VenuesController(
-                mockVenueRepository.Object
-                , mockVenueService.Object);
-
-            Venue venue = null;
+            
+            venue = null;
 
             //Act
 
@@ -131,23 +129,8 @@ namespace BlastAsia.DigiBook.API.Test
         public void DeleteVenue_WithExistingVenueId_ReturnsOkResult()
         {
             //Arrange
-
-            var mockVenueRepository = new Mock<IVenueRepository>();
-
-            var mockVenueService = new Mock<IVenueService>();
-
-            var sut = new VenuesController(
-                mockVenueRepository.Object
-                , mockVenueService.Object);
-
-            var venue = new Venue
-            {
-                VenueID = Guid.NewGuid()
-            };
-
-            var existingVenueId = Guid.NewGuid();
-
-            venue.VenueID = existingVenueId;
+            
+            venue.VenueID = existingVenue;
 
             //Act
 
@@ -167,26 +150,11 @@ namespace BlastAsia.DigiBook.API.Test
         {
             //Arrange
 
-            var mockVenueRepository = new Mock<IVenueRepository>();
-
-            var mockVenueService = new Mock<IVenueService>();
-
-            var sut = new VenuesController(
-                mockVenueRepository.Object
-                , mockVenueService.Object);
-
-            var venue = new Venue
-            {
-                VenueID = Guid.NewGuid()
-            };
-
-            var nonExistingVenueId = Guid.Empty;
-
-            venue.VenueID = nonExistingVenueId;
+           venue.VenueID = nonExistingVenue;
 
             //Act
 
-            var result = sut.DeleteVenue(nonExistingVenueId);
+            var result = sut.DeleteVenue(nonExistingVenue);
 
             //Assert
 
@@ -201,23 +169,8 @@ namespace BlastAsia.DigiBook.API.Test
         public void UpdateVenue_WithExistingVenueId_ReturnsOkObjectResult()
         {
             //Arrange
-
-            var mockVenueRepository = new Mock<IVenueRepository>();
-
-            var mockVenueService = new Mock<IVenueService>();
-
-            var sut = new VenuesController(
-                mockVenueRepository.Object
-                , mockVenueService.Object);
-
-            var venue = new Venue
-            {
-                VenueID = Guid.NewGuid()
-            };
-
-            var existingVenueId = Guid.NewGuid();
-
-            venue.VenueID = existingVenueId;
+            
+            venue.VenueID = existingVenue;
 
             //Act
 
@@ -240,23 +193,8 @@ namespace BlastAsia.DigiBook.API.Test
         public void UpdateVenue_WithNonExistingVenueId_ReturnsBadRequestResult()
         {
             //Arrange
-
-            var mockVenueRepository = new Mock<IVenueRepository>();
-
-            var mockVenueService = new Mock<IVenueService>();
-
-            var sut = new VenuesController(
-                mockVenueRepository.Object
-                , mockVenueService.Object);
-
-            var venue = new Venue
-            {
-                VenueID = Guid.NewGuid()
-            };
-
-            var nonExistingVenueId = Guid.NewGuid();
-
-            venue.VenueID = nonExistingVenueId;
+            
+            venue.VenueID = nonExistingVenue;
 
             //Act
 
@@ -267,10 +205,10 @@ namespace BlastAsia.DigiBook.API.Test
             Assert.IsInstanceOfType(result, typeof(BadRequestResult));
 
             mockVenueRepository
-                .Verify(cr => cr.Retrieve(venue.VenueID)
+                .Verify(c => c.Retrieve(venue.VenueID)
                 , Times.Once);
             mockVenueService
-                .Verify(cs => cs.Save(venue.VenueID, venue)
+                .Verify(c => c.Save(venue.VenueID, venue)
                 , Times.Never);
         }
 
@@ -278,22 +216,8 @@ namespace BlastAsia.DigiBook.API.Test
         public void PatchVenue_WithValidPatchVenueData_ReturnsOkObjectResult()
         {
             //Arrange
-            var mockVenueRepository = new Mock<IVenueRepository>();
 
-            var mockVenueService = new Mock<IVenueService>();
-
-            var sut = new VenuesController(
-                mockVenueRepository.Object
-                , mockVenueService.Object);
-
-            var patchedVenue = new JsonPatchDocument();
-
-            var venue = new Venue
-            {
-                VenueID = Guid.NewGuid()
-            };
-
-            var ExistingVenueId = Guid.NewGuid();
+            venue.VenueID = existingVenue;
 
             //Act
 
@@ -313,24 +237,7 @@ namespace BlastAsia.DigiBook.API.Test
         public void PatchVenue_WithNotValidPatchVenueData_ReturnsBadRequestResult()
         {
             //Arrange
-
-            var mockVenueRepository = new Mock<IVenueRepository>();
-
-            var mockVenueService = new Mock<IVenueService>();
-
-            var sut = new VenuesController(
-                mockVenueRepository.Object
-                , mockVenueService.Object);
-
-            var patchedVenue = new JsonPatchDocument();
-
-            var venue = new Venue
-            {
-                VenueID = Guid.NewGuid()
-            };
-
-            var ExistingVenueId = Guid.NewGuid();
-
+            
             patchedVenue = null;
 
             //Act
@@ -350,25 +257,8 @@ namespace BlastAsia.DigiBook.API.Test
         public void PatchVenue_WithNonExistingVenueId_ReturnsNotFoundResult()
         {
             //Arrange
-
-            var mockVenueRepository = new Mock<IVenueRepository>();
-
-            var mockVenueService = new Mock<IVenueService>();
-
-            var sut = new VenuesController(
-                mockVenueRepository.Object
-                , mockVenueService.Object);
-
-            var patchedVenue = new JsonPatchDocument();
-
-            var venue = new Venue
-            {
-                VenueID = Guid.NewGuid()
-            };
-
-            var nonExistingVenuetId = Guid.Empty;
-            
-            venue.VenueID = nonExistingVenuetId;
+                        
+            venue.VenueID = nonExistingVenue;
 
             //Act
 

@@ -44,7 +44,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
 
         }
         [TestMethod]
-        public void Save_NewAppointmentWithValidData_ShouldCallRepositoryCreate()
+        public void Create_NewVenueWithValidData_ShouldCallRepositoryCreate()
         {
             //Arrange
             
@@ -61,7 +61,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         }
 
         [TestMethod]
-        public void Save_WithExistingAppointment_ShouldCallRepositoryUpdate()
+        public void Update_WithExistingVenue_ShouldCallRepositoryUpdate()
         {
             // Arrange 
 
@@ -82,7 +82,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         }
 
         [TestMethod]
-        public void Create_AppointmentWithValidData_ShouldReturnNewAppointmentWithAppointmentId()
+        public void Save_VenueWithValidData_ShouldReturnNewVenueWithAppointmentId()
         {
             // Arrange 
 
@@ -104,7 +104,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         }
 
         [TestMethod]
-        public void Create_VenueWithVenueNameExceeding50Characters_ThrowsNameExceedException()
+        public void Save_VenueWithVenueNameExceeding50Characters_ThrowsNameExceedException()
         {
             // Arrange
 
@@ -121,7 +121,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
                 () => sut.Save(venue.VenueID, venue));
         }
         [TestMethod]
-        public void Create_VenueWithDescriptionExceeding100Characters_ThrowsDescriptionExeption()
+        public void Save_VenueWithDescriptionExceeding100Characters_ThrowsDescriptionExeption()
         {
             // Arrange
 
