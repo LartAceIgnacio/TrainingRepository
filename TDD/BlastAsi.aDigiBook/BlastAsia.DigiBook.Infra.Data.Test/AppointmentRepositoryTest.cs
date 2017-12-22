@@ -102,8 +102,8 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             sut.Delete(found.AppointmentId);
         }
 
-        [TestMethod]
-        [TestProperty("TestType", "Integration")]
+        //[TestMethod]
+        //[TestProperty("TestType", "Integration")]
         public void Update_WithValidData_SavesUpdatesInDb()
         {
             //Arrange
