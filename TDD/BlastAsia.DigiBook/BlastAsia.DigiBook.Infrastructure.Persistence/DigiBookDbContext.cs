@@ -1,6 +1,7 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Appointments;
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Employees;
+using BlastAsia.DigiBook.Domain.Models.Venues;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,10 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
             modelBuilder.Entity<Appointment>()
                 .ToTable("Appointment")
                 .HasKey(a => a.AppointmentId);
+
+            modelBuilder.Entity<Venue>()
+                .ToTable("Venue")
+                .HasKey(v => v.VenueId);
         }
         
     }

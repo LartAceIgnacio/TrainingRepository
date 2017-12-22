@@ -191,7 +191,7 @@ namespace BlastAsia.DigiBook.API.Test
             var patchedDoc = new JsonPatchDocument();
             var guid = Guid.Empty;
 
-            _mockContactService.Setup(service => service.Save(Guid.Empty, contact))
+            _mockContactService.Setup(service => service.Save(guid, contact))
                 .Returns<Contact>(null);
 
             // Act
