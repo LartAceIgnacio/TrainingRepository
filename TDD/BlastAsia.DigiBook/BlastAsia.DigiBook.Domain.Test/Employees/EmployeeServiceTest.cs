@@ -34,6 +34,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             };
 
             mockEmployeeRepository = new Mock<IEmployeeRepository>();
+            sut = new EmployeeService(mockEmployeeRepository.Object);
 
             mockEmployeeRepository
                 .Setup(e => e.Retrieve(existingEmployeeId))
@@ -42,8 +43,6 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             mockEmployeeRepository
                 .Setup(e => e.Retrieve(nonExistingEmployeeId))
                 .Returns<Employee>(null);
-
-            sut = new EmployeeService(mockEmployeeRepository.Object);
         }
 
         [TestCleanup]

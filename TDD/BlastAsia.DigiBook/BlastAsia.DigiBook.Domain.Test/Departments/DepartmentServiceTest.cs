@@ -1,5 +1,7 @@
 ﻿using BlastAsia.DigiBook.Domain.Departments;
+using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Models.Departments;
+using BlastAsia.DigiBook.Domain.Models.Employees;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -11,9 +13,13 @@ namespace BlastAsia.DigiBook.Domain.Test.Departments
     [TestClass]
     public class DepartmentServiceTest
     {
-        private Department department;
-        private Mock<IDepartmentRepository> mockDepartmentRepository;
-        private DepartmentService sut;
+        Department department;
+        Employee employee;
+
+        Mock<IDepartmentRepository> mockDepartmentRepository;
+        Mock<IEmployeeRepository> mockEmployeeRepository;
+
+        DepartmentService sut;
 
 
         [TestInitialize]
@@ -21,13 +27,19 @@ namespace BlastAsia.DigiBook.Domain.Test.Departments
         {
             department = new Department
             {
-                DepartmentName = "Department",
+                DepartmentName = "IT",
                 DepartmentHeadId = Guid.NewGuid()
             };
+            employee = new Employee();
 
             mockDepartmentRepository = new Mock<IDepartmentRepository>();
+            mockEmployeeRepository = new Mock<IEmployeeRepository>();
 
-            sut = new DepartmentService(mockDepartmentRepository.Object);
+            sut = new DepartmentService(mockDepartmentRepository.Object, mockEmployeeRepository.Object);
+
+            mockEmployeeRepository
+                .Setup(e => e.Retrieve(department.DepartmentHeadId))
+                .Returns(employee);
         }
 
         [TestCleanup]
@@ -37,50 +49,77 @@ namespace BlastAsia.DigiBook.Domain.Test.Departments
         }
 
         [TestMethod]
-        public void Save_DepartmentWithValidData_ShouldCallRepositoryCreate()
+        public void Save_WithValidDepartmentData_ShouldCallRepositoryCreate()
         {
-            //Act
-            var result = sut.Save(department);
+            // Act
+            sut.Save(department.DepartmentId,department);
 
-            //Assert
-            mockDepartmentRepository
-                .Verify(d => d.Retrieve(department.DeparmentId), Times.Once);
-
-            mockDepartmentRepository
-                .Verify(d => d.Save(department), Times.Once);
+            // Assert
+            mockDepartmentRepository.Verify(d => d.Create(department), Times.Once);
         }
 
-        public void Save_ExistingDepartment_ShouldCallRepositoryUpdate()
+        [TestMethod]
+        public void Save_DepartmentWithValidData_ShouldReturnDataWithDepartmentId()
         {
             // Arrange
-            var existingDepartmentId = Guid.NewGuid();
+            mockDepartmentRepository
+                .Setup(d => d.Create(department))
+                .Callback(() => department.DepartmentId = Guid.NewGuid())
+                .Returns(department);
 
             // Act
+            sut.Save(department.DepartmentId,department);
 
             // Assert
+            mockDepartmentRepository.Verify(d => d.Create(department), Times.Once);
         }
 
         [TestMethod]
-        public void Save_BlankDepartmentName_ThrowsDepartmentNameRequiredException()
+        public void Save_DepartmentWithExistingData_ShouldCallRepositoryUpdate()
         {
             // Arrange
-            department.DepartmentName = "";
+            mockDepartmentRepository
+                .Setup(d => d.Retrieve(department.DepartmentId))
+                .Returns(department);
+
+            // Act
+            sut.Save(department.DepartmentId,department);
 
             // Assert
-            Assert.ThrowsException<DepartmentNameRequiredException>(
-                () => sut.Save(department));
+            mockDepartmentRepository
+                .Verify(d => d.Retrieve(department.DepartmentId), Times.Once);
+            mockDepartmentRepository
+                .Verify(d => d.Update(department.DepartmentId, department), Times.Once);
         }
 
         [TestMethod]
-        public void Save_DepartmentNameLessThanMinimumLength_ThrowsMinimumLengthRequired()
+        public void Save_DepartmentNameBlank_ThrowsDeparmentNameRequiredException()
         {
             // Arrange
-            department.DepartmentName = "Depar";
+            department.DepartmentName = null;
 
             // Assert
-            Assert.ThrowsException<MinimumLengthRequiredException>(
-                () => sut.Save(department));
+            Assert.ThrowsException<DeparmentNameRequiredException>(
+                () => sut.Save(department.DepartmentId,department));
+            mockDepartmentRepository
+                .Verify(d => d.Create(department), Times.Never);
+        }
 
+        [TestMethod]
+        public void Save_NotexistingDepartmentHeadId_ThrowsDepartmentHeadIdNotFoundException()
+        {
+            // Arrange
+            mockEmployeeRepository
+                .Setup(e => e.Retrieve(department.DepartmentHeadId))
+                .Returns<Employee>(null);
+
+            // Assert
+            Assert.ThrowsException<DepartmentHeadIdNotFoundException>(
+                () => sut.Save(department.DepartmentId,department));
+            mockEmployeeRepository
+                .Verify(e => e.Retrieve(department.DepartmentHeadId), Times.Once);
+            mockDepartmentRepository
+                .Verify(d => d.Create(department), Times.Never);
         }
     }
 }

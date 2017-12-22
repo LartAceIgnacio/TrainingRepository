@@ -121,7 +121,7 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void DeleteAppointment_WithoutAppointmentId_ReturnNoContentResult()
+        public void DeleteAppointment_WithoutAppointmentId_ReturnNotFoundResult()
         {
             // Arrange
             mockAppointmentRepository.

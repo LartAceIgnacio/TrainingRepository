@@ -1,35 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using BlastAsia.DigiBook.Domain.Models.Departments;
+using BlastAsia.DigiBook.Domain.Employees;
 
 namespace BlastAsia.DigiBook.Domain.Departments
 {
     public class DepartmentService : IDepartmentService
     {
         private IDepartmentRepository departmentRepository;
-        private readonly int departmentNameMinimumLength = 6;
+        private IEmployeeRepository employeeRepository;
 
-        public DepartmentService(IDepartmentRepository departmentRepository)
+        public DepartmentService(IDepartmentRepository departmentRepository, IEmployeeRepository employeeRepository)
         {
             this.departmentRepository = departmentRepository;
+            this.employeeRepository = employeeRepository;
         }
-        public Department Save(Department department)
+
+        public Department Save(Guid id, Department department)
         {
             if (string.IsNullOrEmpty(department.DepartmentName))
             {
-                throw new DepartmentNameRequiredException("Department name is required."); 
+                throw new DeparmentNameRequiredException("Department name is required");
             }
-            if (department.DepartmentName.Length < departmentNameMinimumLength)
+
+            var deparmentHeadFound = employeeRepository.Retrieve(department.DepartmentHeadId);
+            if (deparmentHeadFound == null)
             {
-                throw new MinimumLengthRequiredException("Department Name should be at least 6 characters.");
+                throw new DepartmentHeadIdNotFoundException("Department HeadId not found.");
             }
 
-            departmentRepository.Retrieve(department.DeparmentId);
+            Department result = null;
+            var departmentFound = departmentRepository.Retrieve(department.DepartmentId);
 
-            departmentRepository.Save(department);
+            if (departmentFound == null)
+            {
+                result = departmentRepository.Create(department);
+            }
+            else
+            {
+                result = departmentRepository.Update(department.DepartmentId,department);
+            }
+            
 
-            return null;
+            return result;
         }
     }
 }

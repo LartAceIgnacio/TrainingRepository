@@ -1,13 +1,15 @@
-﻿using BlastAsia.DigiBook.Domain.Models.Departments;
-using System;
+﻿using System;
+using BlastAsia.DigiBook.Domain.Models.Departments;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BlastAsia.DigiBook.Domain.Departments
 {
     public interface IDepartmentRepository
-        : IRepository<Department>
     {
-        void Save(Department department);
+        Department Create(Department department);
+        Department Retrieve(Guid Id);
+        Department Update(Guid Id, Department department);
+        IEnumerable<Department> Retrieve();
+        void Delete(Guid departmentId);
     }
 }
