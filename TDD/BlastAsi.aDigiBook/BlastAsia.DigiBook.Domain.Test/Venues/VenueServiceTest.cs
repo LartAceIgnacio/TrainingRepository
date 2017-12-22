@@ -88,5 +88,36 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
 
             mockVenueRepository.Verify(v => v.Create(venue), Times.Never());
         }
+
+        [TestMethod]
+      
+        public void Save_WithVenueNameGreaterThanMaxLength_ThrowsVenueNameLessThanMaxLengthRequiredException()
+        {
+            // Arrange
+            venue.VenueName = "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm";
+
+            // Act
+
+            // Assert
+            Assert.ThrowsException<VenueNameLessThanMaxLengthRequiredException>(
+                 () => sut.Save(venue.VenueId, venue));
+
+            mockVenueRepository.Verify(v => v.Create(venue), Times.Never());
+        }
+
+        [TestMethod]
+        public void Save_WithVenueDescGreaterThanMaxLength_ThrowsVenueDescLessThanMaxLengthRequiredException()
+        {
+            // Arrange
+            venue.Description = "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm";
+
+            // Act
+
+            // Assert
+            Assert.ThrowsException<VenueDescLessThanMaxLengthRequiredException>(
+                () => sut.Save(venue.VenueId, venue));
+
+            mockVenueRepository.Verify(v => v.Create(venue), Times.Never());
+        }
     }
 }
