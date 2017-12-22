@@ -46,14 +46,34 @@ namespace BlastAsia.DigiBook.API.Controllers
         [HttpPost]
         public IActionResult CreateEmployee([FromBody] Employee employee)
         {
-            var result = this.employeeService.Save(Guid.Empty, employee);
+            try
+            {
+                if (employee == null)
+                {
+                    return BadRequest();
+                }
 
-            return CreatedAtAction("GetEmployees",new { id=result.EmployeeId},result);
+                var result = this.employeeService.Save(Guid.Empty, employee);
+
+                return CreatedAtAction("GetContacts",
+                    new { id = employee.EmployeeId }, result);
+            }
+
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete]
-        public IActionResult DeleteEmployess(Guid id)
+        public IActionResult DeleteEmployee(Guid id)
         {
+            var foundDeleteId = employeeRepository.Retrieve(id);
+            if (foundDeleteId == null)
+            {
+                return NotFound();
+            }
+
             this.employeeRepository.Delete(id);
 
             return NoContent();
@@ -63,8 +83,19 @@ namespace BlastAsia.DigiBook.API.Controllers
         public IActionResult UpdateEmployee(
             [FromBody] Employee employee, Guid id)
         {
+            if (employee == null)
+            {
+                return BadRequest();
+            }
 
             var oldEmployee = this.employeeRepository.Retrieve(id);
+
+            if (oldEmployee == null)
+            {
+                return NotFound();
+            }
+
+            
             oldEmployee.ApplyChanges(employee);
 
             this.employeeService.Save(id, employee);

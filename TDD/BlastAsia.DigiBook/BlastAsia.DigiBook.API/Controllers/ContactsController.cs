@@ -45,19 +45,40 @@ namespace BlastAsia.DigiBook.API.Controllers
 
             return Ok(result);
         }
+  
+
         [HttpPost]
         public IActionResult CreateContact(
-            [FromBody] Contact contact)
+           [FromBody] Contact contact)
         {
-            var result = this.contactService.Save(Guid.Empty, contact);
+            try
+            {
+                if (contact == null)
+                {
+                    return BadRequest();
+                }
 
-            return CreatedAtAction("GetContacts", 
-                new { id = result.ContactId }, result);
+                var result = this.contactService.Save(Guid.Empty, contact);
+
+                return CreatedAtAction("GetContacts",
+                    new { id = contact.ContactId }, result);
+            }
+
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete]
         public IActionResult DeleteContact(Guid id)
         {
+            var foundDeleteId = contactRepository.Retrieve(id);
+            if (foundDeleteId == null)
+            {
+                return NotFound();
+            }
+
             this.contactRepository.Delete(id);
 
             return NoContent();
@@ -66,7 +87,20 @@ namespace BlastAsia.DigiBook.API.Controllers
         public IActionResult UpdateContact(
             [FromBody] Contact contact,Guid id)
         {
+            
+
+            if (contact == null)
+            {
+                return BadRequest();
+            }
+
             var oldContact = this.contactRepository.Retrieve(id);
+
+            if (oldContact == null)
+            {
+                return NotFound();
+            }
+            
             oldContact.ApplyChanges(contact);
 
             this.contactService.Save(id, contact);

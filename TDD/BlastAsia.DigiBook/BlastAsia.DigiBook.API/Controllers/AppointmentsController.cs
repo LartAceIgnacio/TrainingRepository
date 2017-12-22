@@ -49,27 +49,55 @@ namespace BlastAsia.DigiBook.API.Controllers
         public IActionResult CreateAppointment(
             [FromBody] Appointment appointment)
         {
-            var result = this.appointmnetService.Save(Guid.Empty, appointment);
+            try
+            {
+                if (appointment == null)
+                {
+                    return BadRequest();
+                }
 
-            return CreatedAtAction("GetAppointments",
-                new { id = result.AppointmentId }, result);
+                var result = this.appointmnetService.Save(Guid.Empty, appointment);
+
+                return CreatedAtAction("GetContacts",
+                    new { id = appointment.AppointmentId }, result);
+            }
+
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete]
         public IActionResult DeleteAppointment(Guid id)
         {
+            var foundDeleteId = appointmnetRepository.Retrieve(id);
+            if (foundDeleteId == null)
+            {
+                return NotFound();
+            }
+
             this.appointmnetRepository.Delete(id);
 
             return NoContent();
         }
         [HttpPut]
-        public IActionResult UpdateContact(
+        public IActionResult UpdateAppointment(
             [FromBody] Appointment appointment, Guid id)
         {
+            if (appointment == null)
+            {
+                return BadRequest();
+            }
 
             var oldAppointment = this.appointmnetRepository.Retrieve(id);
-            oldAppointment.ApplyChanges(appointment);
 
+            if (oldAppointment == null)
+            {
+                return NotFound();
+            }
+          
+            oldAppointment.ApplyChanges(appointment);
 
             this.appointmnetService.Save(id, appointment);
 
