@@ -10911,10 +10911,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\acelis\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\BlastAsia.DigiBook.API.csproj",
+      "projectUniqueName": "C:\\Users\\acelis\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\BlastAsia.DigiBook.API.csproj",
       "projectName": "BlastAsia.DigiBook.API",
-      "projectPath": "C:\\Users\\acelis\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\BlastAsia.DigiBook.API.csproj",
-      "outputPath": "C:\\Users\\acelis\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\obj\\",
+      "projectPath": "C:\\Users\\acelis\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\BlastAsia.DigiBook.API.csproj",
+      "outputPath": "C:\\Users\\acelis\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
@@ -10922,14 +10922,14 @@
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "C:\\Users\\acelis\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj": {
-              "projectPath": "C:\\Users\\acelis\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj"
+            "C:\\Users\\acelis\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj": {
+              "projectPath": "C:\\Users\\acelis\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj"
             },
-            "C:\\Users\\acelis\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj": {
-              "projectPath": "C:\\Users\\acelis\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj"
+            "C:\\Users\\acelis\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj": {
+              "projectPath": "C:\\Users\\acelis\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj"
             },
-            "C:\\Users\\acelis\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj": {
-              "projectPath": "C:\\Users\\acelis\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj"
+            "C:\\Users\\acelis\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj": {
+              "projectPath": "C:\\Users\\acelis\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj"
             }
           }
         }

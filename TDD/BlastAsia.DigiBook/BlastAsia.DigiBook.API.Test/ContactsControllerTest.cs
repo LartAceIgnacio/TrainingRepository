@@ -150,7 +150,7 @@ namespace BlastAsia.DigiBook.API.Test
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
 
             mockContactRepository
-                .Verify(cr => cr.Delete(newContactId), Times.Never());
+                .Verify(cr => cr.Delete(noContactId), Times.Never());
 
             
 

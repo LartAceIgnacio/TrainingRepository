@@ -26,6 +26,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
             {
 
                 VenueName = "It Department",
+                Description = "Hello"
 
             };
 
@@ -59,6 +60,42 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
             mockVenueRepository
                 .Verify(vr => vr.Create(venue), Times.Never());
         }
+
+        [TestMethod]
+        public void Save_WithVenueNameLenthGreaterThanFifty_ThrowsVenueNameLengthRequiredException()
+        {
+            //Arrange
+            venue.VenueName = "qwertyuiopqwiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop";
+            //Act
+
+
+            //Assert
+            Assert.ThrowsException<VenueNameLengthRequiredException>(
+              () => sut.Save(venue.VenueId, venue)
+              );
+            mockVenueRepository
+                .Verify(vr => vr.Create(venue), Times.Never());
+
+        }
+
+        [TestMethod]
+        public void Save_WithDescriptionLenthGreaterThanHundred_ThrowsDescriptionLengthRequiredException()
+        {
+            //Arrange
+            venue.Description = "qwertyuiopqwiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopwertyuiopqwiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiwertyuiopqwiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyui";
+            //Act
+
+
+            //Assert
+            Assert.ThrowsException<DescriptionLengthRequiredException>(
+              () => sut.Save(venue.VenueId, venue)
+              );
+
+            mockVenueRepository
+                .Verify(vr => vr.Create(venue), Times.Never());
+
+        }
+
 
         [TestMethod]
         public void Save_withValidData_ShouldCallRepositoryCreateAndGenerateVenueId()
@@ -102,5 +139,8 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
                 .Verify(vr => vr.Update(ExistingId,venue), Times.Once());
 
         }
+
+
+       
     }
 }
