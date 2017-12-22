@@ -50,7 +50,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         public void Save_NewVenueWithValidData_ShouldCallRepositoryCreate()
         {
             //Arrange 
-            var result = sut.Save(venue);
+            var result = sut.Save(venue.VenueId, venue);
 
             //Act 
             mockVenueRepository
@@ -63,7 +63,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         [TestMethod]
         public void Save_WithExistingVenueId_ReturnNewVenueId()
         {
-            var newVenue = sut.Save(venue);
+            var newVenue = sut.Save(venue.VenueId, venue);
 
             //Assert
             mockVenueRepository
@@ -78,8 +78,17 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
             venue.VenueName = "";
 
             Assert.ThrowsException<VenueNameRequiredException>(
-                () => sut.Save(venue));
+                () => sut.Save(venue.VenueId, venue));
         }
+        [TestMethod]
+        public void Save_WithMoreThanMaximumLength_ThrowsLessThanMaximumLengthRequiredException()
+        {
+            venue.VenueName = "asdfghjklaasdfghjklaasdfghjklaasdfghjklaasdfghjklaasdasdasd";
+
+            Assert.ThrowsException<LessThanMaximumLengthRequiredException>(
+                ()=> sut.Save(venue.VenueId, venue));
+        }
+
         [TestMethod]
         public void Save_WithValidData_ShouldCallRepositoryUpdate()
         {
@@ -87,7 +96,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
             venue.VenueId = existingVenueId;
             //Act
 
-            sut.Save(venue);
+            sut.Save(venue.VenueId, venue);
 
             //Assert
             mockVenueRepository

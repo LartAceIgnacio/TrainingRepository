@@ -1,20 +1,26 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Venues;
+using System;
 
 namespace BlastAsia.DigiBook.Domain.Venues
 {
     public class VenueService : IVenueService
     {
         private IVenueRepository venueRepository;
+        private readonly int MaximumLength = 50;
 
         public VenueService(IVenueRepository venueRepository)
         {
             this.venueRepository = venueRepository;
         }
-        public Venue Save(Venue venue)
+        public Venue Save(Guid id,Venue venue)
         {
             if (string.IsNullOrEmpty(venue.VenueName))
             {
                 throw new VenueNameRequiredException("VenueName is required!");
+            }
+            if(venue.VenueName.Length > MaximumLength)
+            {
+                throw new LessThanMaximumLengthRequiredException("VenueName length is lessthan 50 Characters");
             }
 
             Venue result = null;
