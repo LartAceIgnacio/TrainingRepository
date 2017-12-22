@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.JsonPatch;
 namespace BlastAsia.DigiBook.API.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Contacts")]
+    [Route("api/Venues")]
     public class VenuesController : Controller
     {
         private readonly IVenueService venueService;
