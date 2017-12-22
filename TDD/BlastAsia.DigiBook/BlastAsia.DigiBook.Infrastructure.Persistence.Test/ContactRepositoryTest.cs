@@ -104,10 +104,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             var expectedFirstName = "Linus";
             var expectedLastName = "Paul";
             var expectedEmail = "linusPauling@gmail.com";
-            var expectedCityAddress = "Dadadasdad sdffass";
-            var expectedCountry = "Uganda";
-            
-
 
             newContact.FirstName = expectedFirstName;
             newContact.LastName = expectedLastName;

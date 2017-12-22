@@ -59,44 +59,57 @@ namespace BlastAsia.DigiBook.Api.Controllers
         [HttpDelete]
         public IActionResult DeleteVenue(Guid id)
         {
-            var deletedVenue = venueRepository.Retrieve(id);
-            if (deletedVenue == null)
+            try
             {
-                return NotFound();
-            }
-            this.venueRepository.Delete(id);
+                var deletedVenue = venueRepository.Retrieve(id);
+                if(deletedVenue == null)
+                {
+                    return NotFound();
+                }
+                this.venueRepository.Delete(id);
 
-            return Ok();
+                return Ok();
+
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+           
         }
 
         [HttpPut]
         public IActionResult UpdateVenue(
             [FromBody] Venue modifiedVenue, Guid id)
         {
-            var venue = venueRepository.Retrieve(id);
-            if (venue == null)
+            try
+            {
+                var venue = venueRepository.Retrieve(id);
+                venue.ApplyChanges(modifiedVenue);
+                venueService.Save(id, venue);
+                return Ok(venue);
+            }
+            catch (Exception)
             {
                 return NotFound();
             }
-            venue.ApplyChanges(modifiedVenue);
-            venueService.Save(id, venue);
-            return Ok(venue);
         }
 
         [HttpPatch]
         public IActionResult PatchVenue([FromBody]JsonPatchDocument patchedVenue, Guid id)
         {
-          
-            var venue = venueRepository.Retrieve(id);
-            if (venue == null)
+            try
+            {
+                var venue = venueRepository.Retrieve(id);
+                patchedVenue.ApplyTo(venue);
+                venueService.Save(id, venue);
+
+                return Ok(venue);
+            }
+            catch(Exception)
             {
                 return NotFound();
             }
-
-            patchedVenue.ApplyTo(venue);
-            venueService.Save(id, venue);
-
-            return Ok(venue);
         }
     }
 }

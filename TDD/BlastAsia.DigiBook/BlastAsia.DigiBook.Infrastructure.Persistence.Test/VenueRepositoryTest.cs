@@ -11,7 +11,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
     public class VenueRepositoryTest
     {
 
-        private Venue venue;
+        private Venue venue, newVenue;
         private string connectionString;
         private DbContextOptions<DigiBookDbContext> dbOptions = null;
         private VenueRepository sut;
@@ -51,7 +51,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             //Arrange
 
             //Act
-            var newVenue = sut.Create(venue);
+            newVenue = sut.Create(venue);
 
             //Assert
             Assert.IsNotNull(venue);
@@ -66,7 +66,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         [TestProperty("TestType", "Integration")]
         public void Delete_WithAnExistingVenue_RemovesRecordFromDatabase()
         {
-            var newVenue = sut.Create(venue);
+            newVenue = sut.Create(venue);
             //Act
             sut.Delete(newVenue.VenueId);
 
@@ -79,7 +79,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Retrieve_WithExistingVenueId_ReturnsRecordFromDb()
         {
 
-            var newVenue = sut.Create(venue);
+           newVenue = sut.Create(venue);
 
             var found = sut.Retrieve(newVenue.VenueId);
 
@@ -97,7 +97,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             var expectedVenueName = "somewhere";
             var expectedVenueDescription = "sasdsada";
 
-            var newVenue = sut.Retrieve(venueData.VenueId);
+            newVenue = sut.Retrieve(venueData.VenueId);
             newVenue.VenueName = expectedVenueName;
             newVenue.Description = expectedVenueDescription;
 

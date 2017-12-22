@@ -17,7 +17,7 @@ namespace BlastAsia.DigiBook.Api.Test
         private Mock<IVenueRepository> mockVenueRepository;
         private Mock<IVenueService> mockVenueService;
         private VenuesController sut;
-        private Object result;
+        private IActionResult result;
         private Guid existingVenueId;
         private Guid nonExisitingVenueId;
         private Venue venue;
@@ -37,6 +37,10 @@ namespace BlastAsia.DigiBook.Api.Test
             mockVenueRepository
                 .Setup(vr => vr.Retrieve(existingVenueId))
                 .Returns(() => new Venue());
+
+            mockVenueRepository
+               .Setup(vr => vr.Retrieve(nonExisitingVenueId))
+               .Returns<Venue>(null);
         }
         
         [TestMethod]

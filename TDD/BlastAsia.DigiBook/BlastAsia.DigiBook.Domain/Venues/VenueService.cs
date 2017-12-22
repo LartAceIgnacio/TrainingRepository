@@ -16,7 +16,7 @@ namespace BlastAsia.DigiBook.Domain.Venues
         {
             if (string.IsNullOrEmpty(venue.VenueName))
             {
-                throw new RequiredException();
+                throw new RequiredVenueNameException();
             }
             if (venue.VenueName.Length > 50)
             {
