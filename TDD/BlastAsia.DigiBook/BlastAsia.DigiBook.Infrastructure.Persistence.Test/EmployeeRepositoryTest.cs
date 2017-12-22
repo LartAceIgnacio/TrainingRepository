@@ -12,16 +12,16 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
     [TestClass]
     public class EmployeeRepositoryTest
     {
-        private Employee _employee = null;
-        private string _connectionString;
-        private DbContextOptions<DigiBookDbContext> _dbOptions;
-        private DigiBookDbContext _dbContext;
-        private EmployeeRepository _sut;
+        private Employee employee = null;
+        private string connectionString;
+        private DbContextOptions<DigiBookDbContext> dbOptions;
+        private DigiBookDbContext dbContext;
+        private EmployeeRepository sut;
 
         [TestInitialize]
         public void Initialize()
         {
-            _employee = new Employee
+            employee = new Employee
             {
                  Firstname = "Mattronilo",
                  Lastname = "Mendez",
@@ -32,22 +32,22 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
                  //Photo = new MemoryStream()
             };
 
-            _connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=DigiBookDb;Trusted_Connection=True;";
-            _dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
-                .UseSqlServer(_connectionString)
+            connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=DigiBookDb;Trusted_Connection=True;";
+            dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
+                .UseSqlServer(connectionString)
                 .Options;
 
-            _dbContext = new DigiBookDbContext(_dbOptions);
+            dbContext = new DigiBookDbContext(dbOptions);
 
-            _sut = new EmployeeRepository(_dbContext);
-            _dbContext.Database.EnsureCreated();
+            sut = new EmployeeRepository(dbContext);
+            dbContext.Database.EnsureCreated();
         }
 
         [TestCleanup]
         public void CleanUp()
         {
-            _dbContext.Dispose();
-            _dbContext = null;
+            dbContext.Dispose();
+            dbContext = null;
         }
 
         [TestMethod]
@@ -57,7 +57,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             // Arrange
 
             // Act
-            var newEmployee = _sut.Create(_employee);
+            var newEmployee = sut.Create(employee);
 
             //Assert
             Assert.IsNotNull(newEmployee);
@@ -65,7 +65,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 
 
             // Cleanup
-            _sut.Delete(newEmployee.Id);
+            sut.Delete(newEmployee.Id);
         }
 
         [TestMethod]
@@ -73,13 +73,13 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Delete_WithExistingEmployeeId_RemovesDataFromDatabase()
         {
             // Arrange
-            var newEmployee = _sut.Create(_employee);
+            var newEmployee = sut.Create(employee);
             // Act
-            _sut.Delete(newEmployee.Id);
+            sut.Delete(newEmployee.Id);
 
             // Assert
-            _employee = _sut.Retrieve(newEmployee.Id);
-            Assert.IsNull(_employee);
+            employee = sut.Retrieve(newEmployee.Id);
+            Assert.IsNull(employee);
 
         }
 
@@ -88,16 +88,16 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Retrieve_WithExistingEmployeeId_ReturnsRecordFromDb()
         {
             // Arrange
-            var newEmployee = _sut.Create(_employee);
+            var newEmployee = sut.Create(employee);
 
             // Act
-            var found = _sut.Retrieve(newEmployee.Id);
+            var found = sut.Retrieve(newEmployee.Id);
 
             // Assert
             Assert.IsNotNull(found);
 
             //Cleanup
-            _sut.Delete(found.Id);
+            sut.Delete(found.Id);
         }
 
         [TestMethod]
@@ -105,7 +105,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Update_WithExistingEmployeeId_ShouldReturnRecordFromDb()
         {
             // Arrange
-            var newEmployee = _sut.Create(_employee);
+            var newEmployee = sut.Create(employee);
             var expectedFirstname = "Robert";
             var expectedLastname = "Martin";
             var expectedEmail = "rmartin@blastasia.com";
@@ -117,17 +117,17 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             //newEmployee.Photo = expectedPhoto;
 
             // Act
-            _sut.Update(newEmployee.Id, _employee);
+            sut.Update(newEmployee.Id, employee);
 
             // Assert
-            var updatedEmployee = _sut.Retrieve(newEmployee.Id);
+            var updatedEmployee = sut.Retrieve(newEmployee.Id);
             Assert.AreEqual(expectedFirstname, updatedEmployee.Firstname);
             Assert.AreEqual(expectedLastname, updatedEmployee.Lastname);
             Assert.AreEqual(expectedEmail, updatedEmployee.EmailAddress);
             //Assert.AreEqual(expectedPhoto, updatedEmployee.Photo);
 
             // Cleanup
-            _sut.Delete(updatedEmployee.Id);
+            sut.Delete(updatedEmployee.Id);
         }
 
 

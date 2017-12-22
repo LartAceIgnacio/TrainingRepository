@@ -11,16 +11,16 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
     [TestClass]
     public class ContactRepositoryTest
     {
-        private Contact _contact = null;
-        private string _connectionString;
-        private DbContextOptions<DigiBookDbContext> _dbOptions;
-        private DigiBookDbContext _dbContext;
-        private ContactRepository _sut;
+        private Contact contact = null;
+        private string connectionString;
+        private DbContextOptions<DigiBookDbContext> dbOptions;
+        private DigiBookDbContext dbContext;
+        private ContactRepository sut;
 
         [TestInitialize]
         public void Initialize()
         {
-            _contact = new Contact
+            contact = new Contact
             {
                 Firstname = "Matt",
                 Lastname = "Mendez",
@@ -33,22 +33,22 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
                 DateActivated = new Nullable<DateTime>()
             };
 
-            _connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=DigiBookDb;Trusted_Connection=True;";
-            _dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
-                .UseSqlServer(_connectionString)
+            connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=DigiBookDb;Trusted_Connection=True;";
+            dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
+                .UseSqlServer(connectionString)
                 .Options;
 
-            _dbContext = new DigiBookDbContext(_dbOptions);
+            dbContext = new DigiBookDbContext(dbOptions);
 
-            _sut = new ContactRepository(_dbContext);
-            _dbContext.Database.EnsureCreated();
+            sut = new ContactRepository(dbContext);
+            dbContext.Database.EnsureCreated();
         }
 
         [TestCleanup]
         public void CleanUp()
         {
-            _dbContext.Dispose();
-            _dbContext = null;
+            dbContext.Dispose();
+            dbContext = null;
         }
 
         [TestMethod]
@@ -59,14 +59,14 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             
             
             // Act
-            var newContact = _sut.Create(_contact);
+            var newContact = sut.Create(contact);
 
             // Assert
             Assert.IsNotNull(newContact);
             Assert.IsTrue(newContact.ContactId != Guid.Empty);
 
             //Cleanup
-            _sut.Delete(newContact.ContactId);
+            sut.Delete(newContact.ContactId);
             
         }
 
@@ -74,13 +74,13 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         [TestProperty("TestType", "Integration")]
         public void Delete_WithExistingContact_RemovesDataFromDatabase()
         {
-            var newContact = _sut.Create(_contact);
+            var newContact = sut.Create(contact);
 
-            _sut.Delete(_contact.ContactId);
+            sut.Delete(contact.ContactId);
 
             // Assert
-            _contact = _sut.Retrieve(newContact.ContactId);
-            Assert.IsNull(_contact);
+            contact = sut.Retrieve(newContact.ContactId);
+            Assert.IsNull(contact);
         }
 
         [TestMethod]
@@ -88,16 +88,16 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Retrieve_WithExistingContactId_ReturnsRecordFromDb()
         {
             // Arrange
-            var newcontact = _sut.Create(_contact);
+            var newcontact = sut.Create(contact);
 
             // Act
-            var found = _sut.Retrieve(_contact.ContactId);
+            var found = sut.Retrieve(contact.ContactId);
 
             // Assert
             Assert.IsNotNull(found);
 
             //CleanUp
-            _sut.Delete(found.ContactId);
+            sut.Delete(found.ContactId);
 
 
         }
@@ -107,7 +107,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Update_WithExistingContactId_ShouldUpdateRecordFromDb()
         {
 
-            var newcontact = _sut.Create(_contact);
+            var newcontact = sut.Create(contact);
             var expectedFirstName = "James"; //Matt
             var expectedLastName = "Montemagno"; //Mendez
             var expectedEmail = "jmontemagno@xamarin.com"; //mmendez@blastasia.com
@@ -117,16 +117,16 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             newcontact.EmailAddress = expectedEmail;
 
             // Act
-            _sut.Update(newcontact.ContactId, _contact);
+            sut.Update(newcontact.ContactId, contact);
 
             //Assert
-            var updatedContact = _sut.Retrieve(newcontact.ContactId);
+            var updatedContact = sut.Retrieve(newcontact.ContactId);
             Assert.AreEqual(expectedFirstName, updatedContact.Firstname);
             Assert.AreEqual(expectedLastName, updatedContact.Lastname);
             Assert.AreEqual(expectedEmail, updatedContact.EmailAddress);
 
             // CleanUp
-            _sut.Delete(updatedContact.ContactId);
+            sut.Delete(updatedContact.ContactId);
 
         }
     }

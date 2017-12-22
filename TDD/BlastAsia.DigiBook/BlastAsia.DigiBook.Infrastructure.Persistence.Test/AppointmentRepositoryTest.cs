@@ -12,17 +12,17 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
     [TestClass]
     public class AppointmentRepositoryTest
     {
-        private string _connectionString;
-        private Appointment _appointment;
-        private AppointmentRepository _sut;
-        private DigiBookDbContext _dbContext = null;
-        private DbContextOptions<DigiBookDbContext> _dbOptions = null;
+        private string connectionString;
+        private Appointment appointment;
+        private AppointmentRepository sut;
+        private DigiBookDbContext dbContext = null;
+        private DbContextOptions<DigiBookDbContext> dbOptions = null;
 
         [TestInitialize]
         public void InitializeTest()
         {
 
-            _appointment = new Appointment
+            appointment = new Appointment
             {
                 AppointmentDate = DateTime.Today.AddDays(1),
                 GuestId = Guid.NewGuid(),
@@ -34,21 +34,21 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
                 Notes = "Sucess"
             };
 
-            _connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=DigiBookDb;Trusted_Connection=True;";
-            _dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
-                .UseSqlServer(_connectionString)
+            connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=DigiBookDb;Trusted_Connection=True;";
+            dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
+                .UseSqlServer(connectionString)
                 .Options;
 
-            _dbContext = new DigiBookDbContext(_dbOptions); // ORM
-            _dbContext.Database.EnsureCreated();
-            _sut = new AppointmentRepository(_dbContext);
+            dbContext = new DigiBookDbContext(dbOptions); // ORM
+            dbContext.Database.EnsureCreated();
+            sut = new AppointmentRepository(dbContext);
         }
 
         [TestCleanup]
         public void Cleanup()
         {
-            _dbContext.Dispose();
-            _dbContext = null;
+            dbContext.Dispose();
+            dbContext = null;
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             // arrange
 
             // act 
-            var newAppointment = _sut.Create(_appointment);
+            var newAppointment = sut.Create(appointment);
 
             
             // assert
@@ -66,7 +66,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             Assert.IsTrue(newAppointment.AppointmentId != Guid.Empty);
 
             // Cleanup
-            _sut.Delete(newAppointment.AppointmentId);
+            sut.Delete(newAppointment.AppointmentId);
         }
 
         [TestMethod]
@@ -74,14 +74,14 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Delete_WithAnExistingAppointmentId_RemovesRecordFromDatabase()
         {
             //Arrange
-            var newAppointment = _sut.Create(_appointment);
+            var newAppointment = sut.Create(appointment);
 
             //Act
-            _sut.Delete(newAppointment.AppointmentId);
+            sut.Delete(newAppointment.AppointmentId);
 
             //Assert
-            _appointment = _sut.Retrieve(newAppointment.AppointmentId);
-            Assert.IsNull(_appointment);
+            appointment = sut.Retrieve(newAppointment.AppointmentId);
+            Assert.IsNull(appointment);
         }
 
         [TestMethod]
@@ -89,16 +89,16 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Retrieve_WithAnExistingAppointmentId_ReturnsAppointmentRecordsFromDb()
         {
             //arrange
-            var newAppointment = _sut.Create(_appointment);
+            var newAppointment = sut.Create(appointment);
 
             //act
-            var retrieveAppointment = _sut.Retrieve(newAppointment.AppointmentId);
+            var retrieveAppointment = sut.Retrieve(newAppointment.AppointmentId);
 
             //assert
             Assert.IsNotNull(retrieveAppointment);
 
             //cleanup
-            _sut.Delete(newAppointment.AppointmentId);
+            sut.Delete(newAppointment.AppointmentId);
         }
 
         [TestMethod]
@@ -106,20 +106,20 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Update_WithAnExistingAppointmentId_ShouldUpdateAppointmentRecordsFromDb()
         {
             //Arrange
-            var newAppointment = _sut.Create(_appointment);
+            var newAppointment = sut.Create(appointment);
             var expectedNotes = "Updated Note";
 
             //changing the value of properties
             newAppointment.Notes = expectedNotes;
             //Act
-            _sut.Update(newAppointment.AppointmentId, newAppointment);
-            var updatedAppointment = _sut.Retrieve(newAppointment.AppointmentId);
+            sut.Update(newAppointment.AppointmentId, newAppointment);
+            var updatedAppointment = sut.Retrieve(newAppointment.AppointmentId);
 
             //Assert   
             Assert.AreEqual(updatedAppointment.Notes, expectedNotes);
 
             //cleanup
-            _sut.Delete(updatedAppointment.AppointmentId);
+            sut.Delete(updatedAppointment.AppointmentId);
         }
     }
 }

@@ -16,8 +16,8 @@ namespace BlastAsia.DigiBook.API.Controllers
     [Route("api/Appointment")]
     public class AppointmentController : Controller
     {
-        private IAppointmentService _appointmentService;
-        private IAppointmentRepository _appointmentRepo;
+        private IAppointmentService appointmentService;
+        private IAppointmentRepository appointmentRepo;
         private IEmployeeRepository employeeRepo;
         private IContactRepository contactRepo;
 
@@ -25,8 +25,8 @@ namespace BlastAsia.DigiBook.API.Controllers
             , IAppointmentRepository appointmentRepo, IEmployeeRepository employeeRepo
             , IContactRepository contactRepo)
         {
-            this._appointmentService = appointmentService;
-            this._appointmentRepo = appointmentRepo;
+            this.appointmentService = appointmentService;
+            this.appointmentRepo = appointmentRepo;
             this.employeeRepo = employeeRepo;
             this.contactRepo = contactRepo;
         }
@@ -38,11 +38,11 @@ namespace BlastAsia.DigiBook.API.Controllers
 
             if (id == null)
             {
-                result.AddRange(_appointmentRepo.Retrieve());
+                result.AddRange(appointmentRepo.Retrieve());
             }
             else
             {
-                var found = _appointmentRepo.Retrieve(id.Value);
+                var found = appointmentRepo.Retrieve(id.Value);
                 if (found == null) return NoContent();
                 result.Add(found);
 
@@ -58,7 +58,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             {
                 if (appointment == null) return BadRequest();
                 
-                var result = _appointmentService.Save(Guid.Empty, appointment);
+                var result = appointmentService.Save(Guid.Empty, appointment);
                 return CreatedAtAction("GetAppointments", new { id = appointment.AppointmentId, result});
             }
             catch (Exception)
@@ -72,10 +72,10 @@ namespace BlastAsia.DigiBook.API.Controllers
         {
             try
             {
-                var result = _appointmentRepo.Retrieve(id);
+                var result = appointmentRepo.Retrieve(id);
                 if (result == null) return NotFound();
 
-                _appointmentRepo.Delete(id);
+                appointmentRepo.Delete(id);
                 return NoContent();
             }
             catch (Exception)
@@ -90,11 +90,11 @@ namespace BlastAsia.DigiBook.API.Controllers
         {
             if (patchAppointment == null) return BadRequest();
 
-            var found = _appointmentRepo.Retrieve(id);
+            var found = appointmentRepo.Retrieve(id);
 
             if (found == null) return NotFound();
             patchAppointment.ApplyTo(found);
-            _appointmentService.Save(id, found);
+            appointmentService.Save(id, found);
 
             return Ok(found);
 

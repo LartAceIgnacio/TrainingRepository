@@ -17,15 +17,15 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
     [TestClass]
     public class AppointmentServiceTest
     {
-        private Appointment _appointment;
-        private AppointmentService _sut;
-        private Contact _contact;
-        private Employee _employee;
+        private Appointment appointment;
+        private AppointmentService sut;
+        private Contact contact;
+        private Employee employee;
 
-        private Mock<IContactRepository> _mockContactRepo;
-        private Mock<IEmployeeRepository> _mockEmployeeRepo;
-        private Mock<IAppointmentRepository> _mockAppointmentRepo;
-        private Mock<IDateTimeWrapper> _mockDateTimeWrapper;
+        private Mock<IContactRepository> mockContactRepo;
+        private Mock<IEmployeeRepository> mockEmployeeRepo;
+        private Mock<IAppointmentRepository> mockAppointmentRepo;
+        private Mock<IDateTimeWrapper> mockDateTimeWrapper;
 
 
         private Guid _appointmentId;
@@ -45,28 +45,28 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
             _timeStart = DateTime.Now.TimeOfDay;
             _timeEnd = DateTime.Now.TimeOfDay.Add(TimeSpan.Parse("2:0:0"));
 
-            _mockEmployeeRepo = new Mock<IEmployeeRepository>();
-            _mockContactRepo = new Mock<IContactRepository>();
-            _mockAppointmentRepo = new Mock<IAppointmentRepository>();
-            _mockDateTimeWrapper = new Mock<IDateTimeWrapper>();
+            mockEmployeeRepo = new Mock<IEmployeeRepository>();
+            mockContactRepo = new Mock<IContactRepository>();
+            mockAppointmentRepo = new Mock<IAppointmentRepository>();
+            mockDateTimeWrapper = new Mock<IDateTimeWrapper>();
 
-            _mockDateTimeWrapper.Setup(d => d.GetNow())
+            mockDateTimeWrapper.Setup(d => d.GetNow())
                 .Returns(_appointmentDate);
 
-            _mockDateTimeWrapper.Setup(t => t.GetTime())
+            mockDateTimeWrapper.Setup(t => t.GetTime())
                 .Returns(_timeStart);
 
-            _mockDateTimeWrapper.Setup(t => t.GetTime())
+            mockDateTimeWrapper.Setup(t => t.GetTime())
                 .Returns(_timeEnd);
 
             //// Arrange for host and guest
             _existingEmployeeId = Guid.NewGuid();
             _existingContactId = Guid.NewGuid();
 
-            _employee = new Employee();
-            _contact = new Contact();
+            employee = new Employee();
+            contact = new Contact();
 
-            _appointment = new Appointment
+            appointment = new Appointment
             {
                 AppointmentId = _appointmentId,
                 AppointmentDate = _appointmentDate,
@@ -83,22 +83,22 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
             _existingAppointmentId = Guid.NewGuid();
             
 
-            _sut = new AppointmentService(_mockContactRepo.Object, _mockEmployeeRepo.Object
-                , _mockAppointmentRepo.Object, _mockDateTimeWrapper.Object);
+            sut = new AppointmentService(mockContactRepo.Object, mockEmployeeRepo.Object
+                , mockAppointmentRepo.Object, mockDateTimeWrapper.Object);
             
 
-            _mockEmployeeRepo.Setup(e => e.Retrieve(_appointment.HostId))
+            mockEmployeeRepo.Setup(e => e.Retrieve(appointment.HostId))
                 //.Callback(() => _employee.Id = _appointment.HostId)
-                .Returns(_employee);
+                .Returns(employee);
 
-            _mockContactRepo.Setup(c => c.Retrieve(_appointment.GuestId))
+            mockContactRepo.Setup(c => c.Retrieve(appointment.GuestId))
                //.Callback(() => _contact.ContactId = _appointment.GuestId)
-               .Returns(_contact);
+               .Returns(contact);
 
-            _mockAppointmentRepo.Setup(a => a.Retrieve(_existingAppointmentId))
-                .Returns(_appointment);
+            mockAppointmentRepo.Setup(a => a.Retrieve(_existingAppointmentId))
+                .Returns(appointment);
 
-            _mockAppointmentRepo
+            mockAppointmentRepo
                 .Setup(x => x.Retrieve(_nonExistingAppointmentId))
                 .Returns<Appointment>(null);
             
@@ -111,11 +111,11 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
         public void Save_NewAppointmentWithValidData_ShouldCallRepositoryCreate()
         {
             //Act
-            _sut.Save(Guid.Empty, _appointment);
+            sut.Save(Guid.Empty, appointment);
 
             //Assert
-            _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Once);
-            _mockAppointmentRepo.Verify(a => a.Create(_appointment), Times.Once);
+            mockAppointmentRepo.Verify(a => a.Retrieve(appointment.AppointmentId), Times.Once);
+            mockAppointmentRepo.Verify(a => a.Create(appointment), Times.Once);
 
         }
 
@@ -123,58 +123,58 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
         public void Save_WithExistingAppointment_CallRepositoryUpdate()
         {
             // Arrange
-            _appointment.AppointmentId= _existingAppointmentId;
+            appointment.AppointmentId= _existingAppointmentId;
 
             // Act
-            _sut.Save(_appointment.AppointmentId, _appointment);
+            sut.Save(appointment.AppointmentId, appointment);
 
 
             // Assert
-            _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.AtLeastOnce);// since calling a retrieve to check if existing object and retrieve first before update
-            _mockAppointmentRepo.Verify(c => c.Update(_existingAppointmentId, _appointment), Times.Once);
+            mockAppointmentRepo.Verify(a => a.Retrieve(appointment.AppointmentId), Times.AtLeastOnce);// since calling a retrieve to check if existing object and retrieve first before update
+            mockAppointmentRepo.Verify(c => c.Update(_existingAppointmentId, appointment), Times.Once);
         }
 
         [TestMethod]
         public void Save_WithNotExistingHostId_ThrowsHostRequiredException()
         {
             // Arrange
-            _appointment.HostId = Guid.Empty;
+            appointment.HostId = Guid.Empty;
 
             // Act
 
             // Assert
             Assert.ThrowsException<HostRequiredException>(
-                () => _sut.Save(_appointment.AppointmentId, _appointment));
-            _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Once);
-            _mockAppointmentRepo.Verify(a => a.Create(_appointment), Times.Never);
+                () => sut.Save(appointment.AppointmentId, appointment));
+            mockAppointmentRepo.Verify(a => a.Retrieve(appointment.AppointmentId), Times.Once);
+            mockAppointmentRepo.Verify(a => a.Create(appointment), Times.Never);
         }
 
         [TestMethod]
         public void Save_WithNonExistingGuestId_ThrowsGuestRequiredException()
         {
             // Arrange
-            _appointment.GuestId = Guid.Empty;
+            appointment.GuestId = Guid.Empty;
 
             // Act
             // Assert
             Assert.ThrowsException<GuestRequiredException>(
-                () => _sut.Save(_appointment.AppointmentId, _appointment));
-            _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Once);
-            _mockAppointmentRepo.Verify(a => a.Create(_appointment), Times.Never);
+                () => sut.Save(appointment.AppointmentId, appointment));
+            mockAppointmentRepo.Verify(a => a.Retrieve(appointment.AppointmentId), Times.Once);
+            mockAppointmentRepo.Verify(a => a.Create(appointment), Times.Never);
         }
 
         [TestMethod]
         public void Save_EndTimeIsLessThanStartTime_ThrowsInvalidTimeScheduleException()
         {
             // Arrange
-            _appointment.EndTime = _appointment.StartTime.Subtract(TimeSpan.Parse("2:00:00"));
+            appointment.EndTime = appointment.StartTime.Subtract(TimeSpan.Parse("2:00:00"));
 
             // Act
             // Assert
             Assert.ThrowsException<InvalidTimeScheduleException>(
-                () => _sut.Save(_appointment.AppointmentId, _appointment));
-            _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Never);
-            _mockAppointmentRepo.Verify(a => a.Create(_appointment), Times.Never);
+                () => sut.Save(appointment.AppointmentId, appointment));
+            mockAppointmentRepo.Verify(a => a.Retrieve(appointment.AppointmentId), Times.Never);
+            mockAppointmentRepo.Verify(a => a.Create(appointment), Times.Never);
 
         }
 
@@ -182,27 +182,27 @@ namespace BlastAsia.DigiBook.Domain.Test.AppointmentTest
         public void Save_EndTimeEqualToStartTime_ThrowsInvalidTimeScheduleException()
         {
             // Arrange
-            _appointment.StartTime = _appointment.EndTime;
+            appointment.StartTime = appointment.EndTime;
 
             // Act
             // Assert
             Assert.ThrowsException<InvalidTimeScheduleException>(
-                () => _sut.Save(_appointment.AppointmentId, _appointment));
-            _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Never);
-            _mockAppointmentRepo.Verify(a => a.Create(_appointment), Times.Never);
+                () => sut.Save(appointment.AppointmentId, appointment));
+            mockAppointmentRepo.Verify(a => a.Retrieve(appointment.AppointmentId), Times.Never);
+            mockAppointmentRepo.Verify(a => a.Create(appointment), Times.Never);
         }
 
         [TestMethod]
         public void Save_AppointmentDateLessThanCurrentDay_ThrowsInvalidScheduleTimeException()
         {
-            _appointment.AppointmentDate = _appointmentDate.AddDays(-1);
+            appointment.AppointmentDate = _appointmentDate.AddDays(-1);
 
             // Act
             // Assert
             Assert.ThrowsException<InvalidTimeScheduleException>(
-                () => _sut.Save(_appointment.AppointmentId, _appointment));
-            _mockAppointmentRepo.Verify(a => a.Retrieve(_appointment.AppointmentId), Times.Never);
-            _mockAppointmentRepo.Verify(a => a.Create(_appointment), Times.Never);
+                () => sut.Save(appointment.AppointmentId, appointment));
+            mockAppointmentRepo.Verify(a => a.Retrieve(appointment.AppointmentId), Times.Never);
+            mockAppointmentRepo.Verify(a => a.Create(appointment), Times.Never);
         }
 
         

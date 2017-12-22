@@ -13,16 +13,16 @@ namespace BlastAsia.DigiBook.Domain.Test.VenueTest
     [TestClass]
     public class VenueServiceTest
     {
-        Mock<IVenueRepository> _mockVenueRepo;
-        VenueService _sut;
-        Venue _venue;
+        Mock<IVenueRepository> mockVenueRepo;
+        VenueService sut;
+        Venue venue;
 
         [TestInitialize]
         public void Initialize() {
 
-            _mockVenueRepo = new Mock<IVenueRepository>();
-            _sut = new VenueService(_mockVenueRepo.Object);
-            _venue = new Venue() { VenueName = "Venue1", Description = "Sample Description for Venue 1." };
+            mockVenueRepo = new Mock<IVenueRepository>();
+            sut = new VenueService(mockVenueRepo.Object);
+            venue = new Venue() { VenueName = "Venue1", Description = "Sample Description for Venue 1." };
 
         }
 
@@ -35,11 +35,11 @@ namespace BlastAsia.DigiBook.Domain.Test.VenueTest
         {
             // Arrange
             // Act
-            _venue.VenueName = string.Empty;
+            venue.VenueName = string.Empty;
             
             // Assert
-            Assert.ThrowsException<VenueNameRequiredException>(() => _sut.Save(_venue.VenueId, _venue));
-            _mockVenueRepo.Verify(repo => repo.Create(_venue), Times.Never);
+            Assert.ThrowsException<VenueNameRequiredException>(() => sut.Save(venue.VenueId, venue));
+            mockVenueRepo.Verify(repo => repo.Create(venue), Times.Never);
         }
 
         [TestMethod]
@@ -47,13 +47,13 @@ namespace BlastAsia.DigiBook.Domain.Test.VenueTest
         public void Save_WithVenueNameExceedsLimit_ThrowVenueFieldLimitExceedException()
         {
             // Arrange
-            _venue.VenueName = "apodiaopdipaoidpaosdipaodiaposdiaposdiapsodiapsdoiaspdoiaspodiapsodiapsodiaspdoiaspdoiaspdoiaspdoaidpaosidapsodiadasdoiasdpaosdiaposdi";
+            venue.VenueName = "apodiaopdipaoidpaosdipaodiaposdiaposdiapsodiapsdoiaspdoiaspodiapsodiapsodiaspdoiaspdoiaspdoiaspdoaidpaosidapsodiadasdoiasdpaosdiaposdi";
 
             // Act
             
             // Assert
-            Assert.ThrowsException<VenueFieldLimitExceedException>(() => _sut.Save(_venue.VenueId, _venue));
-            _mockVenueRepo.Verify(repo => repo.Create(_venue), Times.Never);
+            Assert.ThrowsException<VenueFieldLimitExceedException>(() => sut.Save(venue.VenueId, venue));
+            mockVenueRepo.Verify(repo => repo.Create(venue), Times.Never);
         }
 
         [TestMethod]
@@ -61,13 +61,13 @@ namespace BlastAsia.DigiBook.Domain.Test.VenueTest
         public void Save_WithVenueDecriptionExceedsLimit_ThrowVenueFieldLimitExceedException()
         {
             // Arrange
-            _venue.Description = "apodiaopdipaoidpaosdipaodiaposdiaposdiapsodiapsdoiaspdoiaspodiapsodiapsodiaspdoiaspdoiaspdoiaspdoaidpaosidapsodiadasdoiasdpaosdiaposdi";
+            venue.Description = "apodiaopdipaoidpaosdipaodiaposdiaposdiapsodiapsdoiaspdoiaspodiapsodiapsodiaspdoiaspdoiaspdoiaspdoaidpaosidapsodiadasdoiasdpaosdiaposdi";
 
             // Act
 
             // Assert
-            Assert.ThrowsException<VenueFieldLimitExceedException>(() => _sut.Save(_venue.VenueId, _venue));
-            _mockVenueRepo.Verify(repo => repo.Create(_venue), Times.Never);
+            Assert.ThrowsException<VenueFieldLimitExceedException>(() => sut.Save(venue.VenueId, venue));
+            mockVenueRepo.Verify(repo => repo.Create(venue), Times.Never);
         }
 
         [TestMethod]
@@ -76,18 +76,18 @@ namespace BlastAsia.DigiBook.Domain.Test.VenueTest
         {
 
             // Arrange
-            _mockVenueRepo.Setup(repo => repo.Create(_venue))
-                .Callback(() => _venue.VenueId = Guid.NewGuid())
-                .Returns(_venue);
+            mockVenueRepo.Setup(repo => repo.Create(venue))
+                .Callback(() => venue.VenueId = Guid.NewGuid())
+                .Returns(venue);
             // Act
 
-            var result = _sut.Save(_venue.VenueId, _venue);
+            var result = sut.Save(venue.VenueId, venue);
 
 
             // Assert
             Assert.AreNotEqual(result.VenueId, Guid.Empty);
-            _mockVenueRepo.Verify(repo => repo.Retrieve(Guid.Empty), Times.Once);
-            _mockVenueRepo.Verify(repo => repo.Create(_venue), Times.Once);
+            mockVenueRepo.Verify(repo => repo.Retrieve(Guid.Empty), Times.Once);
+            mockVenueRepo.Verify(repo => repo.Create(venue), Times.Once);
         }
 
         [TestMethod]
@@ -96,17 +96,17 @@ namespace BlastAsia.DigiBook.Domain.Test.VenueTest
         {
             var existingId = Guid.NewGuid();
 
-            _mockVenueRepo.Setup(repo => repo.Retrieve(existingId))
-                .Returns(_venue);
+            mockVenueRepo.Setup(repo => repo.Retrieve(existingId))
+                .Returns(venue);
 
-            _mockVenueRepo.Setup(repo => repo.Update(existingId, _venue))
-                .Callback(()=> _venue.VenueId = existingId)
-                .Returns(_venue);
+            mockVenueRepo.Setup(repo => repo.Update(existingId, venue))
+                .Callback(()=> venue.VenueId = existingId)
+                .Returns(venue);
 
-            var result = _sut.Save(existingId, _venue);
+            var result = sut.Save(existingId, venue);
 
             Assert.IsNotNull(result);
-            _mockVenueRepo.Verify(repo => repo.Update(_venue.VenueId, _venue), Times.Once);
+            mockVenueRepo.Verify(repo => repo.Update(venue.VenueId, venue), Times.Once);
         }
 
     }

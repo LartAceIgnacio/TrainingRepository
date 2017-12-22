@@ -9,6 +9,8 @@ namespace BlastAsia.DigiBook.Domain.Venues.Service
     public class VenueService : IVenueService
     {
         private IVenueRepository repo;
+        private readonly int venueNameLimit = 50;
+        private readonly int venueDescriptionLimit = 100;
         public VenueService(IVenueRepository repo)
         {
             this.repo = repo;
@@ -17,8 +19,8 @@ namespace BlastAsia.DigiBook.Domain.Venues.Service
         public Venue Save(Guid guid, Venue venue)
         {
             if (string.IsNullOrEmpty(venue.VenueName)) throw new VenueNameRequiredException("Venue name is required.");
-            if (venue.VenueName.Length > 50) throw new VenueFieldLimitExceedException("Venue name limit to 50 characters.");
-            if (venue.Description.Length > 100) throw new VenueFieldLimitExceedException("Venue description limit to 100 characters.");
+            if (venue.VenueName.Length > venueNameLimit) throw new VenueFieldLimitExceedException("Venue name limit to 50 characters.");
+            if (venue.Description.Length > venueDescriptionLimit) throw new VenueFieldLimitExceedException("Venue description limit to 100 characters.");
 
             Venue result = null;
             var found = repo.Retrieve(guid);
