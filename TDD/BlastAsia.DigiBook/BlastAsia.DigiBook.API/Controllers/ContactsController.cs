@@ -16,27 +16,6 @@ namespace BlastAsia.DigiBook.API.Controllers
     [Route("api/Contacts")]
     public class ContactsController : Controller
     {
-        private static List<Contact> contacts;
-        //   //= new List<Contact>() {
-        //     new Contact {
-        //        ContactId = Guid.NewGuid(),
-        //        Firstname = "Matt",
-        //        Lastname = "Mendez",
-        //        CityAddress = "QC"
-        //    },
-        //    new Contact {
-        //        ContactId = Guid.NewGuid(),
-        //        Firstname = "Em",
-        //        Lastname = "Magadia",
-        //        CityAddress = "QC"
-        //    },
-        //    new Contact {
-        //        ContactId = Guid.NewGuid(),
-        //        Firstname = "Chris",
-        //        Lastname = "Manuel",
-        //        CityAddress = "QC"
-        //    }
-        //};
         private IContactService contactService;
         private IContactRepository contactRepository;
 

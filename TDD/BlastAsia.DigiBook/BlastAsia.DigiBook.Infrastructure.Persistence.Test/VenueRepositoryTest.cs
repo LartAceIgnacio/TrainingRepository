@@ -46,19 +46,76 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         }
 
         [TestMethod]
+        [TestProperty("Integration","Venue")]
         public void Create_WithValidVenueData_SavesRecordToDb()
-        {   //error push tag first please go back  here later
+        {   
             // Arrange
             // Act
-            var result = _sut.Create(_venue);
+            var newVenue = _sut.Create(_venue);
 
             //Assert
-            Assert.IsNotNull(result);
-            Assert.AreNotEqual(Guid.Empty, result.VenueId);
+            Assert.IsNotNull(newVenue);
+            Assert.AreNotEqual(Guid.Empty, newVenue.VenueId);
 
             // Cleanup
             _sut.Delete(_venue.VenueId);
         }
 
+        [TestMethod]
+        [TestProperty("Integration", "Venue")]
+        public void Delete_WithExistingVenue_DeletesRecordFromDb()
+        {
+            // Arrange
+            var newVenue = _sut.Create(_venue);
+            
+            // Act
+            _sut.Delete(_venue.VenueId);
+
+            // Assert
+            newVenue = _sut.Retrieve(newVenue.VenueId);
+            Assert.IsNull(newVenue);
+            
+        }
+
+        [TestMethod]
+        public void Retrieve_WithExistingVenueId_RetrievesRecordFromDb()
+        {
+            // Arrange
+            var newVenue = _sut.Create(_venue);
+
+            // Act
+            var found = _sut.Retrieve(_venue.VenueId);
+
+            // Assert
+            Assert.IsNotNull(found);
+
+            //CleanUp
+            _sut.Delete(_venue.VenueId);
+
+        }
+
+        [TestMethod]
+        public void Update_WithExistingVenue_UpdateDataFromDb()
+        {
+            // Arrange
+            var newVenue = _sut.Create(_venue);
+            var expectedVenueName = "Training Room";
+            var expectedDescription = "Training room is reserved by Matt.";
+
+            newVenue.VenueName = expectedVenueName;
+            newVenue.Description = expectedDescription;
+
+            // Act
+            
+            _sut.Update(newVenue.VenueId, newVenue);
+
+            // Assert
+            var updatedVenue = _sut.Retrieve(newVenue.VenueId);
+            Assert.AreEqual(newVenue.VenueName, updatedVenue.VenueName);
+            Assert.AreEqual(newVenue.Description, updatedVenue.Description);
+
+            //CleanUp
+            _sut.Delete(updatedVenue.VenueId);
+        }
     }
 }

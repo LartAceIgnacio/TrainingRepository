@@ -103,6 +103,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         }
 
         [TestMethod]
+        [TestProperty("TestType", "Integration")]
         public void Update_WithExistingContactId_ShouldUpdateRecordFromDb()
         {
 

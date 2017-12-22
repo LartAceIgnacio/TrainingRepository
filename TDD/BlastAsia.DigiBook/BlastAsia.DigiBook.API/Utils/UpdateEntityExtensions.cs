@@ -1,6 +1,7 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Appointments;
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Employees;
+using BlastAsia.DigiBook.Domain.Models.Venues;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,14 @@ namespace BlastAsia.DigiBook.API.Utils
             appointment.Notes = from.Notes;
 
             return appointment;
+        }
+
+        public static Venue ApplyChanges(this Venue venue, Venue from)
+        {
+            venue.VenueName = from.VenueName;
+            venue.Description = from.Description;
+
+            return venue;
         }
     }
 }

@@ -26,6 +26,9 @@ namespace BlastAsia.DigiBook.Domain.Test.VenueTest
 
         }
 
+        [TestCleanup]
+        public void CleanUp() { }
+
         [TestMethod]
         [TestProperty("Service Test","Venue")]
         public void Save_WithNoVenueName_ThrowsVenueNameException()
