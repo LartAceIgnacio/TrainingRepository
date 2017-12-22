@@ -6,6 +6,7 @@ using BlastAsia.DigiBook.Domain;
 using BlastAsia.DigiBook.Domain.Appointments;
 using BlastAsia.DigiBook.Domain.Contacts;
 using BlastAsia.DigiBook.Domain.Employees;
+using BlastAsia.DigiBook.Domain.Venues;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
 using BlastAsia.DigiBook.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -44,6 +45,9 @@ namespace BlastAsia.DigiBook.API
 
             services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            
+            services.AddTransient<IVenueService, VenueService>();
+            services.AddScoped<IVenueRepository, VenueRepository>();
 
             services.AddSwaggerGen(x => 
             {

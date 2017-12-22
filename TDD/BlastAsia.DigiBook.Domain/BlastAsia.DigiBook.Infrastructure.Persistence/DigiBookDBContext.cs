@@ -1,6 +1,7 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Appointments;
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Employees;
+using BlastAsia.DigiBook.Domain.Models.Venues;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,12 +20,15 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Venue> Venues { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Contact>().ToTable("Contact");
             modelBuilder.Entity<Employee>().Ignore(t => t.Photo);
             modelBuilder.Entity<Employee>().ToTable("Employee");
+            modelBuilder.Entity<Appointment>().ToTable("Appointment");
+            modelBuilder.Entity<Venue>().ToTable("Venue");
         }
     }
 }

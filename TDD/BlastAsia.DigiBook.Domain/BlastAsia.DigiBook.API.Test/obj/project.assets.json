@@ -7078,7 +7078,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore.SqlServer/2.0.1": {
-      "sha512": "+UnKJpkVpuNWRjF3BWSzbkQLL7gxY18Hnh5uXmlagO4Ua8BstqWIJaIUV+Ps2rw/2n62UPTQQV9RQWggV7OH9Q==",
+      "sha512": "p7N+fgGQj4IljgA3CV6X8UFkPzr7ldsZ9RyCSKnBUGcWY03JH7hud3kuiE4O5DwpT/KFChm9VK7SPaqf4CQ+Hg==",
       "type": "package",
       "path": "microsoft.entityframeworkcore.sqlserver/2.0.1",
       "files": [
@@ -7089,7 +7089,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore.Tools/2.0.1": {
-      "sha512": "/z1xawAD0oL5AyFd3vn9E7L6mE2UfEU91KwMDWEp8o0+AOrP4ZocJS5Kot5VYJMfDUeAzDBBZPmJs+r6/YUEiA==",
+      "sha512": "17mFhF/ic03EzAc5X/suWsJXWwZj0j5DmQH3f4b9clZ4NTLE7A09YBZbBPiKxpqRQtpgPD5v5/v5JjAdkxjoLg==",
       "type": "package",
       "path": "microsoft.entityframeworkcore.tools/2.0.1",
       "files": [
@@ -8535,7 +8535,7 @@
       ]
     },
     "Microsoft.VisualStudio.Web.CodeGeneration.Design/2.0.1": {
-      "sha512": "C0mqn3wSD6NUqGpJIAbwCPxft7A+FbFWaQY45qAP/+QCKdvW8hPvIaV/fjmQg4IsjDpOj88ocYG7BkqmNDiBow==",
+      "sha512": "cQjEFrBm+CG1iuj71hS2Opr7ilSnkPl6cPqTh3M+F3R2CtZSxK4AJXWAgUsAtBE0kJRre1okZAq9Vg7a/+PtHQ==",
       "type": "package",
       "path": "microsoft.visualstudio.web.codegeneration.design/2.0.1",
       "files": [
