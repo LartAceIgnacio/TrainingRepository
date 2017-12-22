@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlastAsia.DigiBook.API.Utils;
 using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Domain.Venues;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlastAsia.DigiBook.API.Controllers
@@ -66,9 +68,49 @@ namespace BlastAsia.DigiBook.API.Controllers
             return NoContent();
         }
 
-        public object UpdateVenue([FromBody] Venue venue)
+        public IActionResult UpdateVenue([FromBody] Venue venue, Guid id)
         {
-            throw new NotImplementedException();
+            try {
+                if(venue == null) {
+                    return BadRequest();
+                }
+
+                var oldVenue = this.venueRepository.Retrieve(id);
+                if(oldVenue == null) {
+                    return NotFound();
+                }
+
+                oldVenue.ApplyNewChanges(venue);
+                var result = this.venueService.Save(id, oldVenue);
+
+                return Ok(oldVenue);
+            }
+            catch (Exception) {
+                return BadRequest();
+            }
+        }
+
+        public object PatchVenue([FromBody]JsonPatchDocument patchedVenue, Guid venueId)
+        {
+            try {
+                if(patchedVenue == null) {
+                    return BadRequest();
+                }
+
+                var venue = this.venueRepository.Retrieve(venueId);
+                if(venue == null) {
+                    return NotFound();
+                }
+
+                patchedVenue.ApplyTo(venue);
+                venueService.Save(venue.VenueId, venue);
+
+                return Ok(venue);
+
+            }
+            catch (Exception) {
+                return BadRequest();
+            }
         }
     }
 }

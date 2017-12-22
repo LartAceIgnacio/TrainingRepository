@@ -1,6 +1,7 @@
 ﻿using BlastAsia.DigiBook.API.Controllers;
 using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Domain.Venues;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -17,7 +18,7 @@ namespace BlastAsia.DigiBook.API.Test
         private Mock<IVenueService> mockVenueService;
         private Venue venue;
         private VenuesController sut;
-
+        private JsonPatchDocument patchedVenue;
 
         [TestInitialize]
         public void Initialize()
@@ -27,6 +28,8 @@ namespace BlastAsia.DigiBook.API.Test
                 VenueName = "Home",
                 Description = "Family Meeting"
             };
+
+            patchedVenue = new JsonPatchDocument();
 
             mockVenueService = new Mock<IVenueService>();
             mockVenueRepository = new Mock<IVenueRepository>();
@@ -160,12 +163,124 @@ namespace BlastAsia.DigiBook.API.Test
             venue = null;
 
             //Act
-            var result = sut.UpdateVenue(venue);
+            var result = sut.UpdateVenue(venue, Guid.Empty);
 
             //Assert
             Assert.IsInstanceOfType(result, typeof(BadRequestResult));
             mockVenueRepository.Verify(x => x.Retrieve(Guid.Empty), Times.Never);
             mockVenueService.Verify(x => x.Save(Guid.Empty, venue), Times.Never);
+        }
+
+        [TestMethod]
+        public void UpdateVenue_WithVenueButNonExistingVenueId_ReturnsNotFoundResult()
+        {
+            //Arrange
+            venue.VenueId = Guid.Empty;
+
+            //Act
+            var result = sut.UpdateVenue(venue, venue.VenueId);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+            mockVenueRepository.Verify(x => x.Retrieve(venue.VenueId), Times.Once);
+            mockVenueService.Verify(x => x.Save(Guid.NewGuid(), venue), Times.Never);
+        }
+
+        [TestMethod]
+        public void UpdateVenue_WithVenueAndExistingVenueId_ReturnsOkObjectResult()
+        {
+            //Arrange
+
+
+            //Act
+            var result = sut.UpdateVenue(venue, venue.VenueId);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            mockVenueRepository.Verify(x => x.Retrieve(venue.VenueId), Times.Once);
+            mockVenueService.Verify(x => x.Save(venue.VenueId, venue), Times.Once);
+        }
+
+        [TestMethod]
+        public void UpdateVenue_WithFieldThatThrowsException_ReturnsBadRequestResult()
+        {
+            //Arrange
+            venue.VenueName = "";
+
+            mockVenueService
+                .Setup(x => x.Save(venue.VenueId, venue))
+                .Throws(new Exception());
+
+
+            //Act
+            var result = sut.UpdateVenue(venue, venue.VenueId);
+
+            //Assert
+            mockVenueService.Verify(x => x.Save(venue.VenueId, venue), Times.Once);
+            mockVenueRepository.Verify(x => x.Retrieve(venue.VenueId), Times.Once);
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+        }
+
+        [TestMethod]
+        public void PatchVenue_WithEmptyPacthedVenue_ReturnsBadRequestResult()
+        {
+            //Arrange
+            patchedVenue = null;
+
+            //Act
+            var result = sut.PatchVenue(patchedVenue, Guid.Empty);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+            mockVenueRepository.Verify(x => x.Retrieve(Guid.NewGuid()), Times.Never);
+            mockVenueService.Verify(x => x.Save(Guid.NewGuid(), venue), Times.Never);
+        }
+
+        [TestMethod]
+        public void PatchVenue_WithPatchedVenueButNonExistingVenueId_ReturnsNotFoundResult()
+        {
+            //Arrange
+
+            //Act
+            var result = sut.PatchVenue(patchedVenue, Guid.Empty);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+            mockVenueRepository.Verify(x => x.Retrieve(Guid.Empty), Times.Once);
+            mockVenueService.Verify(x => x.Save(Guid.NewGuid(), venue), Times.Never);
+        }
+
+        [TestMethod]
+        public void PatchVenue_WithPatchedVenueAndExistingVenueId_ReturnsOkObjectResult()
+        {
+            //Arrange
+
+
+            //Act
+            var result = sut.PatchVenue(patchedVenue, venue.VenueId);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            mockVenueRepository.Verify(x => x.Retrieve(venue.VenueId), Times.Once);
+            mockVenueService.Verify(x => x.Save(venue.VenueId, venue), Times.Once);
+        }
+
+        [TestMethod]
+        public void PatchVenue_WithFieldThatThrowsException_ReturnsBadRequestResult()
+        {
+            //Arrange
+            patchedVenue.Replace("VenueName", "");
+
+            mockVenueService
+                .Setup(x => x.Save(venue.VenueId, venue))
+                .Throws(new Exception());
+            
+            //Act
+            var result = sut.PatchVenue(patchedVenue, venue.VenueId);
+
+            //Assert
+            mockVenueService.Verify(x => x.Save(venue.VenueId, venue), Times.Once);
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
         }
     }
 }

@@ -17,7 +17,15 @@ namespace BlastAsia.DigiBook.Domain.Venues
             Venue result = null;
 
             if(string.IsNullOrEmpty(venue.VenueName)) {
-                throw new VenueNameRequiredException("Venue Name is Requires");
+                throw new VenueNameRequiredException("Venue Name is Required!!!");
+            }
+
+            if(venue.VenueName.Length > 50) {
+                throw new VenueNameMaxLengthException("Venue Name's Length should have 50 or less characters!!!");
+            }
+
+            if (venue.Description.Length > 100) {
+                throw new VenueDescriptionMaxLengthException("Venue Description's Length should have 100 or less characters!!!");
             }
 
             var found = this.venueRepository.Retrieve(venueId);
