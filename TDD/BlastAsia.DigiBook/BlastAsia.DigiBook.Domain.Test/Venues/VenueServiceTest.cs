@@ -20,7 +20,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         {
             venue = new Venue
             {
-                VenueName = "VenueVenueVenueVenueVenueVenueVenueVenueVenueVenue Venue",
+                VenueName = "Venue",
                 Description = "This is a Venue"
             };
 
@@ -95,13 +95,26 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         }
 
         [TestMethod]
-        public void Save_VenueNameWithLessThanMinimumCharacters_ThrowsMinimumLengthRequiredException()
+        public void Save_VenueNameMoreThanMaximumLength_ThrowsMaximumLengthException()
         {
             // Arrange
-            venue.VenueName = "Venue";
+            venue.VenueName = "VenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenue";
 
             // Assert
-            Assert.ThrowsException<MinimumLengthRequiredException>(
+            Assert.ThrowsException<MaximumLengthException>(
+                () => sut.Save(venue.VenueId, venue));
+            mockVenueRepository.Verify(v => v.Retrieve(venue.VenueId), Times.Never);
+            mockVenueRepository.Verify(v => v.Update(venue.VenueId, venue), Times.Never);
+        }
+
+        [TestMethod]
+        public void Save_DescriptionMoreThanMaximumLength_ThrowsMaximumLengthException()
+        {
+            // Arrange
+            venue.Description = "VenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenueVenue";
+
+            // Assert
+            Assert.ThrowsException<MaximumLengthException>(
                 () => sut.Save(venue.VenueId, venue));
             mockVenueRepository.Verify(v => v.Retrieve(venue.VenueId), Times.Never);
             mockVenueRepository.Verify(v => v.Update(venue.VenueId, venue), Times.Never);

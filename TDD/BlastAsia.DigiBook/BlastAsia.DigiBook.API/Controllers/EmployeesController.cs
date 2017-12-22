@@ -11,7 +11,7 @@ using BlastAsia.DigiBook.API.Utils;
 namespace BlastAsia.DigiBook.API.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/Employees")]
     public class EmployeesController : Controller
     {
         private readonly IEmployeeService employeeService;

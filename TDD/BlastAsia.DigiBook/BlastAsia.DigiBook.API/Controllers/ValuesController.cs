@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Values")]
     public class ValuesController : Controller
     {
         // GET api/values

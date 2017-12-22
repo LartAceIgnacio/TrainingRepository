@@ -6,7 +6,8 @@ namespace BlastAsia.DigiBook.Domain.Venues
     public class VenueService : IVenueService
     {
         private IVenueRepository venueRepository;
-        private readonly int venueNameMinimumLength = 50;
+        private readonly int venueNameMaximumLength = 50;
+        private readonly int venueDescriptionMaximumLength = 100;
         public VenueService(IVenueRepository venueRepository)
         {
             this.venueRepository = venueRepository;
@@ -18,9 +19,13 @@ namespace BlastAsia.DigiBook.Domain.Venues
             {
                 throw new VenueNameRequiredException("Venue name is required.");
             }
-            if (venue.VenueName.Length < venueNameMinimumLength)
+            if (venue.VenueName.Length > venueNameMaximumLength)
             {
-                throw new MinimumLengthRequiredException("At least 50 characters");
+                throw new MaximumLengthException("At least 50 characters");
+            }
+            if (venue.Description.Length > venueDescriptionMaximumLength)
+            {
+                throw new MaximumLengthException("At least 100 characters");
             }
 
             Venue result;

@@ -59,6 +59,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             }
         }
 
+        [HttpDelete]
         public IActionResult DeleteDepartment(Guid id)
         {
             var departmentToDelete = this.departmentRepository.Retrieve(id);
@@ -70,6 +71,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             return NoContent();
         }
 
+        [HttpPut]
         public object UpdateDepartment(Department department, Guid id)
         {
             try
