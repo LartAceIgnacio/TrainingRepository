@@ -48,34 +48,67 @@ namespace BlastAsia.Digibook.API.Controllers
         [HttpPost]
         public IActionResult CreateContact([FromBody] Contact contact)
         {
-            contact.ContactId = Guid.NewGuid();
-            this.contactService.Save(Guid.Empty, contact);
+            try
+            {
+                if(contact == null)
+                {
+                    return BadRequest();
+                }
+                this.contactService.Save(Guid.Empty, contact);
 
-            return CreatedAtAction("GetContacts", new { id = contact.ContactId }, contact);
+                return CreatedAtAction("GetContacts", new { id = contact.ContactId }, contact);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpDelete]
         public IActionResult DeleteContact(Guid id)
         {
-            var contactToDelete = this.contactRepository.Retrieve(id);
-            if (contactToDelete != null)
+            try
             {
-                this.contactRepository.Delete(id);
+                var contactToDelete = this.contactRepository.Retrieve(id);
+                if (contactToDelete != null)
+                {
+                    this.contactRepository.Delete(id);
+                }
+                return NoContent();
             }
-            return NoContent();
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPut]
         public IActionResult UpdateContact(
             [FromBody] Contact contact, Guid id)
         {
-            var existingContact = contactRepository.Retrieve(id);
+            try
+            {
+                if (contact == null)
+                {
+                    return BadRequest();
+                }
 
-            existingContact.ApplyChanges(contact);
+                var oldContact = this.contactRepository.Retrieve(id);
+                if (oldContact == null)
+                {
+                    return NotFound();
+                }
 
-            this.contactService.Save(id, existingContact);
+                oldContact.ApplyChanges(contact);
 
-            return Ok(contact);
+                var result = this.contactService.Save(id, contact);
+
+                return Ok(oldContact);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPatch]

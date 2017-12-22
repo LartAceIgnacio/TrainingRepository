@@ -21,7 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.0 Domain", "3.0 Domain", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.0 Persistence", "4.0 Persistence", "{653A4E0D-6E93-41C9-81C7-E17BD961E96C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.Digibook.API", "BlastAsia.Digibook.API\BlastAsia.Digibook.API.csproj", "{5DF10FF8-8EFD-47D8-88A1-F6C7CD955F3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.Digibook.API", "BlastAsia.Digibook.API\BlastAsia.Digibook.API.csproj", "{5DF10FF8-8EFD-47D8-88A1-F6C7CD955F3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.Digibook.API.Test", "BlastAsia.Digibook.API.Test\BlastAsia.Digibook.API.Test.csproj", "{BA1F720A-C6ED-4FBB-AB79-DA35E23DBA9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{5DF10FF8-8EFD-47D8-88A1-F6C7CD955F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DF10FF8-8EFD-47D8-88A1-F6C7CD955F3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DF10FF8-8EFD-47D8-88A1-F6C7CD955F3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA1F720A-C6ED-4FBB-AB79-DA35E23DBA9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA1F720A-C6ED-4FBB-AB79-DA35E23DBA9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA1F720A-C6ED-4FBB-AB79-DA35E23DBA9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA1F720A-C6ED-4FBB-AB79-DA35E23DBA9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,5 +70,6 @@ Global
 		{3D29B163-BFC6-4FA4-9B64-F13DA82999AB} = {653A4E0D-6E93-41C9-81C7-E17BD961E96C}
 		{093C9826-7B0C-4B93-9EB0-166EB79FF015} = {653A4E0D-6E93-41C9-81C7-E17BD961E96C}
 		{5DF10FF8-8EFD-47D8-88A1-F6C7CD955F3E} = {0EBFC84D-6A30-445C-BF42-2D41440F5783}
+		{BA1F720A-C6ED-4FBB-AB79-DA35E23DBA9E} = {0EBFC84D-6A30-445C-BF42-2D41440F5783}
 	EndGlobalSection
 EndGlobal
