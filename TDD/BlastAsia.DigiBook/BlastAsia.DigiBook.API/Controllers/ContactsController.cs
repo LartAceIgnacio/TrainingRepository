@@ -43,7 +43,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
             return Ok(result);
         }
-
+        
         [HttpPost]
         public IActionResult CreateContact(
             [FromBody]Contact contact)

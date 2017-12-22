@@ -10910,10 +10910,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\BlastAsia.DigiBook.API.csproj",
+      "projectUniqueName": "C:\\Users\\ddeguzman\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\BlastAsia.DigiBook.API.csproj",
       "projectName": "BlastAsia.DigiBook.API",
-      "projectPath": "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\BlastAsia.DigiBook.API.csproj",
-      "outputPath": "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\obj\\",
+      "projectPath": "C:\\Users\\ddeguzman\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\BlastAsia.DigiBook.API.csproj",
+      "outputPath": "C:\\Users\\ddeguzman\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
@@ -10921,11 +10921,11 @@
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj": {
-              "projectPath": "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj"
+            "C:\\Users\\ddeguzman\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj": {
+              "projectPath": "C:\\Users\\ddeguzman\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj"
             },
-            "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj": {
-              "projectPath": "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj"
+            "C:\\Users\\ddeguzman\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj": {
+              "projectPath": "C:\\Users\\ddeguzman\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj"
             }
           }
         }

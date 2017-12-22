@@ -97,11 +97,29 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         }
 
         [TestMethod]
-        public void Save_WithVenueNameGreaterThanMaximumLength_ThrowsVenueNameRequiredException()
+        public void Save_WithVenueNameGreaterThanMaximumLength_ThrowsVenueNameTooLongException()
         {
             // Arrange
+            venue.VenueName = "123456789012345dfgdfgdfg67890123456789012345678901234567890";
 
             // Assert
+            mockVenueRepository
+                .Verify(v => v.Create(venue), Times.Never);
+            Assert.ThrowsException<VenueNameInvalid>(
+                () => sut.Save(venue.VenueId, venue));
+        }
+
+        [TestMethod]
+        public void Save_WithDescriptionGreaterThanMaximumLength_ThrowsDescriptionTooLongException()
+        {
+            // Arrange
+            venue.Description = "123456789012345dfgdfgdfg6789012345678901234123456789012345dfgdfgdfg678901234567890123123456789012345dfgdfgdfg678901234567";
+
+            // Assert
+            mockVenueRepository
+                .Verify(v => v.Create(venue), Times.Never);
+            Assert.ThrowsException<DescriptionTooLong>(
+                () => sut.Save(venue.VenueId, venue));
         }
     }
 }

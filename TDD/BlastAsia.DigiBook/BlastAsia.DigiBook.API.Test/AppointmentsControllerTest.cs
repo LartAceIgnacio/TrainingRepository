@@ -31,7 +31,7 @@ namespace BlastAsia.DigiBook.API.Test
             sut = new AppointmentsController(mockAppointmentService.Object, mockAppointmentRepo.Object);
             appointment = new Appointment();
             existingAppointmentId = Guid.NewGuid();
-            emptyAppointmentId = Guid.NewGuid();
+            emptyAppointmentId = Guid.Empty;
             patchedAppointment = new JsonPatchDocument();
 
             mockAppointmentRepo

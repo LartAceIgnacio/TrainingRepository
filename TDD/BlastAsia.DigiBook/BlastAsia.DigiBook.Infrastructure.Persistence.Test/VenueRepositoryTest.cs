@@ -101,8 +101,11 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             sut.Update(newVenue.VenueId, newVenue);
 
             // Assert
-            var updatedVenue = sut.Retrieve(newVenue.VenueId, newVenue);
+            var updatedVenue = sut.Retrieve(newVenue.VenueId);
+            Assert.AreEqual(expectedVenueName, updatedVenue.VenueName);
 
+            // Cleanup
+            sut.Delete(updatedVenue.VenueId);
         }
     }
 }

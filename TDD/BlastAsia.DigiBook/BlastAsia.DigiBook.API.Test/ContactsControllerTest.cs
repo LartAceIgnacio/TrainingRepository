@@ -31,7 +31,7 @@ namespace BlastAsia.DigiBook.API.Test
             sut = new ContactsController(mockContactService.Object, mockContactRepo.Object);
             contact = new Contact();
             existingContactId = Guid.NewGuid();
-            emptyContactId = Guid.NewGuid();
+            emptyContactId = Guid.Empty;
             patchedContact = new JsonPatchDocument();
 
             mockContactRepo

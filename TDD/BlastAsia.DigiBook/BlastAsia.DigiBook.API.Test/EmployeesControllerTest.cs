@@ -31,7 +31,7 @@ namespace BlastAsia.DigiBook.API.Test
             sut = new EmployeesController(mockEmployeeService.Object, mockEmployeeRepo.Object);
             employee = new Employee();
             existingEmployeeId = Guid.NewGuid();
-            emptyEmployeeId = Guid.NewGuid();
+            emptyEmployeeId = Guid.Empty;
             patchedEmployee = new JsonPatchDocument();
 
             mockEmployeeRepo
