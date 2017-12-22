@@ -3,7 +3,7 @@ using BlastAsia.DigiBook.Domain.Models.Venues;
 
 namespace BlastAsia.DigiBook.Domain.Venues
 {
-    public class VenueService
+    public class VenueService: IVenueService
     {
         private IVenueRepository venueRepository;
 
@@ -38,7 +38,6 @@ namespace BlastAsia.DigiBook.Domain.Venues
             {
                result = venueRepository.Update(id, venue);
             }
-           
             return result;
         }
     }

@@ -33,6 +33,7 @@ namespace BlastAsia.DigiBook.Domain.Test
                 .Setup(vr => vr.Retrieve(existingVenueId))
                 .Returns(venue);
         }
+
         [TestMethod]
         public void Save_WithNewValidData_ShouldCallSaveRepository()
         {
@@ -50,20 +51,6 @@ namespace BlastAsia.DigiBook.Domain.Test
         }
 
         [TestMethod]
-        public void Save_WithBlankEmptVenueName_ThrowsRequiredException()
-        {
-            //Arrange
-            venue.VenueName = "";
-            //Act 
-  
-            //Assert
-            Assert.ThrowsException<RequiredException>(
-                ()=> sut.Save(Guid.Empty, venue));
-            mockVenueRepository
-                .Verify(vr => vr.Create(venue), Times.Never);
-        }
-
-        [TestMethod]
         public void Save_WithExisitngVenueId_ShouldCallUpdateRepository()
         {
             //Arrange
@@ -77,6 +64,19 @@ namespace BlastAsia.DigiBook.Domain.Test
                 .Verify(vr => vr.Create(venue), Times.Never);
         }
 
+        [TestMethod]
+        public void Save_WithBlankEmptVenueName_ThrowsRequiredException()
+        {
+            //Arrange
+            venue.VenueName = "";
+            //Act 
+  
+            //Assert
+            Assert.ThrowsException<RequiredException>(
+                ()=> sut.Save(Guid.Empty, venue));
+            mockVenueRepository
+                .Verify(vr => vr.Create(venue), Times.Never);
+        }
 
         [TestMethod]
         public void Save_WithVenueNameGreaterThanMaximumLength_ThrowsMaximumVenueNameException()

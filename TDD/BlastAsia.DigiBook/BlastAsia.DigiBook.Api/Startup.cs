@@ -1,6 +1,7 @@
 ﻿using BlastAsia.DigiBook.Domain.Appointments;
 using BlastAsia.DigiBook.Domain.Contacts;
 using BlastAsia.DigiBook.Domain.Employees;
+using BlastAsia.DigiBook.Domain.Venues;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
 using BlastAsia.DigiBook.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -51,7 +52,8 @@ namespace BlastAsia.DigiBook.Api
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-
+            services.AddTransient<IVenueService, VenueService>();
+            services.AddScoped<IVenueRepository, VenueRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
