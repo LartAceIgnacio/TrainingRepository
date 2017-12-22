@@ -28,66 +28,130 @@ namespace BlastAsia.DigiBook.Api.Controllers
         [HttpGet, ActionName("GetContacts")]
         public IActionResult GetContacts(Guid? id)
         {
-            var result = new List<Contact>();
-            if (id == null)
+            try
             {
+                var result = new List<Contact>();
+                if (id == null)
+                {
 
-                result.AddRange(this.contactRepository.Retrieve());
+                    result.AddRange(this.contactRepository.Retrieve());
+                }
+                else
+                {
+                    var contact = this.contactRepository.Retrieve(id.Value);
+                    result.Add(contact);
+                }
+
+                return Ok(result);
             }
-            else
+            catch(Exception)
             {
-                var contact = this.contactRepository.Retrieve(id.Value);
-                result.Add(contact);
+                return BadRequest();
             }
-
-            return Ok(result);
         }
 
         [HttpPost]
         public IActionResult CreateContact([FromBody] Contact contact)
         {
-            var result = this.contactService.Save(Guid.Empty, contact);
+            try
+            {
+                if (contact == null)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    var result = this.contactService.Save(Guid.Empty, contact);
 
-            return CreatedAtAction("GetContacts", new { id = contact.ContactId }, contact);
+                    return CreatedAtAction("GetContacts",
+                        new { id = contact.ContactId }, result);
+                }
+               
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            };
         }
 
         [HttpDelete]
         public IActionResult DeleteContact(Guid id)
         {
-
-            this.contactRepository.Delete(id);
-            return NoContent();
+            try
+            {
+                var retrieveContact = this.contactRepository.Retrieve(id);
+                if (retrieveContact == null)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    this.contactRepository.Delete(id);
+                    return NoContent();
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+           
+         
         }
         [HttpPut]
         public IActionResult UpdateContact(
           [Bind("FirstName", "LastName", "MobilePhone", "StreetAddress", "CityAddress", 
             "ZipCode", "Country", "EmailAddress")] Contact contact, Guid id)
         {
-            var existingContact = contactRepository.Retrieve(id);
+            try
+            {
+                if(contact == null)
+                {
+                    return BadRequest();
+                }
+                var existingContact = contactRepository.Retrieve(id);
 
-            existingContact.ApplyChanges(contact);
+                if (existingContact != null)
+                {
+                    existingContact.ApplyChanges(contact);
 
-            this.contactService.Save(id, existingContact);
-
-            return Ok(contact);
+                   var result = this.contactService.Save(id, existingContact);
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch(Exception)
+            {
+                return BadRequest();
+            }
+            
         }
         [HttpPatch]
         public IActionResult PatchContact([FromBody] JsonPatchDocument patchContact, Guid id)
         {
-            if(patchContact == null)
+            try
+            {
+                if (patchContact == null)
+                {
+                    return BadRequest();
+                }
+
+                var contact = contactRepository.Retrieve(id);
+                if (contact == null)
+                {
+                    return NotFound();
+                }
+
+                patchContact.ApplyTo(contact);
+                contactService.Save(id, contact);
+                return Ok(contact);
+            }
+            catch(Exception)
             {
                 return BadRequest();
             }
-
-            var contact = contactRepository.Retrieve(id);
-            if(contact == null)
-            {
-                return NotFound();
-            }
-
-            patchContact.ApplyTo(contact);
-            contactService.Save(id, contact);
-            return Ok(contact);
 
         }
 

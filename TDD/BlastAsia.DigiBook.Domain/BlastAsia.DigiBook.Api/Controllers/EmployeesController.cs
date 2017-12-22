@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Models.Employees;
@@ -42,51 +39,109 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult EmployeeEmployee([FromBody] Employee employee)
+        public IActionResult CreateEmployee([FromBody] Employee employee)
         {
-            var result = this.employeeService.Save(Guid.Empty, employee);
+            try
+            {
+                if(employee == null)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    var result = this.employeeService.Save(Guid.Empty, employee);
 
-            return CreatedAtAction("GetEmployees", new { id = employee.EmployeeId }, employee);
+                    return CreatedAtAction("GetEmployees", new { id = employee.EmployeeId }, employee);
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete]
         public IActionResult DeleteEmployee(Guid id)
         {
-
-            this.employeeRepository.Delete(id);
-            return NoContent();
+            try
+            {
+                var retrieveEmployee = this.employeeRepository.Retrieve(id);
+                if (retrieveEmployee == null)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    this.employeeRepository.Delete(id);
+                    return NoContent();
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+           
         }
         [HttpPut]
         public IActionResult UpdateEmployee(
           [Bind("FirstName", "LastName", "MobilePhone", "StreetAddress", "CityAddress",
             "ZipCode", "Country", "EmailAddress")] Employee employee , Guid id)
         {
-            var existingEmployee = employeeRepository.Retrieve(id);
+            try
+            {
+                if (employee == null)
+                {
+                    return BadRequest();
+                }
+                var existingEmployee = employeeRepository.Retrieve(id);
 
-            existingEmployee.ApplyChanges(employee);
+                if (existingEmployee == null)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    existingEmployee.ApplyChanges(employee);
 
-            this.employeeService.Save(id, existingEmployee);
+                    this.employeeService.Save(id, existingEmployee);
 
-            return Ok(employee);
+                    return Ok(employee);
+                }
+               
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+            
         }
         [HttpPatch]
         public IActionResult PatchEmployee([FromBody] JsonPatchDocument patchEmployee, Guid id)
         {
-            if (patchEmployee == null)
+            try
+            {
+                if (patchEmployee == null)
+                {
+                    return BadRequest();
+                }
+
+                var employee = employeeRepository.Retrieve(id);
+                if (employee == null)
+                {
+                    return NotFound();
+                }
+
+                patchEmployee.ApplyTo(employee);
+                employeeService.Save(id, employee);
+                return Ok(employee);
+
+            }
+            catch (Exception)
             {
                 return BadRequest();
             }
-
-            var employee = employeeRepository.Retrieve(id);
-            if (employee == null)
-            {
-                return NotFound();
-            }
-
-            patchEmployee.ApplyTo(employee);
-            employeeService.Save(id, employee);
-            return Ok(employee);
-
+            
         }
 
     }
