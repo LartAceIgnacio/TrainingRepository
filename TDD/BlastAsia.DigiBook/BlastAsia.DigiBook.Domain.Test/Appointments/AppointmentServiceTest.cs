@@ -103,9 +103,11 @@ namespace BlastAsia.DigiBook.Domain.Test.Appointments
             // Assert
 
             mockAppointmentRepository
-                .Verify(a => a.Retrieve(appointment.AppointmentId), Times.Once);
+                .Verify(a => a.Retrieve(appointment.AppointmentId)
+                , Times.Once);
             mockAppointmentRepository
-                .Verify(a => a.Update(appointment.AppointmentId, appointment), Times.Once);
+                .Verify(a => a.Update(appointment.AppointmentId, appointment)
+                , Times.Once);
         }
 
         [TestMethod]

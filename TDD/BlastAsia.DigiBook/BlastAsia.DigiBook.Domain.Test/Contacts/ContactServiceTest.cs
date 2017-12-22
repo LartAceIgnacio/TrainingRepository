@@ -20,13 +20,13 @@ namespace BlastAsia.DigiBook.Domain.Test
         {
             contact = new Contact
             {
-                FirstName = "Luigi", // required
-                LastName = "Abille", // required
-                MobilePhone = "09568717617", // required 
-                StreetAddress = "Northridge", // required
-                CityAddress = "Quezon City", // required
-                ZipCode = 1117, // required
-                Country = "Philippines", // required
+                FirstName = "Luigi",
+                LastName = "Abille",
+                MobilePhone = "09568717617",
+                StreetAddress = "Northridge",
+                CityAddress = "Quezon City",
+                ZipCode = 1117,
+                Country = "Philippines",
                 EmailAddress = "luigiabille@gmail.com",
                 IsActive = false,
                 DateActivated = new Nullable<DateTime>()
@@ -43,8 +43,6 @@ namespace BlastAsia.DigiBook.Domain.Test
             mockContactRepository
                 .Setup(c => c.Retrieve(nonExistingContactId))
                 .Returns<Contact>(null);
-
-               
         }
 
         [TestCleanup]
@@ -152,7 +150,7 @@ namespace BlastAsia.DigiBook.Domain.Test
         }
 
         [TestMethod]
-        public void Save_WithBlankStreetAddress_ThrowsAddressRequiredException()
+        public void Save_WithBlankStreetAddress_ThrowsStreetAddressRequiredException()
         {
             // Arrange
 
@@ -167,7 +165,7 @@ namespace BlastAsia.DigiBook.Domain.Test
         }
 
         [TestMethod]
-        public void Save_WithBlankCityAddress_ThrowsAddressRequiredException()
+        public void Save_WithBlankCityAddress_ThrowsCityAddressRequiredException()
         {
             // Arrange
 
@@ -182,7 +180,7 @@ namespace BlastAsia.DigiBook.Domain.Test
         }
 
         [TestMethod]
-        public void Save_WithNegativeZipCode_ThrowsAddressRequiredException()
+        public void Save_WithNegativeZipCode_ThrowsNegativeZipCodeException()
         {
             // Arrange
 
@@ -197,7 +195,7 @@ namespace BlastAsia.DigiBook.Domain.Test
         }
 
         [TestMethod]
-        public void Save_WithBlankCountry_ThrowsAddressRequiredException()
+        public void Save_WithBlankCountry_ThrowsCountryRequiredException()
         {
             // Arrange
 
@@ -216,7 +214,7 @@ namespace BlastAsia.DigiBook.Domain.Test
         [DataRow("luigiabille@gmail..com")]
         [DataRow("luigiabille@gmail.com.")]
         [TestMethod]
-        public void Save_WithInvalidEmailAddress_ThrowsInvalidEmailRequiredException(string EmailAddress)
+        public void Save_WithInvalidEmailAddress_ThrowsInvalidEmailException(string EmailAddress)
         {
             // Arrange
 

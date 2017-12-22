@@ -12,10 +12,12 @@ namespace BlastAsia.DigiBook.Domain
         {
             this.repository = repository;
         }
+
         private readonly int PasswordMinimumLength = 8;
         private readonly string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
          @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
          @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+
         public bool Register(string username, string password)
         {
             // Check business rules
@@ -23,10 +25,12 @@ namespace BlastAsia.DigiBook.Domain
             {
                 throw new UserNameRequiredException();
             }
+
             if (!Regex.IsMatch(username, strRegex, RegexOptions.IgnoreCase))
             {
                 throw new ValidEmailRequiredException();
             }
+
             if (string.IsNullOrEmpty(password))
             {
                 throw new PasswordRequiredException();
@@ -56,7 +60,7 @@ namespace BlastAsia.DigiBook.Domain
             {
                 throw new StrongPasswordRequiredException();
             }
-            // Call the data ccess layer to save the record
+
             var account = new Account
             {
                 Username = username,

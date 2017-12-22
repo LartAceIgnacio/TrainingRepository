@@ -3,8 +3,6 @@ using BlastAsia.DigiBook.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 {
@@ -33,13 +31,15 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
                 EmailAddress = "luigi@gmail.com",
                 IsActive = false,
             };
+
             connectionString
                 = @"Data Source=.;Database=DigiBookDb;Integrated Security=true;";
+
             dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
                 .UseSqlServer(connectionString)
                 .Options;
 
-            dbContext = new DigiBookDbContext(dbOptions); // ORM
+            dbContext = new DigiBookDbContext(dbOptions);
             dbContext.Database.EnsureCreated();
 
             sut = new ContactRepository(dbContext);
@@ -57,13 +57,16 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Create_WithValidData_SavesRecordInTheDatabase()
         {
             // Act
+
             var newContact = sut.Create(contact);
 
             // Assert
+
             Assert.IsNotNull(newContact);
             Assert.IsTrue(newContact.ContactId != Guid.Empty);
 
             // Cleanup
+
             sut.Delete(newContact.ContactId);
         }
 
@@ -72,12 +75,15 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Delete_WithAnExistingContact_RemovesRecordFromDatabase()
         {
             // Arrange
+
             var newContact = sut.Create(contact);
 
             // Act
+
             sut.Delete(newContact.ContactId);
 
             // Assert
+
             contact = sut.Retrieve(newContact.ContactId);
             Assert.IsNull(contact);
         }
@@ -87,15 +93,19 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Retrieve_WithExistingContactId_ReturnsRecordFromDb()
         {
             // Arrange
+
             var newContact = sut.Create(contact);
 
             // Act
+
             var found = sut.Retrieve(newContact.ContactId);
 
             // Assert
+
             Assert.IsNotNull(found);
 
             // Cleanup
+
             sut.Delete(found.ContactId);
         }
 
@@ -104,6 +114,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Update_WithValidData_SavesUpdatesInDb()
         {
             // Arrange
+
             var newContact = sut.Create(contact);
             var expectedFirstName = "Antonio";
             var expectedLastName = "Tan";
@@ -126,9 +137,11 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             newContact.IsActive = expectedIsActive;
 
             // Act
+
             sut.Update(newContact.ContactId, newContact);
 
             // Assert
+
             var updatedContact = sut.Retrieve(newContact.ContactId);
             Assert.AreEqual(expectedFirstName, updatedContact.FirstName);
             Assert.AreEqual(expectedLastName, updatedContact.LastName);
@@ -141,8 +154,8 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             Assert.AreEqual(expectedIsActive, updatedContact.IsActive);
 
             // Cleanup
+
             sut.Delete(updatedContact.ContactId);
         }
     }
-
 }
