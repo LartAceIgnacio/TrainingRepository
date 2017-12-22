@@ -48,15 +48,33 @@ namespace BlastAsia.DigiBook.API.Controllers
         public IActionResult CreateContact(
             [FromBody] Contact contact)
         {
-            var result = this.contactService.Save(Guid.Empty, contact);
+            try
+            {
+                if (contact == null)
+                {
+                    return BadRequest();
+                }
 
-            return CreatedAtAction("GetContacts",
-                new { id = contact.ContactId }, result);
+                var result = this.contactService.Save(Guid.Empty, contact);
+
+                return CreatedAtAction("GetContacts",
+                    new { id = contact.ContactId }, result);
+            }
+
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete]
         public IActionResult DeleteContact(Guid id)
         {
+            var contactToDelete = this.contactRepository.Retrieve(id);
+            if (contactToDelete == null)
+            {
+                return NotFound();
+            }
             this.contactRepository.Delete(id);
             return NoContent();
         }
@@ -65,32 +83,55 @@ namespace BlastAsia.DigiBook.API.Controllers
         public IActionResult UpdateContact(
             [FromBody] Contact contact, Guid id)
         {
-            var existingContact = contactRepository.Retrieve(id);
+            try
+            {
+                if (contact == null)
+                {
+                    return BadRequest();
+                }
 
-            existingContact.ApplyChanges(contact);
+                var oldContact = this.contactRepository.Retrieve(id);
+                if (oldContact == null)
+                {
+                    return NotFound();
+                }
 
-            this.contactService.Save(id, existingContact);
+                oldContact.ApplyChanges(contact);
 
-            return Ok(contact);
+                var result = this.contactService.Save(id, contact);
+
+                return Ok(oldContact);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPatch]
         public IActionResult PatchContact(
             [FromBody]JsonPatchDocument patchedContact, Guid id)
         {
-            if(patchedContact == null)
+            try
+            {
+                if (patchedContact == null)
+                {
+                    return BadRequest();
+                }
+                var contact = contactRepository.Retrieve(id);
+                if (contact == null)
+                {
+                    return NotFound();
+                }
+                patchedContact.ApplyTo(contact);
+                contactService.Save(id, contact);
+
+                return Ok(contact);
+            }
+            catch (Exception)
             {
                 return BadRequest();
             }
-            var contact = contactRepository.Retrieve(id);
-            if(contact == null)
-            {
-                return NotFound();
-            }
-            patchedContact.ApplyTo(contact);
-            contactService.Save(id, contact);
-
-            return Ok(contact);
         }
     }
 }

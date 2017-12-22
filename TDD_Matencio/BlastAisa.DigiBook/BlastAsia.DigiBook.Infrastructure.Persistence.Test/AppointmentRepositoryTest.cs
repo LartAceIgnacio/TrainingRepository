@@ -76,7 +76,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Retrieve_WithValidData_ReturnsRecordFromDatabase()
         {
             //Arrange
-            var newAppointment = sut.Create(appointment);
+            var newAppointment = sut.Create(appointment);   
             //Act
             var found = sut.Retrieve(appointment.appointmentId);
             //Assert
@@ -110,5 +110,19 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             //Cleanup
             sut.Delete(appointment.appointmentId);
         }
+
+        [TestMethod]
+        [TestProperty("TestType", "Integration")]
+        public void Delete_WithAnExistingContact_RemovesRecordFromTheDatabase()
+        {
+            //Arrange
+            var newContact = sut.Create(appointment);
+            //Act
+            sut.Delete(newContact.appointmentId);
+            //Assert
+            appointment = sut.Retrieve(newContact.appointmentId);
+            Assert.IsNull(appointment);
+        }
+
     }
 }
