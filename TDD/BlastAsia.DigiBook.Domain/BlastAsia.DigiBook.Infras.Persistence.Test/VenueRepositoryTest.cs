@@ -45,8 +45,10 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         [TestMethod]
         public void Create_WithValidData_ShouldSaveRecordsToDb()
         {
+            //Act
             var newVenue = sut.Create(venue);
 
+            //Assert
             Assert.IsNotNull(newVenue);
             Assert.IsTrue(newVenue.VenueId != Guid.Empty);
 
@@ -57,9 +59,14 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         [TestMethod]
         public void Retrieve_WithAnExistingVenueId_ShouldRetrieveRecordsFromDb()
         {
+            //Arrange
+
             sut.Create(venue);
+            //Act
+
             var retrieveVenue = sut.Retrieve(venue.VenueId);
 
+            //Assert
             Assert.IsNotNull(retrieveVenue);
 
             //Cleanup
@@ -69,11 +76,12 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         [TestMethod]
         public void Update_WithAnExistingVenueId_ShouldUpdateRecordsFromDb()
         {
+            //Arrange
             var newVenue = sut.Create(venue);
-
             var expectedName = "Edited Venue name";
             newVenue.VenueName = expectedName;
 
+            //aCt
             venue = sut.Update(newVenue.VenueId, newVenue);
 
             Assert.AreEqual(venue.VenueName, expectedName);
@@ -85,11 +93,14 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         [TestMethod]
         public void Delete_WithAnExistingVenueId_ShouldDeleteRecordsFromDb()
         {
+            //Arrange
             var newVenue= sut.Create(venue);
            
+            //act
             sut.Delete(newVenue.VenueId);
 
             venue = sut.Retrieve(newVenue.VenueId);
+            //assert
             Assert.IsNull(venue);
         }
     }

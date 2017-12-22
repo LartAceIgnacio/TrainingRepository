@@ -3,7 +3,7 @@ using BlastAsia.DigiBook.Domain.Models.Venues;
 
 namespace BlastAsia.DigiBook.Domain.Venues
 {
-    public class VenueService
+    public class VenueService : IVenueService
     {
         private IVenueRepository venueRepository;
 
@@ -17,6 +17,14 @@ namespace BlastAsia.DigiBook.Domain.Venues
             if (string.IsNullOrEmpty(venue.VenueName))
             {
                 throw new VenueNameRequiredException();
+            }
+            if(venue.VenueName.Length > 50)
+            {
+                throw new VenueNameRequiredException();
+            }
+            if (venue.Description.Length > 100)
+            {
+                throw new DescriptionException();
             }
                 Venue result = null;
             var found = venueRepository.Retrieve(id);

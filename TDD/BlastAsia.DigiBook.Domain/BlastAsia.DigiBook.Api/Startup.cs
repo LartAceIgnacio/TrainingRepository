@@ -14,6 +14,7 @@ using BlastAsia.DigiBook.Domain.Contacts.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
 using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Appointments;
+using BlastAsia.DigiBook.Domain.Venues;
 
 namespace BlastAsia.DigiBook.Api
 {
@@ -60,6 +61,10 @@ namespace BlastAsia.DigiBook.Api
 
             services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+
+
+            services.AddTransient<IVenueService, VenueService>();
+            services.AddScoped<IVenueRepository, VenueRepository>();
 
 
         }

@@ -70,5 +70,30 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
             mockRepository
                 .Verify(r => r.Retrieve(venue.VenueId), Times.Never);
         }
+
+        [TestMethod]
+        public void Save_VenueNameExceedsTheLimit_ShouldThrowVenueNameException()
+        {
+            venue.VenueName = "123456789012345678901234567890123456789012345678901234567890";
+
+            Assert.ThrowsException<VenueNameRequiredException>(
+                () => sut.Save(venue.VenueId, venue)
+                );
+
+            mockRepository
+                .Verify(r => r.Retrieve(venue.VenueId), Times.Never);
+        }
+
+        [TestMethod]
+        public void Save_DescriptionExceedsTheLimit_ShouldThrowDescriptionException()
+        {
+            venue.Description = "12345678901234567890123456789012345678901234567890" +
+                "123456789012345678901234567890123456789012345678901234567890";
+            Assert.ThrowsException<DescriptionException>(
+                 () => sut.Save(venue.VenueId, venue)
+                 );
+            mockRepository
+                .Verify(r => r.Retrieve(venue.VenueId), Times.Never);
+        }
     }
 }
