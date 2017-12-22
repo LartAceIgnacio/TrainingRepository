@@ -73,7 +73,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateAppointment([FromForm] Appointment appointment, Guid id)
+        public IActionResult UpdateAppointment([FromBody] Appointment appointment, Guid id)
         {
             try
             {

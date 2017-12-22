@@ -40,6 +40,7 @@ namespace BlastAsia.DigiBook.Api
 
 
             services.AddMvc();
+
             services.AddSwaggerGen(
                     c =>
                     {
@@ -80,7 +81,7 @@ namespace BlastAsia.DigiBook.Api
                             "DigiBook Api v1"
                             );
                     }
-
+                     
                 );
 
 

@@ -44,6 +44,7 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
             dbContext = new DigiBookDbContext(dbOptions); // ORM
             dbContext.Database.EnsureCreated();
             sut = new AppointmentRepository(dbContext); // System under test
+
         }
 
         [TestCleanup]

@@ -20,7 +20,6 @@ namespace BlastAsia.DigiBook.Api.Test
         private Contact contact;
         private JsonPatchDocument patch;
 
-
         private readonly Guid existingId = Guid.NewGuid();
         private readonly Guid nonExistingId = Guid.Empty;
 

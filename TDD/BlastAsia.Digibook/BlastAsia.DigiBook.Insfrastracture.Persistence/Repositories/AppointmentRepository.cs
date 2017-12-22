@@ -11,6 +11,7 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Repositories
     {
         public AppointmentRepository(IDigiBookDbContext context) : base(context)
         {
+            
         }
     }
 }

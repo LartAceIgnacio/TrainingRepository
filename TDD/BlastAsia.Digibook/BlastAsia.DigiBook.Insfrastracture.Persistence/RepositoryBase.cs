@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BlastAsia.DigiBook.Infrastracture.Persistence
 {
-    public abstract class RepositoryBase <TEntity>
+    public abstract class RepositoryBase<TEntity>
         : IRepository<TEntity> where TEntity : class
     {
         private readonly IDigiBookDbContext context;
