@@ -58,9 +58,9 @@ namespace BlastAsia.DigiBook.Api.Controllers
 
                 return CreatedAtAction("GetAppointments", new { id = appointment.AppointmentId }, result);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return BadRequest(e);
+                return BadRequest();
             }
         }
 

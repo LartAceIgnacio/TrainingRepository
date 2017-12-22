@@ -1,5 +1,6 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Domain.Venues;
+using BlastAsia.DigiBook.Domain.Venues.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -11,7 +12,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
     [TestClass]
     public class VenueServiceTest
     {
-        private Mock<VenueRepository> mockVenueRepository;
+        private Mock<IVenueRepository> mockVenueRepository;
         private Venue venue;
         private VenueService sut;
         private Guid existingVenueId = Guid.NewGuid();
@@ -21,12 +22,11 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         {
             venue = new Venue
             {
-                VenueID = new Guid(),
                 VenueName = "BlastAsia",
                 Description = "Sample"
             };
 
-            mockVenueRepository = new Mock<VenueRepository>();
+            mockVenueRepository = new Mock<IVenueRepository>();
 
             sut = new VenueService(mockVenueRepository.Object);
 
@@ -106,12 +106,36 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         [TestMethod]
         public void Create_VenueWithVenueNameExceeding50Characters_ThrowsNameExceedException()
         {
-            venue.VenueName = "3fsdgdfgdfgrgsdfgfgfgfdgdsdfgdffdsafsdfdsfdsfdfdsfds";
+            // Arrange
+
+            venue.VenueName = "012345678901234567890123456789012345678901234567890";
+
+            // Act
+
+            // Assert
 
             mockVenueRepository
                 .Verify(c => c.Create(venue)
                 , Times.Never);
-            Assert.ThrowsException<>
+            Assert.ThrowsException<VenueNameException>(
+                () => sut.Save(venue.VenueID, venue));
+        }
+        [TestMethod]
+        public void Create_VenueWithDescriptionExceeding100Characters_ThrowsDescriptionExeption()
+        {
+            // Arrange
+
+            venue.Description = "01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567891";
+
+            // Act
+
+            // Assert
+
+            mockVenueRepository
+                .Verify(c => c.Create(venue)
+                , Times.Never);
+            Assert.ThrowsException<DescriptionException>(
+                () => sut.Save(venue.VenueID, venue));
         }
 
     }

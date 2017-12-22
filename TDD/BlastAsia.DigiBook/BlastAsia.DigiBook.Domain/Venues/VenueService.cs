@@ -9,8 +9,8 @@ namespace BlastAsia.DigiBook.Domain.Venues
 {
     public class VenueService : IVenueService
     {
-        private VenueRepository venueRepository;
-        public VenueService(VenueRepository venueRepository)
+        private IVenueRepository venueRepository;
+        public VenueService(IVenueRepository venueRepository)
         {
             this.venueRepository = venueRepository;
         }
@@ -19,11 +19,11 @@ namespace BlastAsia.DigiBook.Domain.Venues
 
         public Venue Save(Guid id, Venue venue)
         {
-            if(venue.VenueName.Length > 50)
+            if(venue.VenueName.Length > VenueName)
             {
                 throw new VenueNameException("Less than 50");
             }
-            if(venue.Description.Length > 100)
+            if(venue.Description.Length > Description)
             {
                 throw new DescriptionException("Less than 100");
             }
