@@ -20,9 +20,9 @@ namespace BlastAsia.DigiBook.Domain.Test
         {
             venue = new Venue
             {
-                venueId = Guid.NewGuid(),
-                venueName = "Training Room",
-                venueDescription = "Hello"
+                VenueId = Guid.NewGuid(),
+                VenueName = "Training Room",
+                VenueDescription = "Hello"
             };
             nonExistingId = Guid.Empty;
             mockVenueRepository = new Mock<IVenueRepository>();
@@ -30,7 +30,7 @@ namespace BlastAsia.DigiBook.Domain.Test
 
 
             mockVenueRepository
-                .Setup(v => v.Retrieve(venue.venueId))
+                .Setup(v => v.Retrieve(venue.VenueId))
                 .Returns(venue);
 
 
@@ -60,32 +60,32 @@ namespace BlastAsia.DigiBook.Domain.Test
         public void Save_WithEmptyVenueName_ThrowsVenueNameRequired()
         {
             //Arrange
-            venue.venueName = "";
+            venue.VenueName = "";
             //Act
             //Asert
             Assert.ThrowsException<VenueNameRequiredException>(
-                () => sut.Save(venue.venueId, venue));
+                () => sut.Save(venue.VenueId, venue));
         }
         [TestMethod]
         public void Save_WithVenueNameInvalidLength_ThrowsInvalidLengthException()
         {
             //Arrange
-            venue.venueName = "12345678901234567890123456789012345678901234567890q";
+            venue.VenueName = "12345678901234567890123456789012345678901234567890q";
             //Act
             //Assert
             Assert.ThrowsException<VenueNameInvalidLengthException>(
-                () => sut.Save(venue.venueId, venue));
+                () => sut.Save(venue.VenueId, venue));
         }
 
         [TestMethod]
         public void Save_WithVenueDescriptionInvalidLength_ThrowsInvalidLengthException()
         {
             //Arrange
-            venue.venueDescription = "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890q";
+            venue.VenueDescription = "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890q";
             //Act
             //Assert
             Assert.ThrowsException<VenueDescriptionInvalidLengthException>(
-                () => sut.Save(venue.venueId, venue));
+                () => sut.Save(venue.VenueId, venue));
         }
 
         [TestMethod]
@@ -93,12 +93,12 @@ namespace BlastAsia.DigiBook.Domain.Test
         {
             //Arrange
             //Act
-            var result = sut.Save(venue.venueId, venue);
+            var result = sut.Save(venue.VenueId, venue);
             //Asert
             mockVenueRepository
-                .Verify(m => m.Retrieve(venue.venueId), Times.Once);
+                .Verify(m => m.Retrieve(venue.VenueId), Times.Once);
             mockVenueRepository
-                .Verify(m => m.Update(venue.venueId, venue), Times.Once);
+                .Verify(m => m.Update(venue.VenueId, venue), Times.Once);
         }
 
         [TestMethod]

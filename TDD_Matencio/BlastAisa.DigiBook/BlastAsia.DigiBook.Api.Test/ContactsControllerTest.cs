@@ -40,7 +40,7 @@ namespace BlastAsia.DigiBook.Api.Test
                 ZipCode = 1604,
                 Country = "Philippines",
                 EmailAddress = "jhnkrl15@gmail.com",
-                isActive = false,
+                IsActive = false,
                 DateActivated = new Nullable<DateTime>()
             };
 

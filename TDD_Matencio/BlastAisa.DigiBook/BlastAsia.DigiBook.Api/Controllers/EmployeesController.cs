@@ -60,7 +60,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
                 var result = this.employeeService.Save(Guid.Empty, employee);
 
                 return CreatedAtAction("GetContacts",
-                    new { id = employee.employeeId }, result);
+                    new { id = employee.EmployeeId }, result);
             }
 
             catch (Exception)

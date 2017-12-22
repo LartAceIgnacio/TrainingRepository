@@ -12,7 +12,7 @@ namespace BlastAsia.DigiBook.Domain.Models.Contacts
         public int ZipCode { get; set; }
         public string Country { get; set; }
         public string EmailAddress { get; set; }
-        public bool isActive { get; set; }
+        public bool IsActive { get; set; }
         public DateTime? DateActivated { get; set; }
         public Guid ContactId { get; set; }
     }

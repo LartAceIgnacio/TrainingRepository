@@ -11,13 +11,13 @@ namespace BlastAsia.DigiBook.Api.Utils
         public static Employee ApplyChanges(this Employee employee,
            Employee from)
         {
-            employee.firstName = from.firstName;
-            employee.lastName = from.lastName;
-            employee.mobilePhone = from.mobilePhone;
-            employee.emailAddress = from.emailAddress;
-            employee.photo = from.photo;
-            employee.officePhone = from.officePhone;
-            employee.extension = from.extension;
+            employee.FirstName = from.FirstName;
+            employee.LastName = from.LastName;
+            employee.MobilePhone = from.MobilePhone;
+            employee.EmailAddress = from.EmailAddress;
+            employee.Photo = from.Photo;
+            employee.OfficePhone = from.OfficePhone;
+            employee.Extension = from.Extension;
 
             return employee;
         }

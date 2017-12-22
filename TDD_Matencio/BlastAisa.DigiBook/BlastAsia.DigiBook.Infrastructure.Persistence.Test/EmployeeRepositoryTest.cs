@@ -23,14 +23,14 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         {
             employee = new Employee
             {
-                employeeId = new Guid(),
-                firstName = "John Karl",
-                lastName = "Matencio",
-                mobilePhone = "09957206817",
-                emailAddress = "jhnkrl15@gmail.com",
-                photo = new MemoryStream(),
-                officePhone = "4848766",
-                extension = "1001"
+                EmployeeId = new Guid(),
+                FirstName = "John Karl",
+                LastName = "Matencio",
+                MobilePhone = "09957206817",
+                EmailAddress = "jhnkrl15@gmail.com",
+                Photo = new MemoryStream(),
+                OfficePhone = "4848766",
+                Extension = "1001"
             };
 
             connectionString =
@@ -63,9 +63,9 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             var newEmployee = sut.Create(employee);
             //Asset
             Assert.IsNotNull(newEmployee);
-            Assert.IsTrue(newEmployee.employeeId != Guid.Empty);
+            Assert.IsTrue(newEmployee.EmployeeId != Guid.Empty);
             //Cleanup
-            sut.Delete(newEmployee.employeeId);
+            sut.Delete(newEmployee.EmployeeId);
         }
 
         [TestMethod]
@@ -75,9 +75,9 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             //Arrange
             var newEmployee = sut.Create(employee);
             //Act
-            sut.Delete(employee.employeeId);
+            sut.Delete(employee.EmployeeId);
             //Assert
-            employee = sut.Retrieve(employee.employeeId);
+            employee = sut.Retrieve(employee.EmployeeId);
             Assert.IsNull(employee);
             //Cleanup
         }
@@ -89,11 +89,11 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             //Arrange
             var newEmployee = sut.Create(employee);
             //Act
-            var found = sut.Retrieve(employee.employeeId);
+            var found = sut.Retrieve(employee.EmployeeId);
             //Assert
             Assert.IsNotNull(found);
             //Cleanup
-            sut.Delete(found.employeeId);
+            sut.Delete(found.EmployeeId);
         }
 
         [TestMethod]
@@ -108,21 +108,21 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             var expectedMobilePhone = "09161468582"; //09957206817
             var expectedEmailAddress = "jmatencio@gmail.com"; //jhnkrl15@gmail.com
 
-            newEmployee.firstName = expectedFirstname;
-            newEmployee.lastName = expectedLastname;
-            newEmployee.mobilePhone = expectedMobilePhone;
-            newEmployee.emailAddress = expectedEmailAddress;
+            newEmployee.FirstName = expectedFirstname;
+            newEmployee.LastName = expectedLastname;
+            newEmployee.MobilePhone = expectedMobilePhone;
+            newEmployee.EmailAddress = expectedEmailAddress;
             //Act
-            sut.Update(newEmployee.employeeId, employee);
+            sut.Update(newEmployee.EmployeeId, employee);
             //Assert
-            var updated = sut.Retrieve(newEmployee.employeeId);
+            var updated = sut.Retrieve(newEmployee.EmployeeId);
 
-            Assert.AreEqual(newEmployee.firstName, updated.firstName);
-            Assert.AreEqual(newEmployee.lastName, updated.lastName);
-            Assert.AreEqual(newEmployee.mobilePhone, updated.mobilePhone);
-            Assert.AreEqual(newEmployee.emailAddress, updated.emailAddress);
+            Assert.AreEqual(newEmployee.FirstName, updated.FirstName);
+            Assert.AreEqual(newEmployee.LastName, updated.LastName);
+            Assert.AreEqual(newEmployee.MobilePhone, updated.MobilePhone);
+            Assert.AreEqual(newEmployee.EmailAddress, updated.EmailAddress);
             //Cleanup
-            sut.Delete(updated.employeeId);
+            sut.Delete(updated.EmployeeId);
         }
     }
 }

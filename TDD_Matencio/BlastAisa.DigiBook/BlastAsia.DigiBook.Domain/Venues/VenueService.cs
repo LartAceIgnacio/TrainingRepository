@@ -6,9 +6,9 @@ namespace BlastAsia.DigiBook.Domain
 {
     public class VenueService : IVenueService
     {
-        private IVenueRepository venueRepository;
-        private int nameLimit = 51;
-        private int descriptionLimit = 101;
+        private readonly IVenueRepository venueRepository;
+        private readonly int nameLimit = 50;
+        private readonly int descriptionLimit = 100;
 
         public VenueService(IVenueRepository venueRepository)
         {
@@ -17,15 +17,15 @@ namespace BlastAsia.DigiBook.Domain
 
         public Venue Save(Guid id, Venue venue)
         {
-            if(string.IsNullOrEmpty(venue.venueName))
+            if(string.IsNullOrEmpty(venue.VenueName))
             {
                 throw new VenueNameRequiredException();
             }
-            if(venue.venueName.Length >= nameLimit)
+            if(venue.VenueName.Length > nameLimit)
             {
                 throw new VenueNameInvalidLengthException();
             }
-            if(venue.venueDescription.Length >= descriptionLimit)
+            if(venue.VenueDescription.Length > descriptionLimit)
             {
                 throw new VenueDescriptionInvalidLengthException();
             }
@@ -33,7 +33,7 @@ namespace BlastAsia.DigiBook.Domain
             var found = venueRepository.Retrieve(id);
             if(found != null)
             {
-                result = venueRepository.Update(venue.venueId, venue);
+                result = venueRepository.Update(venue.VenueId, venue);
             }
             else
             {

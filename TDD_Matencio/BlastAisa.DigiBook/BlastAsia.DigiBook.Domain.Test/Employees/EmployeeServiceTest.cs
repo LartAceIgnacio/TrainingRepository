@@ -23,14 +23,14 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
         {
             employee = new Employee
             {
-                employeeId = new Guid(),
-                firstName = "John Karl",
-                lastName = "Matencio",
-                mobilePhone = "09957206817",
-                emailAddress = "jhnkrl15@gmail.com",
-                photo = new MemoryStream(),
-                officePhone = "4848766",
-                extension = "1001"
+                EmployeeId = new Guid(),
+                FirstName = "John Karl",
+                LastName = "Matencio",
+                MobilePhone = "09957206817",
+                EmailAddress = "jhnkrl15@gmail.com",
+                Photo = new MemoryStream(),
+                OfficePhone = "4848766",
+                Extension = "1001"
             };
             mockEmployeeRepository = new Mock<IEmployeeRepository>();
             sut = new EmpolyeeService(mockEmployeeRepository.Object);
@@ -59,7 +59,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
         {
             //Arrange
             //Act
-            var result = sut.Save(employee.employeeId, employee);
+            var result = sut.Save(employee.EmployeeId, employee);
             //Assert  
             mockEmployeeRepository
                 .Verify(e => e.Retrieve(nonExistingEmployeeId), Times.Once);
@@ -73,7 +73,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             //Arrange
             mockEmployeeRepository
                 .Setup(c => c.Create(employee))
-                .Callback(() => employee.employeeId = Guid.NewGuid())
+                .Callback(() => employee.EmployeeId = Guid.NewGuid())
                 .Returns(employee);
 
 
@@ -82,18 +82,18 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
                 .Returns(employee);
 
             //Act
-            var newEmployee = sut.Save(employee.employeeId, employee);
+            var newEmployee = sut.Save(employee.EmployeeId, employee);
             //Assert
-            Assert.IsTrue(newEmployee.employeeId  != Guid.Empty);
+            Assert.IsTrue(newEmployee.EmployeeId  != Guid.Empty);
         }
 
         [TestMethod]
         public void Save_WithExistingEmployee_CallsRepositoryUpdate()
         {
             // Arrange
-            employee.employeeId = existingEmployeeId;
+            employee.EmployeeId = existingEmployeeId;
             // act
-            sut.Save(employee.employeeId, employee);
+            sut.Save(employee.EmployeeId, employee);
             // assert
             mockEmployeeRepository
                 .Verify(e => e.Retrieve(existingEmployeeId), Times.Once);
@@ -106,12 +106,12 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
         public void Save_WithBlankFirstName_ThrowsNameRequiredException()
         {
             //Arrange
-            employee.firstName = "";
+            employee.FirstName = "";
             //Act
 
             //Assert
             Assert.ThrowsException<NameRequiredException>(
-                () => sut.Save(employee.employeeId, employee));
+                () => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository
                 .Verify(e => e.Create(employee), Times.Never);
         }
@@ -120,12 +120,12 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
         public void Save_WithBlankLastName_ThrowsNameRequiredException()
         {
             //Arrange
-            employee.lastName = "";
+            employee.LastName = "";
             //Act
 
             //Assert
             Assert.ThrowsException<NameRequiredException>(
-                () => sut.Save(employee.employeeId, employee));
+                () => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository
                 .Verify(e => e.Create(employee), Times.Never);
         }
@@ -134,12 +134,12 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
         public void Save_WithBlankMobilePhone_ThrowsMobilePhoneRequiredException()
         {
             //Arrange
-            employee.mobilePhone = "";
+            employee.MobilePhone = "";
             //Act
 
             //Assert
             Assert.ThrowsException<MobilePhoneRequiredException>(
-                () => sut.Save(employee.employeeId, employee));
+                () => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository
                 .Verify(e => e.Create(employee), Times.Never);
         }
@@ -148,12 +148,12 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
         public void Save_WithBlankEmailAddress_ThrowsEmailAddressRequiredException()
         {
             //Arrange
-            employee.emailAddress = "";
+            employee.EmailAddress = "";
             //Act
 
             //Assert
             Assert.ThrowsException<EmailAddressRequiredException>(
-                () => sut.Save(employee.employeeId, employee));
+                () => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository
                 .Verify(e => e.Create(employee), Times.Never);
         }
@@ -176,12 +176,12 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
         public void Save_WithBlankOfficePhone_ThrowsOfficePhoneRequired()
         {
             //Arrange
-            employee.officePhone = "";
+            employee.OfficePhone = "";
             //Act
 
             //Assert
             Assert.ThrowsException<OfficePhoneRequiredException>(
-                () => sut.Save(employee.employeeId, employee));
+                () => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository
                 .Verify(e => e.Create(employee), Times.Never);
         }
@@ -190,12 +190,12 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
         public void Save_WithBlankExtension_ThrowsExtensionRequired()
         {
             //Arrange
-            employee.extension = "";
+            employee.Extension = "";
             //Act
 
             //Assert
             Assert.ThrowsException<ExtensionRequiredException>(
-                () => sut.Save(employee.employeeId, employee));
+                () => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository
                 .Verify(e => e.Create(employee), Times.Never);
         }
@@ -204,12 +204,12 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
         public void Save_WithInvalidMobilePhone_ThrowsNumbersOnlyException()
         {
             //Arrange
-            employee.mobilePhone = "abc";
+            employee.MobilePhone = "abc";
             //Act
 
             //Assert
             Assert.ThrowsException<NumbersOnlyException>(
-                () => sut.Save(employee.employeeId, employee));
+                () => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository
                 .Verify(c => c.Create(employee), Times.Never);
         }
@@ -218,12 +218,12 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
         public void Save_WithInvalidOfficePhone_ThrowsNumbersOnlyException()
         {
             //Arrange
-            employee.officePhone = "abc";
+            employee.OfficePhone = "abc";
             //Act
 
             //Assert
             Assert.ThrowsException<NumbersOnlyException>(
-                () => sut.Save(employee.employeeId, employee));
+                () => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository
                 .Verify(c => c.Create(employee), Times.Never);
         }
@@ -232,12 +232,12 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
         public void Save_WithInvalidExtension_ThrowsNumbersOnlyException()
         {
             //Arrange
-            employee.extension = "abc";
+            employee.Extension = "abc";
             //Act
 
             //Assert
             Assert.ThrowsException<NumbersOnlyException>(
-                () => sut.Save(employee.employeeId, employee));
+                () => sut.Save(employee.EmployeeId, employee));
             mockEmployeeRepository
                 .Verify(c => c.Create(employee), Times.Never);
         }

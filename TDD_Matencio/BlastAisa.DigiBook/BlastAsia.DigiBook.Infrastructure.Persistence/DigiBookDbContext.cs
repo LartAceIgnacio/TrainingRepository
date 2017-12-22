@@ -25,7 +25,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Employee>().Ignore(t => t.photo);
+            modelBuilder.Entity<Employee>().Ignore(t => t.Photo);
         }
     }
 }

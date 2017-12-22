@@ -33,13 +33,13 @@ namespace BlastAsia.DigiBook.Api.Test
 
             employee = new Employee
             {
-                employeeId = Guid.NewGuid(),
-                firstName = "John Karl",
-                lastName = "Matencio",
-                mobilePhone = "09957206817",
-                emailAddress = "jhnkrl15@gmail.com",
-                officePhone = "4848766",
-                extension = "1001"
+                EmployeeId = Guid.NewGuid(),
+                FirstName = "John Karl",
+                LastName = "Matencio",
+                MobilePhone = "09957206817",
+                EmailAddress = "jhnkrl15@gmail.com",
+                OfficePhone = "4848766",
+                Extension = "1001"
             };
 
             mockEmployeeRepository
@@ -48,7 +48,7 @@ namespace BlastAsia.DigiBook.Api.Test
 
 
             mockEmployeeRepository
-                .Setup(c => c.Retrieve(employee.employeeId))
+                .Setup(c => c.Retrieve(employee.EmployeeId))
                 .Returns(employee);
 
             mockEmployeeRepository
@@ -84,24 +84,24 @@ namespace BlastAsia.DigiBook.Api.Test
         {
             //Arrange
             //Act
-            var result = sut.GetEmployees(employee.employeeId);
+            var result = sut.GetEmployees(employee.EmployeeId);
             //Assert
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
             mockEmployeeRepository
-                .Verify(c => c.Retrieve(employee.employeeId), Times.Once);
+                .Verify(c => c.Retrieve(employee.EmployeeId), Times.Once);
         }
 
         [TestMethod]
         public void DeleteEmployee_WithEmptyEmployeeId_ReturnsNotFound()
         {
             //Arrange
-            employee.employeeId = Guid.Empty;
+            employee.EmployeeId = Guid.Empty;
             //Act
-            var result = sut.DeleteEmployee(employee.employeeId);
+            var result = sut.DeleteEmployee(employee.EmployeeId);
             //Assert
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
             mockEmployeeRepository
-                .Verify(c => c.Delete(employee.employeeId), Times.Never);
+                .Verify(c => c.Delete(employee.EmployeeId), Times.Never);
         }
 
         [TestMethod]
@@ -109,11 +109,11 @@ namespace BlastAsia.DigiBook.Api.Test
         {
             //Arrange
             //Act
-            var result = sut.DeleteEmployee(employee.employeeId);
+            var result = sut.DeleteEmployee(employee.EmployeeId);
             //Assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
             mockEmployeeRepository
-                .Verify(c => c.Delete(employee.employeeId), Times.Once);
+                .Verify(c => c.Delete(employee.EmployeeId), Times.Once);
         }
 
         [TestMethod]
@@ -158,13 +158,13 @@ namespace BlastAsia.DigiBook.Api.Test
         public void UpdateEmployee_WithEmptyEmployeeId_ReturnsNotFound()
         {
             //Arrange
-            employee.employeeId = Guid.Empty;
+            employee.EmployeeId = Guid.Empty;
             //Act
-            var result = sut.UpdateEmployee(employee, employee.employeeId);
+            var result = sut.UpdateEmployee(employee, employee.EmployeeId);
             //Assert
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
             mockEmployeeRepository
-                .Verify(c => c.Retrieve(employee.employeeId), Times.Once);
+                .Verify(c => c.Retrieve(employee.EmployeeId), Times.Once);
             mockEmployeeService
                 .Verify(c => c.Save(Guid.NewGuid(), employee), Times.Never);
         }
@@ -174,13 +174,13 @@ namespace BlastAsia.DigiBook.Api.Test
         {
             //Arrange
             //Act
-            var result = sut.UpdateEmployee(employee, employee.employeeId);
+            var result = sut.UpdateEmployee(employee, employee.EmployeeId);
             //Assert
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
             mockEmployeeRepository
-                .Verify(c => c.Retrieve(employee.employeeId), Times.Once);
+                .Verify(c => c.Retrieve(employee.EmployeeId), Times.Once);
             mockEmployeeService
-                .Verify(c => c.Save(employee.employeeId, employee), Times.Once);
+                .Verify(c => c.Save(employee.EmployeeId, employee), Times.Once);
         }
 
         [TestMethod]
@@ -189,26 +189,26 @@ namespace BlastAsia.DigiBook.Api.Test
             //Arrange
             patch = null;
             //Act
-            var result = sut.PatchEmployee(patch, employee.employeeId);
+            var result = sut.PatchEmployee(patch, employee.EmployeeId);
             //Assert
             Assert.IsInstanceOfType(result, typeof(BadRequestResult));
             mockEmployeeService
-                .Verify(c => c.Save(employee.employeeId, employee), Times.Never);
+                .Verify(c => c.Save(employee.EmployeeId, employee), Times.Never);
         }
 
         [TestMethod]
         public void PatchEmployee_WithEmptyEmployeeId_ReturnsNotFound()
         {
             //Arrange
-            employee.employeeId = Guid.Empty;
+            employee.EmployeeId = Guid.Empty;
             //Act
-            var result = sut.PatchEmployee(patch, employee.employeeId);
+            var result = sut.PatchEmployee(patch, employee.EmployeeId);
             //Assert
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
             mockEmployeeRepository
-                .Verify(c => c.Retrieve(employee.employeeId), Times.Once);
+                .Verify(c => c.Retrieve(employee.EmployeeId), Times.Once);
             mockEmployeeService
-                .Verify(c => c.Save(employee.employeeId, employee), Times.Never);
+                .Verify(c => c.Save(employee.EmployeeId, employee), Times.Never);
         }
 
         [TestMethod]
@@ -216,13 +216,13 @@ namespace BlastAsia.DigiBook.Api.Test
         {
             //Arrange
             //Act
-            var result = sut.PatchEmployee(patch, employee.employeeId);
+            var result = sut.PatchEmployee(patch, employee.EmployeeId);
             //Assert
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
             mockEmployeeRepository
-                .Verify(c => c.Retrieve(employee.employeeId), Times.Once);
+                .Verify(c => c.Retrieve(employee.EmployeeId), Times.Once);
             mockEmployeeService
-                .Verify(c => c.Save(employee.employeeId, employee), Times.Once);
+                .Verify(c => c.Save(employee.EmployeeId, employee), Times.Once);
         }
     }
 }

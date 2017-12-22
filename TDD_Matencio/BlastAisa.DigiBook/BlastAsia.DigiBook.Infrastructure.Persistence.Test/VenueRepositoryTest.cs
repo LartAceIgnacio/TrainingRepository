@@ -22,9 +22,9 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         {
             venue = new Venue
             {
-                venueId = Guid.NewGuid(),
-                venueName = "Training Room",
-                venueDescription = "Hello"
+                VenueId = Guid.NewGuid(),
+                VenueName = "Training Room",
+                VenueDescription = "Hello"
             };
 
             connectionString =
@@ -57,9 +57,9 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             //Act
             //Assert
             Assert.IsNotNull(newVenue);
-            Assert.IsTrue(newVenue.venueId != Guid.Empty);
+            Assert.IsTrue(newVenue.VenueId != Guid.Empty);
             //Cleanup
-            sut.Delete(venue.venueId);
+            sut.Delete(venue.VenueId);
         }
 
         [TestMethod]
@@ -69,11 +69,11 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             //Arrange
             var newVenue = sut.Create(venue);
             //Act
-            var found = sut.Retrieve(venue.venueId);
+            var found = sut.Retrieve(venue.VenueId);
             //Assert
             Assert.IsNotNull(found);
             //Cleanup
-            sut.Delete(venue.venueId);
+            sut.Delete(venue.VenueId);
         }
 
         [TestMethod]
@@ -85,15 +85,15 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 
             var expectedVenueName = "Board Room A";
 
-            newVenue.venueName = expectedVenueName;
+            newVenue.VenueName = expectedVenueName;
             //Act
-            sut.Update(newVenue.venueId, venue);
+            sut.Update(newVenue.VenueId, venue);
             //Assert
-            var update = sut.Retrieve(newVenue.venueId);
+            var update = sut.Retrieve(newVenue.VenueId);
 
-            Assert.AreEqual(newVenue.venueName, update.venueName);
+            Assert.AreEqual(newVenue.VenueName, update.VenueName);
             //Cleanup
-            sut.Delete(venue.venueId);
+            sut.Delete(venue.VenueId);
         }
 
         [TestMethod]
@@ -103,9 +103,9 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             //Arrange
             var newVenue = sut.Create(venue);
             //Act
-            sut.Delete(newVenue.venueId);
+            sut.Delete(newVenue.VenueId);
             //Assert
-            venue = sut.Retrieve(newVenue.venueId);
+            venue = sut.Retrieve(newVenue.VenueId);
             Assert.IsNull(venue);
             //Cleanup
         }

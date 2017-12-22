@@ -15,6 +15,8 @@ using BlastAsia.DigiBook.Infrastructure.Persistence.Repositories;
 using Swashbuckle.AspNetCore.Swagger;
 using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Appointments;
+using BlastAsia.DigiBook.Domain.Venues;
+using BlastAsia.DigiBook.Domain;
 
 namespace BlastAsia.DigiBook.Api
 {
@@ -50,14 +52,16 @@ namespace BlastAsia.DigiBook.Api
             services.AddScoped<IContactRepository,ContactRepository>();
 
             //Employees
-            services.AddScoped<IDigiBookDbContext, DigiBookDbContext>();
             services.AddTransient<IEmpolyeeService, EmpolyeeService>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             //Appointments
-            services.AddScoped<IDigiBookDbContext, DigiBookDbContext>();
             services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+
+            //Venues
+            services.AddTransient<IVenueService, VenueService>();
+            services.AddScoped<IVenueRepository, VenueRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

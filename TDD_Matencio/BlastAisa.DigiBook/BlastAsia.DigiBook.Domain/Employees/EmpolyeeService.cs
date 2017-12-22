@@ -6,7 +6,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
 {
     public class EmpolyeeService : IEmpolyeeService
     {
-        private IEmployeeRepository employeeRepository;
+        private readonly IEmployeeRepository employeeRepository;
         public EmpolyeeService(IEmployeeRepository employeeRepository)
         {
             this.employeeRepository = employeeRepository;
@@ -14,19 +14,19 @@ namespace BlastAsia.DigiBook.Domain.Employees
 
         public Employee Save(Guid id, Employee employee)
         {
-            if(string.IsNullOrEmpty(employee.firstName))
+            if(string.IsNullOrEmpty(employee.FirstName))
             {
                 throw new NameRequiredException();
             }
-            if(string.IsNullOrEmpty(employee.lastName))
+            if(string.IsNullOrEmpty(employee.LastName))
             {
                 throw new NameRequiredException();
             }
-            if(string.IsNullOrEmpty(employee.mobilePhone))
+            if(string.IsNullOrEmpty(employee.MobilePhone))
             {
                 throw new MobilePhoneRequiredException();
             }
-            if(string.IsNullOrEmpty(employee.emailAddress))
+            if(string.IsNullOrEmpty(employee.EmailAddress))
             {
                 throw new EmailAddressRequiredException();
             }
@@ -34,23 +34,23 @@ namespace BlastAsia.DigiBook.Domain.Employees
             //{
             //    throw new PhotoRequiredException();
             //}
-            if(string.IsNullOrEmpty(employee.officePhone))
+            if(string.IsNullOrEmpty(employee.OfficePhone))
             {
                 throw new OfficePhoneRequiredException();
             }
-            if(string.IsNullOrEmpty(employee.extension))
+            if(string.IsNullOrEmpty(employee.Extension))
             {
                 throw new ExtensionRequiredException();
             }
-            if(!employee.mobilePhone.All(Char.IsDigit))
+            if(!employee.MobilePhone.All(Char.IsDigit))
             {
                 throw new NumbersOnlyException();
             }
-            if (!employee.officePhone.All(Char.IsDigit))
+            if (!employee.OfficePhone.All(Char.IsDigit))
             {
                 throw new NumbersOnlyException();
             }
-            if (!employee.extension.All(Char.IsDigit))
+            if (!employee.Extension.All(Char.IsDigit))
             {
                 throw new NumbersOnlyException();
             }
