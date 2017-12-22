@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace BlastAsia.DigiBook.API.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Contacts")]
+    [Route("api/Departments")]
     public class DepartmentsController : Controller
     {
         private readonly IDepartmentService departmentService;

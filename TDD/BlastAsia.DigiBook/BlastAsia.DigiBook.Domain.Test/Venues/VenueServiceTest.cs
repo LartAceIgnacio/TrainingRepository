@@ -49,10 +49,10 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         [TestMethod]
         public void Save_NewVenueWithValidData_ShouldCallRepositoryCreate()
         {
-            //Arrange 
+            //Act
             var result = sut.Save(venue.VenueId, venue);
 
-            //Act 
+            //Assert
             mockVenueRepository
                .Verify(c => c.Retrieve(nonExistingVenueId), Times.Once);
 
@@ -63,6 +63,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         [TestMethod]
         public void Save_WithExistingVenueId_ReturnNewVenueId()
         {
+            //Act
             var newVenue = sut.Save(venue.VenueId, venue);
 
             //Assert
@@ -75,18 +76,36 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         [TestMethod]
         public void Save_WithBlankVenueName_ThrowsVenueNameRequired()
         {
+            //Arrange
             venue.VenueName = "";
 
+            //Assert
             Assert.ThrowsException<VenueNameRequiredException>(
                 () => sut.Save(venue.VenueId, venue));
         }
         [TestMethod]
-        public void Save_WithMoreThanMaximumLength_ThrowsLessThanMaximumLengthRequiredException()
+        public void Save_WithVenueSaveMoreThanMaximumLength_ThrowsLessThanMaximumLengthRequiredException()
         {
+            //Arrange
             venue.VenueName = "asdfghjklaasdfghjklaasdfghjklaasdfghjklaasdfghjklaasdasdasd";
 
+            //Assert
             Assert.ThrowsException<LessThanMaximumLengthRequiredException>(
                 ()=> sut.Save(venue.VenueId, venue));
+        }
+        [TestMethod]
+        public void Save_WithDescriptionMoreThanMaximumLength_ThrowsLessThanMaximumLengthRequiredException()
+        {
+            //Arrange
+
+            venue.Description = "asdfghjklaasdfghjklaasdfghjklaasdfghjklaasdfghjklaasdasdasd" +
+                "asdfghjklaasdfghjklaasdfghjklaasdfghjklaasdfghjklaasdasdasd" +
+                "asdfghjklaasdfghjklaasdfghjklaasdfghjklaasdfghjklaasdasdasd";
+
+            //Assert
+
+            Assert.ThrowsException<LessThanMaximumLengthRequiredException>(
+                () => sut.Save(venue.VenueId, venue));
         }
 
         [TestMethod]

@@ -205,6 +205,9 @@ namespace BlastAsia.DigiBook.API.Test
             mockVenueRepository
                 .Verify(v => v.Retrieve(existingVenueId), Times.Never());
 
+            mockVenueService
+                .Verify(v => v.Save(existingVenueId, venue), Times.Never());
+
             Assert.IsInstanceOfType(result, typeof(BadRequestResult));
         }
 
