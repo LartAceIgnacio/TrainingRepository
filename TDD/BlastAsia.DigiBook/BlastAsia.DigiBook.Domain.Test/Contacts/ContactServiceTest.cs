@@ -37,6 +37,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             };
 
             mockContactRepository = new Mock<IContactRepository>();
+
             sut = new ContactService(mockContactRepository.Object);
 
             mockContactRepository
@@ -83,7 +84,6 @@ namespace BlastAsia.DigiBook.Domain.Test.Contacts
             mockContactRepository
               .Setup(c => c.Retrieve(nonExistingContactId))
               .Returns<Contact>(null);
-
 
             // Act
 

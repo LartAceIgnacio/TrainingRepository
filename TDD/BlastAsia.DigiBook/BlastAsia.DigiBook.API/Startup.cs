@@ -48,6 +48,7 @@ namespace BlastAsia.DigiBook.API
                 c.SwaggerDoc("v1",
                     new Info { Title = "DigiBook API" });
             });
+            
 
             services.AddScoped<IDigiBookDbContext, DigiBookDbContext>();
 

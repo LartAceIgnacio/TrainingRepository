@@ -1,5 +1,4 @@
-﻿
-using BlastAsia.DigiBook.Domain.Models.Contacts;
+﻿using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

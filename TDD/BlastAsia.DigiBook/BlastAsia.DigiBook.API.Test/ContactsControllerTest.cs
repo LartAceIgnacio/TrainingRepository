@@ -63,11 +63,6 @@ namespace BlastAsia.DigiBook.API.Test
             mockContactRepository
                 .Setup(cr => cr.Retrieve(existingContactId))
                 .Returns(contact);
-            //Setup for Delete
-            mockContactRepository
-                .Setup(cr => cr.Retrieve(notExistingContactId))
-                .Returns<Contact>(null);
-
         }
         [TestMethod]
         public void GetContacts_WithEmptyContactId_ReturnsOkObjectResult()
