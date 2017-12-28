@@ -1,0 +1,53 @@
+
+<p-panel header="Employee List">
+    <div class="ui-g">
+        <p-dataTable [value]="employeeList" selectionMode="single" [(selection)]="selectedEmployee"
+            (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10" [responsive]="true">
+            <p-header>Employees</p-header>
+            <p-column field="Name" header="Employee Name" [sortable]="true"></p-column>
+            <p-header>Address</p-header>
+            <p-column field="Address" header="Employee Address" [sortable]="true"></p-column>
+            <p-header>Phone</p-header>
+            <p-column field="Phone" header="Employee Phone number" [sortable]="true"></p-column>
+            <p-header>Email</p-header>
+            <p-column field="Email" header="Employee Email Address" [sortable]="true"></p-column>
+
+            <p-footer>
+                <div class="ui-helper-clearfix" style="width: 100%">
+                    <button pButton icon="fa fa-plus" style="float:left" (click)=addEmployee() label="Add"></button>
+
+                </div>
+            </p-footer>
+        </p-dataTable>
+
+    </div>
+</p-panel>
+
+<p-panel header="Edit Employee Details" *ngIf="selectedEmployee">
+    <div class="ui-g">
+      <div class="ui-g-6">
+          <label class="ui-g-12 ui-md-4" for="employee">Employee Name: </label>
+          <input class="ui-g-12 ui-md-8" pInputText id="name" placeholder="Enter Employee Name" [(ngModel)]="selectedEmployee.Name">
+      </div>
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="address">Phone Number: </label>
+        <input class="ui-g-12 ui-md-8" pInputText id="phone" placeholder="Enter Employee Phone Number" [(ngModel)]="selectedEmployee.Phone">
+    </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-6">
+            <label class="ui-g-12 ui-md-4" for="employee">Address: </label>
+            <input class="ui-g-12 ui-md-8" pInputText id="address" placeholder="Enter Employee Address" [(ngModel)]="selectedEmployee.Address">
+        </div>
+        
+    </div>
+    <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="address">Phone Number: </label>
+        <input class="ui-g-12 ui-md-8" pInputText id="email" placeholder="Enter Employee Email" [(ngModel)]="selectedEmployee.Email">
+    </div>
+    <div class="ui-g">
+          <button pButton icon="fa-check" type="button" (click)="saveEmployee()" label="Save"></button>
+          <button class="ui-button-warning" pButton icon="fa-ban" type="button" (click)="cancelEmployee()" label="Cancel"></button>
+          <button class="ui-button-danger" pButton icon="fa-times" type="button" (click)="deleteEmployee()" label="Delete"></button>
+    </div>
+  </p-panel>

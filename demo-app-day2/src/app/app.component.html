@@ -1,0 +1,18 @@
+
+
+<!-- <h1>{{title}}</h1>
+<nav>
+    <a routerLink="/dashboard">Dashboard</a>
+    <a routerLink="/employees">Employees</a>
+    <a routerLink="/contacts">Contact</a>
+</nav> -->
+
+<div class="ui-g">
+    <div class="ui-g-12 ui-md-2">
+        <p-menu [model]="menuItems"></p-menu>
+    </div>
+    <div class="ui-g-12 ui-md-10">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
