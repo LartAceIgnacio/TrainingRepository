@@ -48,6 +48,15 @@ namespace BlastAsia.DigiBook.API
             services.AddTransient<IDateTimeWrapper, DateTimeWrapper>();
 
             services.AddMvc();
+            services.AddCors(config => {
+                config.AddPolicy("PrimeNgDemoApp", policy =>
+                {
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyMethod();
+                    policy.WithOrigins("http://localhost:4200");
+
+                });
+            });
 
             services.AddSwaggerGen(o => {
                 o.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "DigiBook API" } );
@@ -62,6 +71,15 @@ namespace BlastAsia.DigiBook.API
                 app.UseDeveloperExceptionPage();
             }
 
+            //app.UseCors(config => {
+            //    //config.AllowAnyHeader();
+            //    //config.AllowAnyMethod();
+            //    //config.WithOrigins("http:\\localhost:4200");
+
+
+            //} );
+
+            app.UseCors("PrimeNgDemoApp");
             app.UseSwagger();
             app.UseSwaggerUI(o =>
             {

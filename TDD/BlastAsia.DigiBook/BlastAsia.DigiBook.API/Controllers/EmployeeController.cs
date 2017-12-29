@@ -9,9 +9,11 @@ using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Employees.Services;
 using BlastAsia.DigiBook.API.Utils;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Cors;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
+    [EnableCors("PrimeNgDemoApp")]
     [Produces("application/json")]
     [Route("api/Employee")]
     public class EmployeeController : Controller
