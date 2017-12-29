@@ -16,6 +16,7 @@ using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Appointments;
 using BlastAsia.DigiBook.Domain.Departments;
 using BlastAsia.DigiBook.Domain.Venues;
+using Microsoft.AspNetCore.Mvc.Cors;
 
 namespace BlastAsia.DigiBook.API
 {
@@ -44,6 +45,16 @@ namespace BlastAsia.DigiBook.API
 
             // Add framework services.
             services.AddMvc();
+
+            services.AddCors(config => {
+                config.AddPolicy("PrimeNgDemoApp", policy =>
+                {
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyMethod();
+                    policy.WithOrigins("http://localhost:4200");
+
+                });
+            });
 
             services.AddSwaggerGen(c =>
             {
@@ -83,6 +94,7 @@ namespace BlastAsia.DigiBook.API
             });
 
             app.UseMvc();
+            app.UseCors("PrimeNgDemoApp");
         }
     }
 }
