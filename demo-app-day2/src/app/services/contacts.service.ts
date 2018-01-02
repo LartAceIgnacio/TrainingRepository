@@ -25,7 +25,7 @@ constructor(private httpClient: HttpClient) {}
     }
 
     _saveContacts(contact) {
-        return this.httpClient.put('http://localhost:55168/api/contacts/?id='+ contact.id, contact)
+        return this.httpClient.put('http://localhost:55168/api/contacts/?id='+ contact.contactId, contact)
                 .toPromise()
                 .then(data => { return data as IContacts[]; });
     }
