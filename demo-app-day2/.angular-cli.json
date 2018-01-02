@@ -24,7 +24,10 @@
         "../node_modules/primeng/resources/themes/voclain/theme.css",
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/moment/min/moment.min.js",
+        "../node_modules/moment/min/moment-with-locales.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
