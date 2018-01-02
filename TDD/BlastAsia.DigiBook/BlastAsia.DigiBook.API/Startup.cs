@@ -51,7 +51,7 @@ namespace BlastAsia.DigiBook.API
             services.AddCors(config => {
                 config.AddPolicy("PrimeNgDemoApp", policy =>
                 {
-                    policy.AllowAnyMethod();
+                    policy.AllowAnyHeader();
                     policy.AllowAnyMethod();
                     policy.WithOrigins("http://localhost:4200");
 
