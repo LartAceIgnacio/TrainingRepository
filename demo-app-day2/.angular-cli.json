@@ -21,7 +21,7 @@
       "styles": [
         "../node_modules/font-awesome/css/font-awesome.css",
         "../node_modules/primeng/resources/primeng.css",
-        "../node_modules/primeng/resources/themes/ludvig/theme.css",
+        "../node_modules/primeng/resources/themes/voclain/theme.css",
         "styles.css"
       ],
       "scripts": [],
