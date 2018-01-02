@@ -20,6 +20,7 @@ namespace BlastAsia.DigiBook.API.Utils
             contact.EmailAddress = from.EmailAddress;
             contact.MobilePhone = from.MobilePhone;
             contact.ZipCode = from.ZipCode;
+            contact.IsActive = from.IsActive;
             
             return contact;
         }
