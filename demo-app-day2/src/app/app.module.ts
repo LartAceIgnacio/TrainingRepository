@@ -12,6 +12,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 // const appRoutes: Routes = [
@@ -36,6 +37,7 @@ import { FormsModule } from '@angular/forms';
     SharedModule, InputTextModule, ButtonModule,
     AppRoutingModule,
     HttpModule,
+    HttpClientModule,
     FormsModule
   ],
   providers: [],
