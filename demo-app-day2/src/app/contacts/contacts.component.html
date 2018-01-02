@@ -13,7 +13,7 @@
                     <span> {{contactList[i].streetAddress}}, {{contactList[i].cityAddress}}, {{contactList[i].zipCode}}</span>
                 </ng-template>
             </p-column>
-            <p-column field="mobilePhone" header="Mobile number" [sortable]="true" ></p-column>
+            <p-column field="mobilePhone" header="Mobile number" [sortable]="true"></p-column>
             <p-column field="emailAddress" header="Email Address" [sortable]="true"></p-column>
             <p-column field="dateActivated" header="Date Activated" [sortable]="true">
                 <ng-template let-file="rowData" pTemplate type="body" let-i="rowIndex">
@@ -47,10 +47,8 @@
             </div>
         </div>
         <div class="ui-g">
-            <div class="ui-g">
-                <label class="ui-g-12 ui-md-4" for="firstName">Street Address: </label>
-                <input class="ui-g-12 " pInputText id="streetAddress" placeholder="Street Address" [(ngModel)]="selectedContact.streetAddress">
-            </div>
+            <label class="ui-g-12 ui-md-2" for="firstName">Street Address: </label>
+            <input class="ui-g-12 ui-md-10" pInputText id="streetAddress" placeholder="Street Address" [(ngModel)]="selectedContact.streetAddress">
         </div>
         <div class="ui-g">
             <div class="ui-g-6">
@@ -76,13 +74,13 @@
         <div class="ui-g">
             <div class="ui-g-6">
                 <label class="ui-g-12 ui-md-4" for="emailAddress">Is Active: </label>
-                <input class="ui-g-12 ui-md-8" pInputText id="isActive" placeholder="" [(ngModel)]="selectedContact.isActive">
+                <p-toggleButton [(ngModel)]="selectedContact.isActive" onLabel="Yes" offLabel="No" onIcon="fa-check-square" offIcon="fa-square" [style]="{'width':'150px'}"></p-toggleButton>
             </div>
         </div>
 
     </div>
     <div class="ui-g">
-        <button pButton icon="fa-floppy-o" type="button" (click)="saveEmployee()" label="Save"></button>
-        <button pButton icon="fa-ban" class="ui-button-warning"  type="button" (click)="cancelEmployee()" label="Cancel"></button>
+        <button pButton icon="fa-floppy-o" type="button" (click)="saveContact()" label="Save"></button>
+        <button pButton icon="fa-ban" class="ui-button-warning" type="button" (click)="cancelContact()" label="Cancel"></button>
     </div>
 </p-panel>
