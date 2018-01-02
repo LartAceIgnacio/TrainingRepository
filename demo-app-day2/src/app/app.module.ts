@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { PanelModule, MenuModule, DataTableModule,
-  SharedModule, InputTextModule, ButtonModule
+  SharedModule, InputTextModule, ButtonModule, ToggleButtonModule
 } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
@@ -14,6 +14,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { AppointmentsComponent } from './appointments/appointments.component';
 
 // const appRoutes: Routes = [
 //   // { path: "", redirectTo: "/dashboard", pathMatch: "full" },
@@ -26,15 +27,16 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     EmployeesComponent,
     ContactsComponent,
-    DashboardComponent
+    DashboardComponent,
+    AppointmentsComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     PanelModule,
     MenuModule,
-    DataTableModule,
-    SharedModule, InputTextModule, ButtonModule,
+    DataTableModule,SharedModule,
+    InputTextModule, ButtonModule,ToggleButtonModule,
     AppRoutingModule,
     HttpModule,
     HttpClientModule,
