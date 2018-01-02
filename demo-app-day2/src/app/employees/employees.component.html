@@ -1,21 +1,25 @@
-
 <p-panel header="Employee List">
     <div class="ui-g">
-        <p-dataTable [value]="employeeList" selectionMode="single" [(selection)]="selectedEmployee"
-            (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10" [responsive]="true">
+        <p-dataTable [value]="employeeList" selectionMode="single" [(selection)]="selectedEmployee" (onRowSelect)="onRowSelect($event)"
+            [paginator]="true" [rows]="10" [responsive]="true">
             <p-header>Employees</p-header>
-            <p-column field="Name" header="Employee Name" [sortable]="true"></p-column>
-            <p-header>Address</p-header>
-            <p-column field="Address" header="Employee Address" [sortable]="true"></p-column>
-            <p-header>Phone</p-header>
-            <p-column field="Phone" header="Employee Phone number" [sortable]="true"></p-column>
-            <p-header>Email</p-header>
-            <p-column field="Email" header="Employee Email Address" [sortable]="true"></p-column>
-
+            <p-column field="firstname" header="Employee Name" [sortable]="true">
+                <ng-template let-file="rowData" pTemplate type="body" let-i="rowIndex">
+                    <span>{{employeeList[i].firstname}} {{employeeList[i].lastname}}</span>
+                </ng-template>
+            </p-column>
+            <p-column field="officePhone" header="Office number" [sortable]="true">
+                <ng-template let-file="rowData" pTemplate type="body" let-i="rowIndex">
+                    <span> ( {{employeeList[i].extension}} ) {{employeeList[i].officePhone}} </span>
+                </ng-template>
+            </p-column>
+            <p-column field="mobilePhone" header="Mobile number" [sortable]="true"></p-column>
+            <p-column field="emailAddress" header="Email Address" [sortable]="true"></p-column>
             <p-footer>
-                <div class="ui-helper-clearfix" style="width: 100%">
-                    <button pButton icon="fa fa-plus" style="float:left" (click)=addEmployee() label="Add"></button>
-
+                <div class="ui-g" style="width: 100%">
+                    <button pButton class="ui-g" icon="fa fa-plus" style="float:left" (click)=addEmployee() label="Add"></button>
+                    <button pButton class="ui-g ui-button-danger" style="float:left" icon="fa-times" type="button" (click)="deleteEmployee()"
+                        label="Delete" *ngIf="selectedEmployee"></button>
                 </div>
             </p-footer>
         </p-dataTable>
@@ -24,30 +28,42 @@
 </p-panel>
 
 <p-panel header="Edit Employee Details" *ngIf="selectedEmployee">
-    <div class="ui-g">
-      <div class="ui-g-6">
-          <label class="ui-g-12 ui-md-4" for="employee">Employee Name: </label>
-          <input class="ui-g-12 ui-md-8" pInputText id="name" placeholder="Enter Employee Name" [(ngModel)]="selectedEmployee.Name">
-      </div>
-      <div class="ui-g-6">
-        <label class="ui-g-12 ui-md-4" for="address">Phone Number: </label>
-        <input class="ui-g-12 ui-md-8" pInputText id="phone" placeholder="Enter Employee Phone Number" [(ngModel)]="selectedEmployee.Phone">
-    </div>
-    </div>
-    <div class="ui-g">
-        <div class="ui-g-6">
-            <label class="ui-g-12 ui-md-4" for="employee">Address: </label>
-            <input class="ui-g-12 ui-md-8" pInputText id="address" placeholder="Enter Employee Address" [(ngModel)]="selectedEmployee.Address">
+    <div>
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label class="ui-g-12 ui-md-4" for="firstName">Firstname: </label>
+                <input class="ui-g-12 ui-md-8" pInputText id="firstName" placeholder="Firstname" [(ngModel)]="selectedEmployee.firstname">
+            </div>
+            <div class="ui-g-6">
+                <label class="ui-g-12 ui-md-4" for="lastName">Lastname: </label>
+                <input class="ui-g-12 ui-md-8" pInputText id="lastName" placeholder="Lastname" [(ngModel)]="selectedEmployee.lastname">
+            </div>
         </div>
-        
-    </div>
-    <div class="ui-g-6">
-        <label class="ui-g-12 ui-md-4" for="address">Phone Number: </label>
-        <input class="ui-g-12 ui-md-8" pInputText id="email" placeholder="Enter Employee Email" [(ngModel)]="selectedEmployee.Email">
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <div class="">
+                    <label class="ui-g-12 ui-md-4" for="officePhone">Office Number: </label>
+                    <input class="ui-g-12 ui-md-4" pInputText id="officePhone" placeholder="Office number" [(ngModel)]="selectedEmployee.officePhone">
+                    <label class="ui-g-12 ui-md-2" for="extension">Ext: </label>
+                    <input class="ui-g-12 ui-md-2" pInputText id="extension" placeholder="Ext." [(ngModel)]="selectedEmployee.extension">
+                </div>
+            </div>
+            <div class="ui-g-6">
+                <label class="ui-g-12 ui-md-4" for="mobilePhone">Mobile Number: </label>
+                <input class="ui-g-12 ui-md-8" pInputText id="mobilePhone" placeholder="Mobile number" [(ngModel)]="selectedEmployee.mobilePhone">
+            </div>
+        </div>
+
+        <div class="ui-g">
+            <div class="ui-g-6">
+                <label class="ui-g-12 ui-md-4" for="emailAddress">Email: </label>
+                <input class="ui-g-12 ui-md-8" pInputText id="emailAddress" placeholder="Email Address" [(ngModel)]="selectedEmployee.emailAddress">
+            </div>
+        </div>
+
     </div>
     <div class="ui-g">
-          <button pButton icon="fa-check" type="button" (click)="saveEmployee()" label="Save"></button>
-          <button class="ui-button-warning" pButton icon="fa-ban" type="button" (click)="cancelEmployee()" label="Cancel"></button>
-          <button class="ui-button-danger" pButton icon="fa-times" type="button" (click)="deleteEmployee()" label="Delete"></button>
+        <button pButton icon="fa-floppy-o" type="button" (click)="saveEmployee()" label="Save"></button>
+        <button pButton icon="fa-ban" class="ui-button-warning"  type="button" (click)="cancelEmployee()" label="Cancel"></button>
     </div>
-  </p-panel>
+</p-panel>

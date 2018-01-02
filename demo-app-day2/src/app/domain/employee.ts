@@ -1,6 +1,9 @@
 export interface Employee {
-    Name?;
-    Address?;
-    Phone?;
-    Email?;
+    id?;
+    firstName?;
+    lastName?;
+    mobilePhone?;
+    officePhone?;
+    extension?;
+    emailAddress?;
 }
