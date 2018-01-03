@@ -16,6 +16,7 @@ using BlastAsia.DigiBook.Infrastracture.Persistence.Repositories;
 using Swashbuckle.AspNetCore.Swagger;
 using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Appointments;
+using BlastAsia.DigiBook.Domain.Venues;
 
 namespace BlastAsia.DigiBook.Api
 {
@@ -31,6 +32,17 @@ namespace BlastAsia.DigiBook.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddCors(config => {
+                config.AddPolicy("PrimeNgDemoApp", policy =>
+                {
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyMethod();
+                    policy.WithOrigins("http://localhost:4200");
+
+                });
+            });
+
             services.AddDbContext<DigiBookDbContext>(
                     option => option.UseSqlServer
                     (
@@ -61,12 +73,17 @@ namespace BlastAsia.DigiBook.Api
             // appointment
             services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            // venue
+            services.AddTransient<IVenueService, VenueService>();
+            services.AddScoped<IVenueRepository, VenueRepository>();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors("PrimeNgDemoApp");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

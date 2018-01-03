@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Api.Utils;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Cors;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
+    [EnableCors("PrimeNgDemoApp")]
     [Produces("application/json")]
     [Route("api/Venue")]
     public class VenueController : Controller
@@ -96,7 +98,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
 
                 venueToUpdate.ApplyChages(venue);
 
-                var result = service.Save(id, venue);
+                var result = service.Save(id, venueToUpdate);
 
                 return Ok(result);
             }

@@ -10,9 +10,11 @@ using BlastAsia.DigiBook.Insfrastracture.Persistence;
 using Microsoft.AspNetCore.JsonPatch;
 using System.Reflection;
 using BlastAsia.DigiBook.Api.Utils;
+using Microsoft.AspNetCore.Cors;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
+    [EnableCors("PrimeNgDemoApp")]
     [Produces("application/json")]
     [Route("api/Contacts")]
     public class ContactsController : Controller
@@ -76,7 +78,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
 
         [HttpPut]
         public IActionResult UpdateContact(
-            [Bind("FirstName","LastName","MobilePhone","StreetAddress","CityAddress","ZipCode","Country","EmailAddress")]
+                [FromBody]
                 Contact contact,
                     Guid id
             )

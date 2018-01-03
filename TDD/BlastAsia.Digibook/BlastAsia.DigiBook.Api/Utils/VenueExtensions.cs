@@ -11,7 +11,7 @@ namespace BlastAsia.DigiBook.Api.Utils
     {
         public static Venue ApplyChages( this Venue venue , Venue from)
         {
-
+            //venue.VenueId = Guid.Empty;
             venue.VenueName = from.VenueName;
             venue.Description = from.Description;
             return venue;

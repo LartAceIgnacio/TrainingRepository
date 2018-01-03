@@ -8,9 +8,11 @@ using BlastAsia.DigiBook.Domain.Models.Employees;
 using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Api.Utils;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Cors;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
+    [EnableCors("PrimeNgDemoApp")]
     [Produces("application/json")]
     [Route("api/Employee")]
     public class EmployeesController : Controller
@@ -77,7 +79,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
 
         [HttpPut]
         public IActionResult UpdateEmployee(
-            [Bind("FirstName", "LastName", "MobilePhone", "EmailAddress", "PhotoUrl", "OfficePhone", "Extension")]
+            [FromBody]
                 Employee employee,
                     Guid id
             )

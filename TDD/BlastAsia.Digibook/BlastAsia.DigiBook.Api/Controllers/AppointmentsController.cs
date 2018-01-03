@@ -8,9 +8,11 @@ using BlastAsia.DigiBook.Domain.Appointments;
 using BlastAsia.DigiBook.Domain.Models.Appointments;
 using BlastAsia.DigiBook.Api.Utils;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Cors;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
+    [EnableCors("PrimeNgDemoApp")]
     [Produces("application/json")]
     [Route("api/Appointments")]
     public class AppointmentsController : Controller
@@ -51,7 +53,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
                 }
 
                 var result = appointmentService.Save(Guid.Empty, appointment);
-                return CreatedAtAction("GetContacts", new { id = appointment.AppointmentId }, result);
+                return CreatedAtAction("GetAppointments", new { id = appointment.AppointmentId }, result);
             }
             catch (Exception)
             {
