@@ -62,28 +62,28 @@ export class AppointmentsComponent implements OnInit {
         this.contactService._getContacts().
           then(c => { 
             this.contactList = c;
+
             for(var i = 0; i < this.contactList.length; i++)
             {
               this.contactList[i].contactFullName = this.contactList[i].firstname + " " + this.contactList[i].lastname;
             }
+
+
+            this.appointmentService._getAppointments()
+            .then(appointments => {
+              this.appointmentList = appointments;
+            
+              for(var i = 0; i < this.appointmentList.length; i ++){
+                this.appointmentList[i].guestName = this.contactList.find(f => f.contactId == this.appointmentList[i].guestId).contactFullName;
+                this.appointmentList[i].hostName = this.employeeList.find(f => f.id == this.appointmentList[i].hostId).employeeFullname;
+              }
+            });
+
+
           });
         
-        this.appointmentService._getAppointments()
-          .then(appointments => {
-            this.appointmentList = appointments;
-          
-            for(var i = 0; i < this.appointmentList.length; i ++){
-              this.appointmentList[i].guestName = this.contactList.find(f => f.contactId == this.appointmentList[i].guestId).contactFullName;
-              this.appointmentList[i].hostName = this.employeeList.find(f => f.id == this.appointmentList[i].hostId).employeeFullname;
-            }
-
-          });
+        
       });
-  }
-
-  get()
-  {
-
   }
 
   getContacts() {
@@ -92,7 +92,6 @@ export class AppointmentsComponent implements OnInit {
         this.contactList = c;
       });
   }
-
 
   getAppointments() {
     this.appointmentService._getAppointments()
