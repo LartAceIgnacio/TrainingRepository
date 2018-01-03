@@ -38,14 +38,14 @@ namespace BlastAsia.DigiBook.API.Controllers
             }
             else
             {
-                var venue = venueRepository.Retrieve(id.Value);
+                var venue = this.venueRepository.Retrieve(id.Value);
                 result.Add(venue);
             }
             return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult CreateVenue([FromBody]Venue venue)
+        public IActionResult CreateVenue([FromBody] Venue venue)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace BlastAsia.DigiBook.API.Controllers
                 {
                     return BadRequest();
                 }
-                var result = this.venueService.Save(venue.VenueId, venue);
+                var result = this.venueService.Save(Guid.Empty, venue);
 
                 return CreatedAtAction("GetVenues", new { id = venue.VenueId }, venue);
             }
@@ -64,20 +64,19 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpDelete]
-        public IActionResult DeleteVenue(Guid venueId)
+        public IActionResult DeleteVenue(Guid id)
         {
-            var venueToDelete = this.venueRepository.Retrieve(venueId);
+            var venueToDelete = this.venueRepository.Retrieve(id);
             if (venueToDelete == null)
             {
                 return NotFound();
             }
-            this.venueRepository.Delete(venueId);
-
+            this.venueRepository.Delete(id);
             return NoContent();
         }
 
         [HttpPut]
-        public IActionResult UpdateVenue([FromBody]Venue venue, Guid venueId)
+        public IActionResult UpdateVenue([FromBody]Venue venue, Guid id)
         {
             try
             {
@@ -86,14 +85,14 @@ namespace BlastAsia.DigiBook.API.Controllers
                     return BadRequest();
                 }
 
-                var existingVenue = venueRepository.Retrieve(venueId);
+                var existingVenue = venueRepository.Retrieve(id);
                 if (existingVenue == null)
                 {
                     return NotFound();
                 }
                 existingVenue.ApplyChanges(venue);
 
-                this.venueService.Save(venueId, existingVenue);
+                var result = this.venueService.Save(id, existingVenue);
 
                 return Ok(venue);
             }
@@ -104,7 +103,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPatch]
-        public IActionResult PatchVenue([FromBody]JsonPatchDocument patchVenue, Guid venueId)
+        public IActionResult PatchVenue([FromBody]JsonPatchDocument patchVenue, Guid id)
         {
 
             if (patchVenue == null)
@@ -112,7 +111,7 @@ namespace BlastAsia.DigiBook.API.Controllers
                 return BadRequest();
             }
 
-            var venue = venueRepository.Retrieve(venueId);
+            var venue = venueRepository.Retrieve(id);
 
             if (venue == null)
             {
@@ -120,7 +119,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             }
 
             patchVenue.ApplyTo(venue);
-            venueService.Save(venueId, venue);
+            venueService.Save(id, venue);
 
             return Ok(venue);
         }

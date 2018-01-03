@@ -21,15 +21,15 @@ namespace BlastAsia.DigiBook.Domain.Venues
             }
             if (venue.VenueName.Length > venueNameMaximumLength)
             {
-                throw new MaximumLengthException("At least 50 characters");
+                throw new MaximumLengthException("50 characters only");
             }
             if (venue.Description.Length > venueDescriptionMaximumLength)
             {
-                throw new MaximumLengthException("At least 100 characters");
+                throw new MaximumLengthException("100 characters only");
             }
 
             Venue result;
-            var found = venueRepository.Retrieve(venue.VenueId);
+            var found = venueRepository.Retrieve(id);
 
             if (found == null)
             {
@@ -37,7 +37,7 @@ namespace BlastAsia.DigiBook.Domain.Venues
             }
             else
             {
-                result = venueRepository.Update(venue.VenueId, venue);
+                result = venueRepository.Update(id, venue);
             }
 
             return result;

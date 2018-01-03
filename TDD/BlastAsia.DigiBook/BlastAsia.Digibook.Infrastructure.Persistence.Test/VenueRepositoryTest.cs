@@ -1,7 +1,6 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Domain.Venues;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
-using BlastAsia.DigiBook.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -24,7 +23,7 @@ namespace BlastAsia.Digibook.Infrastructure.Persistence.Test
         {
             venue = new Venue
             {
-                VenueName = "VenueVenueVenueVenueVenueVenueVenueVenueVenueVenue Venue",
+                VenueName = "VenueVenueVenueVenueVenueVenueVenueVenueVenue",
                 Description = "This is a Venue"
             };
 
@@ -101,7 +100,7 @@ namespace BlastAsia.Digibook.Infrastructure.Persistence.Test
         {
             // Arrange
             var newVenue = sut.Create(venue);
-            var expectedVenueName = "VenueVenueVenueVenueVenueVenueVenueVenueVenueVenue Lugar";
+            var expectedVenueName = "VenueVenueVenueVenueVenueVenueVenueVenue Lugar";
             var expectedDescription = "Nothing";
 
             newVenue.VenueName = expectedVenueName;

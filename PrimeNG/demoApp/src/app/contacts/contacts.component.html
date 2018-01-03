@@ -1,0 +1,154 @@
+<p-panel header="Contact List">
+  <div class="ui-g">
+      <p-dataTable [value]="contactList" selectionMode="single" [(selection)]="selectedContact" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10" [responsive]="true">
+        <p-header>Contacts</p-header>
+        <p-column field="firstName" header="First Name" [sortable]="true"></p-column>
+        <p-column field="lastName" header="Last Name" [sortable]="true"></p-column>
+        <p-column field="mobilePhone" header="Mobile Number" [sortable]="true"></p-column>
+        <p-column field="emailAddress" header="Email Address" [sortable]="true"></p-column>
+        <p-column field="country" header="Country" [sortable]="true"></p-column>
+        <p-column field="streetAddress" header="Street Address" [sortable]="true"></p-column>
+        <p-column field="cityAddress" header="City Address" [sortable]="true"></p-column>
+        <p-column field="zipCode" header="Zipcode" [sortable]="true"></p-column>
+        <p-column field="isActive" header="Status if Activated:" [sortable]="true"></p-column>
+        <p-column field="dateActivated" header="Date Activated" [sortable]="true"></p-column>
+      </p-dataTable>
+      <footer>
+          <div class="ui-helper-clearfix" style="width:100%">
+            <button type="button" pButton icon="fa-plus" style="float:left" (click)="addContact()" label="Add Contact"></button>
+            <button class="ui-button-danger" pButton icon="fa-times" type="button" (click)="deleteContact()" label="Delete"></button>
+          </div>
+      </footer>
+    </div>
+</p-panel>
+  
+<br>
+
+<form [formGroup]="contactForm">
+<p-panel header="Contact Details" *ngIf="selectedContact">
+  <div class="ui-g">
+        <div class="ui-g-12">
+            <h3><label class="ui-g-12 ui-md-4" for="name">Name</label></h3>
+        </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-12 ui-md-8">
+          <label class="ui-g-12 ui-md-3" for="firstName">First Name: </label>
+          <input class="ui-g-12 ui-md-9" pInputText id="firstName" formControlName="firstname" placeholder="Enter First Name" [(ngModel)]="selectedContact.firstName">
+      </div>
+      <div class="ui-g-12 ui-md-4">
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!contactForm.controls['firstname'].valid&&contactForm.controls['firstname'].dirty">
+            <i class="fa fa-close"></i>
+            Firstname is required
+        </div>
+      </div>
+
+      <div class="ui-g-12 ui-md-8">
+          <label class="ui-g-12 ui-md-3" for="lastName">Last Name: </label>
+          <input class="ui-g-12 ui-md-9" pInputText id="lastName" formControlName="lastname" placeholder="Enter Last Name" [(ngModel)]="selectedContact.lastName">
+      </div>
+      <div class="ui-g-12 ui-md-4">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!contactForm.controls['lastname'].valid&&contactForm.controls['lastname'].dirty">
+                <i class="fa fa-close"></i>
+                Lastname is required
+            </div>
+      </div>
+    </div>
+
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <h3><label class="ui-g-12 ui-md-4" for="location">Location</label></h3>
+        </div>
+    </div>
+
+    <div class="ui-g">
+      <div class="ui-g-12 ui-md-8">
+          <label class="ui-g-12 ui-md-3" for="country">Country: </label>
+          <input class="ui-g-12 ui-md-9" pInputText id="country" formControlName="country" placeholder="Enter Country" [(ngModel)]="selectedContact.country">
+      </div>
+      <div class="ui-g-12 ui-md-4">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!contactForm.controls['country'].valid&&contactForm.controls['country'].dirty">
+                <i class="fa fa-close"></i>
+                Country is required
+            </div>
+      </div>
+
+      <div class="ui-g-12 ui-md-8">
+          <label class="ui-g-12 ui-md-3" for="streetAddress">Street Address: </label>
+          <input class="ui-g-12 ui-md-9" pInputText id="streetAddress" formControlName="streetaddress" placeholder="Enter Street Address" [(ngModel)]="selectedContact.streetAddress">
+      </div>
+      <div class="ui-g-12 ui-md-4">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!contactForm.controls['streetaddress'].valid&&contactForm.controls['streetaddress'].dirty">
+                <i class="fa fa-close"></i>
+                Street Address is required
+            </div>
+      </div>
+
+      <div class="ui-g-12 ui-md-8">
+          <label class="ui-g-12 ui-md-3" for="cityAddress">City Address: </label>
+          <input class="ui-g-12 ui-md-9" pInputText id="cityAddress" formControlName="cityaddress" placeholder="Enter City Address" [(ngModel)]="selectedContact.cityAddress">
+      </div>
+      <div class="ui-g-12 ui-md-4">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!contactForm.controls['cityaddress'].valid&&contactForm.controls['cityaddress'].dirty">
+                <i class="fa fa-close"></i>
+                City Address is required
+            </div>
+      </div>
+
+      <div class="ui-g-12 ui-md-8">
+          <label class="ui-g-12 ui-md-3" for="zipcode">Zipcode: </label>
+          <input class="ui-g-12 ui-md-9" pInputText id="zipCode" formControlName="zipcode" placeholder="Enter Zipcode" [(ngModel)]="selectedContact.zipCode">
+      </div>
+      <div class="ui-g-12 ui-md-4">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!contactForm.controls['zipcode'].valid&&contactForm.controls['zipcode'].dirty">
+                <i class="fa fa-close"></i>
+                zipcode is required
+            </div>
+      </div>
+    </div>
+
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <h3><label class="ui-g-12 ui-md-4" for="contactDetails">Contact Details </label></h3>
+        </div>
+    </div>
+
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-8">
+            <label class="ui-g-12 ui-md-3" for="mobilePhone">Mobile Phone: </label>
+            <input class="ui-g-12 ui-md-9" pInputText id="mobilePhone" formControlName="mobilephone" placeholder="Enter Mobile Number" [(ngModel)]="selectedContact.mobilePhone">
+        </div>
+        <div class="ui-g-12 ui-md-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!contactForm.controls['mobilephone'].valid&&contactForm.controls['mobilephone'].dirty">
+                    <i class="fa fa-close"></i>
+                    Mobile Number is required
+                </div>
+          </div>
+
+        <div class="ui-g-12 ui-md-8">
+            <label class="ui-g-12 ui-md-3" for="emailAddress">Email Address: </label>
+            <input class="ui-g-12 ui-md-9" pInputText id="emailAddress" formControlName="emailaddress" placeholder="Enter Email Address" [(ngModel)]="selectedContact.emailAddress">
+        </div>
+        <div class="ui-g-12 ui-md-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!contactForm.controls['emailaddress'].valid&&contactForm.controls['emailaddress'].dirty">
+                    <i class="fa fa-close"></i>
+                    Email is required
+                </div>
+          </div>
+
+        <div class="ui-g-12 ui-md-8">
+            <label class="ui-g-12 ui-md-3" for="isActive">Is Activated:</label>
+            <input class="ui-g-12 ui-md-9" pInputText id="isActivated" formControlName="isactivated" placeholder="True or False" [(ngModel)]="selectedContact.isActive">
+        </div>
+        <div class="ui-g-12 ui-md-8">
+            <label class="ui-g-12 ui-md-3" for="dateActivated">Date Activated:</label>
+            <input class="ui-g-12 ui-md-9" pInputText id="dateActivated" formControlName="dateactivated" placeholder="Enter Date" [(ngModel)]="selectedContact.dateActivated">
+        </div>
+    </div>
+    <div class="ui-g">
+          <button pButton icon="fa-check" type="button" (click)="saveContact()" [disabled]="!contactForm.valid" label="Save"></button>
+          <button class="ui-button-warning" pButton icon="fa-ban" type="button" (click)="cancelContact()" label="Cancel"></button>
+    </div>
+</p-panel>
+</form>
+

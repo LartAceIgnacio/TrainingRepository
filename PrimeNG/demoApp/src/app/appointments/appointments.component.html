@@ -1,0 +1,64 @@
+<p-panel header="Appointment List">
+  <div class="ui-g">
+    <p-dataTable [value]="appointmentList" selectionMode="single" [(selection)]="selectedAppointment" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10" [responsive]="true">
+      <p-header>Appointments</p-header>
+      <p-column field="appointmentDate" header="Appointment Date" [sortable]="true"></p-column>
+      <p-column field="guestId" header="Guest ID" [sortable]="true"></p-column>
+      <p-column field="hostId" header="Host ID" [sortable]="true"></p-column>
+      <p-column field="startTime" header="Start Time" [sortable]="true"></p-column>
+      <p-column field="endTime" header="End Time" [sortable]="true"></p-column>
+      <p-column field="isCancelled" header="Is Cancelled" [sortable]="true"></p-column>
+      <p-column field="isDone" header="Appointment Done" [sortable]="true"></p-column>
+      <p-column field="notes" header="Notes" [sortable]="true"></p-column>
+    </p-dataTable>
+    <footer>
+      <div class="ui-helper-clearfix" style="width:100%">
+        <button type="button" pButton icon="fa-plus" style="float:left" (click)="addAppointment()" label="Add Appointment"></button>
+        <button class="ui-button-danger" pButton icon="fa-times" type="button" (click)="deleteAppointment()" label="Delete"></button>
+      </div>
+    </footer>
+  </div>
+</p-panel>
+
+<p-panel header="Appointment Details" *ngIf="selectedAppointment">
+  <div class="ui-g">
+    <div class="ui-g-12 ui-md-8">
+      <label class="ui-g-12 ui-md-3" for="appointmentDate">Appointment Date: </label>
+      <input class="ui-g-12 ui-md-8" pInputText id="appointmentDate" placeholder="Appointment Date" [(ngModel)] = "selectedAppointment.appointmentDate">
+    </div>
+  </div>
+  <div class="ui-g">
+    <div class="ui-g-12 ui-md-6">
+      <label class="ui-g-12 ui-md-4" for="guestId">Guest ID: </label>
+      <input class="ui-g-12 ui-md-8" pInputText id="guestId" placeholder="Guest ID" [(ngModel)]="selectedAppointment.guestId">
+    </div>
+    <div class="ui-g-12 ui-md-6">
+      <label class="ui-g-12 ui-md-4" for="hostId">Host ID: </label>
+      <input class="ui-g-12 ui-md-8" pInputText id="hostId" placeholder="Host ID" [(ngModel)]="selectedAppointment.hostId">
+    </div>
+    <div class="ui-g-12 ui-md-6">
+      <label class="ui-g-12 ui-md-4" for="startTime">Start Time: </label>
+      <input class="ui-g-12 ui-md-8" pInputText id="startTime" placeholder="Start Time" [(ngModel)]="selectedAppointment.startTime">
+    </div>
+    <div class="ui-g-12 ui-md-6">
+      <label class="ui-g-12 ui-md-4" for="endTime">End Time: </label>
+      <input class="ui-g-12 ui-md-8" pInputText id="endTime" placeholder="End Time" [(ngModel)]="selectedAppointment.endTime">
+    </div>
+    <div class="ui-g-12 ui-md-6">
+      <label class="ui-g-12 ui-md-4" for="isCancelled">Is Cancelled: </label>
+      <input class="ui-g-12 ui-md-8" pInputText id="isCancelled" placeholder="Is Cancelled" [(ngModel)]="selectedAppointment.isCancelled">
+    </div>
+    <div class="ui-g-12 ui-md-6">
+      <label class="ui-g-12 ui-md-4" for="isDone">Is Done: </label>
+      <input class="ui-g-12 ui-md-8" pInputText id="isDone" placeholder="Is Done" [(ngModel)]="selectedAppointment.isDone">
+    </div>
+    <div class="ui-g-12 ui-md-6">
+      <label class="ui-g-12 ui-md-4" for="notes">Notes: </label>
+      <textarea rows="5" cols="30" id="notes" [(ngModel)]="selectedAppointment.notes" pInputTextarea></textarea>
+    </div>
+  </div>
+  <div class="ui-g">
+    <button pButton icon="fa-check" type="button" (click)="saveAppointment()" label="Save"></button>
+    <button class="ui-button-warning" pButton icon="fa-ban" type="button" (click)="cancelAppointment()" label="Cancel"></button>
+  </div>
+</p-panel>
