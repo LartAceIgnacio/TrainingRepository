@@ -10,31 +10,25 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class EmployeeService {
     
-constructor(/*private http: Http,*/ private httpClient: HttpClient) {}
+constructor(private httpClient: HttpClient) {}
 
-    /*getEmployees(){//local data .json
-        return this.http.get('assets/data/employees.json') //new route for fetching employees api/Employee
-            .toPromise()
-            .then(res => <Employee[]>res.json().data)
-            .then(data => {console.log("daaata: " + data); return data;} );
-    }*/
 
     _getEmployees() {
         return this.httpClient.get('http://localhost:55168/api/employee/')
                 .toPromise()
-                .then(data => {  return data as Employee[]; });
+                .then(data => { console.log("Get Employee:" + JSON.stringify(data as Employee[])); return data as Employee[]; });
     }
 
     _addEmployee(employee) {
         return this.httpClient.post('http://localhost:55168/api/employee/', employee)
                 .toPromise()
-                .then(data => { return data as Employee[]; });
+                .then(data => { console.log("add data:" + JSON.stringify(data as Employee)); return data as Employee;  });
     }
 
     _saveEmployee(employee) {
         return this.httpClient.put('http://localhost:55168/api/employee/?id='+ employee.id,employee)
                 .toPromise()
-                .then(data => { return data as Employee[]; });
+                .then(data => { return data as Employee; });
     }
 
     _deleteEmployee(employeeId) {

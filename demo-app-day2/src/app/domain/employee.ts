@@ -1,7 +1,8 @@
 export interface Employee {
     id?;
-    firstName?;
-    lastName?;
+    firstname?;
+    lastname?;
+    employeeFullname?;
     mobilePhone?;
     officePhone?;
     extension?;

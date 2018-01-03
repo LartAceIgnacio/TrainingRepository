@@ -14,7 +14,7 @@ import * as moment from 'moment';
   providers: [ContactsService]
 })
 export class ContactsComponent implements OnInit, OnChanges/*, OnDestroy*/ {
-  
+
 
   contactList: IContacts[];
   selectedContact: IContacts;
@@ -36,63 +36,70 @@ export class ContactsComponent implements OnInit, OnChanges/*, OnDestroy*/ {
     this.getContacts();
   }
 
-  getContacts(){
+  getContacts() {
     this.contactService._getContacts()
-      .then(contacts =>  
-      { 
-          console.log("Contacts: "+ JSON.stringify(contacts));
-          this.contactList = contacts; 
-      });      
+      .then(contacts => {
+        console.log("Contacts: " + JSON.stringify(contacts));
+        this.contactList = contacts;
+      });
   }
 
-  onRowSelect(){
+  onRowSelect() {
     this.isNewContact = false;
     //this.cloneContact = this.cloneRecord(this.selectedContact);
     this.globalIndex = this.contactList.indexOf(this.selectedContact);
     this.selectedContact = Object.assign({}, this.selectedContact);
-    this.cloneContact = Object.assign({}, this.selectedContact );
+    this.cloneContact = Object.assign({}, this.selectedContact);
 
-    console.log(this.selectedContact );
+    console.log(this.selectedContact);
   }
 
-  addContact(){
+  addContact() {
     this.isNewContact = true;
     this.selectedContact = new ContactsClass();
     this.selectedContact.dateActivated = this.dateActivated;
   }
 
-  saveContact(){
+  saveContact() {
     let tmpContactList = [...this.contactList];
-    if(this.isNewContact)
-    {
-      tmpContactList.push(this.selectedContact);
-      this.contactService._addContacts(this.selectedContact);
+    if (this.isNewContact) {
+      this.contactService._addContacts(this.selectedContact)
+        .then(contacts => {
+          tmpContactList.push(contacts["result"]);
+          this.contactList = tmpContactList;
+          this.selectedContact = null;
+        });
     }
-    else
-    {
-      tmpContactList[this.globalIndex] = this.selectedContact;
-      this.contactService._saveContacts(this.selectedContact);
+    else {
+      this.contactService._updateContacts(this.selectedContact)
+        .then(contacts => {
+          tmpContactList[this.globalIndex] = this.selectedContact;
+          this.contactList = tmpContactList;
+          this.selectedContact = null;
+        });
     }
-    
-    this.contactList = tmpContactList;
-    this.selectedContact = null;
     this.isNewContact = false;
-    
+
   }
 
-  cancelContact(){
-    this.isNewContact = false;
-    let tmpContactList = [...this.contactList];
-    tmpContactList[this.contactList.indexOf(this.selectedContact)] = this.cloneContact;
-    this.contactList = tmpContactList;
-    this.selectedContact = Object.assign({}, this.cloneContact ); //null;
+  cancelContact() {
+    if (this.isNewContact) {
+      this.selectedContact = null;
+    }
+    else {
+      this.isNewContact = false;
+      let tmpContactList = [...this.contactList];
+      tmpContactList[this.contactList.indexOf(this.selectedContact)] = this.cloneContact;
+      this.contactList = tmpContactList;
+      this.selectedContact = Object.assign({}, this.cloneContact); //null;
+    }
   }
 
-  deleteContact(){
+  deleteContact() {
     let index = this.globalIndex;
     this.contactService._deleteContacts(this.selectedContact.contactId);
 
-    this.contactList = this.contactList.filter((val,i) => i!=index);
+    this.contactList = this.contactList.filter((val, i) => i != index);
     this.selectedContact = null;
   }
 

@@ -1,3 +1,85 @@
-<p>
-  appointments works!
-</p>
+<p-panel header="Appointment List">
+  <div class="ui-g">
+    <p-dataTable [value]="appointmentList" selectionMode="single" [(selection)]="selectedAppointment" (onRowSelect)="onRowSelect($event)"
+      [paginator]="true" [rows]="10" [responsive]="true">
+      <p-header>Appointments</p-header>
+      <p-column field="guestName" header="Guests Name">
+      </p-column>
+      <p-column field="hostName" header="Interviewer Name">
+      </p-column>
+      <p-column field="appointmentDate" header="Appointment Date">
+        <ng-template let-file="rowData" pTemplate type="body" let-i="rowIndex">
+          <span>{{ appointmentList[i].appointmentDate | date: 'MM/dd/yyyy'}}</span>
+        </ng-template>
+      </p-column>
+      <p-column field="startTime" header="Start Time"></p-column>
+      <p-column field="endTime" header="End Time"></p-column>
+      <p-column field="isCancelled" header="Is Cancelled"></p-column>
+      <p-column field="isDone" header="Is Done"></p-column>
+      <p-column field="notes" header="Notes"></p-column>
+
+      <p-footer style="float:left">
+        <div class="ui-g" style="width: 100%">
+          <button pButton class="ui-g" icon="fa fa-plus" style="float:left" (click)=addAppointment() label="Add"></button>
+          <button pButton class="ui-g ui-button-danger" style="float:left" icon="fa-times" 
+                  type="button" (click)="deleteAppointment()" label="Delete" *ngIf="selectedEmployee"></button>
+        </div>
+      </p-footer>
+    </p-dataTable>
+
+  </div>
+</p-panel>
+
+<p-panel header="Edit Appointment Details" *ngIf="selectedAppointment">
+  <div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="guestName">Guest Name: </label>
+        <input class="ui-g-12 ui-md-8" pInputText id="guestName" placeholder="Guest Name" [(ngModel)]="selectedAppointment.guestName">
+      </div>
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="HostName">Interviewer Name: </label>
+        <input class="ui-g-12 ui-md-8" pInputText id="phone" placeholder="Interviewer Name" [(ngModel)]="selectedAppointment.hostName">
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="appointmentDate">Appointment Date: </label>
+       <p-calendar class="ui-g-12 ui-md-8"  [showIcon]="true"></p-calendar>  <!-- [(ngModel)]="" -->
+      </div>
+      
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="startTime">Start Time: </label>
+        <p-calendar class="ui-g-12 ui-md-8" [timeOnly]="true"></p-calendar><!-- [(ngModel)]="" -->
+      </div>
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="endTime">End Time: </label>
+        <p-calendar class="ui-g-12 ui-md-8" [timeOnly]="true"></p-calendar><!-- [(ngModel)]="" -->
+      </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-6">
+            <label class="ui-g-12 ui-md-4" for="isCancelled">Is Cancelled: </label>
+            <p-toggleButton [(ngModel)]="selectedAppointment.isCancelled" onLabel="Yes" offLabel="No" onIcon="fa-check-square" offIcon="fa-square"
+              [style]="{'width':'150px'}"></p-toggleButton>
+          </div>
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="isDone">Is Done: </label>
+        <p-toggleButton [(ngModel)]="selectedAppointment.isDone" onLabel="Yes" offLabel="No" onIcon="fa-check-square" offIcon="fa-square"
+          [style]="{'width':'150px'}"></p-toggleButton>
+      </div>
+    </div>
+
+    <div class="ui-g">
+      <label class="ui-g-12 ui-md-2" for="notes">Notes: </label>
+      <input class="ui-g-12 ui-md-10" pInputText id="notes" placeholder="Notes" [(ngModel)]="selectedAppointment.notes">
+    </div>
+
+  </div>
+  <div class="ui-g">
+    <button pButton icon="fa-floppy-o" type="button" (click)="saveAppointment()" label="Save"></button>
+    <button pButton icon="fa-ban" class="ui-button-warning" type="button" (click)="cancelAppointment()" label="Cancel"></button>
+  </div>
+</p-panel>

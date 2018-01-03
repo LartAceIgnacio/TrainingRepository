@@ -59,7 +59,7 @@ namespace BlastAsia.DigiBook.API.Controllers
                 }
 
                 var result = this.contactService.Save(Guid.Empty, contact);
-                return CreatedAtAction("GetContacts", new { id = contact.ContactId, result });
+                return CreatedAtAction("GetContacts", new { id = contact.ContactId, result }); // new { id = contact.ContactId }, result 
             }
             catch (Exception)
             {

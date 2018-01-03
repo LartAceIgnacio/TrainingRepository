@@ -14,7 +14,8 @@ export class AppComponent implements OnInit{
     this.menuItems = [
       { label: 'Dashboard', icon: 'fa fa-home', routerLink:['/dashboard'] },
       { label: 'Employees', icon: 'fa fa-users', routerLink:['/employees'] },
-      { label: 'Contacts', icon: 'fa fa-phone', routerLink:['/contacts'] }
+      { label: 'Contacts', icon: 'fa fa-phone', routerLink:['/contacts'] },
+      { label: 'Appointments', icon: 'fa fa-calendar-o', routerLink:['/appointments']}
     ]
   }
 

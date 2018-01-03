@@ -3,24 +3,24 @@
         <p-dataTable [value]="contactList" selectionMode="single" [(selection)]="selectedContact" (onRowSelect)="onRowSelect($event)"
             [paginator]="true" [rows]="10" [responsive]="true" [tableStyle]="{'table-layout':'auto'}">
             <p-header>Contacts</p-header>
-            <p-column field="firstname" header="Contact Name" [sortable]="true">
+            <p-column field="firstname" header="Contact Name" >
                 <ng-template let-file="rowData" pTemplate type="body" let-i="rowIndex">
                     <span>{{contactList[i].firstname}} {{contactList[i].lastname}}</span>
                 </ng-template>
             </p-column>
-            <p-column field="address" header="Address" [sortable]="true">
+            <p-column field="address" header="Address" >
                 <ng-template let-file="rowData" pTemplate type="body" let-i="rowIndex">
                     <span> {{contactList[i].streetAddress}}, {{contactList[i].cityAddress}}, {{contactList[i].zipCode}}</span>
                 </ng-template>
             </p-column>
-            <p-column field="mobilePhone" header="Mobile number" [sortable]="true"></p-column>
-            <p-column field="emailAddress" header="Email Address" [sortable]="true"></p-column>
-            <p-column field="dateActivated" header="Date Activated" [sortable]="true">
+            <p-column field="mobilePhone" header="Mobile number" ></p-column>
+            <p-column field="emailAddress" header="Email Address" ></p-column>
+            <p-column field="dateActivated" header="Date Activated" >
                 <ng-template let-file="rowData" pTemplate type="body" let-i="rowIndex">
                     <span>{{ contactList[i].dateActivated | date: 'MM/dd/yyyy'}}</span>
                 </ng-template>
             </p-column>
-            <p-column field="isActive" header="Is Active" [sortable]="true"></p-column>
+            <p-column field="isActive" header="Is Active" ></p-column>
 
             <p-footer>
                 <div class="ui-g" style="width: 100%">

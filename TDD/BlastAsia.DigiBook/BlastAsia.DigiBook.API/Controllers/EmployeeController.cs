@@ -56,7 +56,7 @@ namespace BlastAsia.DigiBook.API.Controllers
                 var result = this.employeeService.Save(Guid.Empty, employee);
 
 
-                return CreatedAtAction("GetEmployees", new { id = employee.Id, employee });
+                return CreatedAtAction("GetEmployees", new { id = employee.Id, result });
             }
             catch (Exception)
             {

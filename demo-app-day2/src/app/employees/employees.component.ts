@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import {EmployeeService} from '../services/employee.service';
-import {Employee} from '../domain/employee';
-import {EmployeeClass} from '../domain/employeeclass';
+import { EmployeeService } from '../services/employee.service';
+import { Employee } from '../domain/employee';
+import { EmployeeClass } from '../domain/employeeclass';
 
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.css'],
-  providers:[EmployeeService]
+  providers: [EmployeeService]
 })
 export class EmployeesComponent implements OnInit {
 
@@ -27,63 +27,73 @@ export class EmployeesComponent implements OnInit {
     //get employees
     this.getEmployees();
     //this.selectedEmployee = this.employeeList[0];
-    
+
   }
 
-  onRowSelect(){
+  onRowSelect() {
     this.isNewEmployee = false;
     //this.cloneEmployee = this.cloneRecord(this.selectedEmployee);
     this.globalIndex = this.employeeList.indexOf(this.selectedEmployee);
     this.selectedEmployee = Object.assign({}, this.selectedEmployee);
-    this.cloneEmployee = Object.assign({}, this.selectedEmployee );
+    this.cloneEmployee = Object.assign({}, this.selectedEmployee);
+    console.log(this.selectedEmployee);
   }
 
-  getEmployees()
-  {
-    this.employeeService._getEmployees().then(e => {console.log(e); this.employeeList=e;});
+  getEmployees() {
+    this.employeeService._getEmployees().then(e => { console.log(e); this.employeeList = e; });
   }
 
-  addEmployee(){
+  addEmployee() {
     this.isNewEmployee = true;
     this.selectedEmployee = new EmployeeClass();
   }
 
-  saveEmployee(){
+  saveEmployee() {
     let tmpEmployeeList = [...this.employeeList];
-    if(this.isNewEmployee)
-    {
-      tmpEmployeeList.push(this.selectedEmployee);
-      this.employeeService._addEmployee(this.selectedEmployee);
+    if (this.isNewEmployee) {
+      this.employeeService._addEmployee(this.selectedEmployee)
+        .then(employees => {
+
+          tmpEmployeeList.push(employees["result"]);
+          this.employeeList = tmpEmployeeList;
+          this.selectedEmployee = null;
+          console.log("emp: " + JSON.stringify(employees));
+        });
     }
-    else
-    {
+    else {
       ////removed b'coz we create a global index for selected employee
       //tmpEmployeeList[this.employeeList.indexOf(this.selectedEmployee)] = this.selectedEmployee;
       tmpEmployeeList[this.globalIndex] = this.selectedEmployee;
-      this.employeeService._saveEmployee(this.selectedEmployee);
+      this.employeeService._saveEmployee(this.selectedEmployee)
+        .then(employees => {
+          tmpEmployeeList[this.globalIndex] = this.selectedEmployee;
+          this.employeeList = tmpEmployeeList;
+          this.selectedEmployee = null;
+        });
     }
 
-    this.employeeList=tmpEmployeeList;
-    this.selectedEmployee=null;
+    //this.selectedEmployee = null;
     this.isNewEmployee = false;
 
-    console.log("------------ Retrieving Information ------------");
-    alert("------------ Retrieving Information ------------");
-    this.getEmployees();
   }
 
-  cancelEmployee(){
-    this.isNewEmployee = false;
-    let tmpEmployeeList = [...this.employeeList];
-    tmpEmployeeList[this.employeeList.indexOf(this.selectedEmployee)] = this.cloneEmployee;
-    this.employeeList = tmpEmployeeList;
-    this.selectedEmployee =  Object.assign({}, this.cloneEmployee );
+  cancelEmployee() {
+    if (this.isNewEmployee) {
+      this.selectedEmployee = null;
+    }
+    else {
+      this.isNewEmployee = false;
+      let tmpEmployeeList = [...this.employeeList];
+      tmpEmployeeList[this.employeeList.indexOf(this.selectedEmployee)] = this.cloneEmployee;
+      this.employeeList = tmpEmployeeList;
+      this.selectedEmployee = Object.assign({}, this.cloneEmployee);
+    }
   }
 
   //removed because of Object.assign({}, object) clonning object in angular
-  cloneRecord(r: Employee): Employee{
+  cloneRecord(r: Employee): Employee {
     let employee = new EmployeeClass();
-    for(let prop in r){
+    for (let prop in r) {
       employee[prop] = r[prop];
     }
     return employee;
@@ -94,10 +104,10 @@ export class EmployeesComponent implements OnInit {
     return this.employeeList.indexOf(this.selectedEmployee);
   }
 
-  deleteEmployee(){
+  deleteEmployee() {
     let index = this.globalIndex;
     this.employeeService._deleteEmployee(this.selectedEmployee.id);
-    this.employeeList = this.employeeList.filter((val,i) => i!=index);
+    this.employeeList = this.employeeList.filter((val, i) => i != index);
     this.selectedEmployee = null;
   }
 
