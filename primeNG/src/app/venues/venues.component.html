@@ -1,0 +1,52 @@
+<p-panel header="Venue List">
+  <div class="ui-g">
+    <p-dataTable [value]="venueList" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true" (onRowSelect)="onRowSelect($event)"
+      selectionMode="single" [(selection)]="selectedVenue">
+      <p-header>Venues</p-header>
+      <p-column field="venueName" [sortable]="true" header="Venue Name"></p-column>
+      <p-column field="description" [sortable]="true" header="Description"></p-column>
+      <p-footer>
+        <div class="ui-helper-clearfix" style="width:100%">
+          <button type="button" pButton icon="fa-plus" style="float:left" (click)="addVenue()" label="Add">
+            </button>
+        </div>
+      </p-footer>
+    </p-dataTable>
+  </div>
+</p-panel>
+<br/>
+<form [formGroup]="userform">
+  <p-panel header="Venue Details" *ngIf="selectedVenue">
+    <div class="ui-g ui-g-responsive ui-fluid">
+      <div class="ui-g-12 ui-md-12 ui-fluid">
+        <div class="ui-g-12 ui-md-2"><label for="input-venueName">Venue Name</label></div>
+        <div class="ui-g-12 ui-md-4">
+          <input pInputText id="input-venueName" formControlName="venueName" 
+            placeholder="Enter Venue Name" [(ngModel)]="selectedVenue.venueName" />
+        </div>
+        <div class="ui-g-12 ui-md-4">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['venueName'].valid && userform.controls['venueName'].dirty">
+            <i class="fa fa-close"></i>
+            <span *ngIf="userform.controls['venueName'].errors['required']">Password is required</span>
+            <span *ngIf="userform.controls['venueName'].errors['maxlength']">Must be less than 51 characters</span>
+          </div>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-md-12 ui-fluid">
+        <div class="ui-g-12 ui-md-2"><label for="input-description">Description</label></div>
+        <div class="ui-g-12 ui-md-10">
+          <textarea class="ui-g-12 ui-md-12" pInputTextArea id="input-description" [rows]=5 
+            placeholder="Enter Venue Description" style="resize:none" formControlName="description"
+            [(ngModel)]="selectedVenue.description"></textarea>
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['description'].valid && userform.controls['description'].dirty">
+            <i class="fa fa-close"></i>
+              Must be less than 101 characters
+          </div>
+        </div>
+      </div>
+    </div>
+    <button pButton type="button" label="Save" class="ui-button-success" (click)="btnSave()" [disabled]="!userform.valid"></button>
+    <button pButton type="button" label="Cancel" class="ui-button-warning" (click)="btnCancel()"></button>
+    <button pButton type="button" label="Delete" class="ui-button-danger" (click)="btnDelete()"></button>
+  </p-panel>
+</form>

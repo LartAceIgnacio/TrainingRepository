@@ -1,0 +1,20 @@
+<div class="ui-g">
+  <header class="ui-g-12">
+    <div id="top-logo">
+      <h2><i class="fa fa-book" aria-hidden="true"></i>&nbsp;Brand Logo</h2>
+    </div>
+    <div id="top-menu">
+      <ul>
+        <li><a>
+            <button pButton label="Login" icon="fa-sign-in"></button>
+        </a></li>
+      </ul>
+    </div>
+  </header>
+  <div class="ui-g-12 ui-md-2">
+    <p-menu [model]="menuItems"></p-menu>
+  </div>
+  <div class="ui-g-12 ui-md-10">
+    <router-outlet></router-outlet>
+  </div>
+</div>
