@@ -1,3 +1,7 @@
+<div class="ui-g" >
+    <p-breadcrumb [model]="bcrumb" [home]="bcrumbHome"></p-breadcrumb>
+</div>
+
 <p-panel header="Contact List">
     <div class="ui-g">
         <p-dataTable [value]="contactList" selectionMode="single" [(selection)]="selectedContact" (onRowSelect)="onRowSelect($event)"

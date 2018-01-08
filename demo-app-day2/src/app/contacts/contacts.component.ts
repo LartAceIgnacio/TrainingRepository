@@ -6,6 +6,7 @@ import { IContacts } from '../domain/IContacts';
 import { ContactsClass } from '../domain/contacts.class';
 
 import * as moment from 'moment';
+import { MenuItem } from 'primeng/components/common/menuitem';
 
 @Component({
   selector: 'app-contacts',
@@ -24,13 +25,21 @@ export class ContactsComponent implements OnInit, OnChanges/*, OnDestroy*/ {
   dateActivated: string;
   checked: boolean = true;
 
+  bcrumb: MenuItem[];
+  bcrumbHome: MenuItem;
+
   constructor(private httpClient: HttpClient, private contactService: ContactsService) { }
 
   ngOnInit() {
-    this.dateActivated = moment().format('L');
+    this.bcrumb = [{ label: 'Contacts' }];
+    this.bcrumbHome = {icon: 'fa fa-home'};
+
+    this.dateActivated = moment().format('L'); // 01/08/2018
     // retrieves contacts from db.
     this.getContacts();
   }
+
+  
 
   ngOnChanges(changes: SimpleChanges): void {
     this.getContacts();

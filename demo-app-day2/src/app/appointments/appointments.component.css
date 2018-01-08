@@ -1,0 +1,13 @@
+p-panel >>> .ui-panel {
+    margin-top: 1em;
+    width: 98%;
+    min-height: 300px;
+  }
+  
+  .ui-g {
+    padding: 4px;
+  }
+  
+  .label {
+    text-transform: uppercase;
+  }
