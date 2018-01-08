@@ -4,6 +4,8 @@ using BlastAsia.DigiBook.Domain.Employees.Services;
 using BlastAsia.DigiBook.Domain.Models.Employees;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -20,13 +22,15 @@ namespace BlastAsia.DigiBook.API.Test
         private Mock<IEmployeeRepository> _mockEmployeeRepository;
         private EmployeeController _sut;
         private Employee employee;
+        private IUrlHelperFactory mockUrlHelper;
+        private IActionContextAccessor mockActionContext;
 
         [TestInitialize]
         public void Initialize()
         {
             _mockEmployeeService = new Mock<IEmployeeService>();
             _mockEmployeeRepository = new Mock<IEmployeeRepository>();
-            _sut = new EmployeeController(_mockEmployeeRepository.Object, _mockEmployeeService.Object);
+            _sut = new EmployeeController(_mockEmployeeRepository.Object, _mockEmployeeService.Object, mockUrlHelper, mockActionContext);
 
             employee = new Employee()
             {
@@ -66,7 +70,7 @@ namespace BlastAsia.DigiBook.API.Test
         {
 
             // Act
-            var result = _sut.GetEmployee(null);
+            var result = _sut.GetEmployee(null, 0);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
@@ -78,7 +82,7 @@ namespace BlastAsia.DigiBook.API.Test
         public void GetEmployee_WithValidId_ReturnsOkResult()
         {
 
-            var result = _sut.GetEmployee(employee.Id);
+            var result = _sut.GetEmployee(employee.Id, 0);
 
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
             _mockEmployeeRepository.Verify(c => c.Retrieve(employee.Id), Times.Once);
