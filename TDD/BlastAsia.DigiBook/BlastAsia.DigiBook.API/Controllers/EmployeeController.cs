@@ -10,6 +10,12 @@ using BlastAsia.DigiBook.Domain.Employees.Services;
 using BlastAsia.DigiBook.API.Utils;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Routing;
+//using System.Web.Http.Routing;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
@@ -22,21 +28,38 @@ namespace BlastAsia.DigiBook.API.Controllers
         private IEmployeeRepository employeeRepo;
         private IEmployeeService employeeService;
 
-        public EmployeeController(IEmployeeRepository employeeRepo, IEmployeeService employeeService)
+        private IUrlHelperFactory urlHelperFactory;
+        private IActionContextAccessor actionAccessor;
+
+        private int PAGE_SIZE = 10;
+
+        public EmployeeController(IEmployeeRepository employeeRepo, IEmployeeService employeeService
+                                   , IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionAccessor)
         {
             this.employeeRepo = employeeRepo;
             this.employeeService = employeeService;
+
+            this.urlHelperFactory = urlHelperFactory;
+            this.actionAccessor = actionAccessor;
         }
 
-
         [HttpGet, ActionName("GetEmployees")]
-        public IActionResult GetEmployee(Guid? id)
+        public IActionResult GetEmployee(Guid? id, int page)
         {
             var result = new List<Employee>();
 
+            var baseQuery = this.employeeRepo.Retrieve().OrderBy(o => o.Firstname);
+
+            var PAGE_COUNT = baseQuery.Count();
+            
+            var TOTAL_PAGES = Math.Ceiling((double)PAGE_COUNT / PAGE_SIZE);
+            
+            
             if (id == null)
             {
-                result.AddRange(this.employeeRepo.Retrieve());
+                result = baseQuery.Skip(PAGE_SIZE * page)
+                                   .Take(PAGE_SIZE)
+                                   .ToList();
             }
             else
             {
@@ -45,7 +68,49 @@ namespace BlastAsia.DigiBook.API.Controllers
             }
 
             return Ok(result);
+
+            //return new
+            //{
+            //    TotalCount = totalCount,
+            //    TotalPage = totalPages,
+            //    PrevPageUrl = prevUrl,
+            //    NextPageUrl = nextUrl,
+            //    Results = result
+            //};
         }
+
+
+        [Route("draft"), ActionName("PagingEmployee")]
+        public object Get(int page = 0)
+        {
+
+            var baseQuery = this.employeeRepo.Retrieve().OrderBy(o => o.Firstname);
+
+            var PAGE_COUNT = baseQuery.Count();
+            
+            var TOTAL_PAGES = Math.Ceiling((double)PAGE_COUNT / PAGE_SIZE);
+
+            var helper = this.urlHelperFactory.GetUrlHelper(this.actionAccessor.ActionContext);
+
+            //var urlHelper = this.HttpContext.RequestServices.GetRequiredService<IUrlHelper>();
+            
+            var prevUrl = page > 0 ? helper.Action("PagingEmployee","Employee", new { page = page - 1 }) : "";
+            var nextUrl = page < TOTAL_PAGES - 1 ? helper.Action("PagingEmployee", "Employee", new { page = page + 1 }) : "";
+            
+
+            var results = baseQuery.Skip(PAGE_SIZE * page)
+                                   .Take(PAGE_SIZE)
+                                   .ToList();
+            return new
+            {
+                TotalCount = PAGE_COUNT,
+                TotalPage = TOTAL_PAGES,
+                PrevPageUrl = prevUrl,
+                NextPageUrl = nextUrl,
+                Results = results
+            };
+        }
+
 
         [HttpPost]
         public IActionResult PostEmployee([FromBody] Employee employee)

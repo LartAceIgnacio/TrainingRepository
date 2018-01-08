@@ -18,6 +18,8 @@ using BlastAsia.DigiBook.Domain.Appointments.Services;
 using BlastAsia.DigiBook.Domain.Appointments.Adapters;
 using BlastAsia.DigiBook.Domain.Venues.Service;
 using BlastAsia.DigiBook.Domain.Venues;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace BlastAsia.DigiBook.API
 {
@@ -46,6 +48,12 @@ namespace BlastAsia.DigiBook.API
             services.AddTransient<IVenueService, VenueService>();
             services.AddScoped<IVenueRepository, VenueRepository>();
             services.AddTransient<IDateTimeWrapper, DateTimeWrapper>();
+
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddScoped(it => it.GetService<IUrlHelperFactory>()
+                    .GetUrlHelper(it.GetService<IActionContextAccessor>().ActionContext));
+
+            //services.AddUrlHelper();
 
             services.AddMvc();
             services.AddCors(config => {
