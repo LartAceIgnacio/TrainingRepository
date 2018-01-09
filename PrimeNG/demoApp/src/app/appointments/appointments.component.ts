@@ -1,17 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
+
+import {BreadcrumbModule,MenuItem} from 'primeng/primeng';
+import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
+import {CalendarModule} from 'primeng/primeng';
+
+import {AppointmentClass} from '../domain/AppointmentClass';
 import {Appointment} from '../domain/Appointment';
 import {AppointmentService} from '../services/AppointmentService';
-import {HttpClient} from '@angular/common/http';
-import {AppointmentClass} from '../domain/AppointmentClass';
 
-import {CalendarModule} from 'primeng/primeng';
-import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
+import {Employee} from '../domain/Employee';
+import {EmployeeService} from '../services/EmployeeService';
+
+import {Contact} from '../domain/Contact';
+import {ContactService} from '../services/ContactService';
+
+import { ContactClass } from "../domain/ContactClass";
+import { EmployeeClass } from "../domain/EmployeeClass";
 
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.css'],
-  providers: [AppointmentService]
+  providers: [AppointmentService, ContactService, EmployeeService, ConfirmationService]
 })
 export class AppointmentsComponent implements OnInit {
 
@@ -20,32 +32,89 @@ export class AppointmentsComponent implements OnInit {
   cloneAppointment: Appointment;
   isNewAppointment: boolean;
 
+  guestList: Contact[];
+  selectedGuest: Contact;
+
+  hostList: Employee[];
+  selectedHost: Employee;
+
+  brAppointment: MenuItem[];
+  home: MenuItem;
+
+  display: boolean;
+
+  appointmentForm: FormGroup;
+
   constructor(private appointmentService:AppointmentService,
-    private http:HttpClient) { }
+    private contactService:ContactService,
+    private employeeService:EmployeeService,
+    private http:HttpClient,
+    private fb: FormBuilder,
+    private confirmationService: ConfirmationService) {}
 
   ngOnInit() {
-    this.appointmentService.getAppointments().then(appointments => this.appointmentList = appointments);
+    this.appointmentForm = this.fb.group({
+      'appointmentdate': new FormControl('', Validators.required),
+      'guestid': new FormControl('', Validators.required),
+      'hostid': new FormControl('', Validators.required),
+      'starttime': new FormControl('', Validators.required),
+      'endtime': new FormControl('', Validators.required),
+      'iscancelled': new FormControl(''),
+      'isdone': new FormControl(''),
+      'notes': new FormControl('')
+    });
+
+    this.contactService.getContacts().then(contacts => {
+      this.guestList = contacts
+      this.employeeService.getEmployees().then(employees =>{
+        this.hostList = employees
+        this.appointmentService.getAppointments().then(appointments => {
+          this.appointmentList = appointments
+          for(let i=0;i < this.appointmentList.length; i++){
+            this.appointmentList[i].guestName = this.guestList.find(id=>id.contactId==this.appointmentList[i].guestId).firstName;
+            this.appointmentList[i].hostName = this.hostList.find(id=>id.employeeId==this.appointmentList[i].hostId).firstName;
+            //this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate).toLocaleDateString();
+            this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate);
+          }});
+      });
+    });
+
+    this.brAppointment=[
+      {label: 'Appointments', url: '/appointments'}
+    ]
+    this.home = {icon: 'fa fa-home', routerLink: '/dashboard'};
   }
 
   addAppointment(){
+    this.appointmentForm.markAsPristine();
     this.isNewAppointment = true;
     this.selectedAppointment = new AppointmentClass();
+    this.selectedGuest = new ContactClass();
+    this.selectedHost = new EmployeeClass();
+    this.display = true;
   }
 
   saveAppointment(){
     let tmpAppointmentList = [...this.appointmentList];
+    this.selectedAppointment.guestId = this.selectedGuest.contactId;
+    this.selectedAppointment.hostId = this.selectedHost.employeeId;
+
     if(this.isNewAppointment){
-      tmpAppointmentList.push(this.selectedAppointment);
-      this.appointmentService.postAppointments(this.selectedAppointment);
+      //this.appointmentService.postAppointments(this.selectedAppointment);
+      this.appointmentService.postAppointments(this.selectedAppointment).then(appointment => {
+        tmpAppointmentList.push(appointment);
+        this.appointmentList=tmpAppointmentList;
+        this.selectedAppointment=null;
+      });
     }
     else{
-      tmpAppointmentList[this.appointmentList.indexOf(this.selectedAppointment)] = this.selectedAppointment;
-      this.appointmentService.putAppointments(this.selectedAppointment);
+      this.appointmentService.putAppointments(this.selectedAppointment).then(appointment =>{
+        tmpAppointmentList[this.appointmentList.indexOf(this.selectedAppointment)] = appointment;
+        this.appointmentList=tmpAppointmentList;
+        this.selectedAppointment=null;
+        this.isNewAppointment = false;
+      });
     }
-
-    this.appointmentList=tmpAppointmentList;
-    this.selectedAppointment=null;
-    this.isNewAppointment = false;
   }
 
   cancelAppointment(){
@@ -63,6 +132,12 @@ export class AppointmentsComponent implements OnInit {
   onRowSelect(){
     this.isNewAppointment = false;
     this.cloneAppointment = this.cloneRecord(this.selectedAppointment);
+    this.selectedAppointment.appointmentDate = new Date(this.selectedAppointment.appointmentDate);
+
+    this.selectedGuest = this.guestList.find(x => x.contactId == this.selectedAppointment.guestId);
+    this.selectedHost = this.hostList.find(x => x.employeeId == this.selectedAppointment.hostId);
+
+    console.log(this.appointmentList);
   }
 
   cloneRecord(r: Appointment): Appointment{
@@ -77,11 +152,46 @@ export class AppointmentsComponent implements OnInit {
     return this.appointmentList.indexOf(this.selectedAppointment);
   }
 
-  deleteAppointment(){
-    let index = this.findSelectedAppointmentIndex();
-    this.appointmentList = this.appointmentList.filter((val,i) => i!=index);
-    this.appointmentService.deleteAppointments(this.selectedAppointment.appointmentId);
-    this.selectedAppointment = null;
+  deleteAppointment(Appointment: Appointment){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+          //Actual logic to perform a confirmation
+          this.selectedAppointment = Appointment;
+          let index = this.findSelectedAppointmentIndex();
+          this.appointmentList = this.appointmentList.filter((val,i) => i!=index);
+          this.appointmentService.deleteAppointments(this.selectedAppointment.appointmentId);
+          this.selectedAppointment = null;
+      }
+    });
+  }
+
+  saveAndNewAppointment(){
+    this.appointmentForm.markAsPristine();
+    let tmpAppointmentList = [...this.appointmentList];
+    this.selectedAppointment.guestId = this.selectedGuest.contactId;
+    this.selectedAppointment.hostId = this.selectedHost.employeeId;
+
+    tmpAppointmentList.push(this.selectedAppointment);
+    //this.appointmentService.postAppointments(this.selectedAppointment);
+    this.appointmentService.postAppointments(this.selectedAppointment).then(appointment => {
+      tmpAppointmentList[this.appointmentList.indexOf(this.selectedAppointment)] = appointment;
+      this.appointmentList = tmpAppointmentList;
+    });
+
+    this.isNewAppointment = true;
+    this.selectedAppointment = new AppointmentClass();
+    this.selectedGuest = new ContactClass();
+    this.selectedHost = new EmployeeClass();
+  }
+
+  editAppointment(Appointment: Appointment){
+    this.selectedAppointment=Appointment;
+    this.cloneAppointment = this.cloneRecord(this.selectedAppointment);
+    this.display=true;
+    this.isNewAppointment = false;
   }
 
 }

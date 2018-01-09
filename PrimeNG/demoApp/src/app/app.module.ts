@@ -15,6 +15,10 @@ import {InputTextareaModule} from 'primeng/primeng';
 import {SplitButtonModule} from 'primeng/primeng';
 import {CalendarModule} from 'primeng/primeng';
 import {AccordionModule} from 'primeng/primeng';
+import {InputSwitchModule} from 'primeng/primeng';
+import {BreadcrumbModule,MenuItem} from 'primeng/primeng';
+import {DialogModule} from 'primeng/primeng';
+import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
 import { EmployeesComponent } from './employees/employees.component';
@@ -63,7 +67,11 @@ const appRoutes: Routes =[
     HttpClientModule,
     CalendarModule,
     ReactiveFormsModule,
-    AccordionModule
+    AccordionModule,
+    InputSwitchModule,
+    BreadcrumbModule,
+    DialogModule,
+    ConfirmDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

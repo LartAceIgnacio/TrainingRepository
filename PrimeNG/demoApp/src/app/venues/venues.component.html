@@ -1,3 +1,5 @@
+<p-breadcrumb [model]="brVenue" [home]="home"></p-breadcrumb>
+
 <p-panel header="Venue List">
   <div class="ui-g">
     <p-dataTable [value]="venueList" selectionMode="single" [(selection)]="selectedVenue" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows] = "10" [responsive]="true">

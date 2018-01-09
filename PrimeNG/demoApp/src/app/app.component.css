@@ -1,0 +1,28 @@
+#header {
+    height: 60px;
+    background-color:black;
+    padding: 10px;
+    color: white;
+}
+#top-logo {
+    float: left;
+    font-family: Arial Black;
+    margin-left: 20px;
+}
+#top-logo h2 {
+    line-height: 30px;
+}
+#top-menu {
+    line-height: 30px;
+    float: right;
+    font-family: Verdana;
+    margin-right: 20px;
+}
+#top-menu ul{
+    list-style: none;
+}
+#top-menu ul li a {
+    text-decoration: none;
+    color:white;
+}
+

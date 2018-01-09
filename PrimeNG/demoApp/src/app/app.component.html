@@ -1,4 +1,15 @@
- <div class="ui-g">
+<header id="header">
+    <div id="top-logo">
+        <h2><i class="fa fa-book" aria-hidden="true"></i> DigiBook</h2>
+    </div>
+    <div id="top-menu">
+         <ul>
+            <li><a href="#">Login</a></li>
+        </ul>
+    </div>
+</header>
+
+<div class="ui-g">
      <div class="ui-g-12 ui-md-2">
          <p-menu [model]="menuItems"></p-menu>
      </div>
@@ -6,3 +17,4 @@
          <router-outlet></router-outlet>
      </div>
  </div>
+

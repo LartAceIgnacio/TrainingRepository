@@ -3,6 +3,10 @@ import {ContactService} from '../services/ContactService';
 import {Contact} from '../domain/Contact';
 import {ContactClass} from '../domain/ContactClass';
 
+import {BreadcrumbModule,MenuItem} from 'primeng/primeng';
+import {DialogModule} from 'primeng/primeng';
+import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
+
 import {HttpClient} from '@angular/common/http';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 
@@ -10,10 +14,9 @@ import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.css'],
-  providers: [ContactService]
+  providers: [ContactService, ConfirmationService]
 })
 export class ContactsComponent implements OnInit {
-
   contactList: Contact[];
   selectedContact: Contact;
   cloneContact: Contact;
@@ -21,9 +24,17 @@ export class ContactsComponent implements OnInit {
 
   contactForm: FormGroup;
 
+  brContact: MenuItem[];
+  home: MenuItem;
+
+  
+
+  display: boolean;
+
   constructor(private contactService: ContactService,
   private http:HttpClient,
-  private fb:FormBuilder) { }
+  private fb:FormBuilder,
+  private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.contactService.getContacts().then(contacts => this.contactList=contacts);
@@ -40,9 +51,16 @@ export class ContactsComponent implements OnInit {
       'isactivated': new FormControl(''),
       'dateactivated': new FormControl('')
     });
+
+    this.brContact=[
+      {label: 'Contacts', url: '/contacts'}
+    ]
+    this.home = {icon: 'fa fa-home', routerLink: '/dashboard'};
   }
 
   addContact(){
+    this.contactForm.markAsPristine();
+    this.display = true;
     this.isNewContact = true;
     this.selectedContact = new ContactClass();
   }
@@ -50,17 +68,34 @@ export class ContactsComponent implements OnInit {
   saveContact(){
     let tmpContactList = [...this.contactList];
     if(this.isNewContact){
-      tmpContactList.push(this.selectedContact);
-      this.contactService.postContacts(this.selectedContact);
+      this.contactService.postContacts(this.selectedContact).then(contact =>{
+        tmpContactList.push(contact);
+        this.contactList=tmpContactList;
+        this.selectedContact=null;
+      });
     }
     else{
-      tmpContactList[this.contactList.indexOf(this.selectedContact)] = this.selectedContact;
-      this.contactService.putContacts(this.selectedContact);
+      this.contactService.putContacts(this.selectedContact).then(contact =>{
+        tmpContactList[this.contactList.indexOf(this.selectedContact)] = this.selectedContact;
+        this.contactList=tmpContactList;
+        this.selectedContact=null;
+      });
     }
-
-    this.contactList=tmpContactList;
-    this.selectedContact=null;
     this.isNewContact = false;
+  }
+
+  saveAndNewContact(){
+    let tmpContactList = [...this.contactList];
+
+    this.contactForm.markAsPristine();
+
+    this.contactService.postContacts(this.selectedContact).then(contact =>{
+      tmpContactList.push(contact);
+      this.contactList=tmpContactList;
+    });
+
+    this.isNewContact = true;
+    this.selectedContact = new ContactClass();
   }
 
   cancelContact(){
@@ -68,10 +103,19 @@ export class ContactsComponent implements OnInit {
     if (this.isNewContact)
       this.selectedContact = null;
     else {
-      let tmpContactList = [...this.contactList];
-      tmpContactList[index] = this.cloneContact;
-      this.contactList = tmpContactList;
-      this.selectedContact = Object.assign({}, this.cloneContact);
+      this.confirmationService.confirm({
+        message: 'Are you sure that you want to discard changes?',
+        header: 'Confirmation',
+        icon: 'fa fa-question-circle',
+        accept: () => {
+            //Actual logic to perform a confirmation
+            let tmpContactList = [...this.contactList];
+            tmpContactList[index] = this.cloneContact;
+            this.contactList = tmpContactList;
+            this.selectedContact = Object.assign({}, this.cloneContact);
+            this.display = false;
+        }
+    });
     }
   }
 
@@ -92,11 +136,26 @@ export class ContactsComponent implements OnInit {
     return this.contactList.indexOf(this.selectedContact);
   }
 
-  deleteContact(){
-    let index = this.findSelectedContactIndex();
-    this.contactList = this.contactList.filter((val,i) => i!=index);
-    this.contactService.deleteContacts(this.selectedContact.contactId);
-    this.selectedContact = null;
+  deleteContact(Contact: Contact){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+          //Actual logic to perform a confirmation
+          this.selectedContact = Contact;
+          let index = this.findSelectedContactIndex();
+          this.contactList = this.contactList.filter((val,i) => i!=index);
+          this.contactService.deleteContacts(this.selectedContact.contactId);
+          this.selectedContact = null;
+      }
+    });
   }
 
+  editContact(Contact: Contact){
+    this.selectedContact=Contact;
+    this.cloneContact = this.cloneRecord(this.selectedContact);
+    this.display=true;
+    this.isNewContact = false;
+  }
 }

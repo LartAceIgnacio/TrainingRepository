@@ -3,6 +3,10 @@ import {EmployeeService} from '../services/EmployeeService';
 import {Employee} from '../domain/Employee';
 import {EmployeeClass} from '../domain/EmployeeClass';
 
+import {BreadcrumbModule,MenuItem} from 'primeng/primeng';
+import {DialogModule} from 'primeng/primeng';
+import { ConfirmDialogModule, ConfirmationService, Message } from 'primeng/primeng';
+
 import {HttpClient} from '@angular/common/http';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 
@@ -10,7 +14,7 @@ import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
   selector: 'app-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.css'],
-  providers:[EmployeeService]
+  providers:[EmployeeService, ConfirmationService]
 })
 export class EmployeesComponent implements OnInit {
 
@@ -18,12 +22,20 @@ export class EmployeesComponent implements OnInit {
   selectedEmployee: Employee;
   cloneEmployee: Employee;
   isNewEmployee: boolean;
+  tempSelectedEmployee: Employee;
 
   userform: FormGroup;  
+  
+  brEmployee: MenuItem[];
+  home: MenuItem;
+
+  display: boolean;
+  msgs: Message[] = [];
 
   constructor(private employeeService: EmployeeService,
     private http:HttpClient,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.employeeService.getEmployees().then(employees =>this.employeeList=employees);
@@ -36,9 +48,16 @@ export class EmployeesComponent implements OnInit {
       'officePhone': new FormControl('', Validators.required),
       'extension': new FormControl('', Validators.required)
     });
+
+    this.brEmployee=[
+      {label: 'Employees', url: '/employees'}
+    ]
+    this.home = {icon: 'fa fa-home', routerLink: '/dashboard'};
   }
 
   addEmployee(){
+    this.display = true;
+    this.userform.markAsPristine();
     this.isNewEmployee = true;
     this.selectedEmployee = new EmployeeClass();
   }
@@ -46,28 +65,54 @@ export class EmployeesComponent implements OnInit {
   saveEmployee(){
     let tmpEmployeeList = [...this.employeeList];
     if(this.isNewEmployee){
-      tmpEmployeeList.push(this.selectedEmployee);
-      this.employeeService.postEmployees(this.selectedEmployee);
+      this.employeeService.postEmployees(this.selectedEmployee).then(employee => {
+        tmpEmployeeList.push(employee);
+        this.employeeList=tmpEmployeeList;
+        this.selectedEmployee=null;
+      });
     }    
     else{
-      tmpEmployeeList[this.employeeList.indexOf(this.selectedEmployee)] = this.selectedEmployee;
-      this.employeeService.putEmployees(this.selectedEmployee);
+      this.employeeService.putEmployees(this.selectedEmployee).then(employee =>{
+        tmpEmployeeList[this.employeeList.indexOf(this.selectedEmployee)] = this.selectedEmployee;
+        this.employeeList=tmpEmployeeList;
+        this.selectedEmployee=null;
+      });
     }
-
-    this.employeeList=tmpEmployeeList;
-    this.selectedEmployee=null;
     this.isNewEmployee = false;
+  }
+
+  saveAndNewEmployee(){
+    this.userform.markAsPristine();
+
+    let tmpEmployeeList = [...this.employeeList];
+
+    this.employeeService.postEmployees(this.selectedEmployee).then(employee => {
+      tmpEmployeeList.push(employee);
+      this.employeeList=tmpEmployeeList;
+    });
+
+    this.isNewEmployee = true;
+    this.selectedEmployee = new EmployeeClass();
   }
 
   cancelEmployee(){
     let index = this.findSelectedEmployeeIndex();
-    if (this.isNewEmployee)
-      this.selectedEmployee = null;
+    if (this.isNewEmployee){
+        this.selectedEmployee = null;
+    }
     else {
-      let tmpEmployeeList = [...this.employeeList];
-      tmpEmployeeList[index] = this.cloneEmployee;
-      this.employeeList = tmpEmployeeList;
-      this.selectedEmployee = Object.assign({}, this.cloneEmployee);
+      this.confirmationService.confirm({
+        message: 'Are you sure that you want discard changes?',
+        header: 'Confirmation',
+        icon: 'fa fa-question-circle',
+        accept: () => {
+          let tmpEmployeeList = [...this.employeeList];
+          tmpEmployeeList[index] = this.cloneEmployee;
+          this.employeeList = tmpEmployeeList;
+          this.selectedEmployee = Object.assign({}, this.cloneEmployee);
+          this.display = false;
+        }
+    });
     }
   }
 
@@ -88,11 +133,26 @@ export class EmployeesComponent implements OnInit {
     return this.employeeList.indexOf(this.selectedEmployee);
   }
 
-  deleteEmployee(){
-    let index = this.findSelectedEmployeeIndex();
-    this.employeeList = this.employeeList.filter((val,i) => i!=index);
-    this.employeeService.deleteEmployees(this.selectedEmployee.employeeId);
-    this.selectedEmployee = null;
+  deleteEmployee(Employee: EmployeeClass){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        this.selectedEmployee = Employee;
+        let index = this.findSelectedEmployeeIndex();
+        this.employeeList = this.employeeList.filter((val,i) => i!=index);
+        this.employeeService.deleteEmployees(this.selectedEmployee.employeeId);
+        this.selectedEmployee = null;
+      }
+    });
+  }
+
+  editEmployee(Employee: Employee){
+    this.selectedEmployee=Employee;
+    this.cloneEmployee = this.cloneRecord(this.selectedEmployee);
+    this.display=true;
+    this.isNewEmployee = false;
   }
 
 }

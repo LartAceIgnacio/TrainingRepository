@@ -11,17 +11,17 @@ export class ContactService{
     getContacts(){
         return this.http.get('http://localhost:56416/api/contacts')
         .toPromise()
-        .then(data => {console.log(data); return data as Contact[];});
+        .then(data => {return data as Contact[];});
     }
 
     postContacts(postContacts){
         return this.http.post('http://localhost:56416/api/contacts', postContacts)
         .toPromise()
-        .then(data => {return data as Contact[];});
+        .then(data => {return data as Contact;});
     }
 
     putContacts(contact: Contact){
-        return this.http.put('http://localhost:56416/api/contacts/?id='+contact.contactId ,contact, contact.contactId)
+        return this.http.put('http://localhost:56416/api/contacts/?id='+contact.contactId, contact, contact.contactId)
         .toPromise()
         .then(() => contact);
     }

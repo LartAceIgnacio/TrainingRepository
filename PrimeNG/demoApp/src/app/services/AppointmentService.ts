@@ -17,7 +17,7 @@ export class AppointmentService{
     postAppointments(postAppointments){
         return this.http.post('http://localhost:56416/api/appointments', postAppointments)
         .toPromise()
-        .then(data => {return data as Appointment[];});
+        .then(data => {return data as Appointment;});
     }
 
     putAppointments(appointment: Appointment){

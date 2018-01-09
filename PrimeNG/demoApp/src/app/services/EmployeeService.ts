@@ -24,11 +24,11 @@ export class EmployeeService{
     postEmployees(postEmployees){
         return this.http.post('http://localhost:56416/api/employees', postEmployees)
         .toPromise()
-        .then(data => {return data as Employee[]; });
+        .then(data => {return data as Employee; });
     }
 
     putEmployees(employee: Employee){
-        return this.http.put('http://localhost:56416/api/employees/?id='+employee.employeeId ,employee, employee.employeeId)
+        return this.http.put('http://localhost:56416/api/employees/?id='+employee.employeeId ,employee)
         .toPromise()
         .then(()=> employee);
     }

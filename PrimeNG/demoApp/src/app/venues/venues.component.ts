@@ -4,6 +4,8 @@ import {VenueService} from '../services/VenueService';
 import {HttpClient} from '@angular/common/http';
 import {VenueClass} from '../domain/VenueClass';
 
+import {BreadcrumbModule,MenuItem} from 'primeng/primeng';
+
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 
 @Component({
@@ -21,6 +23,9 @@ export class VenuesComponent implements OnInit {
 
   venueform: FormGroup;
 
+  brVenue: MenuItem[];
+  home: MenuItem;
+
   constructor(private venueService:VenueService,
     private http:HttpClient,
     private fb: FormBuilder) { }
@@ -32,6 +37,11 @@ export class VenuesComponent implements OnInit {
       'venuename': new FormControl('', Validators.compose([Validators.required, Validators.maxLength(50)])),
       'description': new FormControl('', Validators.compose([Validators.maxLength(100)]))
    });
+
+   this.brVenue=[
+    {label: 'Venues', url: '/venues'}
+  ]
+  this.home = {icon: 'fa fa-home', routerLink: '/dashboard'};
   }
 
   addVenue(){

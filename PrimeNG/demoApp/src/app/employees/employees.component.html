@@ -1,31 +1,17 @@
-<!-- <p-panel header="Employee Details">
-  <div class="ui-g">
-    <label class="ui-g-12 ui-md-2" for="employee">Employee Name: </label>
-    <input class="ui-g-12 ui-md-10" id="employee" placeholder="Enter Employee Name">
-  </div>
-  <div class="ui-g">
-      <label class="ui-g-12 ui-md-2" for="address">Employee Address: </label>
-      <input class="ui-g-12 ui-md-10" id="address" placeholder="Enter Employee Address">
-  </div>
+<p-breadcrumb [model]="brEmployee" [home]="home"></p-breadcrumb>
 
   <div class="ui-g">
-      <label for="statistics" class="ui-g-12 ui-md-2">Task Accomplishment Statistics</label>
-      <div id="statistics" class="ui-g-12 ui-md-2">
-        <div class="icon ui-g-12 ui-md-6">
-          <i class="fa fa-cloud-download"></i>
-        </div>
-        <div class="data ui-g-12 ui-md-6">
-          <div class="value">98</div>
-          <div class="label">percent</div>
-        </div>
-      </div>
-  </div>
-</p-panel>
- -->
-<p-panel header="Employee List">
-  <div class="ui-g">
-     <p-dataTable [value]="employeeList" selectionMode="single" [(selection)]="selectedEmployee" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10" [responsive]="true">
-        <p-header>Employees</p-header>
+     <p-dataTable [value]="employeeList" selectionMode="single" [(selection)]="selectedEmployee" [paginator]="true" [rows]="10" [responsive]="true">
+        <p-header>
+            <button type="button" pButton class="float-left" (click)="addEmployee()" icon="fa-plus"></button>
+            Employees
+        </p-header>
+        <p-column>
+            <ng-template let-Employee="rowData" pTemplate="body">
+                <button type="button" pButton (click)="editEmployee(Employee)" icon="fa-pencil"></button>
+                <button class="ui-button-danger" type="button" pButton (click)="deleteEmployee(Employee)" icon="fa-times"></button>
+            </ng-template>
+        </p-column>
         <p-column field="firstName" header="First Name" [sortable]="true"></p-column>
         <p-column field="lastName" header="Last Name" [sortable]="true"></p-column>
         <p-column field="mobilePhone" header="Mobile Number" [sortable]="true"></p-column>
@@ -33,19 +19,12 @@
         <p-column field="officePhone" header="Office Phone Number" [sortable]="true"></p-column>
         <p-column field="extension" header="Extension" [sortable]="true"></p-column>
     </p-dataTable>
-    <footer>
-        <div class="ui-helper-clearfix" style="width:100%">
-            <button type="button" pButton icon="fa-plus" style="float:left" (click)="addEmployee()" label="Add Employee"></button>
-            <button class="ui-button-danger" pButton icon="fa-times" type="button" (click)="deleteEmployee()" *ngIf="selectedEmployee" label="Delete"></button>
-        </div>
-    </footer>
   </div>
-</p-panel>
 
 <br>
 
 <form [formGroup]="userform">
-<p-panel header="Employee Details" *ngIf="selectedEmployee">
+<p-dialog header="Employee Details" [(visible)]="display" [responsive]="true" showEffect="fade" modal="modal" *ngIf="selectedEmployee">
     <div class="ui-g">
         <div class="ui-g-12">
             <h3><label class="ui-g-12 ui-md-4" for="employeeName">Employee Name</label></h3>
@@ -54,7 +33,7 @@
 
     <div class="ui-g">
       <div class="ui-g-12 ui-md-6">
-          <label class="ui-g-12 ui-md-4" for="firstName">First Name: </label>
+          <label class="ui-g-12 ui-md-4" for="firstName">First Name*: </label>
           <input class="ui-g-12 ui-md-8" pInputText id="firstName" formControlName="firstname" placeholder="Enter First Name" [(ngModel)]="selectedEmployee.firstName">
       </div>
       <div class="ui-g-12 ui-md-6">
@@ -67,7 +46,7 @@
 
     <div class="ui-g">
       <div class="ui-g-12 ui-md-6">
-          <label class="ui-g-12 ui-md-4" for="lastName">Last Name: </label>
+          <label class="ui-g-12 ui-md-4" for="lastName">Last Name*: </label>
           <input class="ui-g-12 ui-md-8" pInputText id="lastName" formControlName="lastname" placeholder="Enter Last Name" [(ngModel)]="selectedEmployee.lastName">
       </div>
       <div class="ui-g-12 ui-md-6">
@@ -86,7 +65,7 @@
 
     <div class="ui-g">
         <div class="ui-g-12 ui-md-6">
-            <label class="ui-g-12 ui-md-4" for="mobilePhone">Mobile Phone: </label>
+            <label class="ui-g-12 ui-md-4" for="mobilePhone">Mobile Phone*: </label>
             <input class="ui-g-12 ui-md-8" pInputText id="mobilePhone" formControlName="mobilePhone" placeholder="Enter Mobile Number" [(ngModel)]="selectedEmployee.mobilePhone">
         </div>
         <div class="ui-g-12 ui-md-6">
@@ -98,7 +77,7 @@
     </div>
     <div class="ui-g">
         <div class="ui-g-12 ui-md-6">
-            <label class="ui-g-12 ui-md-4" for="address">Email Address: </label>
+            <label class="ui-g-12 ui-md-4" for="address">Email Address*: </label>
             <input class="ui-g-12 ui-md-8" pInputText id="emailAddress" formControlName="emailAddress" placeholder="Enter Email Address" [(ngModel)]="selectedEmployee.emailAddress">
         </div>
         <div class="ui-g-12 ui-md-6">
@@ -111,7 +90,7 @@
 
     <div class="ui-g">
         <div class="ui-g-12 ui-md-6">
-            <label class="ui-g-12 ui-md-4" for="officePhone">Office Phone: </label>
+            <label class="ui-g-12 ui-md-4" for="officePhone">Office Phone*: </label>
             <input class="ui-g-12 ui-md-8" pInputText id="officePhone" formControlName="officePhone" placeholder="Enter Office Phone Number" [(ngModel)]="selectedEmployee.officePhone">
         </div>
         <div class="ui-g-12 ui-md-6">
@@ -122,7 +101,7 @@
           </div>
 
         <div class="ui-g-12 ui-md-6">
-            <label class="ui-g-12 ui-md-4" for="extension">Extension: </label>
+            <label class="ui-g-12 ui-md-4" for="extension">Extension*: </label>
             <input class="ui-g-12 ui-md-8" pInputText id="extension" formControlName="extension" placeholder="Enter Extension" [(ngModel)]="selectedEmployee.extension">
         </div>
         <div class="ui-g-12 ui-md-6">
@@ -132,9 +111,13 @@
             </div>
           </div>
     </div>
-    <div class="ui-g">
-          <button pButton icon="fa-check" type="button" (click)="saveEmployee()" [disabled]="!userform.valid" label="Save"></button>
-          <button class="ui-button-warning" pButton icon="fa-ban" type="button" (click)="cancelEmployee()" label="Cancel"></button>
+    <div>
+        <br>
+        <button pButton icon="fa-check" type="button" (click)="saveAndNewEmployee()" [disabled]="!userform.valid" label="Save and New" *ngIf="isNewEmployee==true"></button>
+        <button pButton icon="fa-check" type="button" (click)="saveEmployee()" [disabled]="!userform.valid" label="Save"></button>
+        <button class="ui-button-warning" pButton icon="fa-ban" type="button" (click)="cancelEmployee()" label="Cancel" [disabled]="!userform.dirty" *ngIf="isNewEmployee==false"></button>
     </div>
-  </p-panel>
+</p-dialog>
 </form>
+
+<p-confirmDialog></p-confirmDialog>
