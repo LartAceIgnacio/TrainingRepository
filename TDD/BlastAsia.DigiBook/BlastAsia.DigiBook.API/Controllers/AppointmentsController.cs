@@ -8,9 +8,11 @@ using BlastAsia.DigiBook.Domain.Appointments;
 using BlastAsia.DigiBook.Domain.Models.Appointments;
 using Microsoft.AspNetCore.JsonPatch;
 using BlastAsia.DigiBook.API.Utils;
+using Microsoft.AspNetCore.Cors;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
+    [EnableCors("DayTwoApp")]
     [Produces("application/json")]
     [Route("api/Appointments")]
     public class AppointmentsController : Controller
@@ -55,7 +57,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
                 var result = this.appointmentService.Save(Guid.Empty, appointment);
 
-                return CreatedAtAction("GetAppointment",
+                return CreatedAtAction("GetAppointments",
                     new { id = appointment.AppointmentId }, result);
             }
 

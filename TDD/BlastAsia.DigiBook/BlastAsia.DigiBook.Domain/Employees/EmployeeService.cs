@@ -33,10 +33,10 @@ namespace BlastAsia.DigiBook.Domain.Employees
                 if (!Regex.IsMatch(employee.EmailAddress, strRegex, RegexOptions.IgnoreCase))
                     throw new InvalidEmailAddressException("Valid Email address is required!");
             }
-            if (string.IsNullOrEmpty(employee.Photo))
-            {
-                throw new PhotoRequiredException("Photo is required");
-            }
+            //if (string.IsNullOrEmpty(employee.Photo))
+            //{
+            //    throw new PhotoRequiredException("Photo is required");
+            //}
             if (string.IsNullOrEmpty(employee.OfficePhone))
             {
                 throw new OfficePhoneRequiredException("Office phone is required");

@@ -9,9 +9,11 @@ using BlastAsia.DigiBook.Infrastructure.Persistence;
 using BlastAsia.DigiBook.Domain.Contacts;
 using Microsoft.AspNetCore.JsonPatch;
 using BlastAsia.DigiBook.Api.Utils;
+using Microsoft.AspNetCore.Cors;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
+    [EnableCors("DayTwoApp")]
     [Produces("application/json")]
     [Route("api/Contacts")]
     public class ContactsController : Controller
