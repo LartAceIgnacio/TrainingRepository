@@ -9,3 +9,5 @@ C:\Users\acelis\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAs
 C:\Users\acelis\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.dll
 C:\Users\acelis\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.pdb
 C:\Users\acelis\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.pdb
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.AssemblyInfoInputs.cache

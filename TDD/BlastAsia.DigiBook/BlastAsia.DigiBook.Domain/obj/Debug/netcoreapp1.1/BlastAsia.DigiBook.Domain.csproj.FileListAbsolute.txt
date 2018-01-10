@@ -7,3 +7,5 @@ c:\users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAs
 c:\users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.csprojResolveAssemblyReference.cache
 C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.dll
 C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.csproj.CoreCompileInputs.cache
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.AssemblyInfoInputs.cache

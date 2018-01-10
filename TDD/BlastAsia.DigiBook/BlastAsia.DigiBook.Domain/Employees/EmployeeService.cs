@@ -40,10 +40,10 @@ namespace BlastAsia.DigiBook.Domain.Employees
                     throw new ValidEmailAddressRequiredException("Valid email address is required");
                 }
             }
-            if (string.IsNullOrEmpty(employee.Photo))
-            {
-                throw new PhotoRequiredException("Photo is required");
-            }
+            //if (string.IsNullOrEmpty(employee.Photo))
+            //{
+            //    throw new PhotoRequiredException("Photo is required");
+            //}
             if (string.IsNullOrEmpty(employee.OfficePhone))
             {
                 throw new OfficePhoneRequiredException("Office phone is required");

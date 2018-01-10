@@ -31,6 +31,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<Contact>().ToTable("Contact");
+            modelBuilder.Entity<Employee>().Ignore(c => c.TotalRecords);
         }
     }
 }

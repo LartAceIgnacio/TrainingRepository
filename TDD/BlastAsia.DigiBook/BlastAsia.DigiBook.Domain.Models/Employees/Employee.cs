@@ -12,5 +12,6 @@ namespace BlastAsia.DigiBook.Domain.Models.Employees
         public string Photo { get; set; }
         public string OfficePhone { get; set; }
         public string Extension { get; set; }
+        public int TotalRecords { get; set; }
     }
 }

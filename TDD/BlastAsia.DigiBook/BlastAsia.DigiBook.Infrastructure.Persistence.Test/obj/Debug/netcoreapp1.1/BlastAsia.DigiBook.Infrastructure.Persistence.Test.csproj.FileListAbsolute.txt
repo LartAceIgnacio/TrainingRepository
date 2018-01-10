@@ -16,3 +16,5 @@ C:\Users\acelis\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAs
 C:\Users\acelis\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence.Test\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.Test.AssemblyInfo.cs
 C:\Users\acelis\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence.Test\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.Test.dll
 C:\Users\acelis\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence.Test\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.Test.pdb
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence.Test\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.Test.csproj.CoreCompileInputs.cache
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence.Test\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.Test.AssemblyInfoInputs.cache

@@ -5,9 +5,11 @@ using BlastAsia.DigiBook.Domain.Models.Venues;
 using System.Collections.Generic;
 using BlastAsia.DigiBook.API.Utils;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Cors;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
+    [EnableCors("DayTwoApp")]
     [Produces("application/json")]
     [Route("api/Venues")]
     public class VenuesController : Controller

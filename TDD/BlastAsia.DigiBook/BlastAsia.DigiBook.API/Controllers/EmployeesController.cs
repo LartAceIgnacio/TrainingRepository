@@ -8,11 +8,13 @@ using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Models.Employees;
 using Microsoft.AspNetCore.JsonPatch;
 using BlastAsia.DigiBook.API.Utils;
+using Microsoft.AspNetCore.Cors;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
+    [EnableCors("DayTwoApp")]
     [Produces("application/json")]
-    [Route("api/Employees")]
+    //[Route("api/Employees")]
     public class EmployeesController : Controller
     {
         private readonly IEmployeeService employeeService;
@@ -26,6 +28,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             
         }
 
+        [Route("api/Employees/{id?}")]
         [HttpGet, ActionName("GetEmployees")]
         public IActionResult GetEmployees(Guid? id)
         {
@@ -43,6 +46,19 @@ namespace BlastAsia.DigiBook.API.Controllers
             return Ok(result);
         }
 
+        [Route("api/Employees/{page}/{record}")]
+        [HttpGet, ActionName("GetEmployees")]
+        public IActionResult GetEmployeesWithPagination(int page, int record, string filter)
+        {
+            var result = new List<Employee>();
+            
+            result.AddRange(this.employeeRepository.Retrieve(page,record,filter));
+            
+
+            return Ok(result);
+        }
+
+        [Route("api/Employees")]
         [HttpPost]
         public IActionResult CreateEmployee([FromBody] Employee employee)
         {
@@ -55,7 +71,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
                 var result = this.employeeService.Save(Guid.Empty, employee);
 
-                return CreatedAtAction("GetContacts",
+                return CreatedAtAction("GetEmployees",
                     new { id = employee.EmployeeId }, result);
             }
 
@@ -64,7 +80,7 @@ namespace BlastAsia.DigiBook.API.Controllers
                 return BadRequest();
             }
         }
-
+        [Route("api/Employees/{id}")]
         [HttpDelete]
         public IActionResult DeleteEmployee(Guid id)
         {
@@ -78,7 +94,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
             return NoContent();
         }
-
+        [Route("api/Employees/{id}")]
         [HttpPut]
         public IActionResult UpdateEmployee(
             [FromBody] Employee employee, Guid id)
@@ -102,7 +118,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
             return Ok(employee);
         }
-
+        [Route("api/Employees/{id}")]
         [HttpPatch]
         public IActionResult PatchEmployee(
             [FromBody] JsonPatchDocument patchedEmployee, Guid id)
