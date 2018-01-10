@@ -1,7 +1,7 @@
 <p-panel header="Employee List">
     <div class="ui-g">
-        <p-dataTable [value]="employeeList" selectionMode="single" [(selection)]="selectedEmployee" (onRowSelect)="onRowSelect($event)"
-            [paginator]="true" [rows]="3" [responsive]="true">
+        <p-dataTable [value]="employeeList" selectionMode="single" [(selection)]="selectedEmployee"
+         (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10" [responsive]="true">
             <p-header>Employees</p-header>
             <p-column field="firstname" header="Employee Name" >
                 <ng-template let-file="rowData" pTemplate type="body" let-i="rowIndex">

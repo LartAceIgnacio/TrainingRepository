@@ -13,6 +13,7 @@ import { EmployeeClass } from '../domain/employeeclass';
 })
 export class EmployeesComponent implements OnInit {
 
+  modal : false;
   employeeList: Employee[];
   selectedEmployee: Employee;
   cloneEmployee: Employee;

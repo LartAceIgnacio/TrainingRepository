@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { PanelModule, MenuModule, DataTableModule,
-  SharedModule, InputTextModule, ButtonModule, ToggleButtonModule, CalendarModule, BreadcrumbModule
+  SharedModule, InputTextModule, ButtonModule, ToggleButtonModule,
+   CalendarModule, BreadcrumbModule, DialogModule
 } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
@@ -37,7 +38,7 @@ import { AppointmentsComponent } from './appointments/appointments.component';
     MenuModule,
     DataTableModule,SharedModule,
     InputTextModule, ButtonModule,
-    ToggleButtonModule, CalendarModule,BreadcrumbModule,
+    ToggleButtonModule, CalendarModule,BreadcrumbModule,DialogModule,
     AppRoutingModule,
     HttpModule,
     HttpClientModule,

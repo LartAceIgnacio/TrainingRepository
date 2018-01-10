@@ -69,14 +69,6 @@ namespace BlastAsia.DigiBook.API.Controllers
 
             return Ok(result);
 
-            //return new
-            //{
-            //    TotalCount = totalCount,
-            //    TotalPage = totalPages,
-            //    PrevPageUrl = prevUrl,
-            //    NextPageUrl = nextUrl,
-            //    Results = result
-            //};
         }
 
 
@@ -87,16 +79,16 @@ namespace BlastAsia.DigiBook.API.Controllers
             var baseQuery = this.employeeRepo.Retrieve().OrderBy(o => o.Firstname);
 
             var PAGE_COUNT = baseQuery.Count();
-            
+
             var TOTAL_PAGES = Math.Ceiling((double)PAGE_COUNT / PAGE_SIZE);
 
             var helper = this.urlHelperFactory.GetUrlHelper(this.actionAccessor.ActionContext);
 
             //var urlHelper = this.HttpContext.RequestServices.GetRequiredService<IUrlHelper>();
-            
-            var prevUrl = page > 0 ? helper.Action("PagingEmployee","Employee", new { page = page - 1 }) : "";
+
+            var prevUrl = page > 0 ? helper.Action("PagingEmployee", "Employee", new { page = page - 1 }) : "";
             var nextUrl = page < TOTAL_PAGES - 1 ? helper.Action("PagingEmployee", "Employee", new { page = page + 1 }) : "";
-            
+
 
             var results = baseQuery.Skip(PAGE_SIZE * page)
                                    .Take(PAGE_SIZE)
