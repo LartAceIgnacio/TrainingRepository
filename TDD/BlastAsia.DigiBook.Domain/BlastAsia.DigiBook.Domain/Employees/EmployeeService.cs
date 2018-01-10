@@ -32,7 +32,7 @@ namespace BlastAsia.DigiBook.Domain.Employees
             //    throw new PhotoRequiredException("Photo is Required!");
 
             if (string.IsNullOrEmpty(employee.Extension))
-                throw new ExtensionRequiredException("Photo is Required!");
+                throw new ExtensionRequiredException("Extension is Required!");
 
             Employee retrieveEmployee = null;
             //var found = employeeRepository.Retrieve(id);

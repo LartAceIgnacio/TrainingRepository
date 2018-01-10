@@ -11,4 +11,5 @@ export interface Contact {
     zipCode?;
     isActive?;
     dateActivated?;
+    contactCount?;
 }

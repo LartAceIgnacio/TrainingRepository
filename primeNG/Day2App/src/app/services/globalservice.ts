@@ -8,8 +8,8 @@ export class GlobalService {
 
     getSomethingWithPagination<T> (serviceName: string, page: number, 
         record: number, filter: string) {
-        return this.http.get('http://localhost:16013/api/' + serviceName + '/?page=' + page +
-            '&record=' + record + '&filter=' + filter)
+        return this.http.get('http://localhost:16013/api/' + serviceName + '/' + page +
+            '/' + record + '?filter=' + filter)
             .toPromise()
             .then(data => { return data as T[]; })
             .catch(this.handleError);
@@ -30,14 +30,14 @@ export class GlobalService {
     }
     
     deleteSomething<T>(serviceName: string, id) {
-        return this.http.delete('http://localhost:16013/api/' + serviceName + '/?id=' + id)
+        return this.http.delete('http://localhost:16013/api/' + serviceName + '/' + id)
             .toPromise()
             .then(() => null)
             .catch(this.handleError);
     }
     
     updateSomething<T>(serviceName: string, id, objEntity: T) {
-        return this.http.put('http://localhost:16013/api/' + serviceName + '/?id=' + id, objEntity)
+        return this.http.put('http://localhost:16013/api/' + serviceName + '/' + id, objEntity)
             .toPromise()
             .then(() => objEntity)
             .catch(this.handleError);

@@ -1,4 +1,5 @@
 ﻿using BlastAsia.DigiBook.Domain;
+using BlastAsia.DigiBook.Domain.Models.Contacts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
     public abstract class RepositoryBase<TEntity>
         : IRepository<TEntity> where TEntity : class
     {
-        private readonly IDigiBookDbContext context;
+        public readonly IDigiBookDbContext context;
 
         public RepositoryBase(IDigiBookDbContext context)
         {

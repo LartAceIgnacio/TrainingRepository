@@ -3,8 +3,9 @@ import { Contact } from '../domain/contact';
 import { ContactClass } from '../domain/contactclass';
 import { GlobalService } from '../services/globalservice';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { ConfirmationService } from 'primeng/primeng';
-import { Message } from '../domain/message';
+import { ConfirmationService, DataTable } from 'primeng/primeng';
+import { ViewChild } from '@angular/core';
+import { PaginationResult } from "../domain/paginationresult";
 
 @Component({
   selector: 'app-contacts',
@@ -15,6 +16,7 @@ import { Message } from '../domain/message';
 
 export class ContactsComponent implements OnInit {
   contactList: Contact[];
+  contactListDefault: Contact[];
   cloneContact: Contact;
   selectedContact: Contact;
   isNewContact: boolean;
@@ -26,12 +28,15 @@ export class ContactsComponent implements OnInit {
   isTrueFalse: object[];
   selectedActive: string;
   userform: FormGroup;
-  msgs: Message[] = [];
+  searchFilter: string = "";
+  paginationResult: PaginationResult<Contact>;
   rexExpEmailFormat: string = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
   constructor(private globalService: GlobalService, private confirmationService: ConfirmationService,
     private fb: FormBuilder) { }
 
+    
+  @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
     this.isTrueFalse = [];
     this.isTrueFalse.push({ label: 'true', value: 'true' });
@@ -49,15 +54,6 @@ export class ContactsComponent implements OnInit {
       'active': new FormControl(''),
       'dateActivated': new FormControl(''),
     });
-
-    // this.globalService.getSomething<Contact>("Contacts").then(contacts => 
-    //   {
-    //     this.contactList = contacts;
-    //     for (var i = 0; i < this.contactList.length; i++) {
-    //        this.contactList[i].dateActivated = this.contactList[i].dateActivated == null ? null : 
-    //         new Date(this.contactList[i].dateActivated).toLocaleDateString();
-    //     }
-    //   });
   }
 
   paginate(event) {
@@ -65,26 +61,43 @@ export class ContactsComponent implements OnInit {
     //event.rows = Number of rows to display in new page
     //event.page = Index of the new page
     //event.pageCount = Total number of pages
-    this.globalService.getSomethingWithPagination<Contact>("Contacts", event.first, event.rows, "").then(contacts => {
-      this.contactList = contacts;
-      this.totalRecords = this.contactList.length;
-      for (var i = 0; i < this.contactList.length; i++) {
-        this.contactList[i].dateActivated = this.contactList[i].dateActivated == null ? null :
-          new Date(this.contactList[i].dateActivated).toLocaleDateString();
-      }
-    });
+    this.globalService.getSomethingWithPagination<PaginationResult<Contact>>("Contacts", event.first, event.rows,
+      this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
+        this.paginationResult = paginationResult;
+        this.contactList = this.paginationResult.results;
+        this.totalRecords = this.paginationResult.totalRecords;
+        for (var i = 0; i < this.contactList.length; i++) {
+          this.contactList[i].dateActivated = this.contactList[i].dateActivated == null ? null :
+            new Date(this.contactList[i].dateActivated).toLocaleDateString();
+        }
+      });
+  }
+
+  searchContact() {
+    if (this.searchFilter.length != 1) {
+      this.setCurrentPage(1);
+    }
+  }
+
+  setCurrentPage(n: number) {
+    this.dataTable.reset();
+    // let paging = {
+    //     first: ((n - 1) * this.dataTable.rows),
+    //     rows: this.dataTable.rows
+    // };
+    // this.dataTable.paginate();
   }
 
   addContact() {
+    this.userform.enable();
     this.isNewContact = true;
     this.selectedContact = new ContactClass();
     this.selectedActive = "false";
     this.dateActivate = null;
-    this.userform.clearValidators();
   }
 
   onRowSelect(contact) {
-    this.userform.clearValidators();
+    this.userform.enable();
     this.isNewContact = false;
     this.selectedContact = contact;
     this.indexOfContact = this.contactList.indexOf(this.selectedContact);
@@ -95,7 +108,8 @@ export class ContactsComponent implements OnInit {
     this.selectedContact = Object.assign({}, this.selectedContact);
   }
 
-  btnSave() {
+  btnSave(isSaveAndNew: boolean) {
+    this.userform.markAsPristine();
     let tmpContactList = [...this.contactList];
     this.selectedContact.isActive = this.selectedActive == 'true' ? true : false;
     this.selectedContact.dateActivated = this.dateActivate == null || this.dateActivate == undefined ? null :
@@ -104,8 +118,11 @@ export class ContactsComponent implements OnInit {
       this.globalService.addSomething<Contact>("Contacts", this.selectedContact).then(contacts => {
         tmpContactList.push(contacts);
         this.contactList = tmpContactList;
-        this.selectedContact = null;
-        this.isNewContact = false;
+        this.selectedContact = isSaveAndNew ? new ContactClass() : null;
+        this.isNewContact = isSaveAndNew ? true : false;
+        if(!isSaveAndNew) {
+          this.setCurrentPage(1); 
+        }
       });
     }
     else {
@@ -119,20 +136,30 @@ export class ContactsComponent implements OnInit {
   }
 
   btnCancel() {
-    if (this.isNewContact || this.isDeleteContact) {
+    if (this.isNewContact || this.isDeleteContact || !this.userform.dirty) {
       this.selectedContact = null;
       this.isDeleteContact = false;
       this.isNewContact = false
+      this.userform.markAsPristine();
     }
-    else {
-      let tmpContactList = [...this.contactList];
-      tmpContactList[this.indexOfContact] = this.cloneContact;
-      this.contactList = tmpContactList;
-      this.selectedContact = Object.assign({}, this.cloneContact);
+    else if (this.userform.dirty) {
+      this.confirmationService.confirm({
+        message: 'Are you sure you want to discard the changes?',
+        header: 'Cancel Confirmation',
+        icon: 'fa fa-ban',
+        accept: () => {
+          let tmpContactList = [...this.contactList];
+          tmpContactList[this.indexOfContact] = this.cloneContact;
+          this.contactList = tmpContactList;
+          this.selectedContact = Object.assign({}, this.cloneContact);
+          this.userform.markAsPristine();
+        }
+      });
     }
   }
 
   btnDelete(contact) {
+    this.userform.disable();
     this.selectedContact = contact;
     this.indexOfContact = this.contactList.indexOf(contact);
     this.selectedActive = this.selectedContact.isActive ? "true" : "false";
@@ -145,7 +172,6 @@ export class ContactsComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
-        this.msgs = [{ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' }];
         let tmpContactList = [...this.contactList];
         this.globalService.deleteSomething<Contact>("Contacts", this.selectedContact.contactId).then(contacts => {
           tmpContactList.splice(this.indexOfContact, 1);
@@ -153,12 +179,16 @@ export class ContactsComponent implements OnInit {
           this.selectedContact = null;
           this.isNewContact = false;
           this.isDeleteContact = false;
+          this.setCurrentPage(1);
         });
-      },
-      reject: () => {
-        this.msgs = [{ severity: 'info', summary: 'Rejected', detail: 'You have rejected' }];
-        this.isDeleteContact = true;
       }
     });
+  }
+}
+
+class PaginationResultClass implements PaginationResult<Contact>{
+  constructor (public results, public pageNo, public recordPage, public totalRecords) 
+  {
+      
   }
 }

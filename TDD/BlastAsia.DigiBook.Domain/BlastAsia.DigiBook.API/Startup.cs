@@ -54,6 +54,15 @@ namespace BlastAsia.DigiBook.API
                 x.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "DigiBook API" });
             });
 
+            services.AddCors(config => {
+                config.AddPolicy("Day2App", policy => {
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyMethod();
+                    policy.WithOrigins("http://localhost:4200");
+
+                });
+            });
+
             services.AddMvc();
         }
 
@@ -64,6 +73,8 @@ namespace BlastAsia.DigiBook.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("Day2App");
 
             app.UseSwagger();
             app.UseSwaggerUI(c => 

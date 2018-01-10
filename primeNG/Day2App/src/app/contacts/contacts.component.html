@@ -1,23 +1,30 @@
 <p-panel>
   <div class="ui-g">
-    <p-dataTable [value]="contactList" [rows]="10" [paginator]="true" [pageLinks]="5" 
-    [responsive]="true" (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
+    <p-dataTable #dt [value]="contactList" [rows]="10" [paginator]="true" [pageLinks]="5" 
+      [responsive]="true" (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
       <p-header>
-        <div style="text-align: left !important">
+        <div class="addHeader">
           <button type="button" pButton icon="fa-plus" (click)="addContact()"></button>
           &nbsp;Contacts
         </div>
+        <div class="searchHeader">
+          <input type="text" pInputText placeholder="Search Contact" [(ngModel)]="searchFilter" />   
+          <button pButton type="button" icon="fa-search" (click)="searchContact()"></button>   
+        </div>
       </p-header>
       <p-column field="contactId">
-        <ng-template let-file="rowData" pTemplate type="body" let-i="rowIndex">
+        <ng-template pTemplate type="body" let-Contact="rowData">
           <span>
-            <button pButton type="button" icon="fa-pencil" (click)="onRowSelect(contactList[i])" ></button>
-            <button pButton type="button" icon="fa-trash" (click)="btnDelete(contactList[i])"></button>
+            <button pButton type="button" icon="fa-pencil" (click)="onRowSelect(Contact)" ></button>
+            <button pButton type="button" icon="fa-trash" (click)="btnDelete(Contact)"></button>
           </span>
         </ng-template>
       </p-column>
-      <p-column field="firstName" header="First Name"></p-column>
-      <p-column field="lastName" header="Last Name"></p-column>
+      <p-column field="firstName" header="Contact Name">
+        <ng-template pTemplate type="body" let-Contact="rowData">
+          {{ Contact.firstName + " " + Contact.lastName }}
+        </ng-template>
+      </p-column>
       <p-column field="mobilePhone" header="Mobile Phone"></p-column>
       <p-column field="emailAddress" header="Email Address"></p-column>
       <p-column field="streetAddress" header="Street Address"></p-column>
@@ -41,7 +48,7 @@
         <div class="ui-g-12 ui-md-2"><label for="input-fname">First Name</label></div>
         <div class="ui-g-12 ui-md-4">
           <input pInputText id="input-fname" [(ngModel)]="selectedContact.firstName" formControlName="firstName"
-            placeholder="Enter Employee First Name" [disabled]="selectedActive==='false'"/>
+            placeholder="Enter Employee First Name" />
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['firstName'].valid && 
             userform.controls['firstName'].dirty">
             <i class="fa fa-close"></i> First Name is Required
@@ -136,11 +143,11 @@
       </div>
     </div>
     <br />
-    <div style="text-align: center !important">
-      <button pButton type="button" label="Save & New" class="ui-button-success" (click)="btnSave()" [disabled]="!userform.valid" *ngIf="isNewContact"></button>
-      <button pButton type="button" label="Save" class="ui-button-success" (click)="btnSave()" [disabled]="!userform.valid" *ngIf="!isDeleteContact"></button>
-      <button pButton type="button" label="Ok" class="ui-button-success" (click)="btnOk()" *ngIf="isDeleteContact === true"></button>
-      <button pButton type="button" label="Cancel" class="ui-button-warning" (click)="btnCancel()"></button>
+    <div class="centerButtons">
+      <button pButton type="button" icon="fa-file" label="Save & New" class="ui-button-success" (click)="btnSave(true)" [disabled]="!userform.valid" *ngIf="isNewContact"></button>
+      <button pButton type="button" icon="fa-floppy-o" label="Save" class="ui-button-success" (click)="btnSave(false)" [disabled]="!userform.valid" *ngIf="!isDeleteContact"></button>
+      <button pButton type="button" icon="fa-check" label="Ok" class="ui-button-success" (click)="btnOk()" *ngIf="isDeleteContact === true"></button>
+      <button pButton type="button" icon="fa-ban" label="Cancel" class="ui-button-warning" (click)="btnCancel()"></button>
     </div>
   </p-dialog>
 </form>
