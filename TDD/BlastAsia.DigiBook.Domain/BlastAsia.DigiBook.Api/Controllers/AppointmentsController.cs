@@ -8,9 +8,11 @@ using BlastAsia.DigiBook.Domain.Appointments;
 using BlastAsia.DigiBook.Domain.Models.Appointments;
 using Microsoft.AspNetCore.JsonPatch;
 using BlastAsia.DigiBook.Api.Utils;
+using Microsoft.AspNetCore.Cors;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
+    [EnableCors("day2app")]
     [Produces("application/json")]
     [Route("api/Appointments")]
     public class AppointmentsController : Controller

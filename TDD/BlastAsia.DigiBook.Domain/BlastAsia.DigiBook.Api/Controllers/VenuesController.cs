@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.JsonPatch;
 using BlastAsia.DigiBook.Domain.Venues;
 using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Api.Utils;
+using Microsoft.AspNetCore.Cors;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
+    [EnableCors("day2app")]
     [Produces("application/json")]
     [Route("api/Venues")]
     public class VenuesController : Controller
@@ -67,11 +69,11 @@ namespace BlastAsia.DigiBook.Api.Controllers
 
 
         [HttpPut]
-        public IActionResult UpdateVenue([FromBody]Guid venueId, Venue venue)
+        public IActionResult UpdateVenue([FromBody] Venue venue,Guid id)
         {
             try
             {
-                var existingVenue = this.venueRepo.Retrieve(venueId);
+                var existingVenue = this.venueRepo.Retrieve(id);
                 if (existingVenue == null)
                 {
                     return NotFound();
@@ -80,7 +82,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
                 {
                     existingVenue.ApplyChanges(venue);
 
-                    this.venueService.Save(venueId, existingVenue);
+                    this.venueService.Save(id, existingVenue);
                     return Ok(venue);
                 }
 
@@ -93,11 +95,11 @@ namespace BlastAsia.DigiBook.Api.Controllers
 
         }
         [HttpDelete]
-        public IActionResult DeleteVenue(Guid venueId, Venue venue)
+        public IActionResult DeleteVenue(Guid id, Venue venue)
         {
             try
             {
-                var existingVenue = this.venueRepo.Retrieve(venueId);
+                var existingVenue = this.venueRepo.Retrieve(id);
 
                 if (existingVenue == null)
                 {
@@ -105,7 +107,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
                 }
                 else
                 {
-                    this.venueRepo.Delete(venueId);
+                    this.venueRepo.Delete(id);
                     return NoContent();
                 }
             }

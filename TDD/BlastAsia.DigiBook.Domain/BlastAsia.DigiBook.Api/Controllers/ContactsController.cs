@@ -10,9 +10,11 @@ using BlastAsia.DigiBook.Domain.Contacts.Interfaces;
 using BlastAsia.DigiBook.Domain.Contacts;
 using Microsoft.AspNetCore.JsonPatch;
 using BlastAsia.DigiBook.Api.Utils;
+using Microsoft.AspNetCore.Cors;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
+    [EnableCors("day2app")]
     [Produces("application/json")]
     [Route("api/Contacts")]
     public class ContactsController : Controller
@@ -99,8 +101,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
         [HttpPut]
         public IActionResult UpdateContact(
-          [Bind("FirstName", "LastName", "MobilePhone", "StreetAddress", "CityAddress", 
-            "ZipCode", "Country", "EmailAddress")] Contact contact, Guid id)
+          [FromBody] Contact contact, Guid id)
         {
             try
             {

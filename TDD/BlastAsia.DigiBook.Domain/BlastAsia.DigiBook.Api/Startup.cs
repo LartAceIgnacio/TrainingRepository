@@ -66,6 +66,15 @@ namespace BlastAsia.DigiBook.Api
             services.AddTransient<IVenueService, VenueService>();
             services.AddScoped<IVenueRepository, VenueRepository>();
 
+            services.AddCors(config => {
+                config.AddPolicy("day2app", policy =>
+                {
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyMethod();
+                    policy.WithOrigins("http://localhost:4200");
+
+                });
+            });
 
         }
 
@@ -83,6 +92,7 @@ namespace BlastAsia.DigiBook.Api
             });
 
             app.UseMvc();
+            app.UseCors("day2app");
         }
     }
 }

@@ -8,7 +8,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BlastAsia.DigiBook.Api.Test
 {
@@ -22,8 +21,8 @@ namespace BlastAsia.DigiBook.Api.Test
         private Venue venue;
         private Guid existingId = Guid.NewGuid();
         private Guid nonExistingId = Guid.Empty;
-
         private JsonPatchDocument patchDoc = new JsonPatchDocument();
+       
         //[TestMethod]
         //public void CreateVenue_WithValidVenue_ShouldReturnCreatedAtActionResult()
         //{

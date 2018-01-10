@@ -5,9 +5,11 @@ using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Models.Employees;
 using BlastAsia.DigiBook.Api.Utils;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Cors;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
+    [EnableCors("day2app")]
     [Produces("application/json")]
     [Route("api/Employees")]
     public class EmployeesController : Controller
@@ -84,8 +86,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
         [HttpPut]
         public IActionResult UpdateEmployee(
-          [Bind("FirstName", "LastName", "MobilePhone", "StreetAddress", "CityAddress",
-            "ZipCode", "Country", "EmailAddress")] Employee employee , Guid id)
+          [FromBody] Employee employee , Guid id)
         {
             try
             {
