@@ -1,6 +1,7 @@
 using BlastAsia.DigiBook.Api.Controllers;
 using BlastAsia.DigiBook.Domain.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Contacts;
+using BlastAsia.DigiBook.Domain.Models.Pagination;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -98,6 +99,7 @@ namespace BlastAsia.DigiBook.Api.Test
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
 
         }
+
         [TestMethod]
         public void GetContact_WithId_ShouldReturnOkObjectValue()
         {
@@ -120,6 +122,113 @@ namespace BlastAsia.DigiBook.Api.Test
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
         }
 
+        [TestMethod]
+        public void GetContact_WithPaginationWithValidData_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = 1;
+            var recordNumber = 3;
+            var keyWord = "em";
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord)
+                )
+                .Returns(new Pagination<Contact>());
+
+            // act 
+            var result = sut.GetContact(pageNumber, recordNumber, keyWord);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
+        [TestMethod]
+        public void GetContact_WithPaginationWithInvalidPageNumber_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = -1;
+            var recordNumber = 3;
+            var keyWord = "em";
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord)
+                )
+                .Returns(new Pagination<Contact>());
+
+            // act 
+            var result = sut.GetContact(pageNumber, recordNumber, keyWord);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
+        [TestMethod]
+        public void GetContact_WithPaginationWIthInvalidRecordNumber_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = 1;
+            var recordNumber = -3;
+            var keyWord = "em";
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord)
+                )
+                .Returns(new Pagination<Contact>());
+
+            // act 
+            var result = sut.GetContact(pageNumber, recordNumber, keyWord);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
+        [TestMethod]
+        public void GetContact_WithPaginationWithInvalidKeyWord_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = 1;
+            var recordNumber = 3;
+            var keyWord = "";
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord)
+                )
+                .Returns(new Pagination<Contact>());
+
+            // act 
+            var result = sut.GetContact(pageNumber, recordNumber, keyWord);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
         // Post
         [TestMethod]
         public void CreateContact_WithNullContact_ShouldReturnBadRequest()

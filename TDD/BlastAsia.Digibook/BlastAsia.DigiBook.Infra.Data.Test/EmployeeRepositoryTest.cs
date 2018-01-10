@@ -69,13 +69,13 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
         public void Delete_WithAnExistingEmployee_RemovesRecordFromDatabase()
         {
             // arrange 
-            // var sut = new ContactRepository(dbContext); // System under test
-            var newContact = sut.Create(employee);
+            // var sut = new employeeRepository(dbContext); // System under test
+            var newEmployee = sut.Create(employee);
 
             // act 
-            sut.Delete(newContact.EmployeeId);
+            sut.Delete(newEmployee.EmployeeId);
             // assert
-            employee = sut.Retrieve(newContact.EmployeeId);
+            employee = sut.Retrieve(newEmployee.EmployeeId);
             Assert.IsNull(employee);
         }
 
@@ -84,13 +84,80 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
         public void Retrieve_WithExistingEmployeeId_ReturnsRecordFromDatabase()
         {
             // arrange
-            var newContact = sut.Create(employee);
+            var newEmployee = sut.Create(employee);
             //act
-            var found = sut.Retrieve(newContact.EmployeeId);
+            var found = sut.Retrieve(newEmployee.EmployeeId);
             // assert 
             Assert.IsNotNull(found);
 
-            sut.Delete(newContact.EmployeeId);
+            sut.Delete(newEmployee.EmployeeId);
+        }
+
+
+         [TestMethod]
+        public void Retrieve_WithPaginationWithValidData_ReturnsRecordFromDatabase()
+        {
+            // arrange
+            var newEmployee = sut.Create(employee);
+            var pageNumber = 1;
+            var recordNumber = 5;
+            var keyWord = "em";
+            // act 
+            var found = sut.Retrieve(pageNumber,recordNumber, keyWord);
+            // assert
+            Assert.IsNotNull(found);
+
+            sut.Delete(newEmployee.EmployeeId);
+        }
+
+
+        [TestMethod]
+        public void Retrieve_WithInvalidKeyWord_ReturnsDefaultRecordFromDataBase()
+        {
+            // arrange
+            var newEmployee = sut.Create(employee);
+            var pageNumber = 1;
+            var recordNumber = 5;
+            var keyWord = "";
+            // act 
+            var found = sut.Retrieve(pageNumber, recordNumber, keyWord);
+            // assert
+            Assert.IsNotNull(found);
+
+            sut.Delete(newEmployee.EmployeeId);
+        }
+
+
+        [TestMethod]
+        public void Retrieve_WithInvalidPageNumber_ReturnsDefaultRecordFromDataBase()
+        {
+            // arrange
+            var newEmployee = sut.Create(employee);
+            var pageNumber = -1;
+            var recordNumber = 5;
+            var keyWord = "em";
+            // act 
+            var found = sut.Retrieve(pageNumber, recordNumber, keyWord);
+            // assert
+            Assert.IsNotNull(found);
+
+            sut.Delete(newEmployee.EmployeeId);
+        }
+
+        [TestMethod]
+        public void Retrieve_WithInvalidRecordNumber_ReturnsDefaultRecordFromDataBase()
+        {
+            // arrange
+            var newEmployee = sut.Create(employee);
+            var pageNumber = 1;
+            var recordNumber = -5;
+            var keyWord = "em";
+            // act 
+            var found = sut.Retrieve(pageNumber, recordNumber, keyWord);
+            // assert
+            Assert.IsNotNull(found);
+
+            sut.Delete(newEmployee.EmployeeId);
         }
 
         [TestMethod]
@@ -117,17 +184,17 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
             // act
             sut.Update(newEmployee.EmployeeId, newEmployee);
 
-            var UpdatedContact = sut.Retrieve(newEmployee.EmployeeId);
+            var Updatedemployee = sut.Retrieve(newEmployee.EmployeeId);
             // assert 
-            Assert.AreEqual(UpdatedContact.FirstName, expectedFirstName);
-            Assert.AreEqual(UpdatedContact.LastName , expectedLastName);
-            Assert.AreEqual(UpdatedContact.EmailAddress , expectedEmail);
-            Assert.AreEqual(UpdatedContact.MobilePhone , expectedMobileNumber);
-            Assert.AreEqual(UpdatedContact.OfficePhone , expectedOfficePhone);
-            Assert.AreEqual(UpdatedContact.Extension , expectedExtention);
+            Assert.AreEqual(Updatedemployee.FirstName, expectedFirstName);
+            Assert.AreEqual(Updatedemployee.LastName , expectedLastName);
+            Assert.AreEqual(Updatedemployee.EmailAddress , expectedEmail);
+            Assert.AreEqual(Updatedemployee.MobilePhone , expectedMobileNumber);
+            Assert.AreEqual(Updatedemployee.OfficePhone , expectedOfficePhone);
+            Assert.AreEqual(Updatedemployee.Extension , expectedExtention);
 
             // cleanup
-            sut.Delete(UpdatedContact.EmployeeId);
+            sut.Delete(Updatedemployee.EmployeeId);
         }
     }
 }

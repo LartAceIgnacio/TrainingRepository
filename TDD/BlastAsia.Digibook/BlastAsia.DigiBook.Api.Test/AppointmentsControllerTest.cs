@@ -1,6 +1,7 @@
 ﻿using BlastAsia.DigiBook.Api.Controllers;
 using BlastAsia.DigiBook.Domain.Appointments;
 using BlastAsia.DigiBook.Domain.Models.Appointments;
+using BlastAsia.DigiBook.Domain.Models.Pagination;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -112,6 +113,116 @@ namespace BlastAsia.DigiBook.Api.Test
 
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
         }
+
+        [TestMethod]
+        public void GetAppointment_WithPaginationWithValidData_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = 1;
+            var recordNumber = 3;
+            DateTime? date = DateTime.Now;
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, date)
+                )
+                .Returns(new Pagination<Appointment>());
+
+            // act 
+            var result = sut.GetAppointment(pageNumber, recordNumber, date);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, date), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
+        [TestMethod]
+        public void GetAppointment_WithPaginationWithInvalidPageNumber_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = -1;
+            var recordNumber = 3;
+            DateTime? date = DateTime.Now;
+
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, date)
+                )
+                .Returns(new Pagination<Appointment>());
+
+            // act 
+            var result = sut.GetAppointment(pageNumber, recordNumber, date);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, date), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
+        [TestMethod]
+        public void GetAppointment_WithPaginationWIthInvalidRecordNumber_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = 1;
+            var recordNumber = -3;
+            DateTime? date = DateTime.Now;
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, date)
+                )
+                .Returns(new Pagination<Appointment>());
+
+            // act 
+            var result = sut.GetAppointment(pageNumber, recordNumber, date);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, date), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
+        [TestMethod]
+        public void GetAppointment_WithPaginationWithInvalidDate_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = 1;
+            var recordNumber = 3;
+            DateTime? date = null;
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, date)
+                )
+                .Returns(new Pagination<Appointment>());
+
+            // act 
+            var result = sut.GetAppointment(pageNumber, recordNumber, date);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, date), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
 
         // Post
         [TestMethod]

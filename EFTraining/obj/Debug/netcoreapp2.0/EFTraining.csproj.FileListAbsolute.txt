@@ -1,0 +1,10 @@
+C:\Projects\EFTraining\bin\Debug\netcoreapp2.0\EFTraining.deps.json
+C:\Projects\EFTraining\bin\Debug\netcoreapp2.0\EFTraining.runtimeconfig.json
+C:\Projects\EFTraining\bin\Debug\netcoreapp2.0\EFTraining.runtimeconfig.dev.json
+C:\Projects\EFTraining\bin\Debug\netcoreapp2.0\EFTraining.dll
+C:\Projects\EFTraining\bin\Debug\netcoreapp2.0\EFTraining.pdb
+C:\Projects\EFTraining\obj\Debug\netcoreapp2.0\EFTraining.csproj.CoreCompileInputs.cache
+C:\Projects\EFTraining\obj\Debug\netcoreapp2.0\EFTraining.AssemblyInfoInputs.cache
+C:\Projects\EFTraining\obj\Debug\netcoreapp2.0\EFTraining.AssemblyInfo.cs
+C:\Projects\EFTraining\obj\Debug\netcoreapp2.0\EFTraining.dll
+C:\Projects\EFTraining\obj\Debug\netcoreapp2.0\EFTraining.pdb

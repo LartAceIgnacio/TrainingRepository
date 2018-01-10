@@ -74,13 +74,13 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
         public void Delete_WithAnExistingAppointment_RemovesRecordFromDatabase()
         {
             // arrange 
-            // var sut = new ContactRepository(dbContext); // System under test
-            var newContact = sut.Create(appointment);
+            // var sut = new appointmentRepository(dbContext); // System under test
+            var newAppointment = sut.Create(appointment);
 
             // act 
-            sut.Delete(newContact.AppointmentId);
+            sut.Delete(newAppointment.AppointmentId);
             // assert
-            appointment = sut.Retrieve(newContact.AppointmentId);
+            appointment = sut.Retrieve(newAppointment.AppointmentId);
             Assert.IsNull(appointment);
         }
 
@@ -89,13 +89,80 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
         public void Retrieve_WithExistingAppointmentId_ReturnsRecordFromDatabase()
         {
             // arrange
-            var newContact = sut.Create(appointment);
+            var newAppointment = sut.Create(appointment);
             //act
-            var found = sut.Retrieve(newContact.AppointmentId);
+            var found = sut.Retrieve(newAppointment.AppointmentId);
             // assert 
             Assert.IsNotNull(found);
 
-            sut.Delete(newContact.AppointmentId);
+            sut.Delete(newAppointment.AppointmentId);
+        }
+
+        [TestMethod]
+        public void Retrieve_WithPaginationWithValidData_ReturnsRecordFromDatabase()
+        {
+            // arrange
+            var newAppointment = sut.Create(appointment);
+            var pageNumber = 1;
+            var recordNumber = 5;
+            var date = newAppointment.AppointmentDate;
+            // act 
+            var found = sut.Retrieve(pageNumber, recordNumber, date);
+            // assert
+            Assert.IsNotNull(found);
+
+            sut.Delete(newAppointment.AppointmentId);
+        }
+
+
+        [TestMethod]
+        public void Retrieve_WithInvalidDate_ReturnsDefaultRecordFromDataBase()
+        {
+            // arrange
+            var newAppointment = sut.Create(appointment);
+            var pageNumber = 1;
+            var recordNumber = 5;
+            DateTime? date = null;
+            // act 
+            var found = sut.Retrieve(pageNumber, recordNumber, date);
+            // assert
+            Assert.IsNotNull(found);
+
+            sut.Delete(newAppointment.AppointmentId);
+        }
+
+
+        [TestMethod]
+        public void Retrieve_WithInvalidPageNumber_ReturnsDefaultRecordFromDataBase()
+        {
+            // arrange
+            var newAppointment = sut.Create(appointment);
+            var pageNumber = -1;
+            var recordNumber = 5;
+            DateTime? date = newAppointment.AppointmentDate;
+
+            // act 
+            var found = sut.Retrieve(pageNumber, recordNumber, date);
+            // assert
+            Assert.IsNotNull(found);
+
+            sut.Delete(newAppointment.AppointmentId);
+        }
+
+        [TestMethod]
+        public void Retrieve_WithInvalidRecordNumber_ReturnsDefaultRecordFromDataBase()
+        {
+            // arrange
+            var newAppointment = sut.Create(appointment);
+            var pageNumber = 1;
+            var recordNumber = -5;
+            DateTime? date = newAppointment.AppointmentDate;
+            // act 
+            var found = sut.Retrieve(pageNumber, recordNumber, date);
+            // assert
+            Assert.IsNotNull(found);
+
+            sut.Delete(newAppointment.AppointmentId);
         }
 
         [TestMethod]
@@ -122,16 +189,16 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
             // act
             sut.Update(newAppointment.AppointmentId, appointment);
 
-            var UpdatedContact = sut.Retrieve(newAppointment.AppointmentId);
+            var Updatedappointment = sut.Retrieve(newAppointment.AppointmentId);
             // assert 
-            Assert.AreEqual(UpdatedContact.AppointmentDate, expectedAppointmentDate);
-            Assert.AreEqual(UpdatedContact.StartTime, expectedStartTime);
-            Assert.AreEqual(UpdatedContact.EndTime, expectedEndTime);
-            Assert.AreEqual(UpdatedContact.IsCancelled, expectedIsCancelled);
-            Assert.AreEqual(UpdatedContact.IsDone, expectedIsDone);
-            Assert.AreEqual(UpdatedContact.Notes, expectedNotes);
+            Assert.AreEqual(Updatedappointment.AppointmentDate, expectedAppointmentDate);
+            Assert.AreEqual(Updatedappointment.StartTime, expectedStartTime);
+            Assert.AreEqual(Updatedappointment.EndTime, expectedEndTime);
+            Assert.AreEqual(Updatedappointment.IsCancelled, expectedIsCancelled);
+            Assert.AreEqual(Updatedappointment.IsDone, expectedIsDone);
+            Assert.AreEqual(Updatedappointment.Notes, expectedNotes);
             // cleanup
-            sut.Delete(UpdatedContact.AppointmentId);
+            sut.Delete(Updatedappointment.AppointmentId);
         }
     }
 }

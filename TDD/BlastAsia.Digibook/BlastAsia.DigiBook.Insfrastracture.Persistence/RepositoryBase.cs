@@ -41,6 +41,19 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence
             return this.context.Set<TEntity>().ToList();
         }
 
+        //public abstract IEnumerable<TEntity> Paginate();
+
+
+        //public IEnumerable<TEntity> Retrieve(string word)
+        //{
+        //    return this.context.Set<TEntity>().Where(r => r.)
+        //}
+
+        //public IEnumerable<TEntity> Retrieve(int pageNumber, int recordNumber)
+        //{
+        //    return this.context.Set<TEntity>().Skip(pageNumber - 1).Take(recordNumber).OrderBy(c => c.);
+        //}
+
         public TEntity Update(Guid id, TEntity entity)
         {
             this.context.Update(entity);

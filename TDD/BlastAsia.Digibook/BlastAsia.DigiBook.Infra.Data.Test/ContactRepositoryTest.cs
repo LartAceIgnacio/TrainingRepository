@@ -98,6 +98,72 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
         }
 
         [TestMethod]
+        public void Retrieve_WithPaginationWithValidData_ReturnsRecordFromDatabase()
+        {
+            // arrange
+            var newContact = sut.Create(contact);
+            var pageNumber = 1;
+            var recordNumber = 5;
+            var keyWord = "em";
+            // act 
+            var found = sut.Retrieve(pageNumber,recordNumber, keyWord);
+            // assert
+            Assert.IsNotNull(found);
+
+            sut.Delete(newContact.ContactId);
+        }
+
+
+        [TestMethod]
+        public void Retrieve_WithInvalidKeyWord_ReturnsDefaultRecordFromDataBase()
+        {
+            // arrange
+            var newContact = sut.Create(contact);
+            var pageNumber = 1;
+            var recordNumber = 5;
+            var keyWord = "";
+            // act 
+            var found = sut.Retrieve(pageNumber, recordNumber, keyWord);
+            // assert
+            Assert.IsNotNull(found);
+
+            sut.Delete(newContact.ContactId);
+        }
+
+
+        [TestMethod]
+        public void Retrieve_WithInvalidPageNumber_ReturnsDefaultRecordFromDataBase()
+        {
+            // arrange
+            var newContact = sut.Create(contact);
+            var pageNumber = -1;
+            var recordNumber = 5;
+            var keyWord = "em";
+            // act 
+            var found = sut.Retrieve(pageNumber, recordNumber, keyWord);
+            // assert
+            Assert.IsNotNull(found);
+
+            sut.Delete(newContact.ContactId);
+        }
+
+        [TestMethod]
+        public void Retrieve_WithInvalidRecordNumber_ReturnsDefaultRecordFromDataBase()
+        {
+            // arrange
+            var newContact = sut.Create(contact);
+            var pageNumber = 1;
+            var recordNumber = -5;
+            var keyWord = "em";
+            // act 
+            var found = sut.Retrieve(pageNumber, recordNumber, keyWord);
+            // assert
+            Assert.IsNotNull(found);
+
+            sut.Delete(newContact.ContactId);
+        }
+
+        [TestMethod]
         [TestProperty("TestType", "Integration")]
         public void Update_WithExistingContactId_SaveAndUpdateInDatabase()
         {

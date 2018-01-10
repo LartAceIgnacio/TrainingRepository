@@ -1,6 +1,7 @@
 ﻿using BlastAsia.DigiBook.Api.Controllers;
 using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Models.Employees;
+using BlastAsia.DigiBook.Domain.Models.Pagination;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -99,6 +100,8 @@ namespace BlastAsia.DigiBook.Api.Test
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
 
         }
+
+
         [TestMethod]
         public void GetEmployee_WithId_ShouldReturnOkObjectValue()
         {
@@ -120,6 +123,115 @@ namespace BlastAsia.DigiBook.Api.Test
 
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
         }
+
+        [TestMethod]
+        public void GetEmployee_WithPaginationWithValidData_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = 1;
+            var recordNumber = 3;
+            var keyWord = "em";
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord)
+                )
+                .Returns(new Pagination<Employee>());
+
+            // act 
+            var result = sut.GetEmployee(pageNumber, recordNumber, keyWord);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
+        [TestMethod]
+        public void GetEmployee_WithPaginationWithInvalidPageNumber_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = -1;
+            var recordNumber = 3;
+            var keyWord = "em";
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord)
+                )
+                .Returns(new Pagination<Employee>());
+
+            // act 
+            var result = sut.GetEmployee(pageNumber, recordNumber, keyWord);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
+        [TestMethod]
+        public void GetEmployee_WithPaginationWIthInvalidRecordNumber_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = 1;
+            var recordNumber = -3;
+            var keyWord = "em";
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord)
+                )
+                .Returns(new Pagination<Employee>());
+
+            // act 
+            var result = sut.GetEmployee(pageNumber, recordNumber, keyWord);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
+        [TestMethod]
+        public void GetEmployee_WithPaginationWithInvalidKeyWord_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = 1;
+            var recordNumber = 3;
+            var keyWord = "";
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord)
+                )
+                .Returns(new Pagination<Employee>());
+
+            // act 
+            var result = sut.GetEmployee(pageNumber, recordNumber, keyWord);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
 
         // Post
         [TestMethod]
