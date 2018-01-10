@@ -1,0 +1,11 @@
+c:\users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.deps.json
+c:\users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
+c:\users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
+c:\users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.csprojResolveAssemblyReference.cache
+c:\users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.csproj.CoreCompileInputs.cache
+c:\users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.AssemblyInfoInputs.cache
+c:\users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.AssemblyInfo.cs
+c:\users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
+c:\users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
+C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
