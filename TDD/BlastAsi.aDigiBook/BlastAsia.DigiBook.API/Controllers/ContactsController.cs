@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BlastAsia.DigiBook.Domain.Models.Contacts;
-using BlastAsia.DigiBook.Infrastructure.Persistence;
 using BlastAsia.DigiBook.Domain.Contacts;
 using Microsoft.AspNetCore.JsonPatch;
 using BlastAsia.DigiBook.API.Utils;
+using Microsoft.AspNetCore.Cors;
+using BlastAsia.DigiBook.Domain.Models;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
+    [EnableCors("DigiBook-web")]
     [Produces("application/json")]
-    [Route("api/Contacts")]
+    //[Route("api/Contacts")]
     public class ContactsController : Controller
     {
         private readonly IContactService contactService;
@@ -24,7 +23,25 @@ namespace BlastAsia.DigiBook.API.Controllers
             this.contactRepository = contactRepository;
         }
 
+        [HttpGet, ActionName("GetContactsWithPagination")]
+        [Route("api/Contacts/{page}/{record}")]
+        public IActionResult GetContactsWithPagination(int page, int record, string filter)
+        {
+            var result = new PaginationResult<Contact>();
+            try
+            {
+                result = this.contactRepository.Retrieve(page, record, filter);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
         [HttpGet, ActionName("GetContacts")]
+        [Route("api/Contacts/{id?}")]
         public IActionResult GetContacts(Guid? id)
         {
             var result = new List<Contact>();
@@ -41,6 +58,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPost]
+        [Route("api/Contacts/{page}/{record}")]
         public IActionResult CreateContact(
            [FromBody] Contact contact)
         {
@@ -61,6 +79,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpDelete]
+        [Route("api/Contacts/{id}")]
         public IActionResult DeleteContact(Guid id)
         {
             var contactToDelete = this.contactRepository.Retrieve(id);
@@ -73,6 +92,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPut]
+        [Route("api/Contacts/{id}")]
         public IActionResult UpdateContact(
             //[Bind("FirstName", "LastName", "MobilePhone", "StreetAddress",
             //    "CityAddress", "ZipCode", "Country", "EmailAddress")] Contact contact, Guid id)
@@ -104,6 +124,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPatch]
+        [Route("api/Contacts/{id}")]
         public IActionResult PatchContact(
             [FromBody] JsonPatchDocument patchedContact, Guid id)
         {

@@ -8,11 +8,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using BlastAsia.DigiBook.API.Utils;
+using Microsoft.AspNetCore.Cors;
+using BlastAsia.DigiBook.Domain.Models;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
+    [EnableCors("DigiBook-web")]
     [Produces("application/json")]
-    [Route("api/Employees")]
+    //[Route("api/Employees")]
     public class EmployeesController : Controller
     {
         private readonly IEmployeeService employeeService;
@@ -23,7 +26,25 @@ namespace BlastAsia.DigiBook.API.Controllers
             this.employeeRepository = employeeRepository;
         }
 
+        [HttpGet, ActionName("GetEmployeesWithPagination")]
+        [Route("api/Employees/{page}/{record}")]
+        public IActionResult GetEmployeesWithPagination(int page, int record, string filter)
+        {
+            var result = new PaginationResult<Employee>();
+            try
+            {
+                result = this.employeeRepository.Retrieve(page, record, filter);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
         [HttpGet, ActionName("GetEmployees")]
+        [Route("api/Employees/{id?}")]
         public IActionResult GetEmployees(Guid? id)
         {
             var result = new List<Employee>();
@@ -40,6 +61,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPost]
+        [Route("api/Employees")]
         public IActionResult CreateEmployee(
             [FromBody] Employee employee)
         {
@@ -61,6 +83,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
 
         [HttpDelete]
+        [Route("api/Employees/{id}")]
         public IActionResult DeleteEmployee(Guid id)
         {
             var employeeToDelete = this.employeeRepository.Retrieve(id);
@@ -73,6 +96,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPatch]
+        [Route("api/Employees/{id}")]
         public IActionResult PatchEmployee(
             [FromBody] JsonPatchDocument patchedEmployee, Guid id)
         {
@@ -101,6 +125,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPut]
+        [Route("api/Employees/{id}")]
         public IActionResult UpdateEmployee(
              //[Bind("FirstName", "LastName", "MobilePhone", "EmailAddress",
              //   "OfficePhone", "Extension", "EmployeeId")] Employee employee, Guid id)

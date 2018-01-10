@@ -8,5 +8,6 @@ namespace BlastAsia.DigiBook.Domain
     public interface IAccountRepository
         : IRepository<Account>
     {
+        PaginationResult<Account> Retrieve(int pageNo, int numRec, string filterValue);
     }
 }

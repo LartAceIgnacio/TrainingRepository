@@ -60,7 +60,7 @@ namespace BlastAsia.DigiBook.API.Test
 
         }
         [TestMethod]
-        public void GetAppointments_WithEmptyAppointmentId_ReturnsOkObjectResult()
+        public void GetAppointment_WithEmptyAppointmentId_ReturnsOkObjectResult()
         {
             //Arrange
             mockAppointmentRepository
@@ -69,7 +69,7 @@ namespace BlastAsia.DigiBook.API.Test
                        new Appointment()
                        });
             //Act
-            var result = sut.GetAppointments(null);
+            var result = sut.GetAppointment(null);
 
             //Assert
             mockAppointmentRepository.Verify(c => c.Retrieve(), Times.Once());
@@ -78,12 +78,12 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void GetAppointments_WithExistingAppointmentId_ReturnsOkObjectResult()
+        public void GetAppointment_WithExistingAppointmentId_ReturnsOkObjectResult()
         {
             //Arrange
 
             //Act
-            var result = sut.GetAppointments(appointment.AppointmentId);
+            var result = sut.GetAppointment(appointment.AppointmentId);
 
             //Assert
             mockAppointmentRepository.Verify(c => c.Retrieve(appointment.AppointmentId), Times.Once());
@@ -143,12 +143,12 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void DeleteAppointment_WithExistingAppointmentId_ReturnsNoContentResult()
+        public void Delete_WithExistingAppointmentId_ReturnsNoContentResult()
         {
             //Arrange
 
             //Act
-            var result = sut.DeleteAppointment(appointment.AppointmentId);
+            var result = sut.Delete(appointment.AppointmentId);
 
             //Assert
             mockAppointmentRepository.Verify(c => c.Retrieve(appointment.AppointmentId), Times.Once);
@@ -157,13 +157,13 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void DeleteAppointment_WithNonExistingAppointmentId_ReturnsNotFoundResult()
+        public void Delete_WithNonExistingAppointmentId_ReturnsNotFoundResult()
         {
             //Arrange
             appointment.AppointmentId = nonExistingAppointmentId;
 
             //Act
-            var result = sut.DeleteAppointment(appointment.AppointmentId);
+            var result = sut.Delete(appointment.AppointmentId);
 
             //Assert
             mockAppointmentRepository.Verify(c => c.Retrieve(appointment.AppointmentId), Times.Once);

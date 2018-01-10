@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlastAsia.DigiBook.API.Utils;
+using BlastAsia.DigiBook.Domain.Models;
 using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Domain.Venues;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
+    [EnableCors("DigiBook-web")]
     [Produces("application/json")]
-    [Route("api/Venues")]
+    //[Route("api/Venues")]
     public class VenuesController : Controller
     {
         private IVenueService venueService;
@@ -24,8 +27,26 @@ namespace BlastAsia.DigiBook.API.Controllers
             this.venueRepository = venueRepository;
         }
 
+        [HttpGet, ActionName("GetVenuesWithPagination")]
+        [Route("api/Venues/{page}/{record}")]
+        public IActionResult GetVenuesWithPagination(int page, int record, string filter)
+        {
+            var result = new PaginationResult<Venue>();
+            try
+            {
+                result = this.venueRepository.Retrieve(page, record, filter);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
         [HttpGet, ActionName("GetVenue")]
-        public IActionResult GetVenue(Guid? id)
+        [Route("api/Venues/{id?}")]
+        public IActionResult GetVenue(Guid? id, int pageNo, int recPerPage)
         {
             var result = new List<Venue>();
             if (id == null)
@@ -41,6 +62,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPost]
+        [Route("api/Venues")]
         public IActionResult CreateVenue([FromBody] Venue venue)
         {
             try
@@ -51,7 +73,7 @@ namespace BlastAsia.DigiBook.API.Controllers
                 }
 
                 var result = this.venueService.Save(Guid.Empty, venue);
-                return CreatedAtAction("GetVenues", new { id = result.VenueId }, result);
+                return CreatedAtAction("GetVenue", new { id = result.VenueId }, result);
             }
             catch (Exception e)
             {
@@ -60,6 +82,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpDelete]
+        [Route("api/Venues/{id}")]
         public IActionResult Delete(Guid id)
         {
             var venueToDelete = this.venueRepository.Retrieve(id);
@@ -72,6 +95,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPatch]
+        [Route("api/Venues/{id}")]
         public IActionResult PatchVenue([FromBody] JsonPatchDocument patchedContact, Guid id)
         {
             try
@@ -98,7 +122,8 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateVenue( [FromBody] Venue venue, Guid venueId)
+        [Route("api/Venues/{id}")]
+        public IActionResult UpdateVenue( [FromBody] Venue venue, Guid id)
         {
             try
             {
@@ -107,7 +132,7 @@ namespace BlastAsia.DigiBook.API.Controllers
                     return BadRequest();
                 }
 
-                var oldVenue = this.venueRepository.Retrieve(venueId);
+                var oldVenue = this.venueRepository.Retrieve(id);
                 if (oldVenue == null)
                 {
                     return NotFound();
@@ -115,7 +140,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
                 oldVenue.ApplyChanges(venue);
 
-                var result = this.venueService.Save(venueId, venue);
+                var result = this.venueService.Save(id, venue);
 
                 return Ok(oldVenue);
             }

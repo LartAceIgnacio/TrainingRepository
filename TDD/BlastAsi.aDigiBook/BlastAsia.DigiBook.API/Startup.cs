@@ -39,6 +39,16 @@ namespace BlastAsia.DigiBook.API
             // Add framework services.
             services.AddMvc();
 
+            services.AddCors(config => {
+                config.AddPolicy("DigiBook-web", policy =>
+                {
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyMethod();
+                    policy.WithOrigins("http://localhost:4200");
+
+                });
+            });
+
             services.AddSwaggerGen(c =>
            {
                c.SwaggerDoc("v1",
@@ -77,6 +87,7 @@ namespace BlastAsia.DigiBook.API
            });
 
             app.UseMvc();
+            app.UseCors("DigiBook-web");
         }
     }
 }
