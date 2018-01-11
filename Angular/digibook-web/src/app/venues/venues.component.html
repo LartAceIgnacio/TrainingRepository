@@ -1,0 +1,64 @@
+<p-breadcrumb [model]="venuetItems"></p-breadcrumb>
+<p-growl [value]="msgs" sticky="sticky"></p-growl>
+<form [formGroup]="userform">
+  <p-panel header="Venue List">
+        <button pButton icon="fa fa-plus"
+        (click)="addVenues(); showDialog();" label="Venue"></button>
+        <div style="float:right"> 
+          <input #gb type="text" pInputText size="50" placeholder="Search..." >
+          <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+      </div>
+<p-dataTable [value]="venueList" selectionMode="single" [lazy]="true"
+[(selection)]="selectedVenue" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)"
+[paginator]="true" rows="10" [responsive]="true" [globalFilter]="gb">
+<p-column styleClass="col-button">
+    <ng-template let-Venue="rowData" pTemplate="body" >
+        <button type="button" pButton class="ui-button-success" (click)="editVenues(Venue); showDialog();" icon="fa-pencil"></button>
+        <button type="button" pButton  class="ui-button-danger" (click)="deleteConfirmation(Venue); showDialog();" icon="fa-trash-o" >
+        </button>
+    </ng-template></p-column>
+        <p-column field="venueName" header="Venue Name" [sortable]="true"></p-column>
+        <p-column field="description" header="Description" [sortable]="true"></p-column>
+</p-dataTable>
+  </p-panel>
+  <p-dialog header="Venue Details" [(visible)]="display" *ngIf="selectedVenue" modal="modal" width="300" [responsive]="true">
+    <div class="ui-g">
+          <label class="ui-g-12 ui-md-4" for="Venue">Venue Name: </label>
+          <input class="ui-g-12 ui-md-8" type="text" formControlName="venueName" placeholder="Enter Venue Name" 
+          [(ngModel)]="selectedVenue.venueName">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['venueName'].valid&&userform.controls['venueName'].dirty">
+              <i class="fa fa-close"></i>
+              <span *ngIf="userform.controls['venueName'].errors['required']">Venue Name is required</span>
+              <span *ngIf="userform.controls['venueName'].errors['maxlength']">Must be shorter than 50 characters</span>
+          </div>
+    </div><br/>
+    <div class="ui-g">
+          <label class="ui-g-12 ui-md-4" for="Venue">Description: </label>
+          <input class="ui-g-12 ui-md-8" type="text" formControlName="description" placeholder="Enter Description" 
+          [(ngModel)]="selectedVenue.description">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['description'].valid&&userform.controls['description'].dirty">
+              <i class="fa fa-close"></i>
+              <span *ngIf="userform.controls['description'].errors['required']">Description is required</span>
+              <span *ngIf="userform.controls['description'].errors['maxlength']">Must be shorter than 100 characters</span>
+          </div>
+    </div>
+    <p-footer>
+        <div>
+        <button pButton icon="fa fa-plus-square"
+        (click)="saveNewVenues()" label="Save & New" [disabled]="!userform.valid" *ngIf="btnSaveNew"></button>
+        
+        
+          <button pButton icon="fa fa-floppy-o"
+          (click)="saveVenues()" label="Save" [disabled]="!userform.valid" *ngIf="btnSave"></button>
+
+          <button pButton icon="fa fa-floppy-o"
+          (click)="deleteVenues()" label="Delete" *ngIf="btnDelete"></button>
+
+          <button pButton icon="fa fa-ban"
+          (click)="cancelVenues()" label="Cancel"></button>
+        </div>
+    </p-footer>
+  </p-dialog>
+</form>
+<p-growl [value]="msgs" life="2000"></p-growl>
+<p-confirmDialog></p-confirmDialog>

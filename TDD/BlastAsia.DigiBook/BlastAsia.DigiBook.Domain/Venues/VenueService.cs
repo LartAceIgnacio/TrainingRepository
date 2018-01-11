@@ -28,7 +28,7 @@ namespace BlastAsia.DigiBook.Domain.Venues
                 throw new DescriptionException("Less than 100");
             }
             Venue result = null;
-            var VenueId = venueRepository.Retrieve(venue.VenueID);
+            var VenueId = venueRepository.Retrieve(venue.VenueId);
 
             if(VenueId == null)
             {
@@ -36,7 +36,7 @@ namespace BlastAsia.DigiBook.Domain.Venues
             }
             else
             {
-                result = venueRepository.Update(venue.VenueID, venue);
+                result = venueRepository.Update(venue.VenueId, venue);
             }
             return result;
         }

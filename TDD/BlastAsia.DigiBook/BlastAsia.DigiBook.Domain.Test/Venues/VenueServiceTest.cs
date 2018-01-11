@@ -35,7 +35,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
                 .Returns(venue);
 
             mockVenueRepository
-                .Setup(c => c.Retrieve(venue.VenueID))
+                .Setup(c => c.Retrieve(venue.VenueId))
                 .Returns<Venue>(null);
         }
         [TestCleanup]
@@ -50,12 +50,12 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
             
             //Act
 
-            sut.Save(venue.VenueID, venue);
+            sut.Save(venue.VenueId, venue);
 
             //Assert
 
             mockVenueRepository
-                .Verify(a => a.Retrieve(venue.VenueID), Times.Once);
+                .Verify(a => a.Retrieve(venue.VenueId), Times.Once);
             mockVenueRepository
                 .Verify(a => a.Create(venue), Times.Once);
         }
@@ -65,19 +65,19 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         {
             // Arrange 
 
-            venue.VenueID = existingVenueId;
+            venue.VenueId = existingVenueId;
 
             // Act
 
-            sut.Save(venue.VenueID, venue);
+            sut.Save(venue.VenueId, venue);
 
             // Assert
 
             mockVenueRepository
-                .Verify(a => a.Retrieve(venue.VenueID)
+                .Verify(a => a.Retrieve(venue.VenueId)
                 , Times.Once);
             mockVenueRepository
-                .Verify(a => a.Update(venue.VenueID, venue)
+                .Verify(a => a.Update(venue.VenueId, venue)
                 , Times.Once);
         }
 
@@ -90,17 +90,17 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
                 .Setup(a => a.Create(venue))
                 .Callback(() =>
                 {
-                    venue.VenueID = Guid.NewGuid();
+                    venue.VenueId = Guid.NewGuid();
                 })
                 .Returns(venue);
 
             // Act 
 
-            var result = sut.Save(venue.VenueID, venue);
+            var result = sut.Save(venue.VenueId, venue);
 
             // Assert
 
-            Assert.IsTrue(result.VenueID != Guid.Empty);
+            Assert.IsTrue(result.VenueId != Guid.Empty);
         }
 
         [TestMethod]
@@ -118,7 +118,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
                 .Verify(c => c.Create(venue)
                 , Times.Never);
             Assert.ThrowsException<VenueNameException>(
-                () => sut.Save(venue.VenueID, venue));
+                () => sut.Save(venue.VenueId, venue));
         }
         [TestMethod]
         public void Save_VenueWithDescriptionExceeding100Characters_ThrowsDescriptionExeption()
@@ -135,7 +135,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
                 .Verify(c => c.Create(venue)
                 , Times.Never);
             Assert.ThrowsException<DescriptionException>(
-                () => sut.Save(venue.VenueID, venue));
+                () => sut.Save(venue.VenueId, venue));
         }
 
     }

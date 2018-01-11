@@ -58,9 +58,9 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             // Assert
 
             Assert.IsNotNull(newVenue);
-            Assert.IsTrue(newVenue.VenueID != Guid.Empty);
+            Assert.IsTrue(newVenue.VenueId != Guid.Empty);
 
-            sut.Delete(newVenue.VenueID);
+            sut.Delete(newVenue.VenueId);
         }
         [TestMethod]
         public void Retrieve_WithExistingVenueId_RetrieveVenue()
@@ -71,13 +71,13 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 
             // Act
 
-            var found = sut.Retrieve(newVenue.VenueID);
+            var found = sut.Retrieve(newVenue.VenueId);
 
             // Assert
 
             Assert.IsNotNull(found);
 
-            sut.Delete(found.VenueID);
+            sut.Delete(found.VenueId);
         }
 
         [TestMethod]
@@ -89,11 +89,11 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 
             // Act
 
-            sut.Delete(newVenue.VenueID);
+            sut.Delete(newVenue.VenueId);
 
             // Assert
 
-            venue = sut.Retrieve(newVenue.VenueID);
+            venue = sut.Retrieve(newVenue.VenueId);
 
             Assert.IsNull(venue);
         }
@@ -106,17 +106,17 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             var updatedDescription = "qweqrqewrqw";
             venue.Description = updatedDescription;
             var newVenue = sut.Create(venue);
-            var updatedVenue = sut.Retrieve(newVenue.VenueID);
+            var updatedVenue = sut.Retrieve(newVenue.VenueId);
 
             // Act
 
-            sut.Update(newVenue.VenueID, venue);
+            sut.Update(newVenue.VenueId, venue);
 
             // Assert
 
             Assert.AreEqual(updatedDescription, updatedVenue.Description);
 
-            sut.Delete(updatedVenue.VenueID);
+            sut.Delete(updatedVenue.VenueId);
         }
     }
 }

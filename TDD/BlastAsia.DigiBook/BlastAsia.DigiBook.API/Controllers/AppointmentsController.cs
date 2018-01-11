@@ -10,13 +10,17 @@ using BlastAsia.DigiBook.Domain.Models.Appointments;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
+using BlastAsia.DigiBook.Domain.Models;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
+    [EnableCors("DemoApp")]
     [Produces("application/json")]
     [Route("api/Appointments")]
     public class AppointmentsController : Controller
     {
+        private static List<Appointment> appointment = new List<Appointment>();
         private readonly IAppointmentService appointmentService;
         private readonly IAppointmentRepository appointmentRepository;
 
@@ -26,7 +30,25 @@ namespace BlastAsia.DigiBook.Api.Controllers
             this.appointmentService = appointmentService;
         }
 
+        [HttpGet, ActionName("GetAppointmentsWithPagination")]
+        [Route("api/Appointments/{page}/{record}")]
+        public IActionResult GetAppointmentsWithPagination(int page, int record, string filter)
+        {
+            var result = new Pagination<Appointment>();
+            try
+            {
+                result = this.appointmentRepository.Retrieve(page, record, filter);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
         [HttpGet, ActionName("GetAppointments")]
+        [Route("api/Appointments/{id?}")]
         public IActionResult GetAppointments(Guid? id)
         {
             var result = new List<Appointment>();
@@ -45,8 +67,9 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPost]
+        [Route("api/Appointments")]
         public IActionResult CreateAppointment(
-            [Bind] Appointment appointment)
+            [FromBody] Appointment appointment)
         {
             try
             {
@@ -64,20 +87,8 @@ namespace BlastAsia.DigiBook.Api.Controllers
             }
         }
 
-        [HttpDelete]
-        public IActionResult DeleteAppointment(Guid id)
-        {
-            var deletedAppointment = appointmentRepository.Retrieve(id);
-            if (deletedAppointment == null)
-            {
-                return NotFound();
-            }
-            this.appointmentRepository.Delete(id);
-
-            return Ok();
-        }
-
         [HttpPut]
+        [Route("api/Appointments/{id}")]
         public IActionResult UpdateAppointment(
             [FromBody] Appointment modifiedAppointment, Guid id)
         {
@@ -91,8 +102,24 @@ namespace BlastAsia.DigiBook.Api.Controllers
             return Ok(appointment);
         }
 
+        [HttpDelete]
+        [Route("api/Appointments/{id}")]
+        public IActionResult DeleteAppointment(Guid id)
+        {
+            var deletedAppointment = appointmentRepository.Retrieve(id);
+            if (deletedAppointment == null)
+            {
+                return NotFound();
+            }
+            this.appointmentRepository.Delete(id);
+
+            return Ok();
+        }
+
         [HttpPatch]
-        public IActionResult PatchAppointment([FromBody]JsonPatchDocument patchedAppointment, Guid id)
+        [Route("api/Appointments/{id}")]
+        public IActionResult PatchAppointment(
+            [FromBody]JsonPatchDocument patchedAppointment, Guid id)
         {
             if (patchedAppointment == null)
             {

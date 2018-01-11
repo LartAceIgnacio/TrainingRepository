@@ -16,6 +16,8 @@ namespace BlastAsia.DigiBook.Api.Utils
             contact.ZipCode = form.ZipCode;
             contact.FirstName = form.FirstName;
             contact.LastName = form.LastName;
+            contact.IsActive = form.IsActive;
+            contact.DateActivated = form.DateActivated;
 
             return contact;
         }

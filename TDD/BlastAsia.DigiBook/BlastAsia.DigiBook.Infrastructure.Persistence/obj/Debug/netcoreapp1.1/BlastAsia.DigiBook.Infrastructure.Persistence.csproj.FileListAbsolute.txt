@@ -31,3 +31,5 @@ C:\Users\labille\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastA
 C:\Users\labille\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.AssemblyInfo.cs
 C:\Users\labille\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.dll
 C:\Users\labille\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.AssemblyInfoInputs.cache

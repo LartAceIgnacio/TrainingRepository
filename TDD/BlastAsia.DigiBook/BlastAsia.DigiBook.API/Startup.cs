@@ -58,6 +58,15 @@ namespace BlastAsia.DigiBook.API
 
             // Add framework services.
             services.AddMvc();
+
+            services.AddCors(config => {
+                config.AddPolicy("DemoApp", policy =>
+                {
+                    policy.AllowAnyMethod();
+                    policy.WithOrigins("http://localhost:4200");
+
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +82,7 @@ namespace BlastAsia.DigiBook.API
                     "DigiBook Api v1");
             });
             app.UseMvc();
+            app.UseCors("DemoApp");
 
         }
     }

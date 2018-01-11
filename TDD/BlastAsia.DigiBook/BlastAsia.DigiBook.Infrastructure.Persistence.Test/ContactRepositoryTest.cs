@@ -30,6 +30,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
                 Country = "Philippines",
                 EmailAddress = "luigi@gmail.com",
                 IsActive = false,
+
             };
 
             connectionString

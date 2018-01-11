@@ -8,9 +8,11 @@ using BlastAsia.DigiBook.Domain.Venues;
 using BlastAsia.DigiBook.Domain.Models.Venues;
 using Microsoft.AspNetCore.JsonPatch;
 using BlastAsia.DigiBook.API.Utils;
+using Microsoft.AspNetCore.Cors;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
+    [EnableCors("DemoApp")]
     [Produces("application/json")]
     [Route("api/Venues")]
     public class VenuesController : Controller
@@ -47,7 +49,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpPost]
         public IActionResult CreateVenue(
-            [Bind] Venue venue)
+            [FromBody] Venue venue)
         {
             try
             {
@@ -58,7 +60,7 @@ namespace BlastAsia.DigiBook.API.Controllers
                 var result = this.venueService
                     .Save(Guid.Empty, venue);
 
-                return CreatedAtAction("GetVenues", new { id = venue.VenueID }, result);
+                return CreatedAtAction("GetVenues", new { id = venue.VenueId }, result);
             }
             catch (Exception)
             {
@@ -77,7 +79,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             }
             venue.ApplyChanges(newVenue);
             venueService.Save(id, venue);
-            return Ok();
+            return Ok(venue);
         }
 
         [HttpDelete]
@@ -111,7 +113,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             patchedVenue.ApplyTo(venue);
             venueService.Save(id, venue);
 
-            return Ok();
+            return Ok(venue);
         }
     }
 }

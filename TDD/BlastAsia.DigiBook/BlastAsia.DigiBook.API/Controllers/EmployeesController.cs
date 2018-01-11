@@ -8,13 +8,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using BlastAsia.DigiBook.API.Utils;
+using Microsoft.AspNetCore.Cors;
+using BlastAsia.DigiBook.Domain.Models;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
+    [EnableCors("DemoApp")]
     [Produces("application/json")]
     [Route("api/Employees")]
     public class EmployeesController : Controller
     {
+        private static List<Employee> employees = new List<Employee>();
         private readonly IEmployeeService employeeService;
         private readonly IEmployeeRepository employeeRepository;
 
@@ -24,6 +28,23 @@ namespace BlastAsia.DigiBook.Api.Controllers
         {
             this.employeeRepository = employeeRepository;
             this.employeeService = employeeService;
+        }
+
+        [HttpGet, ActionName("GetEmployeesWithPagination")]
+        [Route("api/Employees/{page}/{record}")]
+        public IActionResult GetEmployeesWithPagination(int page, int record, string filter)
+        {
+            var result = new Pagination<Employee>();
+            try
+            {
+                result = this.employeeRepository.Retrieve(page, record, filter);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
         }
 
         [HttpGet, ActionName("GetEmployees")]

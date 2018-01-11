@@ -37,7 +37,7 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             {
                 throw new AddressRequiredException("City address is required");
             }
-            if (contact.ZipCode < 0)
+            if (contact.ZipCode <= 0)
             {
                 throw new AddressRequiredException("Zipcode is invalid");
             }

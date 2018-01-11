@@ -1,0 +1,22 @@
+ <!-- <div class="ui-g">   
+    <p-header>
+        <div id="top-logo" class="ui-g-11 ui-md-2">
+            <img src="images/DigiBook.jpg" alt="DigiBook Logo">
+        </div>
+        <div id="top-menu" class="ui-g-1 ui-md-1">
+          <button pButton icon="fa fa-address-book-o"
+          (click)="userLogin()" label="Login"></button>
+        </div>
+    </p-header>
+ </div> -->
+ <p-menubar [model]="items">
+        <button pButton label="Login" icon="fa-sign-out" style="top:25px;"></button>
+</p-menubar>
+<div class="ui-g">
+    <div class="ui-g-12 ui-md-2">
+        <p-menu [model]="menuItems"></p-menu>
+    </div>
+    <div class="ui-g-12 ui-md-10">
+        <router-outlet></router-outlet>
+    </div>
+</div>

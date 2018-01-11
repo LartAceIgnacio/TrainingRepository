@@ -4,6 +4,7 @@ namespace BlastAsia.DigiBook.Domain.Models.Contacts
 {
     public class Contact
     {
+        public Guid ContactId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MobilePhone { get; set; }
@@ -14,6 +15,5 @@ namespace BlastAsia.DigiBook.Domain.Models.Contacts
         public string EmailAddress { get; set; }
         public bool IsActive { get; set; }
         public DateTime? DateActivated { get; set; }
-        public Guid ContactId { get; set; }
     }
 }

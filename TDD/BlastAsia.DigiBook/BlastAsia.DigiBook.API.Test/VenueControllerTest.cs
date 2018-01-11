@@ -35,14 +35,14 @@ namespace BlastAsia.DigiBook.API.Test
             patchedVenue = new JsonPatchDocument();
 
             existingVenue = Guid.NewGuid();
-            existingVenue = Guid.Empty;
+            nonExistingVenue = Guid.Empty;
 
             mockVenueRepository
                 .Setup(c => c.Retrieve(existingVenue))
                 .Returns(venue);
 
             mockVenueRepository
-               .Setup(c => c.Retrieve(existingVenue))
+               .Setup(c => c.Retrieve(nonExistingVenue))
                .Returns<Venue>(null);
 
         }
@@ -67,7 +67,7 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void GetVenues_WithExistingVenueId_ReturnsOkResult()
+        public void RetrieveVenues_WithExistingVenueId_ReturnsOkResult()
         {
             // Arrange
             
@@ -88,7 +88,7 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void CreateVenue_WithValidVenueData_ReturnsCreatedAtActionResult()
+        public void SaveVenue_WithValidVenueData_ReturnsCreatedAtActionResult()
         {
             // Arrange
             
@@ -106,7 +106,7 @@ namespace BlastAsia.DigiBook.API.Test
 
         }
         [TestMethod]
-        public void CreateVenue_WithNullVenueData_ReturnsBadRequestResult()
+        public void SaveVenue_WithNullVenueData_ReturnsBadRequestResult()
         {
             //Arrange
             
@@ -130,27 +130,7 @@ namespace BlastAsia.DigiBook.API.Test
         {
             //Arrange
             
-            venue.VenueID = existingVenue;
-
-            //Act
-
-            var result = sut.DeleteVenue(venue.VenueID);
-
-            //Assert
-
-            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
-
-            mockVenueRepository
-                .Verify(c => c.Delete(venue.VenueID)
-                , Times.Never);
-        }
-
-        [TestMethod]
-        public void DeleteVenue_WithNonExistingVenueId_ReturnsNotFoundResult()
-        {
-            //Arrange
-
-           venue.VenueID = nonExistingVenue;
+            venue.VenueId = nonExistingVenue;
 
             //Act
 
@@ -161,7 +141,27 @@ namespace BlastAsia.DigiBook.API.Test
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
 
             mockVenueRepository
-                .Verify(c => c.Delete(venue.VenueID)
+                .Verify(c => c.Delete(venue.VenueId)
+                , Times.Never);
+        }
+
+        [TestMethod]
+        public void DeleteVenue_WithNonExistingVenueId_ReturnsNotFoundResult()
+        {
+            //Arrange
+
+           venue.VenueId = nonExistingVenue;
+
+            //Act
+
+            var result = sut.DeleteVenue(nonExistingVenue);
+
+            //Assert
+
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+
+            mockVenueRepository
+                .Verify(c => c.Delete(venue.VenueId)
                 , Times.Never);
         }
 
@@ -170,21 +170,21 @@ namespace BlastAsia.DigiBook.API.Test
         {
             //Arrange
             
-            venue.VenueID = existingVenue;
+            venue.VenueId = existingVenue;
 
             //Act
 
-            var result = sut.UpdateVenue(venue, venue.VenueID);
+            var result = sut.UpdateVenue(venue, venue.VenueId);
 
             //Assert
 
-            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
 
             mockVenueService
-                .Verify(cs => cs.Save(venue.VenueID, venue)
-                , Times.Never);
+                .Verify(cs => cs.Save(venue.VenueId, venue)
+                , Times.Once);
             mockVenueRepository
-                .Verify(cr => cr.Retrieve(venue.VenueID)
+                .Verify(cr => cr.Retrieve(venue.VenueId)
                 , Times.Once);
 
         }
@@ -194,21 +194,21 @@ namespace BlastAsia.DigiBook.API.Test
         {
             //Arrange
             
-            venue.VenueID = nonExistingVenue;
+            venue.VenueId = nonExistingVenue;
 
             //Act
 
-            var result = sut.UpdateVenue(venue, venue.VenueID);
+            var result = sut.UpdateVenue(venue, venue.VenueId);
 
             //Assert
 
             Assert.IsInstanceOfType(result, typeof(BadRequestResult));
 
             mockVenueRepository
-                .Verify(c => c.Retrieve(venue.VenueID)
+                .Verify(c => c.Retrieve(venue.VenueId)
                 , Times.Once);
             mockVenueService
-                .Verify(c => c.Save(venue.VenueID, venue)
+                .Verify(c => c.Save(venue.VenueId, venue)
                 , Times.Never);
         }
 
@@ -217,19 +217,19 @@ namespace BlastAsia.DigiBook.API.Test
         {
             //Arrange
 
-            venue.VenueID = existingVenue;
+            venue.VenueId = existingVenue;
 
             //Act
 
-            var result = sut.PatchVenue(patchedVenue, venue.VenueID);
+            var result = sut.PatchVenue(patchedVenue, venue.VenueId);
 
             //Assert
 
-            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
 
             mockVenueService
-                .Verify(cs => cs.Save(venue.VenueID, venue)
-                , Times.Never);
+                .Verify(cs => cs.Save(venue.VenueId, venue)
+                , Times.Once);
 
         }
 
@@ -242,14 +242,14 @@ namespace BlastAsia.DigiBook.API.Test
 
             //Act
 
-            var result = sut.PatchVenue(patchedVenue, venue.VenueID);
+            var result = sut.PatchVenue(patchedVenue, venue.VenueId);
 
             //Assert
 
             Assert.IsInstanceOfType(result, typeof(BadRequestResult));
 
             mockVenueService
-                .Verify(cs => cs.Save(venue.VenueID, venue)
+                .Verify(cs => cs.Save(venue.VenueId, venue)
                 , Times.Never);
         }
 
@@ -258,18 +258,18 @@ namespace BlastAsia.DigiBook.API.Test
         {
             //Arrange
                         
-            venue.VenueID = nonExistingVenue;
+            venue.VenueId = nonExistingVenue;
 
             //Act
 
-            var result = sut.PatchVenue(patchedVenue, venue.VenueID);
+            var result = sut.PatchVenue(patchedVenue, venue.VenueId);
 
             //Assert
 
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
 
             mockVenueService
-                .Verify(cs => cs.Save(venue.VenueID, venue), Times.Never);
+                .Verify(cs => cs.Save(venue.VenueId, venue), Times.Never);
         }
     }
 }
