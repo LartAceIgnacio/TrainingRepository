@@ -5,11 +5,15 @@
       <p-header>
         <button type="button" pButton class="float-left" (click)="addAppointment()" icon="fa-plus"></button>
         Appointments
+        <div class="float-right">
+            <input #gb type="text" pInputText size="25" placeholder="Search">
+            <button name="btnSearch" type="button" pButton icon="fa-search"></button>
+        </div>
       </p-header>
       <p-column>
           <ng-template let-Appointment="rowData" pTemplate="body">
               <button type="button" pButton (click)="editAppointment(Appointment)" icon="fa-pencil"></button>
-              <button class="ui-button-danger" type="button" pButton (click)="deleteAppointment(Appointment)" icon="fa-times"></button>
+              <button class="ui-button-danger" type="button" pButton (click)="confirmDelete(Appointment)" icon="fa-times"></button>
           </ng-template>
       </p-column>
       <p-column field="appointmentDate" header="Appointment Date" [sortable]="true"></p-column>
@@ -41,7 +45,6 @@
   <div class="ui-g">
     <div class="ui-g-12 ui-md-6">
       <label class="ui-g-12 ui-md-4" for="guestId">Guest ID*: </label>
-      <!-- <input class="ui-g-12 ui-md-8" pInputText id="guestId" placeholder="Guest ID" [(ngModel)]="selectedAppointment.guestId"> -->
       <p-dropdown [options]="guestList" [(ngModel)]="selectedGuest" optionLabel="firstName" formControlName="guestid"  placeholder="Select Guest"></p-dropdown>
     </div>
     <div class="ui-g-12 ui-md-4">
@@ -55,7 +58,6 @@
   <div class="ui-g">
     <div class="ui-g-12 ui-md-6">
       <label class="ui-g-12 ui-md-4" for="hostId">Host ID*: </label>
-      <!-- <input class="ui-g-12 ui-md-8" pInputText id="hostId" placeholder="Host ID" [(ngModel)]="selectedAppointment.hostId"> -->
       <p-dropdown [options]="hostList" [(ngModel)]="selectedHost" optionLabel="firstName" formControlName="hostid" placeholder="Select Host"></p-dropdown>
     </div>
     <div class="ui-g-12 ui-md-4">
@@ -107,10 +109,13 @@
     </div>
   </div>
 
-  <div class="ui-g">
-    <button pButton icon="fa-check" type="button" [disabled]="!appointmentForm.valid" (click)="saveAndNewAppointment()" label="Save and New"></button>
+  <div class="ui-g" *ngIf="isDelete == false">
+    <button pButton icon="fa-check" type="button" [disabled]="!appointmentForm.valid" (click)="saveAndNewAppointment()" label="Save and New" *ngIf="isNewAppointment == true"></button>
     <button pButton icon="fa-check" type="button" [disabled]="!appointmentForm.valid" (click)="saveAppointment()" label="Save"></button>
     <button class="ui-button-warning" pButton icon="fa-ban" type="button" [disabled]="!appointmentForm.valid" (click)="cancelAppointment()" label="Cancel"></button>
+  </div>
+  <div class="ui-g" *ngIf="isDelete == true"> 
+      <button class="ui-button-danger" pButton icon="fa-ban" type="button" (click)="deleteAppointment()" label="Delete"></button>
   </div>
 </p-dialog>
 </form>

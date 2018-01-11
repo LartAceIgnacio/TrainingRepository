@@ -51,7 +51,7 @@ namespace BlastAsia.DigiBook.API
                 {
                     policy.AllowAnyMethod();
                     policy.AllowAnyMethod();
-                    policy.WithOrigins("http://localhost:4200");
+                    policy.WithOrigins("http://localhost:4200", "http://localhost:4300");
 
                 });
             });

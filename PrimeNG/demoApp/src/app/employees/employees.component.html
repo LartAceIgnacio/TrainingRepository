@@ -5,11 +5,15 @@
         <p-header>
             <button type="button" pButton class="float-left" (click)="addEmployee()" icon="fa-plus"></button>
             Employees
+            <div class="float-right">
+                <input #gb type="text" pInputText size="25" placeholder="Search">
+                <button name="btnSearch" type="button" pButton icon="fa-search"></button>
+            </div>
         </p-header>
         <p-column>
             <ng-template let-Employee="rowData" pTemplate="body">
                 <button type="button" pButton (click)="editEmployee(Employee)" icon="fa-pencil"></button>
-                <button class="ui-button-danger" type="button" pButton (click)="deleteEmployee(Employee)" icon="fa-times"></button>
+                <button class="ui-button-danger" type="button" pButton (click)="confirmDelete(Employee)" icon="fa-times"></button>
             </ng-template>
         </p-column>
         <p-column field="firstName" header="First Name" [sortable]="true"></p-column>
@@ -116,6 +120,9 @@
         <button pButton icon="fa-check" type="button" (click)="saveAndNewEmployee()" [disabled]="!userform.valid" label="Save and New" *ngIf="isNewEmployee==true"></button>
         <button pButton icon="fa-check" type="button" (click)="saveEmployee()" [disabled]="!userform.valid" label="Save"></button>
         <button class="ui-button-warning" pButton icon="fa-ban" type="button" (click)="cancelEmployee()" label="Cancel" [disabled]="!userform.dirty" *ngIf="isNewEmployee==false"></button>
+    </div>
+    <div class="ui-g" *ngIf="isDelete == true"> 
+        <button class="ui-button-danger" pButton icon="fa-ban" type="button" (click)="deleteEmployee()" label="Delete"></button>
     </div>
 </p-dialog>
 </form>

@@ -32,6 +32,8 @@ export class EmployeesComponent implements OnInit {
   display: boolean;
   msgs: Message[] = [];
 
+  isDelete: boolean = false;
+
   constructor(private employeeService: EmployeeService,
     private http:HttpClient,
     private fb: FormBuilder,
@@ -56,6 +58,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   addEmployee(){
+    this.isDelete = false;
     this.display = true;
     this.userform.markAsPristine();
     this.isNewEmployee = true;
@@ -134,6 +137,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   deleteEmployee(Employee: EmployeeClass){
+    
     this.confirmationService.confirm({
       message: 'Are you sure that you want to delete this record?',
       header: 'Delete Confirmation',
@@ -149,9 +153,20 @@ export class EmployeesComponent implements OnInit {
   }
 
   editEmployee(Employee: Employee){
+    this.isDelete = false;
     this.selectedEmployee=Employee;
     this.cloneEmployee = this.cloneRecord(this.selectedEmployee);
     this.display=true;
+    this.isNewEmployee = false;
+  }
+
+  confirmDelete(Employee: Employee){
+    this.userform.markAsPristine();
+    this.selectedEmployee=Employee;
+    this.cloneEmployee = this.cloneRecord(this.selectedEmployee);
+    this.isDelete = true;
+    this.display=true;
+    this.userform.disable();
     this.isNewEmployee = false;
   }
 

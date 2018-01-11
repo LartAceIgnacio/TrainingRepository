@@ -42,6 +42,7 @@ export class AppointmentsComponent implements OnInit {
   home: MenuItem;
 
   display: boolean;
+  isDelete: boolean;
 
   appointmentForm: FormGroup;
 
@@ -73,7 +74,6 @@ export class AppointmentsComponent implements OnInit {
           for(let i=0;i < this.appointmentList.length; i++){
             this.appointmentList[i].guestName = this.guestList.find(id=>id.contactId==this.appointmentList[i].guestId).firstName;
             this.appointmentList[i].hostName = this.hostList.find(id=>id.employeeId==this.appointmentList[i].hostId).firstName;
-            //this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate).toLocaleDateString();
             this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate);
           }});
       });
@@ -83,9 +83,12 @@ export class AppointmentsComponent implements OnInit {
       {label: 'Appointments', url: '/appointments'}
     ]
     this.home = {icon: 'fa fa-home', routerLink: '/dashboard'};
+    this.isDelete = false;
   }
 
   addAppointment(){
+    this.isDelete = false;
+    this.appointmentForm.enable();
     this.appointmentForm.markAsPristine();
     this.isNewAppointment = true;
     this.selectedAppointment = new AppointmentClass();
@@ -100,10 +103,9 @@ export class AppointmentsComponent implements OnInit {
     this.selectedAppointment.hostId = this.selectedHost.employeeId;
 
     if(this.isNewAppointment){
-      //this.appointmentService.postAppointments(this.selectedAppointment);
       this.appointmentService.postAppointments(this.selectedAppointment).then(appointment => {
         tmpAppointmentList.push(appointment);
-        this.appointmentList=tmpAppointmentList;
+        this.appointmentList=tmpAppointmentList;       
         this.selectedAppointment=null;
       });
     }
@@ -136,8 +138,6 @@ export class AppointmentsComponent implements OnInit {
 
     this.selectedGuest = this.guestList.find(x => x.contactId == this.selectedAppointment.guestId);
     this.selectedHost = this.hostList.find(x => x.employeeId == this.selectedAppointment.hostId);
-
-    console.log(this.appointmentList);
   }
 
   cloneRecord(r: Appointment): Appointment{
@@ -152,14 +152,13 @@ export class AppointmentsComponent implements OnInit {
     return this.appointmentList.indexOf(this.selectedAppointment);
   }
 
-  deleteAppointment(Appointment: Appointment){
+  deleteAppointment(){
     this.confirmationService.confirm({
       message: 'Are you sure that you want to delete this record?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
           //Actual logic to perform a confirmation
-          this.selectedAppointment = Appointment;
           let index = this.findSelectedAppointmentIndex();
           this.appointmentList = this.appointmentList.filter((val,i) => i!=index);
           this.appointmentService.deleteAppointments(this.selectedAppointment.appointmentId);
@@ -175,7 +174,6 @@ export class AppointmentsComponent implements OnInit {
     this.selectedAppointment.hostId = this.selectedHost.employeeId;
 
     tmpAppointmentList.push(this.selectedAppointment);
-    //this.appointmentService.postAppointments(this.selectedAppointment);
     this.appointmentService.postAppointments(this.selectedAppointment).then(appointment => {
       tmpAppointmentList[this.appointmentList.indexOf(this.selectedAppointment)] = appointment;
       this.appointmentList = tmpAppointmentList;
@@ -188,9 +186,24 @@ export class AppointmentsComponent implements OnInit {
   }
 
   editAppointment(Appointment: Appointment){
+    this.appointmentForm.enable();
+    this.isDelete = false;
     this.selectedAppointment=Appointment;
     this.cloneAppointment = this.cloneRecord(this.selectedAppointment);
     this.display=true;
+    this.isNewAppointment = false;
+    this.selectedAppointment.appointmentDate = new Date(this.selectedAppointment.appointmentDate);
+    this.selectedGuest = this.guestList.find(x => x.contactId == this.selectedAppointment.guestId);
+    this.selectedHost = this.hostList.find(x => x.employeeId == this.selectedAppointment.hostId);
+  }
+
+  confirmDelete(Appointment: Appointment){
+    this.appointmentForm.markAsPristine();
+    this.selectedAppointment=Appointment;
+    this.cloneAppointment = this.cloneRecord(this.selectedAppointment);
+    this.isDelete = true;
+    this.display=true;
+    this.appointmentForm.disable();
     this.isNewAppointment = false;
   }
 

@@ -27,9 +27,8 @@ export class ContactsComponent implements OnInit {
   brContact: MenuItem[];
   home: MenuItem;
 
-  
-
   display: boolean;
+  isDelete: boolean;
 
   constructor(private contactService: ContactService,
   private http:HttpClient,
@@ -56,12 +55,16 @@ export class ContactsComponent implements OnInit {
       {label: 'Contacts', url: '/contacts'}
     ]
     this.home = {icon: 'fa fa-home', routerLink: '/dashboard'};
+
+    this.isDelete = false;
   }
 
   addContact(){
     this.contactForm.markAsPristine();
     this.display = true;
     this.isNewContact = true;
+    this.isDelete = false;
+    this.contactForm.enable();
     this.selectedContact = new ContactClass();
   }
 
@@ -136,26 +139,42 @@ export class ContactsComponent implements OnInit {
     return this.contactList.indexOf(this.selectedContact);
   }
 
-  deleteContact(Contact: Contact){
+  deleteContact(){
     this.confirmationService.confirm({
       message: 'Are you sure that you want to delete this record?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
           //Actual logic to perform a confirmation
-          this.selectedContact = Contact;
           let index = this.findSelectedContactIndex();
           this.contactList = this.contactList.filter((val,i) => i!=index);
           this.contactService.deleteContacts(this.selectedContact.contactId);
           this.selectedContact = null;
+      },
+      reject: () => {
+        this.display=false;
       }
     });
   }
 
   editContact(Contact: Contact){
+    this.contactForm.markAsPristine();
     this.selectedContact=Contact;
     this.cloneContact = this.cloneRecord(this.selectedContact);
+    this.isDelete = false;
     this.display=true;
+    this.contactForm.enable();
     this.isNewContact = false;
   }
+
+  confirmDelete(Contact: Contact){
+    this.contactForm.markAsPristine();
+    this.selectedContact=Contact;
+    this.cloneContact = this.cloneRecord(this.selectedContact);
+    this.isDelete = true;
+    this.display=true;
+    this.contactForm.disable();
+    this.isNewContact = false;
+  }
+
 }

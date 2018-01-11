@@ -3,13 +3,17 @@
   <div class="ui-g">
       <p-dataTable [value]="contactList" selectionMode="single" expandableRows="true" [(selection)]="selectedContact" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10" [responsive]="true">
         <p-header>
-            <button class="float-left" type="button" pButton (click)="addContact()" icon="fa-plus"></button>
+            <button class="float-left" name="btnAdd" type="button" pButton (click)="addContact()" icon="fa-plus"></button>
             Contacts
+            <div class="float-right">
+                <input #gb type="text" pInputText size="25" placeholder="Search">
+                <button name="btnSearch" type="button" pButton icon="fa-search"></button>
+            </div>
         </p-header>
         <p-column>
             <ng-template let-Contact="rowData"  pTemplate="body">
                 <button type="button" pButton (click)="editContact(Contact)" icon="fa-pencil"></button>
-                <button class="ui-button-danger" type="button" pButton (click)="deleteContact(Contact)" icon="fa-times"></button>
+                <button class="ui-button-danger" type="button" pButton (click)="confirmDelete(Contact)" icon="fa-times"></button>
             </ng-template>
         </p-column>
         <p-column field="firstName" header="First Name" [sortable]="true"></p-column>
@@ -131,10 +135,13 @@
             <input class="ui-g-12 ui-md-6" pInputText id="dateActivated" formControlName="dateactivated" placeholder="Enter Date" [(ngModel)]="selectedContact.dateActivated">
         </div>
     </div>
-    <div class="ui-g">
+    <div class="ui-g" *ngIf="isDelete == false">
         <button pButton icon="fa-check" type="button" (click)="saveAndNewContact()" [disabled]="!contactForm.valid" label="Save and New" *ngIf="isNewContact == true"></button>
         <button pButton icon="fa-check" type="button" (click)="saveContact()" [disabled]="!contactForm.valid" label="Save"></button>
         <button class="ui-button-warning" pButton icon="fa-ban" type="button" (click)="cancelContact()" label="Cancel" *ngIf="isNewContact == false"></button>
+    </div>
+    <div class="ui-g" *ngIf="isDelete == true"> 
+        <button class="ui-button-danger" pButton icon="fa-ban" type="button" (click)="deleteContact()" label="Delete"></button>
     </div>
 </p-dialog>
 </form>
