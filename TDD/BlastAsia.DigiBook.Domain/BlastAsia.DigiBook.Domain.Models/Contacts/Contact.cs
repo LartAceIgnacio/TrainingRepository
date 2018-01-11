@@ -28,6 +28,6 @@ namespace BlastAsia.DigiBook.Domain.Models.Contacts
 
         public DateTime? DateActivated { get; set; }
         
-        //public ICollection<Appointment> Appointments { get; set; }
+        public List<Appointment> Appointments { get; set; }
     }
 }

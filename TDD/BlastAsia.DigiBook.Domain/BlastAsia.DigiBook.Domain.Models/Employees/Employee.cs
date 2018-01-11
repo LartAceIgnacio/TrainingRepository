@@ -29,6 +29,6 @@ namespace BlastAsia.DigiBook.Domain.Models.Employees
         [MaxLength(16)]
         public byte[] PhotoByte { get; set; }
         
-        //public ICollection<Appointment> Appointments { get; set; }
+        public List<Appointment> Appointments { get; set; }
     }
 }

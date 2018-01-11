@@ -13,13 +13,13 @@ namespace BlastAsia.DigiBook.Domain.Models.Appointments
 
         public DateTime AppointmentDate { get; set; }
 
-        //[ForeignKey("Contact")]
+        [ForeignKey("Contact")]
         public Guid GuestId { get; set; }
-        //public Contact Contact { get; set; }
+        public Contact Contact { get; set; }
 
-        //[ForeignKey("Employee")]
+        [ForeignKey("Employee")]
         public Guid HostId { get; set; }
-        //public Employee Employee { get; set; }
+        public Employee Employee { get; set; }
 
         public TimeSpan StartTime { get; set; }
 
