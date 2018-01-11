@@ -1,0 +1,8 @@
+{
+    "data": [
+        {"name": "Christopher Manuel", "address": "Mandaluyong", "phone": "+639522412789", "rating": "100"},
+        {"name": "Emmanuel Magadia", "address": "Pasig", "phone": "+639414789652", "rating": "98"},
+        {"name": "Jasmine Magdaleno", "address": "Quezon", "phone": "+639412451200", "rating": "98"},
+        {"name": "Ryana Karla Oribello Gandarra Forever", "address": "Fareview", "phone": "+639412100145", "rating": "50"}
+    ]
+}

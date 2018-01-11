@@ -1,0 +1,72 @@
+<p-panel>
+  <div class="ui-g">
+    <p-dataTable #dt [value]="venueList" [rows]="10" [paginator]="true" [pageLinks]="5" 
+      [responsive]="true" (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
+      <p-header>
+        <div class="addHeader">
+          <button type="button" pButton icon="fa-plus" (click)="addVenue()"></button>
+          &nbsp;Venues
+        </div>
+        <div class="searchHeader">
+          <input type="text" pInputText placeholder="Search Venue" [(ngModel)]="searchFilter" />   
+          <button pButton type="button" icon="fa-search" (click)="searchVenue()"></button>   
+        </div>
+      </p-header>
+      <p-column field="venueId">
+        <ng-template pTemplate type="body" let-Venue="rowData">
+          <span>
+            <button pButton type="button" icon="fa-pencil" (click)="onRowSelect(Venue)" ></button>
+            <button pButton type="button" icon="fa-trash" (click)="btnDelete(Venue)"></button>
+          </span>
+        </ng-template>
+      </p-column>
+      <p-column field="venueName" header="Venue Name"></p-column>
+      <p-column field="description" header="Description"></p-column>
+    </p-dataTable>
+  </div>
+</p-panel>
+<br/>
+<p-confirmDialog></p-confirmDialog>
+<form [formGroup]="userform">
+  <p-dialog [(visible)]="selectedVenue" modal="modal" width="1000" 
+    [closable]="isNewVenue === false && isDeleteVenue === false ? true : false"
+    [responsive]="true" *ngIf="selectedVenue" [draggable]="false" [resizable]="true">
+    <p-header>
+      {{isNewVenue ? "New Venue" : isDeleteVenue ? "Delete Venue" : "Edit Venue"}}
+    </p-header>
+    <div class="ui-g ui-g-responsive ui-fluid">
+      <div class="ui-g-12 ui-md-12 ui-fluid">
+        <div class="ui-g-12 ui-md-2"><label for="input-venueName">Venue Name</label></div>
+        <div class="ui-g-12 ui-md-4">
+          <input pInputText id="input-venueName" formControlName="venueName" 
+            placeholder="Enter Venue Name" [(ngModel)]="selectedVenue.venueName" />
+        </div>
+        <div class="ui-g-12 ui-md-4">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['venueName'].valid && userform.controls['venueName'].dirty">
+            <i class="fa fa-close"></i>
+            <span *ngIf="userform.controls['venueName'].errors['required']">Password is required</span>
+            <span *ngIf="userform.controls['venueName'].errors['maxlength']">Must be less than 51 characters</span>
+          </div>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-md-12 ui-fluid">
+        <div class="ui-g-12 ui-md-2"><label for="input-description">Description</label></div>
+        <div class="ui-g-12 ui-md-10">
+          <textarea class="ui-g-12 ui-md-12" pInputTextArea id="input-description" [rows]=5 
+            placeholder="Enter Venue Description" style="resize:none" formControlName="description"
+            [(ngModel)]="selectedVenue.description"></textarea>
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['description'].valid && userform.controls['description'].dirty">
+            <i class="fa fa-close"></i>
+              Must be less than 101 characters
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="centerButtons">
+      <button pButton type="button" icon="fa-file" label="Save & New" class="ui-button-success" (click)="btnSave(true)" [disabled]="!userform.valid" *ngIf="isNewVenue"></button>
+      <button pButton type="button" icon="fa-floppy-o" label="Save" class="ui-button-success" (click)="btnSave(false)" [disabled]="!userform.valid" *ngIf="!isDeleteVenue"></button>
+      <button pButton type="button" icon="fa-check" label="Ok" class="ui-button-success" (click)="btnOk()" *ngIf="isDeleteVenue === true"></button>
+      <button pButton type="button" icon="fa-ban" label="Cancel" class="ui-button-warning" (click)="btnCancel()"></button>
+    </div>
+  </p-dialog>
+</form>
