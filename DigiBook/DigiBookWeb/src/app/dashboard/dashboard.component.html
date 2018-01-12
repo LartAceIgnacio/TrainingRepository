@@ -27,3 +27,31 @@
   </p-panel> 
 
 </div>
+
+<div class="ui-g">
+  <p-panel header="Hours By Projects (Polar Area)" class="ui-g-12 ui-md-6">
+    <p-chart type="polarArea" [data]="hoursByProjectChartData"></p-chart>
+  </p-panel> 
+
+  <p-panel header="Hours By Team (bar)" class="ui-g-12 ui-md-6">
+    <p-chart type="bar" [data]="hoursByTeamChartData"></p-chart>
+  </p-panel>
+</div>
+
+<div class="ui-g">
+  <p-panel header="Hours By Team (line)" class="ui-g-12 ui-md-6">
+    <p-chart type="line" [data]="hoursByTeamChartData"></p-chart>
+  </p-panel>
+
+  <p-panel header="Hours By Team (radar)" class="ui-g-12 ui-md-6">
+    <p-chart type="radar" [data]="hoursByTeamChartData"></p-chart>
+  </p-panel>
+</div>
+
+<div class="ui-g">
+  <p-panel header="Hours By Team (mixed)" class="ui-g-12 ui-md-6">
+    <p-chart type="bar" [data]="hoursByTeamChartDataMixed"></p-chart>
+  </p-panel>
+
+
+</div>
