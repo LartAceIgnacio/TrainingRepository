@@ -8,33 +8,23 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
   data: any;
 
+  hoursByProject = [
+    {id:1, name: 'Payroll App', hoursSpent:8},
+    {id:2, name: 'Agile Times App', hoursSpent: 16},
+    {id:3, name: 'Point of Sale App', hoursSpent: 24}
+  ];
+
+  hoursByProjectChartData = {
+    labels:['Payroll App', 'Agile Times App', 'Point ofSales App'],
+    datasets: [
+      {
+        data: [8,16,24],
+        backgroundColor:["#3366cc","#cc3912","#ff9900"]
+      }
+    ]
+  }; 
   constructor() {
-    this.data = {
-      datasets: [{
-        data: [
-          11,
-          16,
-          7,
-          3,
-          14
-        ],
-        backgroundColor: [
-          "#FF6384",
-          "#4BC0C0",
-          "#FFCE56",
-          "#E7E9ED",
-          "#36A2EB"
-        ],
-        label: 'My dataset'
-      }],
-      labels: [
-        "Red",
-        "Green",
-        "Yellow",
-        "Grey",
-        "Blue"
-      ]
-    }
+   
   }
 
   ngOnInit() {
