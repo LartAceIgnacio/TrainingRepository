@@ -50,7 +50,10 @@
 
 <div class="ui-g">
   <p-panel header="Hours By Team (mixed)" class="ui-g-12 ui-md-6">
-    <p-chart type="bar" [data]="hoursByTeamChartDataMixed"></p-chart>
+    <p-chart type="bar" [data]="hoursByTeamChartDataMixed" 
+      #mixedChart
+      (onDataSelect)="onDataSelect($event)"
+    ></p-chart>
   </p-panel>
 
 

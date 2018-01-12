@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { UIChart } from 'primeng/primeng';
+import { Observable } from 'rxjs';
 
 const DEFAULT_COLORS = ['#3366CC', '#DC3912', '#FF9900', '#109618', '#990099',
 '#3B3EAC', '#0099C6', '#DD4477', '#66AA00', '#B82E2E',
@@ -10,9 +12,9 @@ const DEFAULT_COLORS = ['#3366CC', '#DC3912', '#FF9900', '#109618', '#990099',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
 
-
+  @ViewChild("mixedChart") mixedChart: UIChart;
 
   hoursByProject = [
     {id:1, name: 'Payroll App', hoursSpent:8},
@@ -87,7 +89,28 @@ export class DashboardComponent implements OnInit {
    
   }
 
+  onDataSelect(event) {
+    let dataSetIndex = event.element._datasetIndex;
+    let dataItemIndex = event.element._index;
+
+    let labelClicked = this.hoursByTeamChartDataMixed.datasets[dataSetIndex].label;
+    let valueClicked = this.hoursByTeamChartDataMixed.datasets[dataItemIndex].data[dataItemIndex];
+
+    alert(`${labelClicked}-${valueClicked}`); 
+  }
+
   ngOnInit() {
 
   }
+
+  ngAfterViewInit(): void {
+    Observable.interval(3000).timeInterval().subscribe(()=> {
+      var hoursByTeam = this.hoursByTeamChartDataMixed.datasets;
+      var randomized = hoursByTeam.map((dataset) => {
+        dataset.data = dataset.data.map((hours)=> hours * (Math.random() * 2));
+      });
+      this.mixedChart.refresh();
+    });
+  }
+
 }
