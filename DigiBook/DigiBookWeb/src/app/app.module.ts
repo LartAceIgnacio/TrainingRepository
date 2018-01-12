@@ -29,6 +29,7 @@ import { AuthInterceptor} from './services/auth-interceptor';
 import { AuthResponseInterceptor} from './services/auth-response-interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterComponent } from './user/register.component';
+import { StatisticComponent } from './statistic/statistic.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { RegisterComponent } from './user/register.component';
     VenuesComponent,
     AppointmentsComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    StatisticComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +70,7 @@ import { RegisterComponent } from './user/register.component';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule
+
   ],
   providers: [AuthService,
             {

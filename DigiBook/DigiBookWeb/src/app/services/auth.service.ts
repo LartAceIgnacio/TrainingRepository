@@ -89,13 +89,15 @@ export class AuthService {
                     // store username and jwt token
                     this.setAuth(res);
                     // successful login
-          return true;
-        }
-        // failed login
-        return Observable.throw('Unauthorized');
-    })
-    .catch(error => {
-        return new Observable<any>(error);
-    });
-  }
+                    return true;
+                }
+                // failed login
+                console.log("error");
+                return Observable.throw('Unauthorized');
+            })
+            .catch(error => {
+              console.log(error);
+                return new Observable<any>(error);
+            });
+    }
 }

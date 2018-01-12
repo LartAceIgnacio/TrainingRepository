@@ -48,7 +48,7 @@ export class LoginComponent {
               },
               err => {
                   // login failed
-                  console.log(err)
+                  console.log("royroyroy")
                   this.form.setErrors({
                       "auth": "Incorrect username or password"
                   });

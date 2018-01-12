@@ -1,4 +1,4 @@
-<div class="ui-g">
+<div>
   <header class="ui-g-12">
     <div id="top-logo">
       <h2><i class="fa fa-book" aria-hidden="true"></i>&nbsp;DigiBook</h2>
@@ -17,8 +17,8 @@
       </ul>
     </div>
   </header>
-  <div class="ui-g-12 ui-md-2">
-    <p-menu *ngIf="this.auth.isLoggedIn()" [model]="menuItems"></p-menu>
+  <div *ngIf="this.auth.isLoggedIn()" class="ui-g-12 ui-md-2">
+    <p-menu  [model]="menuItems"></p-menu>
   </div>
   <div class="ui-g-12 ui-md-10">
     <router-outlet></router-outlet>
