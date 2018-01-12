@@ -11,9 +11,10 @@ using System;
 namespace BlastAsia.DigiBook.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(DigiBookDbContext))]
-    partial class DigiBookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180111085304_Refresh Tokens")]
+    partial class RefreshTokens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,25 +141,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Migrations
                         .HasName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("BlastAsia.DigiBook.Infrastructure.Security.ApplicationRoleClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ClaimType");
-
-                    b.Property<string>("ClaimValue");
-
-                    b.Property<Guid>("RoleId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("RoleClaims");
+                    b.ToTable("AspNetRoles");
                 });
 
             modelBuilder.Entity("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUser", b =>
@@ -172,8 +155,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<DateTime>("CreatedDate");
-
-                    b.Property<string>("DisplayName");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -222,69 +203,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUserClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ClaimType");
-
-                    b.Property<string>("ClaimValue");
-
-                    b.Property<Guid>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserClaims");
-                });
-
-            modelBuilder.Entity("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUserLogin", b =>
-                {
-                    b.Property<string>("LoginProvider");
-
-                    b.Property<string>("ProviderKey");
-
-                    b.Property<string>("ProviderDisplayName");
-
-                    b.Property<Guid>("UserId");
-
-                    b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserLogins");
-                });
-
-            modelBuilder.Entity("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUserRole", b =>
-                {
-                    b.Property<Guid>("UserId");
-
-                    b.Property<Guid>("RoleId");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("UserRoles");
-                });
-
-            modelBuilder.Entity("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUserToken", b =>
-                {
-                    b.Property<Guid>("UserId");
-
-                    b.Property<string>("LoginProvider");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Value");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("UserTokens");
-                });
-
             modelBuilder.Entity("BlastAsia.DigiBook.Infrastructure.Security.Token", b =>
                 {
                     b.Property<int>("Id")
@@ -292,8 +210,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("ClientId")
                         .IsRequired();
-
-                    b.Property<DateTime>("CreatedDate");
 
                     b.Property<int>("Type");
 
@@ -309,61 +225,97 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Migrations
                     b.ToTable("Tokens");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<Guid>("RoleId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("ProviderKey");
+
+                    b.Property<string>("ProviderDisplayName");
+
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId");
+
+                    b.Property<Guid>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId");
+
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
+
             modelBuilder.Entity("BlastAsia.DigiBook.Domain.Models.Appointments.Appointment", b =>
                 {
-                    b.HasOne("BlastAsia.DigiBook.Domain.Models.Contacts.Contact", "Guest")
+                    b.HasOne("BlastAsia.DigiBook.Domain.Models.Contacts.Contact", "Contact")
                         .WithMany("Appointments")
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BlastAsia.DigiBook.Domain.Models.Employees.Employee", "Host")
+                    b.HasOne("BlastAsia.DigiBook.Domain.Models.Employees.Employee", "Employee")
                         .WithMany("Appointments")
                         .HasForeignKey("HostId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("BlastAsia.DigiBook.Infrastructure.Security.ApplicationRoleClaim", b =>
-                {
-                    b.HasOne("BlastAsia.DigiBook.Infrastructure.Security.ApplicationRole")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUserClaim", b =>
-                {
-                    b.HasOne("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUserLogin", b =>
-                {
-                    b.HasOne("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUserRole", b =>
-                {
-                    b.HasOne("BlastAsia.DigiBook.Infrastructure.Security.ApplicationRole")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUserToken", b =>
-                {
-                    b.HasOne("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -371,6 +323,51 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUser", "User")
                         .WithMany("Tokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.HasOne("BlastAsia.DigiBook.Infrastructure.Security.ApplicationRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.HasOne("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.HasOne("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.HasOne("BlastAsia.DigiBook.Infrastructure.Security.ApplicationRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.HasOne("BlastAsia.DigiBook.Infrastructure.Security.ApplicationUser")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

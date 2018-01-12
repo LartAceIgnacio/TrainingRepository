@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlastAsia.DigiBook.Domain.Models;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
+using BlastAsia.DigiBook.Infrastructure.Security;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -27,6 +28,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         {
             // Instantiate the required classes through DI DbContext = context;
             RoleManager = roleManager;
+            DbContext = context;
             UserManager = userManager;
             Configuration = configuration;
             // Instantiate a single JsonSerializerSettings object

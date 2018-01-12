@@ -6,9 +6,11 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\20180110075147_Initial Migration.cs" />
+    <Compile Remove="Migrations\20180112030500_Correct Foreign Keys 2.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="mapster" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
@@ -18,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BlastAsia.DigiBook.Domain.Models\BlastAsia.DigiBook.Domain.Models.csproj" />
     <ProjectReference Include="..\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Domain.csproj" />
+    <ProjectReference Include="..\BlastAsia.DigiBook.Infrastructure\BlastAsia.DigiBook.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

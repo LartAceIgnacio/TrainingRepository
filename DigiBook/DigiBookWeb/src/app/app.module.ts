@@ -26,7 +26,10 @@ import { LoginComponent } from './login/login.component';
 
 import { AuthService } from './services/auth.service';
 import { AuthInterceptor} from './services/auth-interceptor';
+import { AuthResponseInterceptor} from './services/auth-response-interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RegisterComponent } from './user/register.component';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +39,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     ContactsComponent,
     VenuesComponent,
     AppointmentsComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +73,11 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
             {
               provide: HTTP_INTERCEPTORS,
               useClass: AuthInterceptor,
+              multi: true
+            },
+            {
+              provide: HTTP_INTERCEPTORS,
+              useClass: AuthResponseInterceptor,
               multi: true
             }
             ],

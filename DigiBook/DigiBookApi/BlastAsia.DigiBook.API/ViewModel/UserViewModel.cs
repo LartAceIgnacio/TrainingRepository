@@ -7,19 +7,18 @@ using System.Threading.Tasks;
 namespace BlastAsia.DigiBook.API.ViewModel
 {
     [JsonObject(MemberSerialization.OptOut)]
-    public class TokenResponseViewModel
+    public class UserViewModel
     {
         #region Constructor
-        public TokenResponseViewModel()
+        public UserViewModel()
         {
         }
         #endregion
-
         #region Properties
-        public string token { get; set; }
-        public int expiration { get; set; }
-
-        public string refresh_token { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public string DisplayName { get; set; }
         #endregion
     }
 }

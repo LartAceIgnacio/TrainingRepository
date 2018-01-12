@@ -19,11 +19,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.0 API", "2.0 API", "{5FC7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.0 Domain", "3.0 Domain", "{C8978CC0-02D0-4CEB-B6C5-49F823D0E1CC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.0 Persistance", "4.0 Persistance", "{F9F57F61-DA2A-4F2E-8D2E-16DC1A965718}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.0 Infrastructure", "4.0 Infrastructure", "{F9F57F61-DA2A-4F2E-8D2E-16DC1A965718}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.API", "BlastAsia.DigiBook.API\BlastAsia.DigiBook.API.csproj", "{F77570F6-1128-4A72-8897-B8D81A8DE749}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.DigiBook.API.Test", "BlastAsia.DigiBook.API.Test\BlastAsia.DigiBook.API.Test.csproj", "{71C44E2F-CF8C-4405-9642-4B820E9D6913}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.API.Test", "BlastAsia.DigiBook.API.Test\BlastAsia.DigiBook.API.Test.csproj", "{71C44E2F-CF8C-4405-9642-4B820E9D6913}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.DigiBook.Infrastructure", "BlastAsia.DigiBook.Infrastructure\BlastAsia.DigiBook.Infrastructure.csproj", "{5229EA3E-B7F6-473B-B8B7-18E45AFC7789}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{71C44E2F-CF8C-4405-9642-4B820E9D6913}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71C44E2F-CF8C-4405-9642-4B820E9D6913}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71C44E2F-CF8C-4405-9642-4B820E9D6913}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5229EA3E-B7F6-473B-B8B7-18E45AFC7789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5229EA3E-B7F6-473B-B8B7-18E45AFC7789}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5229EA3E-B7F6-473B-B8B7-18E45AFC7789}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5229EA3E-B7F6-473B-B8B7-18E45AFC7789}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +77,7 @@ Global
 		{F7F1CC27-D965-4731-967F-5DB357FDC515} = {F9F57F61-DA2A-4F2E-8D2E-16DC1A965718}
 		{F77570F6-1128-4A72-8897-B8D81A8DE749} = {5FC71F7B-5D7B-466E-B71F-7E570A074220}
 		{71C44E2F-CF8C-4405-9642-4B820E9D6913} = {5FC71F7B-5D7B-466E-B71F-7E570A074220}
+		{5229EA3E-B7F6-473B-B8B7-18E45AFC7789} = {F9F57F61-DA2A-4F2E-8D2E-16DC1A965718}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4A6C73FE-40D3-43BD-AAE0-24B984294152}

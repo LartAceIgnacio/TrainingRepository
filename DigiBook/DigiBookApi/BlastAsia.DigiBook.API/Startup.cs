@@ -6,6 +6,7 @@ using BlastAsia.DigiBook.Domain.Models;
 using BlastAsia.DigiBook.Domain.Venues;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
 using BlastAsia.DigiBook.Infrastructure.Persistence.Repositories;
+using BlastAsia.DigiBook.Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -39,6 +40,8 @@ namespace BlastAsia.DigiBook.API
                    .GetConnectionString("DefaultConnection"))
                    );
 
+
+            #region Security
             services
                 .AddIdentity<ApplicationUser, ApplicationRole>(options =>
                 {
@@ -63,7 +66,7 @@ namespace BlastAsia.DigiBook.API
                 .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options => {
-                options.Cookie.Name = "DigBookCookie";
+                options.Cookie.Name = "DigiBookCookie";
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                 options.LoginPath = "/Account/Login";
@@ -73,6 +76,7 @@ namespace BlastAsia.DigiBook.API
                 // Requires `using Microsoft.AspNetCore.Authentication.Cookies;`
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
             });
+            #endregion
 
             #region Authentication
             services
@@ -102,6 +106,7 @@ namespace BlastAsia.DigiBook.API
                 });
             #endregion
 
+            #region DI
             services.AddScoped<IDigiBookDbContext, DigiBookDbContext>();
             services.AddTransient<IContactService, ContactService>();
             services.AddScoped<IContactRepository, ContactRepository>();
@@ -115,10 +120,14 @@ namespace BlastAsia.DigiBook.API
             services.AddTransient<IVenueService, VenueService>();
             services.AddScoped<IVenueRepository, VenueRepository>();
 
+            #endregion
+
+            #region Swagger
             services.AddSwaggerGen(x => 
             {
                 x.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "DigiBook API" });
             });
+
 
             services.AddCors(config => {
                 config.AddPolicy("DigiBookWeb", policy => {
@@ -130,6 +139,7 @@ namespace BlastAsia.DigiBook.API
 
                 });
             });
+            #endregion
 
             services.AddMvc();
         }

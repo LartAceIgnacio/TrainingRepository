@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlastAsia.DigiBook.Domain.Models
+namespace BlastAsia.DigiBook.Infrastructure.Security
 {
     public class ApplicationUser : IdentityUser<Guid>
     {
@@ -20,5 +20,8 @@ namespace BlastAsia.DigiBook.Domain.Models
 
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
+
+        public virtual List<Token> Tokens { get; set; }
+        public string DisplayName { get; set; }
     }
 }

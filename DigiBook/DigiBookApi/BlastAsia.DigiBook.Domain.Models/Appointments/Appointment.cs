@@ -1,5 +1,6 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Employees;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,13 +14,19 @@ namespace BlastAsia.DigiBook.Domain.Models.Appointments
 
         public DateTime AppointmentDate { get; set; }
 
-        [ForeignKey("Contact")]
+     
         public Guid GuestId { get; set; }
-        public Contact Contact { get; set; }
 
-        [ForeignKey("Employee")]
+        [ForeignKey("GuestId")]
+        [JsonIgnore]
+        public Contact Guest { get; set; }
+
+
         public Guid HostId { get; set; }
-        public Employee Employee { get; set; }
+
+        [ForeignKey("HostId")]
+        [JsonIgnore]
+        public Employee Host { get; set; }
 
         public TimeSpan StartTime { get; set; }
 

@@ -2,6 +2,7 @@
 using BlastAsia.DigiBook.Domain.Models.Appointments;
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Employees;
+using BlastAsia.DigiBook.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;

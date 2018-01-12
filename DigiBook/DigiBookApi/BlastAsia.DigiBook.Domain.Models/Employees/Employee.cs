@@ -1,4 +1,5 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Appointments;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -29,6 +30,7 @@ namespace BlastAsia.DigiBook.Domain.Models.Employees
         [MaxLength(16)]
         public byte[] PhotoByte { get; set; }
         
+        [JsonIgnore]
         public List<Appointment> Appointments { get; set; }
     }
 }
