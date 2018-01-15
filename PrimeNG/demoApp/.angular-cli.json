@@ -24,7 +24,9 @@
         "../node_modules/primeng/resources/themes/lightness/theme.css",
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/chart.js/dist/chart.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

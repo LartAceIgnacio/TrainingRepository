@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using BlastAsia.DigiBook.API.Utils;
 using Microsoft.AspNetCore.Cors;
 using BlastAsia.DigiBook.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
@@ -67,6 +68,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("api/Contacts")]
         public IActionResult CreateContact(
             [FromBody]
@@ -92,6 +94,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("api/Contacts")]
         public IActionResult DeleteContact(Guid id)
         {
@@ -105,6 +108,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("api/Contacts")]
         public IActionResult UpdateContact(
             [FromBody]
@@ -136,6 +140,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPatch]
+        [Authorize]
         [Route("api/Contacts")]
         public IActionResult PatchContact(
             [FromBody]JsonPatchDocument patchedContact, Guid id)

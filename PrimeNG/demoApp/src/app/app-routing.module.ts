@@ -7,7 +7,8 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { VenuesComponent } from './venues/venues.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { LoginComponent } from './login/login.component';
- 
+import { RegisterComponent } from "./user/register.component";
+
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
     { path: 'contacts', component: ContactsComponent },
     { path: 'employees', component: EmployeesComponent },
     { path: 'venues', component: VenuesComponent },
-    { path: 'login', component: LoginComponent}
+    { path: 'login', component: LoginComponent},
+    { path: 'register', component: RegisterComponent }
   ];
  
 @NgModule({

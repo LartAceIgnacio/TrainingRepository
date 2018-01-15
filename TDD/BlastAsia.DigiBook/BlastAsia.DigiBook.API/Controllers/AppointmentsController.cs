@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using BlastAsia.DigiBook.API.Utils;
 using Microsoft.AspNetCore.Cors;
 using BlastAsia.DigiBook.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
@@ -61,6 +62,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("api/Appointments")]
         public IActionResult CreateAppointment([FromBody] Appointment appointment)
         {
@@ -83,6 +85,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("api/Appointments")]
         public IActionResult DeleteAppointment(Guid id)
         {
@@ -96,6 +99,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("api/Appointments")]
         public IActionResult UpdateAppointment([FromBody] Appointment appointment, Guid id)
         {
@@ -125,6 +129,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPatch]
+        [Authorize]
         [Route("api/Appointments")]
         public IActionResult PatchAppointment([FromBody]JsonPatchDocument patchAppointment, Guid id)
         {

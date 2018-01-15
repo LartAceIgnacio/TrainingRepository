@@ -2,6 +2,7 @@ import { Component, Inject } from "@angular/core";
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
 import { AuthService } from '../services/auth.service';
+import { API_URL} from '../services/constants';
 
 @Component({
        selector: "login",
@@ -11,15 +12,13 @@ import { AuthService } from '../services/auth.service';
 export class LoginComponent {
     title: string;
     form: FormGroup;
-    baseUrl: string;
+    baseUrl: string = API_URL;
 
     constructor(private router: Router,
       private fb: FormBuilder,
       private authService: AuthService) {
       this.title = "User Login";
-      // initialize the form
 
-      this.baseUrl = 'http://localhost:56416/'
       this.createForm();
     }
 
@@ -30,7 +29,7 @@ export class LoginComponent {
       });
     }
     onSubmit() {
-      var url = this.baseUrl + "api/token/auth";
+      var url = `${this.baseUrl}/token/auth`;
       var username = this.form.value.Username;
       var password = this.form.value.Password;
       this.authService.login(username, password)
@@ -38,17 +37,17 @@ export class LoginComponent {
                   // login successful
                   // outputs the login info through a JS alert.
                   // IMPORTANT: remove this when test is done.
-                  alert("Login successful! "
+                  /*alert("Login successful! "
                       + "USERNAME: "
                       + username
                       + " TOKEN: "
                       + this.authService.getAuth()!.token
                   );
+                  */
                   this.router.navigate(["/"]);
               },
               err => {
                   // login failed
-                  console.log(err)
                   this.form.setErrors({
                       "auth": "Incorrect username or password"
                   });

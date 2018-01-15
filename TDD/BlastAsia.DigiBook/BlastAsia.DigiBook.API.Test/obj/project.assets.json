@@ -63,6 +63,23 @@
           }
         }
       },
+      "Mapster/3.1.8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.3.0",
+          "NETStandard.Library": "1.6.0",
+          "System.Collections.NonGeneric": "4.3.0",
+          "System.Linq.Queryable": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0",
+          "System.Runtime": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Mapster.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Mapster.dll": {}
+        }
+      },
       "Microsoft.ApplicationInsights/2.4.0": {
         "type": "package",
         "dependencies": {
@@ -4234,10 +4251,12 @@
           "BlastAsia.DigiBook.Domain": "1.0.0",
           "BlastAsia.DigiBook.Domain.Models": "1.0.0",
           "BlastAsia.DigiBook.Infrastructure.Persistence": "1.0.0",
+          "Mapster": "3.1.8",
           "Microsoft.ApplicationInsights.AspNetCore": "2.1.1",
           "Microsoft.AspNetCore": "2.0.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "2.0.1",
           "Microsoft.AspNetCore.Cors": "2.0.1",
+          "Microsoft.AspNetCore.Http": "2.0.1",
           "Microsoft.AspNetCore.Identity": "2.0.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.1",
           "Microsoft.AspNetCore.JsonPatch": "2.0.0",
@@ -4287,12 +4306,27 @@
           "bin/placeholder/BlastAsia.DigiBook.Domain.Models.dll": {}
         }
       },
+      "BlastAsia.DigiBook.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity": "2.0.1",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.1"
+        },
+        "compile": {
+          "bin/placeholder/BlastAsia.DigiBook.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlastAsia.DigiBook.Infrastructure.dll": {}
+        }
+      },
       "BlastAsia.DigiBook.Infrastructure.Persistence/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
         "dependencies": {
           "BlastAsia.DigiBook.Domain": "1.0.0",
           "BlastAsia.DigiBook.Domain.Models": "1.0.0",
+          "BlastAsia.DigiBook.Infrastructure": "1.0.0",
           "Microsoft.AspNetCore.Identity": "2.0.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.1",
           "Microsoft.EntityFrameworkCore": "2.0.1",
@@ -4345,6 +4379,18 @@
         "runtimes/win-arm/native/libuv.dll",
         "runtimes/win-x64/native/libuv.dll",
         "runtimes/win-x86/native/libuv.dll"
+      ]
+    },
+    "Mapster/3.1.8": {
+      "sha512": "CjRCAcIjn9ikQ3AV/wVxoeDzus5GaDll5GXRqcek7ls24kw2qzQ49nRqQEj7WpOgtDTD2Uv1pCW34tt/CHFfsg==",
+      "type": "package",
+      "path": "mapster/3.1.8",
+      "files": [
+        "lib/net40/Mapster.dll",
+        "lib/net45/Mapster.dll",
+        "lib/netstandard1.3/Mapster.dll",
+        "mapster.3.1.8.nupkg.sha512",
+        "mapster.nuspec"
       ]
     },
     "Microsoft.ApplicationInsights/2.4.0": {
@@ -11604,6 +11650,11 @@
       "type": "project",
       "path": "../BlastAsia.DigiBook.Domain.Models/BlastAsia.DigiBook.Domain.Models.csproj",
       "msbuildProject": "../BlastAsia.DigiBook.Domain.Models/BlastAsia.DigiBook.Domain.Models.csproj"
+    },
+    "BlastAsia.DigiBook.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../BlastAsia.DigiBook.Infrastructure/BlastAsia.DigiBook.Infrastructure.csproj",
+      "msbuildProject": "../BlastAsia.DigiBook.Infrastructure/BlastAsia.DigiBook.Infrastructure.csproj"
     },
     "BlastAsia.DigiBook.Infrastructure.Persistence/1.0.0": {
       "type": "project",

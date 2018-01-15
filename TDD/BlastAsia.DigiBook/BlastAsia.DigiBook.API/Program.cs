@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using BlastAsia.DigiBook.Domain.Models.Security;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
 using BlastAsia.DigiBook.Infrastructure.Persistence.Seeders;
+using BlastAsia.DigiBook.Infrastructure.Security;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,18 +38,18 @@ namespace BlastAsia.DigiBook.API
         private static void RunSeeder(IWebHost host)
         {
 
-            var serviceScopeFactory = (IServiceScopeFactory)host.Services.GetRequiredService(typeof(
-                IServiceScopeFactory
-            ));
+            //var serviceScopeFactory = (IServiceScopeFactory)host.Services.GetRequiredService(typeof(
+            //    IServiceScopeFactory
+            //));
+
+            var serviceScopeFactory = (IServiceProvider)host.Services.GetRequiredService(typeof(IServiceProvider)); //New
+
             using (var serviceScope = serviceScopeFactory.CreateScope())
 
             {
-                var dbContext = serviceScope.ServiceProvider
-                    .GetService<DigiBookDbContext>();
-                var userManager = serviceScope.ServiceProvider
-                    .GetService<UserManager<ApplicationUser>>();
-                var roleManager = serviceScope.ServiceProvider
-                    .GetService<RoleManager<ApplicationRole>>();
+                var dbContext = serviceScope.ServiceProvider.GetService<DigiBookDbContext>();
+                var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+                var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<ApplicationRole>>();
 
                 Seeder.Seed(dbContext, userManager, roleManager);
             }

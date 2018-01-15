@@ -108,7 +108,7 @@ export class AppointmentsComponent implements OnInit {
           for(let i=0;i < this.appointmentList.length; i++){
             this.appointmentList[i].guestName = this.guestList.find(id=>id.contactId==this.appointmentList[i].guestId).firstName;
             this.appointmentList[i].hostName = this.hostList.find(id=>id.employeeId==this.appointmentList[i].hostId).firstName;
-            this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate);
+            this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate)
           }});
       });
     });
@@ -125,7 +125,7 @@ export class AppointmentsComponent implements OnInit {
 
   searchAppointment() {
     if (this.dateFilter != null && (this.dateFilter[0] != null || this.dateFilter[1] != null)) {
-      this.searchFilter = this.dateFilter[0].toLocaleDateString() + "," + this.dateFilter[1].toLocaleDateString();
+      this.searchFilter = this.dateFilter[0]+ "," + this.dateFilter[1]
       if (this.searchFilter.length > 0) {
         this.searchFilter = this.searchFilter.replace(/\//g, "%2F");
       }
@@ -162,6 +162,7 @@ export class AppointmentsComponent implements OnInit {
     if(this.isNewAppointment){
       this.appointmentService.postAppointments(this.selectedAppointment).then(appointment => {
         tmpAppointmentList.push(appointment);
+        //tmpAppointmentList.push(this.appointmentList[i].guestName = this.guestList.find(id=>id.contactId==this.appointmentList[i].guestId).firstName);
         this.appointmentList=tmpAppointmentList;       
         this.selectedAppointment=null;
       });
@@ -191,8 +192,7 @@ export class AppointmentsComponent implements OnInit {
   onRowSelect(){
     this.isNewAppointment = false;
     this.cloneAppointment = this.cloneRecord(this.selectedAppointment);
-    this.selectedAppointment.appointmentDate = new Date(this.selectedAppointment.appointmentDate);
-
+    this.selectedAppointment.appointmentDate = new Date(this.selectedAppointment.appointmentDate)
     this.selectedGuest = this.guestList.find(x => x.contactId == this.selectedAppointment.guestId);
     this.selectedHost = this.hostList.find(x => x.employeeId == this.selectedAppointment.hostId);
   }
@@ -249,7 +249,7 @@ export class AppointmentsComponent implements OnInit {
     this.cloneAppointment = this.cloneRecord(this.selectedAppointment);
     this.display=true;
     this.isNewAppointment = false;
-    this.selectedAppointment.appointmentDate = new Date(this.selectedAppointment.appointmentDate);
+    this.selectedAppointment.appointmentDate = new Date(this.selectedAppointment.appointmentDate)
     this.selectedGuest = this.guestList.find(x => x.contactId == this.selectedAppointment.guestId);
     this.selectedHost = this.hostList.find(x => x.employeeId == this.selectedAppointment.hostId);
   }

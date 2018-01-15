@@ -1,0 +1,33 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<p-panel header="Registration">
+    <div class="ui-g">
+        <label for="displayName" class="ui-g-12 ui-md-2">Display Name:</label>
+        <input id="displayName" class="ui-g-12 ui-md-10" 
+            formControlName="DisplayName" placeholder="Enter last name" type="text"/>
+    </div>
+    <div class="ui-g">
+        <label for="userName" class="ui-g-12 ui-md-2">User Name:</label>
+        <input id="userName" class="ui-g-12 ui-md-10" 
+        formControlName="Username" placeholder="Enter user name" type="text"/>
+    </div>
+    <div class="ui-g">
+        <label for="Email" class="ui-g-12 ui-md-2">Email:</label>
+        <input id="Email" class="ui-g-12 ui-md-10" 
+        formControlName="Email" placeholder="Enter Email" type="text"/>
+    </div>
+    <div class="ui-g">
+        <label for="password" class="ui-g-12 ui-md-2">Password:</label>
+        <input id="password" class="ui-g-12 ui-md-10" 
+            formControlName="Password" placeholder="Enter password" type="password"/>
+    </div>
+    <div class="ui-g">
+        <label for="confirmPassword" class="ui-g-12 ui-md-2">Confirm Password:</label>
+        <input id="confirmPassword" class="ui-g-12 ui-md-10" 
+            formControlName="PasswordConfirm" placeholder="Confirm password" type="password"/> 
+    </div>
+    <br><br>
+    <div class="ui-g">
+        <button pButton type="submit" label="Register"></button>
+    </div>
+</p-panel>
+</form>

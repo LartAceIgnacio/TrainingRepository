@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
-using BlastAsia.DigiBook.Domain.Models.Security;
+using BlastAsia.DigiBook.Infrastructure.Security;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence.Seeders
 {

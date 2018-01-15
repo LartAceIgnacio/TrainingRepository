@@ -17,17 +17,20 @@ using BlastAsia.DigiBook.Domain.Appointments;
 using BlastAsia.DigiBook.Domain.Departments;
 using BlastAsia.DigiBook.Domain.Venues;
 using Microsoft.AspNetCore.Mvc.Cors;
-using BlastAsia.DigiBook.Domain.Models.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using BlastAsia.DigiBook.Infrastructure.Security;
+
+
 
 namespace BlastAsia.DigiBook.API
 {
     public class Startup
     {
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -36,6 +39,7 @@ namespace BlastAsia.DigiBook.API
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
         }
 
         public IConfigurationRoot Configuration { get; set; }
@@ -153,22 +157,25 @@ namespace BlastAsia.DigiBook.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        //public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseCors("PrimeNgDemoApp");
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json",
-                    "DigiBook Api v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DigiBook Api v1");
             });
 
             app.UseAuthentication();
 
             app.UseMvc();
-            app.UseCors("PrimeNgDemoApp");
         }
     }
 }

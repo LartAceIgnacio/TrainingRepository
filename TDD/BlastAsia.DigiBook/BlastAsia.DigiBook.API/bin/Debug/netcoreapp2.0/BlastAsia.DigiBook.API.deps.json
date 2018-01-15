@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "7646408b3aea6a973d5f911aacbd4fc0e2dce0d1"
+    "signature": "3e5ab8865c580051078f376cba3896eab76ce0ff"
   },
   "compilationOptions": {
     "defines": [
@@ -26,10 +26,12 @@
           "BlastAsia.DigiBook.Domain": "1.0.0",
           "BlastAsia.DigiBook.Domain.Models": "1.0.0",
           "BlastAsia.DigiBook.Infrastructure.Persistence": "1.0.0",
+          "Mapster": "3.1.8",
           "Microsoft.ApplicationInsights.AspNetCore": "2.1.1",
           "Microsoft.AspNetCore": "2.0.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "2.0.1",
           "Microsoft.AspNetCore.Cors": "2.0.1",
+          "Microsoft.AspNetCore.Http": "2.0.1",
           "Microsoft.AspNetCore.Identity": "2.0.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.1",
           "Microsoft.AspNetCore.JsonPatch": "2.0.0",
@@ -89,6 +91,22 @@
             "rid": "win-x86",
             "assetType": "native"
           }
+        }
+      },
+      "Mapster/3.1.8": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.4.0",
+          "NETStandard.Library": "2.0.0",
+          "System.Collections.NonGeneric": "4.3.0",
+          "System.Linq.Queryable": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0",
+          "System.Runtime": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Mapster.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/Mapster.dll": {}
         }
       },
       "Microsoft.ApplicationInsights/2.4.0": {
@@ -1652,7 +1670,7 @@
           "System.Diagnostics.Debug": "4.3.0",
           "System.Linq": "4.3.0",
           "System.Linq.Expressions": "4.3.0",
-          "System.Linq.Queryable": "4.0.1",
+          "System.Linq.Queryable": "4.3.0",
           "System.ObjectModel": "4.3.0",
           "System.Reflection": "4.3.0",
           "System.Reflection.Extensions": "4.3.0",
@@ -2214,7 +2232,7 @@
           "System.Threading": "4.3.0"
         }
       },
-      "System.Linq.Queryable/4.0.1": {
+      "System.Linq.Queryable/4.3.0": {
         "dependencies": {
           "System.Collections": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
@@ -2880,10 +2898,23 @@
           "BlastAsia.DigiBook.Domain.Models.dll": {}
         }
       },
+      "BlastAsia.DigiBook.Infrastructure/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity": "2.0.1",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.1"
+        },
+        "runtime": {
+          "BlastAsia.DigiBook.Infrastructure.dll": {}
+        },
+        "compile": {
+          "BlastAsia.DigiBook.Infrastructure.dll": {}
+        }
+      },
       "BlastAsia.DigiBook.Infrastructure.Persistence/1.0.0": {
         "dependencies": {
           "BlastAsia.DigiBook.Domain": "1.0.0",
           "BlastAsia.DigiBook.Domain.Models": "1.0.0",
+          "BlastAsia.DigiBook.Infrastructure": "1.0.0",
           "Microsoft.AspNetCore.Identity": "2.0.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.1",
           "Microsoft.EntityFrameworkCore": "2.0.1",
@@ -3086,6 +3117,13 @@
       "sha512": "sha512-GsCf4q+eyaI49rCPlgYxdxa1SQCysXFFdSJWdstrwxytg4+VPYLYrXD4AT2rjHVJ+UF7SSWX9CapWEYaU4ejVQ==",
       "path": "libuv/1.10.0",
       "hashPath": "libuv.1.10.0.nupkg.sha512"
+    },
+    "Mapster/3.1.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CjRCAcIjn9ikQ3AV/wVxoeDzus5GaDll5GXRqcek7ls24kw2qzQ49nRqQEj7WpOgtDTD2Uv1pCW34tt/CHFfsg==",
+      "path": "mapster/3.1.8",
+      "hashPath": "mapster.3.1.8.nupkg.sha512"
     },
     "Microsoft.ApplicationInsights/2.4.0": {
       "type": "package",
@@ -4305,12 +4343,12 @@
       "path": "system.linq.expressions/4.3.0",
       "hashPath": "system.linq.expressions.4.3.0.nupkg.sha512"
     },
-    "System.Linq.Queryable/4.0.1": {
+    "System.Linq.Queryable/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Yn/WfYe9RoRfmSLvUt2JerP0BTGGykCZkQPgojaxgzF2N0oPo+/AhB8TXOpdCcNlrG3VRtsamtK2uzsp3cqRVw==",
-      "path": "system.linq.queryable/4.0.1",
-      "hashPath": "system.linq.queryable.4.0.1.nupkg.sha512"
+      "sha512": "sha512-In1Bmmvl/j52yPu3xgakQSI0YIckPUr870w4K5+Lak3JCCa8hl+my65lABOuKfYs4ugmZy25ScFerC4nz8+b6g==",
+      "path": "system.linq.queryable/4.3.0",
+      "hashPath": "system.linq.queryable.4.3.0.nupkg.sha512"
     },
     "System.Net.Http/4.3.0": {
       "type": "package",
@@ -4675,6 +4713,11 @@
       "sha512": ""
     },
     "BlastAsia.DigiBook.Domain.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BlastAsia.DigiBook.Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

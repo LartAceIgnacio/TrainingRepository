@@ -1,53 +1,31 @@
 <header id="header">
     <div id="top-logo">
-        <h2><i class="fa fa-book" aria-hidden="true"></i> DigiBook</h2>
+        <h2><i class="fa fa-book" aria-hidden="true"></i> 
+           <a [routerLink]="['/login']">DigiBook</a>
+        </h2>
     </div>
     <div id="top-menu">
-         <!-- <ul>
-            <li><a href="#">Login</a></li>
-        </ul> -->
         <ul>
             <li *ngIf="!this.auth.isLoggedIn()"[routerLinkActive]="['link-active']"> <a [routerLink]="['/login']">
-                <span class='glyphicon glyphicon-log-in'></span> Login
-            </a></li>
-            <li *ngIf="this.auth.isLoggedIn()"><a (click)="this.auth.logout()">
-                <span class='glyphicon glyphicon-log-out'></span> Logout
-            </a></li>
-        </ul>
+              <span class='glyphicon glyphicon-log-in'></span> Login / Register
+          </a></li>
+            <li *ngIf="this.auth.isLoggedIn()"><a (click)="this.auth.logout()" [routerLink]="['/login']">
+              <span class='glyphicon glyphicon-log-out'></span> 
+              Logout
+          </a></li>
+          <li>
+         
+          </li>
+          </ul>
     </div>
 </header>
 
 <div class="ui-g">
-     <div class="ui-g-12 ui-md-2">
+     <div *ngIf="this.auth.isLoggedIn()" class="ui-g-12 ui-md-2 full-height">
          <!-- <p-menu [model]="menuItems"></p-menu> -->
-         <p-menu *ngIf="this.auth.isLoggedIn()" [model]="menuItems"></p-menu>
+         <p-menu [model]="menuItems"></p-menu>
      </div>
      <div class="ui-g-12 ui-md-10">
         <router-outlet></router-outlet>
      </div>
  </div>
-
-
- <!-- <div class="ui-g">
-    <header class="ui-g-12">
-        <div id="top-logo">
-            <h2><i class="fa fa-book" aria-hidden="true"></i>&nbsp;DigiBook</h2>
-        </div>
-        <div id="top-menu">
-            <ul>
-                <li *ngIf="!this.auth.isLoggedIn()"[routerLinkActive]="['link-active']"> <a [routerLink]="['/login']">
-                    <span class='glyphicon glyphicon-log-in'></span> Login
-                </a></li>
-                <li *ngIf="this.auth.isLoggedIn()"><a (click)="this.auth.logout()">
-                    <span class='glyphicon glyphicon-log-out'></span> Logout
-                </a></li>
-            </ul>
-        </div>
-    </header>
-    <div class="ui-g-12 ui-md-2">
-        <p-menu *ngIf="this.auth.isLoggedIn()" [model]="menuItems"></p-menu>
-    </div>
-    <div class="ui-g-12 ui-md-10">
-        <router-outlet></router-outlet>
-    </div>
-</div> -->

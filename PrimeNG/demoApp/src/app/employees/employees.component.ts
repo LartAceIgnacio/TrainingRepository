@@ -200,7 +200,6 @@ export class EmployeesComponent implements OnInit {
           this.employeeList = this.paginationResult.results;
           this.totalRecords = this.paginationResult.totalRecords;
         });
-        console.log(this.paginationResult);
   }
   // end pagination
 

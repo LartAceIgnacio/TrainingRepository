@@ -2,8 +2,8 @@
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Departments;
 using BlastAsia.DigiBook.Domain.Models.Employees;
-using BlastAsia.DigiBook.Domain.Models.Security;
 using BlastAsia.DigiBook.Domain.Models.Venues;
+using BlastAsia.DigiBook.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,8 +12,10 @@ using System.Text;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence
 {
-    public class DigiBookDbContext
-        :IdentityDbContext<ApplicationUser, ApplicationRole, Guid>, IDigiBookDbContext
+    //public class DigiBookDbContext
+    //    :IdentityDbContext<ApplicationUser, ApplicationRole, Guid>, IDigiBookDbContext
+    public class DigiBookDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid,
+            ApplicationUserClaim, ApplicationUserRole, ApplicationUserLogin, ApplicationRoleClaim, ApplicationUserToken>, IDigiBookDbContext
     {
 
         public DbSet<Contact> Contacts { get; set; }
@@ -21,6 +23,8 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
         public DbSet<Appointment> Appointment { get; set; }
         public DbSet<Department> Department { get; set; }
         public DbSet<Venue> Venue { get; set; }
+
+        public DbSet<Token> Tokens { get; set; }// New
 
         public DigiBookDbContext(
             DbContextOptions<DigiBookDbContext> options)

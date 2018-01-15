@@ -18,3 +18,5 @@ C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastA
 C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.Digibook.Infrastructure.Persistence.Test\obj\Debug\netcoreapp2.0\BlastAsia.Digibook.Infrastructure.Persistence.Test.AssemblyInfo.cs
 C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.Digibook.Infrastructure.Persistence.Test\obj\Debug\netcoreapp2.0\BlastAsia.Digibook.Infrastructure.Persistence.Test.dll
 C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.Digibook.Infrastructure.Persistence.Test\obj\Debug\netcoreapp2.0\BlastAsia.Digibook.Infrastructure.Persistence.Test.pdb
+C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.Digibook.Infrastructure.Persistence.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
+C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.Digibook.Infrastructure.Persistence.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb

@@ -19,6 +19,7 @@ import {InputSwitchModule} from 'primeng/primeng';
 import {BreadcrumbModule,MenuItem} from 'primeng/primeng';
 import {DialogModule} from 'primeng/primeng';
 import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
+import {ChartModule} from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
 import { EmployeesComponent } from './employees/employees.component';
@@ -30,6 +31,9 @@ import { VenuesComponent } from './venues/venues.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from "./services/auth.service";
 import { AuthInterceptor } from "./services/auth-interceptor";
+import { StatisticComponent } from './statistic/statistic.component';
+import { RegisterComponent } from './user/register.component';
+import { AuthResponseInterceptor } from "./services/auth-response-interceptor";
 
 const appRoutes: Routes =[
   {path:"", redirectTo:"/dashboard", pathMatch:"full"},
@@ -38,7 +42,8 @@ const appRoutes: Routes =[
   {path:"contacts", component:ContactsComponent},
   {path:"appointments", component:AppointmentsComponent},
   {path:"venues", component:VenuesComponent},
-  {path:"login", component:LoginComponent}
+  {path:"login", component:LoginComponent},
+  {path:"register", component:RegisterComponent}
 ]
 
 @NgModule({
@@ -50,7 +55,9 @@ const appRoutes: Routes =[
     ContactsComponent,
     AppointmentsComponent,
     VenuesComponent,
-    LoginComponent
+    LoginComponent,
+    StatisticComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -76,13 +83,19 @@ const appRoutes: Routes =[
     InputSwitchModule,
     BreadcrumbModule,
     DialogModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ChartModule
   ],
   providers: [
     AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthResponseInterceptor,
       multi: true
     }
   ],

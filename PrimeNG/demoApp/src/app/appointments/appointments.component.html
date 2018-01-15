@@ -2,7 +2,7 @@
 
   <div class="ui-g">
     <!-- <p-dataTable [value]="appointmentList" selectionMode="single" [(selection)]="selectedAppointment" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="4" [responsive]="true"> -->
-        <p-dataTable #dt [value]="appointmentList" [rows]="5" [paginator]="true" [pageLinks]="3" [responsive]="true" (onLazyLoad)="paginate($event)"
+        <p-dataTable #dt [value]="appointmentList" [rows]="5" [paginator]="true" [pageLinks]="5" [responsive]="true" (onLazyLoad)="paginate($event)"
         [lazy]="true" [totalRecords]="totalRecords">
       <p-header>
         <button type="button" pButton class="float-left" (click)="addAppointment()" icon="fa-plus"></button>
@@ -93,7 +93,7 @@
     <div class="ui-g-12 ui-md-4">
       <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!appointmentForm.controls['endtime'].valid&&appointmentForm.controls['endtime'].dirty">
           <i class="fa fa-close"></i>
-          Firstname is required
+          End Time is required
       </div>
     </div>
   </div>

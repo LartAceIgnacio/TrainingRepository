@@ -11,3 +11,7 @@ C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastA
 C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.AssemblyInfo.cs
 C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.dll
 C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
+C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\Newtonsoft.Json.dll
+C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb
+C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\Newtonsoft.Json.xml

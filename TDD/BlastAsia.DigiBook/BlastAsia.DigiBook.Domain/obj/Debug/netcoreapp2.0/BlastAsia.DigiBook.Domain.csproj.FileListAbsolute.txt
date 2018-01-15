@@ -9,3 +9,5 @@ C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastA
 C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.AssemblyInfo.cs
 C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
 C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
+C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\Newtonsoft.Json.dll
+C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\Newtonsoft.Json.xml
