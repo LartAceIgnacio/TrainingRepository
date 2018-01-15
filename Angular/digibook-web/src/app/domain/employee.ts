@@ -7,5 +7,6 @@ export interface Employee{
     photo?;
     officePhone?;
     extension?;
-    employeeCollection?;
+    employeeCount?;
+    fullName?;
 }

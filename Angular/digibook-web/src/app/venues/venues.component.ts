@@ -4,18 +4,22 @@ import { Venue } from './../domain/venue';
 import { VenueClass } from './../domain/venueclass';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import {Message,SelectItem} from 'primeng/components/common/api';
-import { MenuItem, ConfirmationService } from "primeng/primeng";
+import { GlobalService } from '../services/globalservice';
+import { MenuItem, ConfirmationService , DataTable } from "primeng/primeng";
+import { ViewChild } from '@angular/core';
+import { Pagination } from "../domain/pagination";
+
 
 @Component({
   selector: 'app-venues',
   templateUrl: './venues.component.html',
   styleUrls: ['./venues.component.css'],
-  providers: [VenueService, ConfirmationService]
+  providers: [VenueService, ConfirmationService,
+    GlobalService]
 })
 export class VenuesComponent implements OnInit {
 
   venuetItems: MenuItem[];
-  totalRecords: number;
   
   msgs: Message[] = [];
   userform: FormGroup;
@@ -32,7 +36,10 @@ export class VenuesComponent implements OnInit {
   displayDialog: boolean;
   loading: boolean;
   venue: Venue = new VenueClass();
-
+  indexOfVenue: number;
+  totalRecords: number = 0;
+  searchFilter: string = "";
+  paginationResult: Pagination<Venue>;
 
   btnSaveNew: boolean;
   btnDelete: boolean;
@@ -44,21 +51,46 @@ export class VenuesComponent implements OnInit {
           this.display = true;
       }
 
-  constructor(private venueService: VenueService , private fb: FormBuilder, private confirmationService: ConfirmationService) { }
-
+  constructor(private venueService: VenueService , private fb: FormBuilder,
+     private confirmationService: ConfirmationService, private globalService: GlobalService) { }
+  @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
-      this.venueService.getVenues().then(venues => this.venueList = venues);
-      this.loading = false;
+      // this.venueService.getVenues().then(venues => this.venueList = venues);
+      // this.loading = false;
     //this.selectedVenue = this.venueList[0];
 
     this.userform = this.fb.group({
       'venueName': new FormControl('', Validators.compose([Validators.required, Validators.maxLength(50)])),
-      'description': new FormControl('', Validators.compose([Validators.required, Validators.maxLength(100)]))
+      'description': new FormControl('', Validators.compose([Validators.required, Validators.maxLength(100)])),
+      'searchFilter' : new FormControl('', )
   });
   this.venuetItems = [
     {label:'Dashboard', routerLink:['/dashboard'] },
     {label:'Venues', routerLink:['/venues']}
   ]
+}
+paginate(event) {
+  this.globalService.getSomethingWithPagination<Pagination<Venue>>("Venues", event.first, event.rows,
+    this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
+      this.paginationResult = paginationResult;
+      this.venueList = this.paginationResult.results;
+      this.totalRecords = this.paginationResult.totalRecords;
+    });
+}
+
+searchVenue() {
+  if (this.searchFilter.length != 1) {
+    this.setCurrentPage(1);
+  }
+}
+
+setCurrentPage(n: number) {
+  this.dataTable.reset();
+  let paging = {
+    first: ((n - 1) * this.dataTable.rows),
+    rows: this.dataTable.rows
+  };
+  this.dataTable.paginate();
 }
 
   addVenues() {

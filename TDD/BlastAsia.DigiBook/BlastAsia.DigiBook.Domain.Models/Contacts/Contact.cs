@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BlastAsia.DigiBook.Domain.Models.Appointments;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 
 namespace BlastAsia.DigiBook.Domain.Models.Contacts
 {
@@ -15,5 +18,7 @@ namespace BlastAsia.DigiBook.Domain.Models.Contacts
         public string EmailAddress { get; set; }
         public bool IsActive { get; set; }
         public DateTime? DateActivated { get; set; }
+        [JsonIgnore]
+        public List<Appointment> Appointments { get; set; }
     }
 }

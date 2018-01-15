@@ -3,11 +3,15 @@ import { Injectable } from '@angular/core';
 import { Appointment } from '../domain/appointment';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
+import { API_URL} from './constants';
+import { Http, Response } from '@angular/http';
 
 
 
 @Injectable()
 export class AppointmentService {
+    service: string = 'appointments';
+    serviceUrl: string = `${API_URL}/${this.service}/`;
     
 constructor(private http: HttpClient) {}
 

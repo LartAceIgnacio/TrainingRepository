@@ -1,4 +1,5 @@
 ﻿using BlastAsia.DigiBook.Domain.Models;
+using BlastAsia.DigiBook.Domain.Models.Employees;
 
 namespace BlastAsia.DigiBook.Domain.Employees
 {

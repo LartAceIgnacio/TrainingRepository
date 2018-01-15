@@ -16,6 +16,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
         private Venue venue;
         private VenueService sut;
         private Guid existingVenueId = Guid.NewGuid();
+        private Guid nonExistingVenueId = Guid.Empty;
 
         [TestInitialize]
         public void InitializeTest()
@@ -33,9 +34,8 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
             mockVenueRepository
                 .Setup(c => c.Retrieve(existingVenueId))
                 .Returns(venue);
-
             mockVenueRepository
-                .Setup(c => c.Retrieve(venue.VenueId))
+                .Setup(c => c.Retrieve(nonExistingVenueId))
                 .Returns<Venue>(null);
         }
         [TestCleanup]
@@ -55,7 +55,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
             //Assert
 
             mockVenueRepository
-                .Verify(a => a.Retrieve(venue.VenueId), Times.Once);
+                .Verify(a => a.Retrieve(nonExistingVenueId), Times.Once);
             mockVenueRepository
                 .Verify(a => a.Create(venue), Times.Once);
         }
@@ -74,24 +74,21 @@ namespace BlastAsia.DigiBook.Domain.Test.Venues
             // Assert
 
             mockVenueRepository
-                .Verify(a => a.Retrieve(venue.VenueId)
+                .Verify(a => a.Retrieve(existingVenueId)
                 , Times.Once);
             mockVenueRepository
-                .Verify(a => a.Update(venue.VenueId, venue)
+                .Verify(a => a.Update(existingVenueId, venue)
                 , Times.Once);
         }
 
         [TestMethod]
-        public void Save_VenueWithValidData_ShouldReturnNewVenueWithAppointmentId()
+        public void Save_VenueWithValidData_ShouldReturnNewVenueWithVenueAppointmentId()
         {
             // Arrange 
 
             mockVenueRepository
                 .Setup(a => a.Create(venue))
-                .Callback(() =>
-                {
-                    venue.VenueId = Guid.NewGuid();
-                })
+                .Callback(() => venue.VenueId = Guid.NewGuid())
                 .Returns(venue);
 
             // Act 

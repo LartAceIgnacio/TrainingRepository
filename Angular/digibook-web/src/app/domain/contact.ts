@@ -10,5 +10,6 @@ export interface Contact{
     emailAddress?;
     isActive?;
     dateActivated?;
-    contactCollection?;
+    contactCount?;
+    fullName?;
 }

@@ -17,7 +17,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
 {
     [EnableCors("DemoApp")]
     [Produces("application/json")]
-    [Route("api/Appointments")]
+    //[Route("api/Appointments")]
     public class AppointmentsController : Controller
     {
         private static List<Appointment> appointment = new List<Appointment>();
@@ -48,7 +48,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpGet, ActionName("GetAppointments")]
-        [Route("api/Appointments/{id?}")]
+        [Route("api/Appointments")]
         public IActionResult GetAppointments(Guid? id)
         {
             var result = new List<Appointment>();
@@ -88,7 +88,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPut]
-        [Route("api/Appointments/{id}")]
+        [Route("api/Appointments")]
         public IActionResult UpdateAppointment(
             [FromBody] Appointment modifiedAppointment, Guid id)
         {
@@ -103,7 +103,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("api/Appointments/{id}")]
+        [Route("api/Appointments")]
         public IActionResult DeleteAppointment(Guid id)
         {
             var deletedAppointment = appointmentRepository.Retrieve(id);
@@ -117,7 +117,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPatch]
-        [Route("api/Appointments/{id}")]
+        [Route("api/Appointments")]
         public IActionResult PatchAppointment(
             [FromBody]JsonPatchDocument patchedAppointment, Guid id)
         {

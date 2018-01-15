@@ -4,13 +4,17 @@ import { Contact } from './../domain/contact';
 import { ContactClass } from './../domain/contactclass';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import {Message,SelectItem} from 'primeng/components/common/api';
-import { MenuItem , ConfirmationService} from "primeng/primeng";
+import { MenuItem , ConfirmationService, DataTable} from "primeng/primeng";
+import { ViewChild } from '@angular/core';
+import { Pagination } from "../domain/pagination";
+import { GlobalService } from '../services/globalservice';
 
 @Component({
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.css'],
-  providers: [ContactService, ConfirmationService]
+  providers: [ContactService, ConfirmationService,
+    GlobalService]
 })
 export class ContactsComponent implements OnInit {
 
@@ -31,6 +35,11 @@ export class ContactsComponent implements OnInit {
   loading: boolean;
   contact: Contact = new ContactClass();
 
+  indexOfContact: number;
+  totalRecords: number = 0;
+  searchFilter: string = "";
+  paginationResult: Pagination<Contact>;
+
   regexEmailFormat: string = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
   numberFormat: string = '^\\d+$';
 
@@ -43,14 +52,15 @@ export class ContactsComponent implements OnInit {
       showDialog() {
           this.display = true;
       }
-  constructor(private contactService: ContactService , private fb: FormBuilder, private confirmationService: ConfirmationService) { }
-
+  constructor(private contactService: ContactService , private globalService: GlobalService ,
+     private fb: FormBuilder, private confirmationService: ConfirmationService) { }
+  @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
-    this.loading = true;
-    setTimeout(() => {
-      this.contactService.getContacts().then(contacts => this.contactList = contacts);
-      this.loading = false;
-    }, 1000);
+    // this.loading = true;
+    // setTimeout(() => {
+    //   this.contactService.getContacts().then(contacts => this.contactList = contacts);
+    //   this.loading = false;
+    // }, 1000);
     //this.selectedContact = this.ContactList[0]; 
 
     this.userform = this.fb.group({
@@ -62,7 +72,8 @@ export class ContactsComponent implements OnInit {
       'zipCode': new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.numberFormat)])),
       'country': new FormControl('', Validators.required),
       'email': new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.regexEmailFormat)])),
-      'isActive': new FormControl('', Validators.required)
+      'isActive': new FormControl('', Validators.required),
+      'searchFilter' : new FormControl('', )
   });
   this.contactItems = [
     {label:'Dashboard', routerLink:['/dashboard'] },
@@ -70,6 +81,29 @@ export class ContactsComponent implements OnInit {
   ]
 }
 
+paginate(event) {
+  this.globalService.getSomethingWithPagination<Pagination<Contact>>("Contacts", event.first, event.rows,
+    this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
+      this.paginationResult = paginationResult;
+      this.contactList = this.paginationResult.results;
+      this.totalRecords = this.paginationResult.totalRecords;
+    });
+}
+
+searchContact() {
+  if (this.searchFilter.length != 1) {
+    this.setCurrentPage(1);
+  }
+}
+
+setCurrentPage(n: number) {
+  this.dataTable.reset();
+  let paging = {
+    first: ((n - 1) * this.dataTable.rows),
+    rows: this.dataTable.rows
+  };
+  this.dataTable.paginate();
+}
   saveContacts() {
     this.userform.enable();
     this.confirmationService.confirm({

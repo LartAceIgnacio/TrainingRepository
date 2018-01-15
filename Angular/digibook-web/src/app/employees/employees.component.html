@@ -3,15 +3,15 @@
 <form [formGroup]="userform">
 <p-panel header="Employee List">
         <button pButton icon="fa fa-plus"
-        (click)="addEmployees(); showDialog();" label="Employee"></button>
-        <div style="float:right"> 
-          <input #gb type="text" pInputText size="50" placeholder="Search..." >
-          <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-      </div>
-    <p-dataTable [value]="employeeList" selectionMode="single"
-    [(selection)]="selectedEmployee"
-      [paginator]="true" rows="10" [responsive]="true" [globalFilter]="gb">
-      <p-column styleClass="col-button">
+        (click)="addEmployees(); showDialog();" label="Employees"></button>
+        <div class="searchHeader" style="float:right">
+            <input type="text" pInputText placeholder="Search Employee" [(ngModel)]="searchFilter" [ngModelOptions]="{standalone: true}"/>   
+            <button pButton type="button" icon="fa-search" (click)="searchEmployee()"></button>   
+        </div>
+<p-dataTable #dt [value]="employeeList" selectionMode="single" [pageLinks]="5"
+[(selection)]="selectedEmployee" [totalRecords]="totalRecords" (onLazyLoad)="paginate($event)" [lazy]="true"
+[paginator]="true" rows="10" [responsive]="true" [globalFilter]="gb">    
+    <p-column styleClass="col-button">
             <ng-template let-Employee="rowData" pTemplate="body" >
                     <button type="button" pButton class="ui-button-success" (click)="editEmployees(Employee); showDialog();" icon="fa-pencil"></button>
                     <button type="button" pButton  class="ui-button-danger" (click)="deleteConfirmation(Employee); showDialog();" icon="fa-trash-o" >

@@ -4,12 +4,12 @@
   <p-panel header="Venue List">
         <button pButton icon="fa fa-plus"
         (click)="addVenues(); showDialog();" label="Venue"></button>
-        <div style="float:right"> 
-          <input #gb type="text" pInputText size="50" placeholder="Search..." >
-          <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-      </div>
-<p-dataTable [value]="venueList" selectionMode="single" [lazy]="true"
-[(selection)]="selectedVenue" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)"
+        <div class="searchHeader" style="float:right">
+            <input type="text" pInputText placeholder="Search Venue" [(ngModel)]="searchFilter" [ngModelOptions]="{standalone: true}"/>   
+            <button pButton type="button" icon="fa-search" (click)="searchVenue()"></button>   
+        </div>
+<p-dataTable #dt [value]="venueList" selectionMode="single" [pageLinks]="5"
+[(selection)]="selectedVenue" [totalRecords]="totalRecords" (onLazyLoad)="paginate($event)" [lazy]="true"
 [paginator]="true" rows="10" [responsive]="true" [globalFilter]="gb">
 <p-column styleClass="col-button">
     <ng-template let-Venue="rowData" pTemplate="body" >

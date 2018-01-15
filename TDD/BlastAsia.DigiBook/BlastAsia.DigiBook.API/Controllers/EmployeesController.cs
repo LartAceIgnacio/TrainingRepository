@@ -15,7 +15,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
 {
     [EnableCors("DemoApp")]
     [Produces("application/json")]
-    [Route("api/Employees")]
+    //[Route("api/Employees")]
     public class EmployeesController : Controller
     {
         private static List<Employee> employees = new List<Employee>();
@@ -48,6 +48,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpGet, ActionName("GetEmployees")]
+        [Route("api/Employees")]
         public IActionResult GetEmployees(Guid? id)
         {
             var result = new List<Employee>();
@@ -66,6 +67,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPost]
+        [Route("api/Employees")]
         public IActionResult CreateEmployee([FromBody] Employee employee)
         {
             try
@@ -85,6 +87,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpDelete]
+        [Route("api/Employees")]
         public IActionResult DeleteEmployee(Guid id)
         {
             var deletedEmployee = employeeRepository.Retrieve(id);
@@ -98,6 +101,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPut]
+        [Route("api/Employees")]
         public IActionResult UpdateEmployee(
             [FromBody] Employee modifiedEmployee, Guid id)
         {
@@ -112,6 +116,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPatch]
+        [Route("api/Employees")]
         public IActionResult PatchEmployee([FromBody]JsonPatchDocument patchedEmployee, Guid id)
         {
             if (patchedEmployee == null)

@@ -81,9 +81,11 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
             // Assert
 
             mockEmployeeRepository
-                .Verify(e => e.Retrieve(existingEmployeeId), Times.Once);
+                .Verify(e => e.Retrieve(existingEmployeeId)
+                , Times.Once);
             mockEmployeeRepository
-                .Verify(e => e.Update(existingEmployeeId, employee), Times.Once);
+                .Verify(e => e.Update(existingEmployeeId, employee)
+                , Times.Once);
         }
 
         [TestMethod]

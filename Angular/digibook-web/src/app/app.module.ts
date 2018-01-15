@@ -6,6 +6,7 @@ import {ButtonModule,
   InputTextModule,
   RadioButtonModule,
   CheckboxModule,
+  ChartModule,
   PanelModule,
   TabViewModule,
   GrowlModule,
@@ -20,8 +21,10 @@ import {ButtonModule,
   ListboxModule,
   InputSwitchModule,
   DropdownModule,
+  SelectButtonModule,
   InputTextareaModule,
   CalendarModule,
+  PaginatorModule,
   MenubarModule,
   BreadcrumbModule,
   DialogModule,
@@ -29,6 +32,8 @@ import {ButtonModule,
   SidebarModule
   
 } from 'primeng/primeng';
+
+import { CommonModule } from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
 
@@ -36,18 +41,30 @@ import { AppComponent } from './app.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { VenuesComponent } from './venues/venues.component';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './services/auth.service';
+import { AuthInterceptor} from './services/auth-interceptor';
+import { AuthResponseInterceptor} from './services/auth-response-interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
 import { ContactsComponent } from './contacts/contacts.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { RegisterComponent } from './user/register.component';
+import { StatisticComponent } from './statistic/statistic.component';
 
 const appRoutes: Routes = [
   {path: "", redirectTo: "/dashboard", pathMatch: "full"},
   {path: "dashboard", component: DashboardComponent},
+  {path: "register", component: RegisterComponent},
   {path: "employees", component: EmployeesComponent},
   {path: "contacts", component: ContactsComponent},
   {path: "appointments", component: AppointmentsComponent},
   {path: "venues", component: VenuesComponent},
+  {path: "login", component: LoginComponent},
+  {path: "statistic", component: StatisticComponent}
+  
 ];
 
 @NgModule({
@@ -57,7 +74,10 @@ const appRoutes: Routes = [
     AppointmentsComponent,
     VenuesComponent,
     ContactsComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoginComponent,
+    RegisterComponent,
+    StatisticComponent
   ],
   imports: [
     BrowserModule,
@@ -67,9 +87,14 @@ const appRoutes: Routes = [
     InputTextModule,
     RadioButtonModule,
     CheckboxModule,
+    AppRoutingModule,
     TabViewModule,
     GrowlModule,
+    CommonModule,
+    ChartModule,
+    PaginatorModule,
     PanelModule,
+    SelectButtonModule,
     InputTextareaModule,
     FileUploadModule,
     TabMenuModule,
@@ -91,7 +116,17 @@ const appRoutes: Routes = [
     DialogModule,
     ConfirmDialogModule
   ],
-  providers: [],
+  providers: [AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthResponseInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -10,13 +10,17 @@ import { Contact } from './../domain/contact';
 import { ContactClass } from './../domain/contactclass';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import {Message,SelectItem} from 'primeng/components/common/api';
-import { MenuItem , ConfirmationService} from "primeng/primeng";
+import { MenuItem , ConfirmationService , DataTable} from "primeng/primeng";
+import { ViewChild } from '@angular/core';
+import { Pagination } from "../domain/pagination";
+import { GlobalService } from '../services/globalservice';
 
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.css'],
-  providers: [AppointmentService , EmployeeService , ContactService, ConfirmationService]
+  providers: [AppointmentService , EmployeeService ,
+    GlobalService,  ContactService, ConfirmationService]
 })
 export class AppointmentsComponent implements OnInit {
 
@@ -29,10 +33,11 @@ export class AppointmentsComponent implements OnInit {
 
   selectedHost: Employee;
   selectedGuest: Contact;
-
+  ctr: number = 0;
   clonedSelectedappointment: Appointment;
   indexSelected: number;
-
+  dateFilter: Date[];
+  
   contactList: Contact[];
   employeeList: Employee[];
   appointmentList: Appointment[];
@@ -42,6 +47,11 @@ export class AppointmentsComponent implements OnInit {
   displayDialog: boolean;
   loading: boolean;
   appointment: Appointment = new AppointmentClass();
+
+  indexOfAppointment: number;
+  totalRecords: number = 0;
+  searchFilter: string = "";
+  paginationResult: Pagination<Appointment>;
 
   btnSaveNew: boolean;
   btnDelete: boolean;
@@ -57,23 +67,24 @@ export class AppointmentsComponent implements OnInit {
     private contactService: ContactService,
     private employeeService: EmployeeService, 
     private confirmationService: ConfirmationService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private globalService: GlobalService) {
    
    }
-
+   @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
-    this.loading = true;
-    setTimeout(() => {
-      this.contactService.getContacts().then(contacts => { this.contactList = contacts
-      this.employeeService.getEmployees().then(employees => {this.employeeList = employees
-      this.appointmentService.getAppointments().then(appointments => {this.appointmentList = appointments
-        for(let i=0; i < this.appointmentList.length;i++){
-          this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate).toLocaleDateString();
-          this.appointmentList[i].guestName = this.contactList.find(id=>id.contactId==this.appointmentList[i].guestId).firstName;
-          this.appointmentList[i].hostName = this.employeeList.find(id=>id.employeeId==this.appointmentList[i].hostId).firstName;
-        }});});});
-      this.loading = false; 
-    }, 1000);
+    // this.loading = true;
+    // setTimeout(() => {
+    //   this.contactService.getContacts().then(contacts => { this.contactList = contacts
+    //   this.employeeService.getEmployees().then(employees => {this.employeeList = employees
+    //   this.appointmentService.getAppointments().then(appointments => {this.appointmentList = appointments
+    //     for(let i=0; i < this.appointmentList.length;i++){
+    //       this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate).toLocaleDateString();
+    //       this.appointmentList[i].guestName = this.contactList.find(id=>id.contactId==this.appointmentList[i].guestId).firstName;
+    //       this.appointmentList[i].hostName = this.employeeList.find(id=>id.employeeId==this.appointmentList[i].hostId).firstName;
+    //     }});});});
+    //   this.loading = false; 
+    // }, 1000);
     //this.selectedappointment = this.appointmentList[0]; 
     this.userform = this.fb.group({
       'date': new FormControl('', Validators.required),
@@ -91,6 +102,74 @@ export class AppointmentsComponent implements OnInit {
       {label:'Appointments', routerLink:['/appointments']}
     ]
   }
+
+ paginate(event) {
+    if (this.ctr == 0) {
+      this.globalService.getSomething<Contact>("Contacts").then(contacts => {
+        this.contactList = contacts;
+        this.globalService.getSomething<Employee>("Employees").then(employees => {
+          this.employeeList = employees;
+          this.globalService.getSomethingWithPagination<Pagination<Appointment>>("Appointments", event.first, event.rows,
+            this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
+              this.paginationResult = paginationResult;
+              this.appointmentList = this.paginationResult.results;
+              this.totalRecords = this.paginationResult.totalRecords;
+              this.getFullName();
+            });
+        });
+      });
+    }
+    else {
+      this.globalService.getSomethingWithPagination<Pagination<Appointment>>("Appointments", event.first, event.rows,
+        this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
+          this.paginationResult = paginationResult;
+          this.appointmentList = this.paginationResult.results;
+          this.totalRecords = this.paginationResult.totalRecords;
+          this.getFullName();
+        });
+    }
+  }
+
+  searchAppointment() {
+    if (this.dateFilter != null && (this.dateFilter[0] != null || this.dateFilter[1] != null)) {
+      this.searchFilter = this.dateFilter[0].toLocaleDateString() + "," + this.dateFilter[1].toLocaleDateString();
+      if (this.searchFilter.length > 0) {
+        this.searchFilter = this.searchFilter.replace(/\//g, "%2F");
+      }
+    }
+
+    this.setCurrentPage(1);
+  }
+
+  setCurrentPage(n: number) {
+    this.dataTable.reset();
+    let paging = {
+      first: ((n - 1) * this.dataTable.rows),
+      rows: this.dataTable.rows
+    };
+    this.dataTable.paginate();
+  }
+
+  getFullName() {
+    if (this.ctr == 0) {
+      for (var i = 0; i < this.contactList.length; i++) {
+        this.contactList[i].fullName = this.contactList[i].firstName + " " + this.contactList[i].lastName;
+      }
+
+      for (var i = 0; i < this.employeeList.length; i++) {
+        this.employeeList[i].fullName = this.employeeList[i].firstName + " " + this.employeeList[i].lastName;
+      }
+    }
+
+    for (var i = 0; i < this.appointmentList.length; i++) {
+      this.appointmentList[i].hostName = this.employeeList.find(x => x.employeeId == this.appointmentList[i].hostId).fullName;
+      this.appointmentList[i].guestName = this.contactList.find(x => x.contactId == this.appointmentList[i].guestId).fullName;
+      this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate).toLocaleDateString();
+    }
+
+    this.ctr++;
+  }
+
 
   addAppointments() {
     this.userform.enable();
@@ -263,5 +342,10 @@ this.userform.markAsPristine();
 
   findSelectedAppointmentIndex(): number {
       return this.appointmentList.indexOf(this.selectedAppointment);
+  }
+}
+class PaginationResultClass implements Pagination<Appointment>{
+  constructor(public results, public pageNo, public recordPage, public totalRecords) {
+
   }
 }

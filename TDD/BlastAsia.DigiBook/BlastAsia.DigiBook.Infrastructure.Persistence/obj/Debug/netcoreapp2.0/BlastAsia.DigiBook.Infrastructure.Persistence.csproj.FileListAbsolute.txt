@@ -11,3 +11,18 @@ C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastA
 C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.AssemblyInfo.cs
 C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.dll
 C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.deps.json
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.dll
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.csprojResolveAssemblyReference.cache
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.AssemblyInfoInputs.cache
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.AssemblyInfo.cs
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.dll
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb

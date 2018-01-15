@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using BlastAsia.DigiBook.Domain.Models;
+using BlastAsia.DigiBook.Domain.Models.Contacts;
 
 namespace BlastAsia.DigiBook.Domain.Contacts
 {

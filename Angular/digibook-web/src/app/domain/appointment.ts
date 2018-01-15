@@ -10,5 +10,5 @@ export interface Appointment{
     isCancelled?;
     isDone?;
     notes?;
-    appointmentCollection?;
+    appointmentCount?
 }

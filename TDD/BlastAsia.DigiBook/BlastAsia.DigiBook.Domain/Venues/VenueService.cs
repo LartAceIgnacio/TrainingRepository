@@ -28,15 +28,17 @@ namespace BlastAsia.DigiBook.Domain.Venues
                 throw new DescriptionException("Less than 100");
             }
             Venue result = null;
-            var VenueId = venueRepository.Retrieve(venue.VenueId);
+            var found = venueRepository
+                .Retrieve(venue.VenueId);
 
-            if(VenueId == null)
+            if (found == null)
             {
                 result = venueRepository.Create(venue);
             }
             else
             {
-                result = venueRepository.Update(venue.VenueId, venue);
+                result = venueRepository
+                    .Update(venue.VenueId, venue);
             }
             return result;
         }

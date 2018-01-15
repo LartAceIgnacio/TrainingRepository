@@ -15,7 +15,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
 {
     [EnableCors("DemoApp")]
     [Produces("application/json")]
-    [Route("api/Contacts")]
+    //[Route("api/Contacts")]
     public class ContactsController : Controller
     {
         private static List<Contact> contacts = new List<Contact>();
@@ -48,7 +48,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpGet, ActionName("GetContacts")]
-        [Route("api/Contacts/{id?}")]
+        [Route("api/Contacts")]
         public IActionResult GetContacts(Guid? id)
         {
             var result = new List<Contact>();
@@ -88,7 +88,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("api/Contacts/{id}")]
+        [Route("api/Contacts")]
         public IActionResult DeleteContact(Guid id)
         {
             var deletedContact = contactRepository.Retrieve(id);
@@ -103,7 +103,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPut]
-        [Route("api/Contacts/{id}")]
+        [Route("api/Contacts")]
         public IActionResult UpdateContact(
             [FromBody] Contact modifiedContact, Guid id)
         {
@@ -119,7 +119,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPatch]
-        [Route("api/Contacts/{id}")]
+        [Route("api/Contacts")]
         public IActionResult PatchContact([FromBody]JsonPatchDocument patchedContact, Guid id)
         {
             if (patchedContact == null)

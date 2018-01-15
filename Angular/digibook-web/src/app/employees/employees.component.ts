@@ -4,13 +4,17 @@ import { Employee } from './../domain/employee';
 import { EmployeeClass } from './../domain/employeeclass';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import {Message,SelectItem} from 'primeng/components/common/api';
-import { MenuItem, ConfirmationService } from "primeng/primeng";
+import { MenuItem, ConfirmationService , DataTable } from "primeng/primeng";
+import { ViewChild } from '@angular/core';
+import { Pagination } from "../domain/pagination";
+import { GlobalService } from '../services/globalservice';
 
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.css'],
-  providers: [EmployeeService, ConfirmationService]
+  providers: [EmployeeService, ConfirmationService,
+    GlobalService]
 })
 export class EmployeesComponent implements OnInit {
 
@@ -31,6 +35,11 @@ export class EmployeesComponent implements OnInit {
   loading: boolean;
   employee: Employee = new EmployeeClass();
 
+  indexOfEmployee: number;
+  totalRecords: number = 0;
+  searchFilter: string = "";
+  paginationResult: Pagination<Employee>;
+
   btnSaveNew: boolean;
   btnDelete: boolean;
   btnSave: boolean;
@@ -44,14 +53,15 @@ export class EmployeesComponent implements OnInit {
           this.display = true;
       }
 
-  constructor(private employeeService: EmployeeService , private fb: FormBuilder, private confirmationService: ConfirmationService) { }
-
+  constructor(private employeeService: EmployeeService , private globalService: GlobalService , 
+    private fb: FormBuilder, private confirmationService: ConfirmationService) { }
+  @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
-    this.loading = true;
-    setTimeout(() => {
-      this.employeeService.getEmployees().then(employees => this.employeeList = employees);
-      this.loading = false;
-    }, 1000);
+    // this.loading = true;
+    // setTimeout(() => {
+    //   this.employeeService.getEmployees().then(employees => this.employeeList = employees);
+    //   this.loading = false;
+    // }, 1000);
     //this.selectedEmployee = this.employeeList[0];
 
     this.userform = this.fb.group({
@@ -68,6 +78,30 @@ export class EmployeesComponent implements OnInit {
       {label:'Dashboard', routerLink:['/dashboard'] },
       {label:'Employees', routerLink:['/employees']}
     ]
+  }
+  
+  paginate(event) {
+    this.globalService.getSomethingWithPagination<Pagination<Employee>>("Employees", event.first, event.rows,
+      this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
+        this.paginationResult = paginationResult;
+        this.employeeList = this.paginationResult.results;
+        this.totalRecords = this.paginationResult.totalRecords;
+      });
+  }
+
+  searchEmployee() {
+    if (this.searchFilter.length != 1) {
+      this.setCurrentPage(1);
+    }
+  }
+  
+  setCurrentPage(n: number) {
+    this.dataTable.reset();
+    let paging = {
+      first: ((n - 1) * this.dataTable.rows),
+      rows: this.dataTable.rows
+    };
+    this.dataTable.paginate();
   }
 
   addEmployees() {
