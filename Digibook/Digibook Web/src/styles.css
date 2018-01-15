@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+.ui-messages {
+    margin: 1px 0;
+    padding: 0;
+}
+
+.centerButtons {
+    text-align: center !important;
+}
+
+.addHeader {
+    float: left !important;
+}
+
+.searchHeader {
+    text-align: right !important;
+}
