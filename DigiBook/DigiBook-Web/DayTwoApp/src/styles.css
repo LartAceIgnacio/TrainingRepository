@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+}
+.main-header {
+    top: 0;
+    height: 10vh;
+    background-color: #f0f1f4;
+}
+.main-header h2 {
+    line-height: 10vh;
+    padding-left: 10px;
+    float: left;
+    
+}
+.main-header #left-header {
+    padding-right: 10px;
+    line-height: 10vh;
+    float: right;
+}
+
+.ui-menu {
+    width: 15.5em;
+}
+
+.header-table-left {
+    float: left;
+}
+
+.header-table-right {
+    text-align: right;
+}
+

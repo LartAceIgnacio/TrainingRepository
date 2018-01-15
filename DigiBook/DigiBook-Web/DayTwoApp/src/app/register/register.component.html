@@ -1,0 +1,36 @@
+<form  [formGroup]="form" (ngSubmit)="onSubmit()" class="register-form">
+  <p-panel header="Reigstration">
+
+
+    <div class="ui-g">
+      <label for="DisplayName" class="ui-g-12 ui-md-2">Display Name:</label>
+      <input id="DisplayName" formControlName="DisplayName" class="ui-g-12 ui-md-10" placeholder="Enter Display Name" type="text" />
+    </div>
+    
+    <div class="ui-g">
+      <label for="Email" class="ui-g-12 ui-md-2">Email:</label>
+      <input formControlName="Email" id="Email" class="ui-g-12 ui-md-10" placeholder="Enter Email" type="text" />
+    </div>
+    <div class="ui-g">
+      <label for="Username" class="ui-g-12 ui-md-2">User Name:</label>
+      <input formControlName="Username" id="Username" class="ui-g-12 ui-md-10" placeholder="Enter user name" type="text" />
+    </div>
+    <div class="ui-g">
+      <label for="Password" class="ui-g-12 ui-md-2">Password:</label>
+      <input formControlName="Password" id="Password" class="ui-g-12 ui-md-10" placeholder="Enter Password" type="Password" />
+    </div>
+    <div class="ui-g">
+      <label for="confirmPassword" class="ui-g-12 ui-md-2">Confirm Password:</label>
+      <input id="confirmPassword" class="ui-g-12 ui-md-10" placeholder="Confirm password" type="password" />
+    </div>
+
+    <footer>
+      <!-- <button type="submit" class="btn btn-md btn-success btn-block btn-signin">
+        Register
+      </button> -->
+      <button pButton type="submit" label="Register"></button>
+      <button pButton type="button" class="ui-button-warning" (click)="onBack()" label="Cancel"></button>
+      
+    </footer>
+  </p-panel>
+</form>

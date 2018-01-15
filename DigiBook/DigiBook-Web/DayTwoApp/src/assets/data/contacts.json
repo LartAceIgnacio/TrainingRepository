@@ -1,0 +1,7 @@
+{
+    "data": [
+        {"firstName": "Angelou", "lastName": "celis","mobilePhone": "09236558455","streetAddress": "Quezons","cityAddress": "Quezon City","zipCode":1800,"country": "USA","emailAddress":"anjacelis@gmail.com"},
+        {"firstName": "Anja", "lastName": "Geru","mobilePhone": "09236558455","streetAddress": "Quezons","cityAddress": "Quezon City","zipCode":1800,"country": "USA","emailAddress":"anjacelis@gmail.com"},
+        {"firstName": "Angelou", "lastName": "koko","mobilePhone": "09236558455","streetAddress": "Quezons","cityAddress": "Quezon City","zipCode":1800,"country": "USA","emailAddress":"anjacelis@gmail.com"}
+    ]
+}
