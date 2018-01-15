@@ -1,0 +1,32 @@
+{
+    "data":[
+        { "firstName": "Jasmin",
+            "lastName": "Magdaleno",
+            "mobilePhone": "+639057002912",
+            "emailAddress": "jmagdaleno@blastasia.com",
+            "extension": "+34",
+            "officePhone": "9932143"
+        },
+        { "firstName": "Pedro",
+            "lastName": "Dela Cruz",
+            "mobilePhone": "+639051302912",
+            "emailAddress": "pdelacruz@blastasia.com",
+            "extension": "+54",
+            "officePhone": "3345243"
+        },
+        { "firstName": "Goong",
+            "lastName": "Yoo",
+            "mobilePhone": "+639892631566",
+            "emailAddress": "gyoo@blastasia.com",
+            "extension": "+65",
+            "officePhone": "2345337"
+        },
+        { "firstName": "Benedict",
+            "lastName": "Cumberbatch",
+            "mobilePhone": "+639930193772",
+            "emailAddress": "bcumberbatch@blastasia.com",
+            "extension": "+79",
+            "officePhone": "6332896"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+metric {
+        background-color: lightseagreen;
+        color: white;
+}
+.icon {
+    font-size: 80px;
+    margin: 0px;
+    padding: 5px;
+    background: rgba(0,0,0,.1);
+}
+
+
+.data {
+    padding: 1em;
+    vertical-align: middle;
+}
+
+.value {
+    font-size: 40px;
+}
+
+.label {
+    text-transform: uppercase;
+}

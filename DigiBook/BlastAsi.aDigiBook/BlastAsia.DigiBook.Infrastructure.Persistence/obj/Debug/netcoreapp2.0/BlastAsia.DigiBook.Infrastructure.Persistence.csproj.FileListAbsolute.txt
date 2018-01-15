@@ -1,0 +1,15 @@
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.deps.json
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.dll
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.csprojResolveAssemblyReference.cache
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.AssemblyInfoInputs.cache
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.AssemblyInfo.cs
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.dll
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\jmagdaleno\Documents\Visual Studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
+C:\Users\jmagdaleno\Documents\Visual Studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Infrastructure.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb

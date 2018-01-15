@@ -1,0 +1,26 @@
+*{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#panelForm{
+    position: absolute;
+    top: 20%;
+    left: 30%;
+}
+
+#login-inputs {
+    padding: 20px;
+}
+
+#user, #pw{
+    width:100%;
+}
+
+#login-button {
+    float: right;
+    background-color: #26344b;
+    width: 100px;
+    height:30px;
+    color: white;
+    border:none;
+}

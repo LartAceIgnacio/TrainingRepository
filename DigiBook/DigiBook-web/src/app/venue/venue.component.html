@@ -1,0 +1,93 @@
+<p-panel header="Venue List">
+  <div class="ui-g">
+    <p-dataTable #dt [value]="venueList" [rows]="5" [paginator]="true" [pageLinks]="5" 
+      [responsive]="true" (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
+    <!-- <p-dataTable [value]="venueList" selectionMode="single" [(selection)]="selectedVenue" [paginator]="true" [rows]="10"> -->
+      <p-header>
+        <div class="addHeader" style="float:left">
+          <button pButton icon="fa fa-plus" (click)="addVenue()" ></button>    
+        </div>      
+        <div class="searchHeader" style="text-align:right">      
+          <input type="text" pInputText placeholder="Search Venue" [(ngModel)]="searchFilter" />
+          <button pButton  type="button" icon="fa-search" (click)="searchVenue()"></button>
+        </div>
+      </p-header>
+
+      <p-column [style]="{'width':'85px'}" styleClass="col-button" item-width="10px">
+          <ng-template let-venue="rowData" pTemplate="body">                        
+              <button pButton icon="fa fa-pencil" style="float:left" (click)="editVenue(venue)"></button>             
+              <button pButton icon="fa fa-trash" style="float:left" (click)="deleteVenue(venue,true)"></button>
+          </ng-template>
+      </p-column>
+      <p-column field="venueName" header="Venue Name" [sortable]="true"></p-column>
+      <p-column field="description" header="Description" [sortable]="true"></p-column>
+
+    </p-dataTable>
+  </div>
+</p-panel> <br>
+
+<form [formGroup]="venueForm" ngSubmit="onSubmit(venueForm.value)">    
+  <p-dialog [(header)]="dialogTitle" width="1000" [(visible)]="displayInputBox" modal="modal" *ngIf="selectedVenue"
+  [closable]="onAdd === false && onDelete === false ? true : false">
+    <div class="ui-g">      
+      <div class="ui-g-12 ui-md-12">
+        <!-- INPUT VenueName-->
+        <div class="ui-g-12 ui-md-2">
+          <i class="fa fa-map-marker"></i> &nbsp;
+          <label for="venueName">Venue Name</label>
+        </div>
+        <input class="ui-g-12 ui-md-4" id="venueName" formControlName="venueName" type="text" pInputText [(ngModel)]="selectedVenue.venueName">
+        <!-- ERROR VenueName-->
+        <div class="ui-g-12 ui-md-6">
+          <div class="ui-message ui-messages-error " *ngIf="!venueForm.controls['venueName'].valid && venueForm.controls['venueName'].dirty">
+              <i class="fa fa-close"></i> 
+              <span *ngIf="venueForm.controls['venueName'].errors['required']">Venue name is required.</span>
+              <span *ngIf="venueForm.controls['venueName'].errors['maxlength']">Must be shorter than 50 characters</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="ui-g-12 ui-md-12">
+        <!-- INPUT Description-->
+        <div class="ui-g-12 ui-md-2">
+          <i class="fa fa-comment"></i> &nbsp;
+          <label for="description">Description</label>
+        </div>
+        <textarea class="ui-g-12 ui-md-10" id="description" formControlName="description"  type="text" [rows]="5" pInputTextarea [(ngModel)]="selectedVenue.description"></textarea>
+        <!-- ERROR Description-->
+        <div class="ui-g-1 ui-md-2"> </div>
+        <div class="ui-g-12 ui-md-6">
+          <div class="ui-message ui-messages-error" *ngIf="!venueForm.controls['description'].valid && venueForm.controls['description'].dirty">
+              <i class="fa fa-close"></i> Must be shorter than 100 characters.
+          </div>
+        </div>
+      </div>
+      <!-- BUTTON -->
+      <div class="ui-g-12">    
+          <button pButton icon="fa fa-user-plus" *ngIf="onAdd" [disabled]="!venueForm.valid"  (click)="saveVenue(true)" 
+            label="Save And New" class="ui-button-success"></button>   
+          <button pButton icon="fa fa-floppy-o" *ngIf="!onDelete" [disabled]="!venueForm.valid" (click)="saveVenue(false)" 
+            label="Save" class="ui-button-success"></button>
+          <button pButton icon="fa fa-trash" *ngIf="onDelete" (click)="deleteVenue(venue,false)" 
+            label="Delete" class="ui-button-danger"></button>  
+          <button pButton icon="fa fa-ban" (click)="cancelVenue()" label="Cancel"></button>
+      </div>
+    </div>
+  </p-dialog>
+</form>
+
+<p-dialog width="500" showClose ="false" [(visible)]="confirmEditCancel" modal="modal" [closable]="false">
+  <div class="ui-g-12" >
+    <p>Are you sure you want to discard changes?</p>
+    <button pButton style="float:right" (click)="toCancel(false)" label="No"></button>
+    <button pButton style="float:right" (click)="toCancel(true)" label="Yes"></button>
+  </div>
+</p-dialog>
+
+<p-dialog width="500" showClose ="false" [(visible)]="confirmDeleteRecord" modal="modal" [closable]="false">
+  <div class="ui-g-12" >
+    <p>Are you sure you want to delete record?</p>
+    <button pButton style="float:right" (click)="toDelete(false)" label="No"></button>
+    <button pButton style="float:right" (click)="toDelete(true)" label="Yes"></button>
+  </div>
+</p-dialog>
