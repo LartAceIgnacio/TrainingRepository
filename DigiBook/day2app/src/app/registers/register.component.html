@@ -1,0 +1,104 @@
+<p-panel header="Reigstration">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div class="ui-g">
+            <label for="firstName" class="ui-g-12 ui-md-2">First Name:</label>
+            <input id="firstName" class="ui-g-12 ui-md-10" placeholder="Enter Firstname" type="text" required formControlName="FirstName"
+            />
+            <div class="ui-g-12 ui-md-2"></div>
+            <div class="ui-g-12 ui-md-10">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['FirstName'].valid&&form.controls['FirstName'].dirty">
+                    <i class="fa fa-close"></i>
+                    Firstname is Required!
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-g">
+            <label for="lastName" class="ui-g-12 ui-md-2">Last Name:</label>
+            <input id="lastName" class="ui-g-12 ui-md-10" placeholder="Enter Lastname" type="text" required formControlName="LastName"
+            />
+            <div class="ui-g-12 ui-md-2"></div>
+            <div class="ui-g-12 ui-md-10">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['LastName'].valid&&form.controls['LastName'].dirty">
+                    <i class="fa fa-close"></i>
+                    Lastname is Required!
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-g">
+            <label for="displayName" class="ui-g-12 ui-md-2">Display Name:</label>
+            <input id="displayName" class="ui-g-12 ui-md-10" placeholder="Enter Displayname" type="text" required formControlName="DisplayName"
+            />
+            <div class="ui-g-12 ui-md-2"></div>
+            <div class="ui-g-12 ui-md-10">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['DisplayName'].valid&&form.controls['DisplayName'].dirty">
+                    <i class="fa fa-close"></i>
+                    Displayname is Required!
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-g">
+            <label for="firstName" class="ui-g-12 ui-md-2">User Name:</label>
+            <input id="userName" class="ui-g-12 ui-md-10" placeholder="Enter User   name" type="text" required formControlName="Username"
+            />
+            <div class="ui-g-12 ui-md-2"></div>
+            <div class="ui-g-12 ui-md-10">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['Username'].valid&&form.controls['Username'].dirty">
+                    <i class="fa fa-close"></i>
+                    Username is Required!
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-g">
+            <label for="email" class="ui-g-12 ui-md-2">Email Address:</label>
+            <input id="email" class="ui-g-12 ui-md-10" placeholder="Enter Email Address" type="text" required formControlName="Email"
+            />
+            <div class="ui-g-12 ui-md-2"></div>
+            <div class="ui-g-12 ui-md-10">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['Email'].valid&&form.controls['Email'].dirty">
+                    <i class="fa fa-close"></i>
+                    Email is Required!
+                </div>
+            </div>
+        </div>
+
+
+        <div class="ui-g">
+            <label for="password" class="ui-g-12 ui-md-2">Password:</label>
+            <input id="password" class="ui-g-12 ui-md-10" placeholder="Enter Password" type="password" required formControlName="Password"
+            />
+            <div class="ui-g-12 ui-md-2"></div>
+            <div class="ui-g-12 ui-md-10">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['Password'].valid&&form.controls['Password'].dirty">
+                    <i class="fa fa-close"></i>
+                    Password is Required!
+                </div>
+            </div>
+        </div>
+
+
+        <div class="ui-g">
+            <label for="confirmPass" class="ui-g-12 ui-md-2">Confirm Password:</label>
+            <input id="confirmPass" class="ui-g-12 ui-md-10" placeholder="Enter Confirm Password" type="password" required formControlName="PasswordConfirm"
+            />
+            <div class="ui-g-12 ui-md-2"></div>
+            <div class="ui-g-12 ui-md-10">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['PasswordConfirm'].valid&&form.controls['PasswordConfirm'].dirty">
+                    <i class="fa fa-close"></i>
+                    Should match with password!
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-g">
+            <button pButton type="button" icon="fa fa-window-close" label="Cancel" class=" ui-button-danger" (click)="onBack()"></button>
+            <button pButton icon="fa fa-check" label="Register" class="ui-button-success" type="submit" [disabled]="form.invalid">
+            </button>
+        </div>
+
+    </form>
+</p-panel>
