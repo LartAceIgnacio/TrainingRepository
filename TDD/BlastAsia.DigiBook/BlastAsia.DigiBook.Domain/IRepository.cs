@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlastAsia.DigiBook.Domain.Models.Records;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

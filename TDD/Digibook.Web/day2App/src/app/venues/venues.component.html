@@ -1,0 +1,47 @@
+<p-growl [value]="msgs" sticky="sticky"></p-growl>
+<p-confirmDialog></p-confirmDialog>
+<form [formGroup]="userform">
+  <p-panel header="Venue List">
+    <div class="ui-g">
+      <p-dataTable [value]="venueList" selectionMode="single"
+      [(selection)]="selectedVenue"
+        (onRowSelect)="onRowSelect($event)"
+        [paginator]="true" rows="10" [responsive]="true">
+        <p-header>Venues</p-header>
+        <p-column field="venueId" header="Venue Id" [sortable]="true"></p-column>
+        <p-column field="venueName" header="Venue" [sortable]="true"></p-column>
+        <p-column field="description" header="Description" [sortable]="true"></p-column>
+        <p-footer>
+          <div class="ui-g">
+          <button pButton icon="fa fa-plus" style="float:left" (click)="addVenue()" label="Add"></button>
+          <button pButton type="button" (click)="deleteVenue()" label="Delete" icon="fa fa-trash-o" style="float:left" *ngIf="selectedVenue"></button>
+          </div>
+        </p-footer>
+      </p-dataTable>
+    </div>
+  </p-panel>
+  <p-panel header="Venue Details" *ngIf="selectedVenue">
+    <div class="ui-g">
+      <div class="ui-g-12 ui-md-6">
+            <div class="ui-g">
+                <label class="ui-g-12 ui-md-3" for="Venue">Venue</label>
+                <input class="ui-g-12 ui-md-9" formControlName="venueName" type="text" placeholder="Enter Venue" [(ngModel)]="selectedVenue.venueName">
+            </div>
+            <div class="ui-g">
+                <label class="ui-g-12 ui-md-3" for="Venue">Description</label>
+                <input class="ui-g-12 ui-md-9" formControlName="description" type="text" placeholder="Enter Employee Address" [(ngModel)]="selectedVenue.description">
+                <div class="ui-message ui-message-error ui-corner-all" *ngIf="!userform.controls['venueName'].valid&&userform.controls['description'].dirty" >
+                  <i class='fa fa-close'></i>
+                  Venue Name is required
+                </div>
+            </div>
+          </div>
+    </div>
+    <p-footer>
+      <div>
+        <button pButton type="button" (click)="saveVenue()" label="Save" icon="fa fa-floppy-o" class="ui-button-success" [disabled]="!userform.valid"></button>
+        <button pButton type="button" (click)="cancelVenue()" label="Cancel" icon="fa fa-ban" class="ui-button-danger"></button>
+      </div>
+      </p-footer>
+  </p-panel>
+</form>

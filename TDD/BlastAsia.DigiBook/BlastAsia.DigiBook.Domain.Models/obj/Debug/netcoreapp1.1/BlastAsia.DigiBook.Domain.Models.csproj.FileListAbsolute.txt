@@ -6,4 +6,3 @@ C:\Users\roribello\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\Blas
 C:\Users\roribello\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.pdb
 C:\Users\roribello\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.csproj.CoreCompileInputs.cache
 C:\Users\roribello\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.AssemblyInfoInputs.cache
-C:\Users\roribello\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.csprojResolveAssemblyReference.cache

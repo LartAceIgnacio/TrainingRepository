@@ -1,0 +1,86 @@
+<p-growl [value]="msgs" sticky="sticky"></p-growl>
+<p-confirmDialog></p-confirmDialog>
+<p-panel header="Appointment List">
+  <div class="ui-g">
+    <p-dataTable [value]="appointmentList" selectionMode="single"
+    [(selection)]="selectedAppointment"
+      (onRowSelect)="onRowSelect($event)"
+      [paginator]="true" rows="10" [responsive]="true">
+      <p-header>
+        <div class="ui-helper-clearfix">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-2">
+                    <button pButton icon="fa fa-plus" label="Appointment" style="float:left" (click)="addAppointment()"></button>
+                </div>
+                <div class="ui-g-12 ui-md-7">
+                </div>
+                <div class="ui-g-12 ui-md-2 ui-inputgroup">
+                    <input type="text" #gb pInputText placeholder="Keyword">  
+                    <button pButton type="button" icon="fa fa-search"></button>       
+                </div>
+              </div>
+        </div>
+      </p-header>
+      <p-column>
+        <ng-template let-rowContact="rowData" pTemplate="body">
+            <button pButton type="button" (click)="editAppointment(rowContact)" icon="fa fa-pencil" class="ui-button-success"></button>
+            <button pButton type="button" (click)="deleteAppointment(rowContact)" icon="fa fa-trash-o" class="ui-button-danger"></button>
+        </ng-template>
+      </p-column>
+      <p-column field="appointmentDate" header="Date Time" [sortable]="true"></p-column>
+      <p-column field="guestName" header="Guest Name" [sortable]="true"></p-column>
+      <p-column field="hostName" header="Host Name" [sortable]="true"></p-column>
+      <p-column field="startTime" header="Start Time" [sortable]="true"></p-column>
+      <p-column field="endTime" header="End Time" [sortable]="true"></p-column>
+      <p-column field="isCancelled" header="isCancelled" [sortable]="true"></p-column>
+      <p-column field="isDone" header="isDone" [sortable]="true"></p-column>
+      <p-column field="notes" header="Notes" [sortable]="true"></p-column>
+    </p-dataTable>
+  </div>
+</p-panel>
+<p-panel header="Appointment Details" *ngIf="selectedAppointment">
+  <div class="ui-g">
+    <div class="ui-g-12 ui-md-6">
+          <div class="ui-g">
+              <label class="ui-g-12 ui-md-3" for="Appointment">Date Time</label>
+              <p-calendar [showIcon]="true" dateFormat="mm/dd/yy" [(ngModel)]="selectedAppointment.appointmentDate" ></p-calendar>
+          </div>
+          <div class="ui-g">
+              <label class="ui-g-12 ui-md-3" for="Appointment">Guest Name</label>
+              <p-dropdown [options]="contactList" [(ngModel)]="selectedContact" optionLabel="lastName" placeholder="Guest Name"></p-dropdown>
+          </div>
+          <div class="ui-g">
+            <label class="ui-g-12 ui-md-3" for="Appointment">Host Name</label>
+            <p-dropdown [options]="employeeList" [(ngModel)]="selectedEmployee" optionLabel="lastName" placeholder="Host Name"></p-dropdown>
+        </div>
+        <div class="ui-g">
+            <label class="ui-g-12 ui-md-3" for="Appointment">Start Time</label>
+            <input class="ui-g-12 ui-md-9" type="text"  placeholder="Enter Start Time" [(ngModel)]="selectedAppointment.startTime">
+        </div>
+        <div class="ui-g">
+          <label class="ui-g-12 ui-md-3" for="Appointment">End Time</label>
+          <input class="ui-g-12 ui-md-9" type="text"  placeholder="Enter End Time" [(ngModel)]="selectedAppointment.endTime">
+      </div>
+      </div>
+    <div class="ui-g-12 ui-md-6">
+        <div class="ui-g">
+            <label class="ui-g-12 ui-md-3" for="Appointment">isCancelled</label>
+            <p-inputSwitch onLabel="True" offLabel="False" [(ngModel)]="selectedAppointment.isCancelled" class="ui-g-12 ui-md-9"></p-inputSwitch>
+        </div>
+        <div class="ui-g">
+            <label class="ui-g-12 ui-md-3" for="Appointment">isDone</label>
+            <p-inputSwitch onLabel="True" offLabel="False" [(ngModel)]="selectedAppointment.isDone" class="ui-g-12 ui-md-9"></p-inputSwitch>
+        </div>
+        <div class="ui-g">
+          <label class="ui-g-12 ui-md-3" for="Appointment">Notes</label>
+          <input class="ui-g-12 ui-md-9" type="text"  placeholder="Notes" [(ngModel)]="selectedAppointment.notes">
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <div>
+      <button pButton type="button" (click)="saveAppointment()" label="Save" icon="fa fa-floppy-o" class="ui-button-success"></button>
+      <button pButton type="button" (click)="cancelAppointment()" label="Cancel" icon="fa fa-ban" class="ui-button-danger"></button>
+    </div>
+    </p-footer>
+</p-panel>

@@ -20,7 +20,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         private Guid nonExistingAppointmentId = Guid.Empty;
         private Guid existingGuestId = Guid.NewGuid();
         private Guid existingHostId = Guid.NewGuid();
-
+        
         // private Appointment newAppointment;
         [TestInitialize()]
         public void Initialize()
@@ -48,6 +48,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             dbContext.Database.EnsureCreated();
             sut = new AppointmentRepository(dbContext);
 
+            
 
         }
         [TestCleanup()]

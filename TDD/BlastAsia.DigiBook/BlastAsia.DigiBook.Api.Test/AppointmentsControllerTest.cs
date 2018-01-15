@@ -65,7 +65,7 @@ namespace BlastAsia.DigiBook.Api.Test
             //Arrange
             var existingAppointmentId = Guid.NewGuid();
             //Act
-            result = sut.GetAppointments(existingAppointmentId);
+            result = sut.GetAppointments(existingAppointmentId, 1, 10);
             //Assert
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
 

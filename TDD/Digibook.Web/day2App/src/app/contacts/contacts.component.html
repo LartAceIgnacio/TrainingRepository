@@ -1,0 +1,161 @@
+<p-growl [value]="msgs" sticky="sticky"></p-growl>
+<p-confirmDialog></p-confirmDialog>
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<p-panel header="Contact List">
+  <div class="ui-g">
+    <p-dataTable [value]="contactList"
+    [(selection)]="selectedContact"
+      [paginator]="true" rows="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"
+      [responsive]="true" [globalFilter]="gb">
+      <p-header>
+          <div class="ui-helper-clearfix">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-2">
+                    <button pButton icon="fa fa-plus" label="Contact" style="float:left" (click)="addContact()"></button>
+                </div>
+                 <div class="ui-g-12 ui-md-7">
+                 </div>
+                <div class="ui-g-12 ui-md-2 ui-inputgroup">
+                        <input type="text" #gb pInputText placeholder="Keyword">  
+                        <button pButton type="button" icon="fa fa-search"></button>       
+                </div>
+            </div>
+          </div>
+      </p-header>
+      <p-column>
+        <ng-template let-rowContact="rowData" pTemplate="body">
+            <button pButton type="button" (click)="editContact(rowContact)" icon="fa fa-pencil" class="ui-button-success"></button>
+            <button pButton type="button" (click)="deleteContact(rowContact)" icon="fa fa-trash-o" class="ui-button-danger"></button>
+        </ng-template>
+      </p-column>
+      <p-column field="firstName" header="First Name" [sortable]="true" ></p-column>
+      <p-column field="lastName" header="Last Name" [sortable]="true" ></p-column>
+      <p-column field="mobilePhone" header="Mobile Phone" [sortable]="true" ></p-column>
+      <p-column field="streetAddress" header="Street Address" [sortable]="true" ></p-column>
+      <p-column field="cityAddress" header="City Address" [sortable]="true" ></p-column>
+      <p-column field="zipCode" header="Zip Code" [sortable]="true" ></p-column>
+      <p-column field="country" header="Country" [sortable]="true" ></p-column>
+      <p-column field="emailAddress" header="Email Address" [sortable]="true" ></p-column>
+      <p-column field="isActive" header="isActive" [sortable]="true" ></p-column>
+      <p-column field="dateActivated" header="Date Activated" [sortable]="true" dateFormat="mm/dd/yy" ></p-column>
+    </p-dataTable>
+  </div>
+</p-panel>
+<form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
+  <p-dialog header="Contact Details" [(visible)]="display" [responsive]="true" modal="true" *ngIf="selectedContact" class="ui-g" [closable]="false">
+    <div class="ui-g-12 ui-md-6">
+       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <span class="ui-float-label">
+                        <input pInputText type="text"  id="float-input" formControlName="firstName" [(ngModel)]="selectedContact.firstName"/> 
+                        <label for="float-input">First Name</label>
+                    </span>
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['firstName'].valid&&userform.controls['firstName'].dirty">
+                        <i class="fa fa-close"></i>
+                        Firstname is required
+                    </div>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <span class="ui-float-label">
+                        <input pInputText type="text"  id="float-input" size="30" formControlName="lastName" [(ngModel)]="selectedContact.lastName"/> 
+                        <label for="float-input">Last Name</label>
+                    </span>
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['lastName'].valid&&userform.controls['lastName'].dirty">
+                        <i class="fa fa-close"></i>
+                        Lastname is required
+                    </div>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <span class="ui-float-label">
+                        <input pInputText type="text"  id="float-input" size="30" formControlName="mobilePhone" [(ngModel)]="selectedContact.mobilePhone"/> 
+                        <label for="float-input">Mobile Phone</label>
+                    </span>
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['mobilePhone'].valid&&userform.controls['mobilePhone'].dirty">
+                        <i class="fa fa-close"></i>
+                        <span *ngIf="userform.controls['mobilePhone'].errors['required']">Mobile Phone is required</span>
+                        <span *ngIf="userform.controls['mobilePhone'].errors['pattern']">Must be a number</span>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <span class="ui-float-label">
+                        <input pInputText type="text"  id="float-input" size="30" formControlName="streetAddress" [(ngModel)]="selectedContact.streetAddress"/> 
+                        <label for="float-input">Street Address</label>
+                    </span>
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['streetAddress'].valid&&userform.controls['streetAddress'].dirty">
+                    <i class="fa fa-close"></i>
+                    Street Address is required
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-6">
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <span class="ui-float-label">
+                        <input pInputText type="text"  id="float-input" size="30" formControlName="cityAddress" [(ngModel)]="selectedContact.cityAddress"/> 
+                        <label for="float-input">City Address</label>
+                    </span>
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['cityAddress'].valid&&userform.controls['cityAddress'].dirty">
+                        <i class="fa fa-close"></i>
+                        City Address is required
+                    </div>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <span class="ui-float-label">
+                        <input pInputText type="text"  id="float-input" size="30" formControlName="zipCode" [(ngModel)]="selectedContact.zipCode"/> 
+                        <label for="float-input">Zip Code</label>
+                    </span>
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['zipCode'].valid&&userform.controls['zipCode'].dirty">
+                            <i class="fa fa-close"></i>
+                            ZipCode is required
+                        </div>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <span class="ui-float-label">
+                        <input pInputText type="text"  id="float-input" size="30" formControlName="country" [(ngModel)]="selectedContact.country"/> 
+                        <label for="float-input">Country</label>
+                    </span>
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['country'].valid&&userform.controls['country'].dirty">
+                            <i class="fa fa-close"></i>
+                            Country is required
+                    </div>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <span class="ui-float-label">
+                        <input pInputText type="text"  id="float-input" size="30" formControlName="emailAddress" [(ngModel)]="selectedContact.emailAddress"/> 
+                        <label for="float-input">Email Address</label>
+                    </span>
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['emailAddress'].valid&&userform.controls['emailAddress'].dirty">
+                            <i class="fa fa-close"></i>
+                            <span *ngIf="userform.controls['emailAddress'].errors['required']">Email Address is required</span>
+                            <span *ngIf="userform.controls['emailAddress'].errors['pattern']">Invalid Email Address Format</span>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <p-footer>
+      <div align="center">
+        <button pButton type="button" *ngIf ="btnSaveNew" (click)="saveContact('new')" label="Save & New" icon="fa fa-floppy-o" class="ui-button-success"  [disabled]="!userform.valid"></button>
+        <button pButton type="button" *ngIf ="btnSave" (click)="saveContact()" label="Save" icon="fa fa-floppy-o" class="ui-button-success"  [disabled]="!userform.valid"></button>
+        <button pButton type="button" *ngIf ="btnDelete" (click)="deleteContactConfirmation()" label="Delete" icon="fa fa-trash-o" class="ui-button-danger"></button>
+        <button pButton type="button" (click)="cancelContact()" label="Cancel" icon="fa fa-ban" class="ui-button-danger" ></button>
+      </div>
+      </p-footer>
+  </p-dialog>
+</form>

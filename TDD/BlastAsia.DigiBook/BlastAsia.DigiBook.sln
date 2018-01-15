@@ -23,12 +23,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.0 Persistence", "4.0 Pers
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.Api", "BlastAsia.DigiBook.Api\BlastAsia.DigiBook.Api.csproj", "{CAC77B71-B0AC-40B8-AFFC-12B239D4D31D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.DigiBook.Api.Test", "BlastAsia.DigiBook.Api.Test\BlastAsia.DigiBook.Api.Test.csproj", "{65C70715-D126-45F1-950F-C34922E0BE43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.Api.Test", "BlastAsia.DigiBook.Api.Test\BlastAsia.DigiBook.Api.Test.csproj", "{65C70715-D126-45F1-950F-C34922E0BE43}"
 	ProjectSection(ProjectDependencies) = postProject
 		{31EE4D35-5CCC-495E-92BD-70D6C03D5098} = {31EE4D35-5CCC-495E-92BD-70D6C03D5098}
 		{1E99846D-645D-4015-8C8D-0B16116D139D} = {1E99846D-645D-4015-8C8D-0B16116D139D}
 		{CAC77B71-B0AC-40B8-AFFC-12B239D4D31D} = {CAC77B71-B0AC-40B8-AFFC-12B239D4D31D}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.DigiBook.Infrastructure", "BlastAsia.DigiBook.Infrastructure\BlastAsia.DigiBook.Infrastructure.csproj", "{FB7FC026-7F0A-4918-BAD9-C0A7DB876C3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +66,10 @@ Global
 		{65C70715-D126-45F1-950F-C34922E0BE43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65C70715-D126-45F1-950F-C34922E0BE43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65C70715-D126-45F1-950F-C34922E0BE43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB7FC026-7F0A-4918-BAD9-C0A7DB876C3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB7FC026-7F0A-4918-BAD9-C0A7DB876C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB7FC026-7F0A-4918-BAD9-C0A7DB876C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB7FC026-7F0A-4918-BAD9-C0A7DB876C3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{A319BCDD-1520-4A86-AD13-13CCF1336F87} = {0F6D293D-5AC9-41AD-872C-E90024D56D34}
 		{CAC77B71-B0AC-40B8-AFFC-12B239D4D31D} = {FFDCB773-454C-4234-BC7F-57D413769FC8}
 		{65C70715-D126-45F1-950F-C34922E0BE43} = {FFDCB773-454C-4234-BC7F-57D413769FC8}
+		{FB7FC026-7F0A-4918-BAD9-C0A7DB876C3D} = {0F6D293D-5AC9-41AD-872C-E90024D56D34}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FFA8605B-BB95-4082-A4B7-C34422FD6533}

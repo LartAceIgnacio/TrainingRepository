@@ -4,11 +4,13 @@ using System.Linq;
 using BlastAsia.DigiBook.Api.Utils;
 using BlastAsia.DigiBook.Domain.Appointments;
 using BlastAsia.DigiBook.Domain.Models.Appointments;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
+    [EnableCors("DemoApp")]
     [Produces("application/json")]
     [Route("api/Appointments")]
     public class AppointmentsController : Controller
@@ -23,13 +25,14 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpGet, ActionName("GetAppointments")]
-        public IActionResult GetAppointments(Guid? id)
+        public IActionResult GetAppointments(Guid? id, int page = 1, int record = 10)
         {
             var result = new List<Appointment>();
             if (id == null)
             {
 
                 result.AddRange(this.appointmentRepository.Retrieve());
+       
             }
             else
             {
@@ -42,7 +45,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
 
         [HttpPost]
         public IActionResult CreateAppointment(
-            [Bind] Appointment appointment)
+            [FromBody] Appointment appointment)
         {
             try
             {

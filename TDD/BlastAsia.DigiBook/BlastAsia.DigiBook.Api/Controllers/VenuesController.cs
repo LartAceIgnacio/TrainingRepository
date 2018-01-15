@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlastAsia.DigiBook.Api.Utils;
+using BlastAsia.DigiBook.Domain.Models.Records;
 using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Domain.Venues;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
+    [EnableCors ("DemoApp")]
     [Produces("application/json")]
     [Route("api/Venues")]
     public class VenuesController : Controller
@@ -24,6 +27,22 @@ namespace BlastAsia.DigiBook.Api.Controllers
             this.venueRepository = venueRepository;
         }
 
+        [HttpGet, ActionName("GetVenuesWithPagination")]
+        [Route("{page}/{record}")]
+        public IActionResult GetVenuesWithPagination(int page, int record, string filter)
+        {
+            var result = new Record<Venue>();
+            try
+            {
+                result = this.venueRepository.Pagination(page, record, filter);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
+        }
+
         [HttpGet, ActionName("GetVenues")]
         public IActionResult GetVenues(Guid? id)
         {
@@ -32,6 +51,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
             {
 
                 result.AddRange(this.venueRepository.Retrieve());
+
             }
             else
             {
@@ -42,7 +62,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateVenue( [Bind] Venue venue)
+        public IActionResult CreateVenue([FromBody] Venue venue)
         {
             try
             {

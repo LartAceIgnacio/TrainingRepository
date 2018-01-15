@@ -66,5 +66,6 @@ namespace BlastAsia.DigiBook.Domain.Contacts
             
             return result;
         }
+
     }
 }

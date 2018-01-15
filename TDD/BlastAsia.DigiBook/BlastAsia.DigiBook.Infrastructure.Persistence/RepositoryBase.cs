@@ -1,4 +1,5 @@
 ﻿using BlastAsia.DigiBook.Domain;
+using BlastAsia.DigiBook.Domain.Models.Records;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
     public abstract class RepositoryBase<TEntity>
         : IRepository<TEntity> where TEntity : class
     {
-        private readonly IDigiBookDbContext context;
+        public readonly IDigiBookDbContext context;
 
         public RepositoryBase(IDigiBookDbContext context)
         {
@@ -38,7 +39,19 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
 
         public IEnumerable<TEntity> Retrieve()
         {
-            return context.Set<TEntity>().ToList() ;
+            //Record<TEntity> data = new Record<TEntity>
+            //{
+            //    PageNo = page,
+            //    RecordPage = record,
+            //    Result = context.Set<TEntity>()
+            //             .OrderBy(c => c + "." + order)
+            //             .Skip(page)
+            //             .Take(record)
+            //             .ToList(),
+            //    TotalResult = context.Set<TEntity>().Count()
+            //};
+
+            return context.Set<TEntity>().ToList(); 
         }
 
         public TEntity Update(Guid id, TEntity entity)
@@ -48,5 +61,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
             context.SaveChanges();
             return entity;
         }
+
     }
 }

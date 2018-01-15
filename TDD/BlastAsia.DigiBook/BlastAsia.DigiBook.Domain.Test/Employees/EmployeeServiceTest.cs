@@ -28,7 +28,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
                 LastName = "Oribello",
                 MobilePhone = "09264709989",
                 EmailAddress = "oribelloryan@gmail.com",
-                Photo = new MemoryStream(),
+                Photo = "string",
                 OfficePhone = "432-232-244",
                 Extension = "101"
             };

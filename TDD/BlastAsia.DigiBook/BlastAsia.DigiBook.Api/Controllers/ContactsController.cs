@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 using BlastAsia.DigiBook.Api.Utils;
 using BlastAsia.DigiBook.Domain.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Contacts;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
+    [EnableCors("DemoApp")]
     [Produces("application/json")]
     [Route("api/Contacts")]
     public class ContactsController : Controller
@@ -32,19 +35,24 @@ namespace BlastAsia.DigiBook.Api.Controllers
             {
 
                 result.AddRange(this.contactRepository.Retrieve());
+ 
             }
             else
             {
+   
                 var contact = this.contactRepository.Retrieve(id.Value);
                 result.Add(contact);
+                
             }
 
             return Ok(result);
+
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult CreateContact(
-            [Bind("FirstName", "LastName", "MobilePhone", "StreetAddress", "CityAddress", "ZipCode", "Country", "EmailAddress")] Contact contact)
+            [FromBody] Contact contact)
         {
             try
             {
@@ -78,7 +86,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
 
         [HttpPut]
         public IActionResult UpdateContact(
-            [Bind("FirstName", "LastName", "MobilePhone", "StreetAddress", "CityAddress", "ZipCode", "Country", "EmailAddress")] Contact modifiedContact, Guid id)
+            [FromBody] Contact modifiedContact, Guid id)
         {
             
             var contact = contactRepository.Retrieve(id);
