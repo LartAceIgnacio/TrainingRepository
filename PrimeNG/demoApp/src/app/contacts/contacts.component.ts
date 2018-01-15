@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {ContactService} from '../services/ContactService';
 import {Contact} from '../domain/Contact';
 import {ContactClass} from '../domain/ContactClass';
@@ -9,12 +9,15 @@ import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
 
 import {HttpClient} from '@angular/common/http';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
+import { PaginationResult } from "../domain/paginationresult";
+import { DataTable } from "primeng/components/datatable/datatable";
+import { GlobalService } from "../services/globalservice";
 
 @Component({
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.css'],
-  providers: [ContactService, ConfirmationService]
+  providers: [ContactService, ConfirmationService, GlobalService]
 })
 export class ContactsComponent implements OnInit {
   contactList: Contact[];
@@ -30,13 +33,19 @@ export class ContactsComponent implements OnInit {
   display: boolean;
   isDelete: boolean;
 
+  searchFilter: string = "";
+  paginationResult: PaginationResult<Contact>;
+  totalRecords: number = 0;
+
   constructor(private contactService: ContactService,
   private http:HttpClient,
   private fb:FormBuilder,
-  private confirmationService: ConfirmationService) { }
+  private confirmationService: ConfirmationService,
+  private globalService: GlobalService) { }
 
+  @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
-    this.contactService.getContacts().then(contacts => this.contactList=contacts);
+    //this.contactService.getContacts().then(contacts => this.contactList=contacts);
 
     this.contactForm = this.fb.group({
       'firstname': new FormControl('', Validators.required),
@@ -57,6 +66,34 @@ export class ContactsComponent implements OnInit {
     this.home = {icon: 'fa fa-home', routerLink: '/dashboard'};
 
     this.isDelete = false;
+  }
+
+  paginate(event) {
+    this.globalService.getSomethingWithPagination<PaginationResult<Contact>>("Contacts", event.first, event.rows,
+      this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
+        this.paginationResult = paginationResult;
+        this.contactList = this.paginationResult.results;
+        this.totalRecords = this.paginationResult.totalRecords;
+        for (var i = 0; i < this.contactList.length; i++) {
+          this.contactList[i].dateActivated = this.contactList[i].dateActivated == null ? null :
+            new Date(this.contactList[i].dateActivated).toLocaleDateString();
+        }
+      });
+  }
+
+  searchContact() {
+    if (this.searchFilter.length != 1) {
+      this.setCurrentPage(1);
+    }
+  }
+
+  setCurrentPage(n: number) {
+    this.dataTable.reset();
+    // let paging = {
+    //     first: ((n - 1) * this.dataTable.rows),
+    //     rows: this.dataTable.rows
+    // };
+    // this.dataTable.paginate();
   }
 
   addContact(){

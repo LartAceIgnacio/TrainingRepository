@@ -1,13 +1,16 @@
 <p-breadcrumb [model]="brContact" [home]="home"></p-breadcrumb>
 
   <div class="ui-g">
-      <p-dataTable [value]="contactList" selectionMode="single" expandableRows="true" [(selection)]="selectedContact" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10" [responsive]="true">
+    <p-dataTable #dt [value]="contactList" [rows]="6" [paginator]="true" [pageLinks]="6" 
+    [responsive]="true" (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
+    <!-- <p-dataTable [value]="contactList" selectionMode="single" expandableRows="true" [(selection)]="selectedContact" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10" [responsive]="true"> -->
         <p-header>
             <button class="float-left" name="btnAdd" type="button" pButton (click)="addContact()" icon="fa-plus"></button>
             Contacts
             <div class="float-right">
-                <input #gb type="text" pInputText size="25" placeholder="Search">
-                <button name="btnSearch" type="button" pButton icon="fa-search"></button>
+                <input type="text" pInputText placeholder="Search Contact" [(ngModel)]="searchFilter" />
+                <!-- <input #gb type="text" pInputText size="25" placeholder="Search"> -->
+                <button name="btnSearch" type="button" pButton icon="fa-search" (click)="searchContact()"></button>
             </div>
         </p-header>
         <p-column>

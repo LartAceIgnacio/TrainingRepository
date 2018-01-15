@@ -1,13 +1,17 @@
 <p-breadcrumb [model]="brAppointment" [home]="home"></p-breadcrumb>
 
   <div class="ui-g">
-    <p-dataTable [value]="appointmentList" selectionMode="single" [(selection)]="selectedAppointment" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="4" [responsive]="true">
+    <!-- <p-dataTable [value]="appointmentList" selectionMode="single" [(selection)]="selectedAppointment" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="4" [responsive]="true"> -->
+        <p-dataTable #dt [value]="appointmentList" [rows]="5" [paginator]="true" [pageLinks]="3" [responsive]="true" (onLazyLoad)="paginate($event)"
+        [lazy]="true" [totalRecords]="totalRecords">
       <p-header>
         <button type="button" pButton class="float-left" (click)="addAppointment()" icon="fa-plus"></button>
         Appointments
         <div class="float-right">
-            <input #gb type="text" pInputText size="25" placeholder="Search">
-            <button name="btnSearch" type="button" pButton icon="fa-search"></button>
+            <!-- <input #gb type="text" pInputText size="25" placeholder="Search">
+            <button name="btnSearch" type="button" pButton icon="fa-search"></button> -->
+            <p-calendar [(ngModel)]="dateFilter" selectionMode="range" readonlyInput="true" placeholder="Search..."></p-calendar>
+            <button pButton type="button" icon="fa-search" (click)="searchAppointment()"></button>
         </div>
       </p-header>
       <p-column>

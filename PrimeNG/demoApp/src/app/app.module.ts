@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
 import { FormsModule }   from '@angular/forms';
 import {HttpModule} from '@angular/http';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import {MenuModule, PanelModule} from 'primeng/primeng';
@@ -27,6 +27,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { VenuesComponent } from './venues/venues.component';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from "./services/auth.service";
+import { AuthInterceptor } from "./services/auth-interceptor";
 
 const appRoutes: Routes =[
   {path:"", redirectTo:"/dashboard", pathMatch:"full"},
@@ -34,7 +37,8 @@ const appRoutes: Routes =[
   {path:"employees", component:EmployeesComponent},
   {path:"contacts", component:ContactsComponent},
   {path:"appointments", component:AppointmentsComponent},
-  {path:"venues", component:VenuesComponent}
+  {path:"venues", component:VenuesComponent},
+  {path:"login", component:LoginComponent}
 ]
 
 @NgModule({
@@ -45,7 +49,8 @@ const appRoutes: Routes =[
     DashboardComponent,
     ContactsComponent,
     AppointmentsComponent,
-    VenuesComponent
+    VenuesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +78,14 @@ const appRoutes: Routes =[
     DialogModule,
     ConfirmDialogModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

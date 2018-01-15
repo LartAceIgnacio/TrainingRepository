@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {EmployeeService} from '../services/EmployeeService';
 import {Employee} from '../domain/Employee';
 import {EmployeeClass} from '../domain/EmployeeClass';
@@ -9,12 +9,15 @@ import { ConfirmDialogModule, ConfirmationService, Message } from 'primeng/prime
 
 import {HttpClient} from '@angular/common/http';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
+import { PaginationResult } from "../domain/paginationresult";
+import { GlobalService } from "../services/globalservice";
+import { DataTable } from "primeng/components/datatable/datatable";
 
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.css'],
-  providers:[EmployeeService, ConfirmationService]
+  providers:[EmployeeService, ConfirmationService, GlobalService]
 })
 export class EmployeesComponent implements OnInit {
 
@@ -23,24 +26,29 @@ export class EmployeesComponent implements OnInit {
   cloneEmployee: Employee;
   isNewEmployee: boolean;
   tempSelectedEmployee: Employee;
-
   userform: FormGroup;  
-  
   brEmployee: MenuItem[];
   home: MenuItem;
-
   display: boolean;
   msgs: Message[] = [];
-
   isDelete: boolean = false;
+
+  // Pagination
+  searchFilter: string = "";
+  totalRecords: number = 0;
+  searchButtonClickCtr: number = 0;
+  paginationResult: PaginationResult<Employee>;
+  // end pagination
 
   constructor(private employeeService: EmployeeService,
     private http:HttpClient,
     private fb: FormBuilder,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService,
+    private globalService: GlobalService) { }
 
+  @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
-    this.employeeService.getEmployees().then(employees =>this.employeeList=employees);
+    //this.employeeService.getEmployees().then(employees =>this.employeeList=employees);
 
     this.userform = this.fb.group({
       'firstname': new FormControl('', Validators.required),
@@ -55,6 +63,21 @@ export class EmployeesComponent implements OnInit {
       {label: 'Employees', url: '/employees'}
     ]
     this.home = {icon: 'fa fa-home', routerLink: '/dashboard'};
+  }
+
+  searchEmployee() {
+    if (this.searchFilter.length != 1) {
+      this.setCurrentPage(1);
+    }
+  }
+
+  setCurrentPage(n: number) {
+    this.dataTable.reset();
+    // let paging = {
+    //   first: ((n - 1) * this.dataTable.rows),
+    //   rows: this.dataTable.rows
+    // };
+    //this.dataTable.paginate();
   }
 
   addEmployee(){
@@ -136,14 +159,13 @@ export class EmployeesComponent implements OnInit {
     return this.employeeList.indexOf(this.selectedEmployee);
   }
 
-  deleteEmployee(Employee: EmployeeClass){
+  deleteEmployee(){
     
     this.confirmationService.confirm({
       message: 'Are you sure that you want to delete this record?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
-        this.selectedEmployee = Employee;
         let index = this.findSelectedEmployeeIndex();
         this.employeeList = this.employeeList.filter((val,i) => i!=index);
         this.employeeService.deleteEmployees(this.selectedEmployee.employeeId);
@@ -162,12 +184,24 @@ export class EmployeesComponent implements OnInit {
 
   confirmDelete(Employee: Employee){
     this.userform.markAsPristine();
-    this.selectedEmployee=Employee;
     this.cloneEmployee = this.cloneRecord(this.selectedEmployee);
+    this.selectedEmployee=Employee;
     this.isDelete = true;
     this.display=true;
     this.userform.disable();
     this.isNewEmployee = false;
   }
+
+  // Pagination
+  paginate(event) {
+    this.globalService.getSomethingWithPagination<PaginationResult<Employee>>("Employees", event.first, event.rows,
+      this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
+          this.paginationResult = paginationResult;
+          this.employeeList = this.paginationResult.results;
+          this.totalRecords = this.paginationResult.totalRecords;
+        });
+        console.log(this.paginationResult);
+  }
+  // end pagination
 
 }

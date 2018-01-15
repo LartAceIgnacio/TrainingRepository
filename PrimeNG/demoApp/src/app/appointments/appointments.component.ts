@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 
@@ -18,15 +18,17 @@ import {ContactService} from '../services/ContactService';
 
 import { ContactClass } from "../domain/ContactClass";
 import { EmployeeClass } from "../domain/EmployeeClass";
+import { PaginationResult } from "../domain/paginationresult";
+import { GlobalService } from "../services/globalservice";
+import { DataTable } from "primeng/components/datatable/datatable";
 
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.css'],
-  providers: [AppointmentService, ContactService, EmployeeService, ConfirmationService]
+  providers: [GlobalService, AppointmentService, ContactService, EmployeeService, ConfirmationService]
 })
 export class AppointmentsComponent implements OnInit {
-
   appointmentList: Appointment[];
   selectedAppointment: Appointment;
   cloneAppointment: Appointment;
@@ -46,13 +48,22 @@ export class AppointmentsComponent implements OnInit {
 
   appointmentForm: FormGroup;
 
+  //pagination
+  searchFilter: string = "";
+  dateFilter: Date[];
+  totalRecords: number = 0;
+  paginationResult: PaginationResult<Appointment>;
+  ctr: number = 0;
+
   constructor(private appointmentService:AppointmentService,
     private contactService:ContactService,
     private employeeService:EmployeeService,
     private http:HttpClient,
     private fb: FormBuilder,
-    private confirmationService: ConfirmationService) {}
+    private confirmationService: ConfirmationService,
+    private globalService: GlobalService) {}
 
+  @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
     this.appointmentForm = this.fb.group({
       'appointmentdate': new FormControl('', Validators.required),
@@ -65,7 +76,30 @@ export class AppointmentsComponent implements OnInit {
       'notes': new FormControl('')
     });
 
-    this.contactService.getContacts().then(contacts => {
+    // this.contactService.getContacts().then(contacts => {
+    //   this.guestList = contacts
+    //   this.employeeService.getEmployees().then(employees =>{
+    //     this.hostList = employees
+    //     this.appointmentService.getAppointments().then(appointments => {
+    //       this.appointmentList = appointments
+    //       for(let i=0;i < this.appointmentList.length; i++){
+    //         this.appointmentList[i].guestName = this.guestList.find(id=>id.contactId==this.appointmentList[i].guestId).firstName;
+    //         this.appointmentList[i].hostName = this.hostList.find(id=>id.employeeId==this.appointmentList[i].hostId).firstName;
+    //         this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate);
+    //       }});
+    //   });
+    // });
+
+    this.brAppointment=[
+      {label: 'Appointments', url: '/appointments'}
+    ]
+    this.home = {icon: 'fa fa-home', routerLink: '/dashboard'};
+    this.isDelete = false;
+  }
+
+  paginate(event) {
+    if (this.ctr == 0) {
+      this.contactService.getContacts().then(contacts => {
       this.guestList = contacts
       this.employeeService.getEmployees().then(employees =>{
         this.hostList = employees
@@ -78,12 +112,35 @@ export class AppointmentsComponent implements OnInit {
           }});
       });
     });
+    }
+    else {
+      this.globalService.getSomethingWithPagination<PaginationResult<Appointment>>("Appointments", event.first, event.rows,
+        this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
+          this.paginationResult = paginationResult;
+          this.appointmentList = this.paginationResult.results;
+          this.totalRecords = this.paginationResult.totalRecords;
+        });
+    }
+  }
 
-    this.brAppointment=[
-      {label: 'Appointments', url: '/appointments'}
-    ]
-    this.home = {icon: 'fa fa-home', routerLink: '/dashboard'};
-    this.isDelete = false;
+  searchAppointment() {
+    if (this.dateFilter != null && (this.dateFilter[0] != null || this.dateFilter[1] != null)) {
+      this.searchFilter = this.dateFilter[0].toLocaleDateString() + "," + this.dateFilter[1].toLocaleDateString();
+      if (this.searchFilter.length > 0) {
+        this.searchFilter = this.searchFilter.replace(/\//g, "%2F");
+      }
+    }
+
+    this.setCurrentPage(1);
+  }
+
+  setCurrentPage(n: number) {
+    this.dataTable.reset();
+    let paging = {
+      first: ((n - 1) * this.dataTable.rows),
+      rows: this.dataTable.rows
+    };
+    this.dataTable.paginate();
   }
 
   addAppointment(){
