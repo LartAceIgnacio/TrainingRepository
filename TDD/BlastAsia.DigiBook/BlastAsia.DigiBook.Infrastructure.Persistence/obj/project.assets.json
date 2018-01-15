@@ -4037,6 +4037,8 @@
     ".NETCoreApp,Version=v2.0": [
       "BlastAsia.DigiBook.Domain >= 1.0.0",
       "BlastAsia.DigiBook.Domain.Models >= 1.0.0",
+      "Microsoft.AspNetCore.Identity >= 2.0.1",
+      "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 2.0.1",
       "Microsoft.EntityFrameworkCore >= 2.0.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 2.0.1",
       "Microsoft.NETCore.App >= 2.0.0"
@@ -4096,6 +4098,14 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Identity": {
+            "target": "Package",
+            "version": "[2.0.1, )"
+          },
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[2.0.1, )"
+          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[2.0.1, )"

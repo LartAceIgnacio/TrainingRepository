@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlastAsia.DigiBook.Domain.Models.Appointments;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -15,5 +16,6 @@ namespace BlastAsia.DigiBook.Domain.Models.Employees
         public string OfficePhone { get; set; }
         public string Extension { get; set; }
         public MemoryStream Photo { get; set; }
+        public List<Appointment> Appointments { get; set; }
     }
 }

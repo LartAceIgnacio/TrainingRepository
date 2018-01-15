@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BlastAsia.DigiBook.Domain.Models.Contacts;
+using BlastAsia.DigiBook.Domain.Models.Employees;
+using System;
 
 namespace BlastAsia.DigiBook.Domain.Models.Appointments
 {
@@ -13,6 +15,7 @@ namespace BlastAsia.DigiBook.Domain.Models.Appointments
         public bool IsCancelled { get; set; }
         public bool IsDone { get; set; }
         public string Notes { get; set; }
-        
+        public Contact Guest { get; set; }
+        public Employee Host { get; set; }
     }
 }
