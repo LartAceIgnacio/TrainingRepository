@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    background: #918f8f;
+    /* background: rgba(240, 24, 24, 0.878); */
+}
+.ui-menu {
+    width: 100%;
+    height: 100%;
+    padding: .25em;
+    position: relative;
+}

@@ -1,0 +1,56 @@
+.app-header {
+    background:#333333;
+    margin-left: 0px;
+    height: 90px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding-left: 15px;
+    padding-right: 30px;
+    z-index: 9999;
+}
+/*.app-header*/
+.app-header #site-name {
+    line-height: 50px;
+    float: left;
+    color: #fff;
+}
+
+.app-header #user-settings {
+    line-height: 60px;
+    float: right;
+}
+
+    .app-header #user-settings li {
+        display: inline;
+        margin-left: 20px;
+    }
+
+        .app-header #user-settings li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+
+.app-body   {
+    margin-top: 90px;
+    overflow-x: auto;
+
+}
+.sidebar {
+    position: fixed;
+    margin-top: 90px;
+    width: 250px;
+    bottom: 0;
+    top: 0;
+}
+.main-menu {
+    /* position: fixed; */
+    /* margin-top: 90px; */
+    /* width: 250px; */
+    margin-left: 250px;
+    /* bottom: 0;
+    top: 0; */
+}
+

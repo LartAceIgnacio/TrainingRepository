@@ -1,0 +1,98 @@
+<div>
+  <p-panel header="Venue List">
+    <div class="ui-g">
+
+      <p-dataTable [value]="venueList" selectionMode="single" [(selection)]="selectedVenue" (onRowSelect)="onRowSelect($event)"
+        [paginator]="true" [rows]="10" [responsive]="true">
+        <!-- <p-header>Venues</p-header> -->
+
+        <p-column field="venueName" header="Venue Name" [sortable]="true"></p-column>
+        <p-column field="description" header="Description" [sortable]="true"></p-column>
+
+        <p-footer>
+          <div class="ui-helper-clearfix" style="width:100%">
+            <button type="button" pButton icon="fa-plus" style="float:left" (click)="addVenue()" label="Add">
+            </button>
+            <button *ngIf="indexSelected > -1" type="button" pButton icon="fa-minus" style="float:left" (click)="deleteVenue()" label="Delete">
+            </button>
+          </div>
+        </p-footer>
+
+      </p-dataTable>
+
+    </div>
+  </p-panel>
+
+  <!-- <p-panel header="Venue Details" *ngIf="clonedSelectedVenue">
+
+    <div class="ui-g">
+      <div class="ui-g-12 ui-md-6">
+        <label for="" class="ui-g-12 ui-md-4">Venue Name</label>
+        <input class="ui-g-12 ui-md-8" type="text" pInputText [(ngModel)]="clonedSelectedVenue.venueName">
+      </div>
+      <div class="ui-g-12 ui-md-6">
+        <label for="" class="ui-g-12 ui-md-4">Description</label>
+        <input class="ui-g-12 ui-md-8" type="text" pInputText [(ngModel)]="clonedSelectedVenue.description">
+      </div>
+    </div>
+
+    <div class="ui-g">
+      <button type="button" icon="fa fa-floppy-o" pButton label="Submit" class="ui-button-success" (click)="saveVenue()"></button>
+      <button type="button" icon="fa fa-window-close" pButton label="Cancel" class="ui-button-danger" (click)="cancelProcess()"></button>
+    </div>
+
+  </p-panel> -->
+
+  <p-growl [value]="msgs" sticky="sticky"></p-growl>
+  <form [formGroup]="userform" (ngSubmit)="saveVenue()" *ngIf="clonedSelectedVenue">
+    <p-panel header="Venue Details">
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Venue Name *:
+          </div>
+          <div class="ui-grid-col-6">
+            <input pInputText type="text" formControlName="venueName" placeholder="Required" [(ngModel)]="clonedSelectedVenue.venueName"
+            />
+
+          </div>
+          <div class="ui-grid-col-4">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['venueName'].valid&&userform.controls['venueName'].dirty">
+              <i class="fa fa-close"></i>
+              Venue Name is required
+            </div>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Description *:
+          </div>
+          <div class="ui-grid-col-6">
+            <input pInputText type="text" formControlName="description" placeholder="Required" [(ngModel)]="clonedSelectedVenue.description"
+            />
+          </div>
+          <div class="ui-grid-col-4">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['description'].valid&&userform.controls['description'].dirty">
+              <i class="fa fa-close"></i>
+              Description is required
+            </div>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-3">
+            <button pButton type="submit" icon="fa fa-floppy-o" label="Submit" [disabled]="!userform.valid" class="ui-button-success"></button>
+          </div>
+          <div class="ui-grid-col-3">
+            <button pButton type="button" icon="fa fa-window-close" label="Cancel" class="ui-button-danger" (click)="cancelProcess()"></button>
+          </div>
+          <div class="ui-grid-col-6">
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:20px" *ngIf="submitted">
+          <!-- Form Submitted
+          <br> {{diagnostic}} -->
+        </div>
+      </div>
+    </p-panel>
+  </form>
+</div>
