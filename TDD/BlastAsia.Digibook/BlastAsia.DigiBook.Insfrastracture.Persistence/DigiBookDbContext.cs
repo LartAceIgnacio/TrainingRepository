@@ -2,9 +2,10 @@
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Departments;
 using BlastAsia.DigiBook.Domain.Models.Employees;
-using BlastAsia.DigiBook.Domain.Models.Security;
+//using BlastAsia.DigiBook.Domain.Models.Security;
 using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Infrastracture.Persistence;
+using BlastAsia.DigiBook.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -25,12 +26,31 @@ namespace BlastAsia.DigiBook.Insfrastracture.Persistence
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Venue> Venues { get; set; }
+        public DbSet<Token> Tokens { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
+            #region Token
+            modelBuilder.Entity<ApplicationUser>().ToTable("Users");
+            modelBuilder.Entity<ApplicationUser>().HasMany(u => u.Tokens).WithOne(i => i.User);
+
+            modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
+
+            modelBuilder.Entity<ApplicationRoleClaim>().ToTable("RoleClaims");
+
+            modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaims");
+            modelBuilder.Entity<ApplicationUserLogin>().ToTable("UserLogins");
+            modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles");
+            modelBuilder.Entity<ApplicationUserToken>().ToTable("UserTokens");
+
+
+            modelBuilder.Entity<Token>().ToTable("Tokens");
+            modelBuilder.Entity<Token>().Property(i => i.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Token>().HasOne(i => i.User).WithMany(u => u.Tokens);
+            #endregion
 
             #region Appointments
 
@@ -80,6 +100,8 @@ namespace BlastAsia.DigiBook.Insfrastracture.Persistence
                 .WithOne(a => a.Guest);
 
             #endregion
+
+            modelBuilder.Entity<Venue>().ToTable("Venues");
 
         }
     }

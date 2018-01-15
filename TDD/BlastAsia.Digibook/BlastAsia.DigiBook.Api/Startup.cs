@@ -17,12 +17,12 @@ using Swashbuckle.AspNetCore.Swagger;
 using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Appointments;
 using BlastAsia.DigiBook.Domain.Venues;
-using BlastAsia.DigiBook.Domain.Models.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using BlastAsia.DigiBook.Infrastructure.Security;
 
 namespace BlastAsia.DigiBook.Api
 {
@@ -49,7 +49,7 @@ namespace BlastAsia.DigiBook.Api
                     )
                 );
 
-
+            #region Security
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
                 options.Password.RequireDigit = true;
@@ -84,7 +84,7 @@ namespace BlastAsia.DigiBook.Api
                 // Requires `using Microsoft.AspNetCore.Authentication.Cookies;`
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
             });
-
+            #endregion
 
             #region Authentication
             services.AddAuthentication(opts =>
@@ -98,26 +98,6 @@ namespace BlastAsia.DigiBook.Api
                 {
                     cfg.RequireHttpsMetadata = false;
                     cfg.SaveToken = true;
-
-
-
-                    //var x = Configuration["Auth:Jwt:Issuer"];
-                    //var xx = Configuration["Auth:Jwt:Audience"];
-
-                    //cfg.TokenValidationParameters = new TokenValidationParameters()
-                    //{
-                    //    // standard configuration
-                    //    ValidIssuer = Configuration["Auth:Jwt:Issuer"],
-                    //    ValidAudience = Configuration["Auth:Jwt:Audience"],
-                    //    IssuerSigningKey = new SymmetricSecurityKey(
-                    //        Encoding.UTF8.GetBytes(Configuration["Auth:Jwt:Key"])),
-                    //    ClockSkew = TimeSpan.Zero,
-                    //    // security switches
-                    //    RequireExpirationTime = true,
-                    //    ValidateIssuer = true,
-                    //    ValidateIssuerSigningKey = true,
-                    //    ValidateAudience = true
-                    //};
 
                     cfg.TokenValidationParameters = new TokenValidationParameters()
                     {
@@ -139,7 +119,7 @@ namespace BlastAsia.DigiBook.Api
             // v1 ==========
             services.AddCors(config =>
             {
-                config.AddPolicy("PrimeNgDemoApp", policy =>
+                config.AddPolicy("DemoAppDay2", policy =>
                 {
                     policy.AllowAnyMethod();
                     policy.AllowAnyMethod();
@@ -148,10 +128,7 @@ namespace BlastAsia.DigiBook.Api
                 });
             });
 
-            
-
-
-
+            #region Swagger
             services.AddSwaggerGen(
                     c =>
                     {
@@ -162,6 +139,11 @@ namespace BlastAsia.DigiBook.Api
                     }
                 );
 
+
+
+            #endregion
+
+            #region Db
             services.AddScoped<IDigiBookDbContext, DigiBookDbContext>();
             // contact
             services.AddTransient<IContactService, ContactService>();
@@ -175,6 +157,7 @@ namespace BlastAsia.DigiBook.Api
             // venue
             services.AddTransient<IVenueService, VenueService>();
             services.AddScoped<IVenueRepository, VenueRepository>();
+            #endregion
 
 
             services.AddMvc();
@@ -184,7 +167,7 @@ namespace BlastAsia.DigiBook.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseCors("PrimeNgDemoApp");
+            app.UseCors("DemoAppDay2");
 
             if (env.IsDevelopment())
             {

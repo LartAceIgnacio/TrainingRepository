@@ -1,4 +1,5 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Appointments;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;

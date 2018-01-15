@@ -1,6 +1,8 @@
 ﻿using System;
-using BlastAsia.DigiBook.Domain.Models.Security;
+using BlastAsia.DigiBook.Infrastructure.Security;
+//using BlastAsia.DigiBook.Domain.Models.Security;
 using BlastAsia.DigiBook.Insfrastracture.Persistence;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
+    [EnableCors("DemoAppDay2")]
     [Route("api/[controller]")]
     public class BaseApiController : Controller
     {
@@ -21,6 +24,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         {
             // Instantiate the required classes through DI DbContext = context;
             RoleManager = roleManager;
+            DbContext = context;
             UserManager = userManager;
             Configuration = configuration;
             // Instantiate a single JsonSerializerSettings object

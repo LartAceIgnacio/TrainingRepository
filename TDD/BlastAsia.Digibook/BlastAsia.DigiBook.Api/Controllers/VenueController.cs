@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Cors;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
-    [EnableCors("PrimeNgDemoApp")]
+    [EnableCors("DemoAppDay2")]
     [Produces("application/json")]
     [Route("api/Venue")]
     public class VenueController : Controller

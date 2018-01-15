@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using BlastAsia.DigiBook.Insfrastracture.Persistence;
-using BlastAsia.DigiBook.Domain.Models.Security;
+using BlastAsia.DigiBook.Infrastructure.Security;
+//using BlastAsia.DigiBook.Domain.Models.Security;
 
 namespace BlastAsia.DigiBook.Infrastracture.Persistence.Seeders
 {
@@ -15,18 +16,15 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Seeders
             UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager)
         {
-            //if (!context.Employees.Any())
-            //{
+            //if (!context.Employees.Any()) {
             //    CreateEmployees(context);
             //}
 
-            //if (!context.Contacts.Any())
-            //{
+            //if (!context.Contacts.Any()) {
             //    CreateContacts(context);
             //}
 
-            //if (!context.Appointments.Any())
-            //{
+            //if (!context.Appointments.Any()) {
             //    CreateAppointments(context);
             //}
 
@@ -80,6 +78,7 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Seeders
                 user_Admin.EmailConfirmed = true;
                 user_Admin.LockoutEnabled = false;
             }
+
 #if DEBUG
             // Create some sample registered user accounts
             var user_Ryan = new ApplicationUser()
@@ -145,29 +144,27 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Seeders
         //        c => c.FirstName == "Larry"
         //    );
         //    var royEmployee = context.Employees.FirstOrDefault(
-        //        e => e.Email == "rsaberon@blastasia.com"
+        //        e => e.EmailAddress == "rsaberon@blastasia.com"
         //    );
         //    var linusEmployee = context.Employees.FirstOrDefault(
-        //        e => e.Email == "ltorvalds@linux.com"
+        //        e => e.EmailAddress == "ltorvalds@linux.com"
         //    );
 
         //    context.Appointments.Add(
-        //        new Appointment
-        //        {
+        //        new Appointment {
         //            AppointmentDate = DateTime.Parse("03/26/1974"),
-        //            DateCreated = DateTime.Today,
-        //            Guest = billContact,
-        //            Host = royEmployee
+        //            //DateCreated = DateTime.Today,
+        //            //Guest = billContact,
+        //            //Host = royEmployee
 
         //        }
         //    );
         //    context.Appointments.Add(
-        //        new Appointment
-        //        {
+        //        new Appointment {
         //            AppointmentDate = DateTime.Parse("05/16/1974"),
-        //            DateCreated = DateTime.Today,
-        //            Guest = larryContact,
-        //            Host = linusEmployee
+        //            //DateCreated = DateTime.Today,
+        //            //Guest = larryContact,
+        //            //Host = linusEmployee
 
         //        }
         //    );
@@ -177,21 +174,17 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Seeders
         //private static void CreateContacts(DigiBookDbContext context)
         //{
         //    context.Contacts.Add(
-        //        new Contact
-        //        {
+        //        new Contact {
         //            FirstName = "Bill",
         //            LastName = "Gates",
-        //            MiddleName = "Dean",
         //            MobilePhone = "0922-7876533"
         //        }
         //    );
 
         //    context.Contacts.Add(
-        //        new Contact
-        //        {
+        //        new Contact {
         //            FirstName = "Larry",
         //            LastName = "Elieson",
-        //            Email = "lelieson@oracle.com",
         //            MobilePhone = "09079144456"
         //        }
         //    );
@@ -202,22 +195,20 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Seeders
         //private static void CreateEmployees(DigiBookDbContext context)
         //{
         //    context.Employees.Add(
-        //        new Employee
-        //        {
+        //        new Employee {
         //            FirstName = "Roy",
         //            LastName = "Saberon",
-        //            Email = "rsaberon@blastasia.com",
+        //            EmailAddress = "rsaberon@blastasia.com",
         //            OfficePhone = "9144456"
         //        }
         //    );
 
 
         //    context.Employees.Add(
-        //        new Employee
-        //        {
+        //        new Employee {
         //            FirstName = "Linus",
         //            LastName = "Torvalds",
-        //            Email = "ltorvalds@linux.com",
+        //            EmailAddress = "ltorvalds@linux.com",
         //            OfficePhone = "999-8888"
         //        }
         //    );

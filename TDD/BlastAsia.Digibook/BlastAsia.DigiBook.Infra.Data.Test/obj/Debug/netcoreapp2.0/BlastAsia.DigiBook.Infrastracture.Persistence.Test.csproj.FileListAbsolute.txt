@@ -18,3 +18,5 @@ C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digiboo
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Infra.Data.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastracture.Persistence.Test.AssemblyInfo.cs
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Infra.Data.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastracture.Persistence.Test.dll
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Infra.Data.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastracture.Persistence.Test.pdb
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Infra.Data.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Infra.Data.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.Domain.Test", "BlastAsia.DigiBook.Domain.Test\BlastAsia.DigiBook.Domain.Test.csproj", "{6C08026C-EFD1-4C29-A60A-FCC4403877BD}"
 EndProject
@@ -23,7 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.0 Persistence", "4.0 Pers
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.Api", "BlastAsia.DigiBook.Api\BlastAsia.DigiBook.Api.csproj", "{4BC5239C-887E-4D55-8946-BA55ABCDE6AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.DigiBook.Api.Test", "BlastAsia.DigiBook.Api.Test\BlastAsia.DigiBook.Api.Test.csproj", "{237E46FD-F9CE-466E-BCD2-0DBF8E906C1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.Api.Test", "BlastAsia.DigiBook.Api.Test\BlastAsia.DigiBook.Api.Test.csproj", "{237E46FD-F9CE-466E-BCD2-0DBF8E906C1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.DigiBook.Infrastructure", "BlastAsia.DigiBook.Infrastructure\BlastAsia.DigiBook.Infrastructure.csproj", "{23854E76-6F15-4803-825D-D63C67A378DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{237E46FD-F9CE-466E-BCD2-0DBF8E906C1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{237E46FD-F9CE-466E-BCD2-0DBF8E906C1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{237E46FD-F9CE-466E-BCD2-0DBF8E906C1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23854E76-6F15-4803-825D-D63C67A378DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23854E76-6F15-4803-825D-D63C67A378DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23854E76-6F15-4803-825D-D63C67A378DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23854E76-6F15-4803-825D-D63C67A378DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +77,7 @@ Global
 		{20EAA719-7201-4F91-A328-A7959B4FC264} = {B601D04B-0FC8-4C35-9402-8CC7A57B1C24}
 		{4BC5239C-887E-4D55-8946-BA55ABCDE6AE} = {B7510DF2-E461-4AA5-BBD0-09B804BCC13C}
 		{237E46FD-F9CE-466E-BCD2-0DBF8E906C1D} = {B7510DF2-E461-4AA5-BBD0-09B804BCC13C}
+		{23854E76-6F15-4803-825D-D63C67A378DA} = {B601D04B-0FC8-4C35-9402-8CC7A57B1C24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8504C1B3-3BAA-4405-BDED-C7D0293E6390}

@@ -3582,6 +3582,7 @@
         "dependencies": {
           "BlastAsia.DigiBook.Domain": "1.0.0",
           "BlastAsia.DigiBook.Domain.Models": "1.0.0",
+          "BlastAsia.DigiBook.Infrastructure": "1.0.0",
           "Microsoft.AspNetCore.All": "2.0.3",
           "Microsoft.AspNetCore.Identity": "2.0.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.1",
@@ -3590,6 +3591,15 @@
         },
         "runtime": {
           "BlastAsia.DigiBook.Infrastracture.Persistence.dll": {}
+        }
+      },
+      "BlastAsia.DigiBook.Infrastructure/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity": "2.0.1",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.1"
+        },
+        "runtime": {
+          "BlastAsia.DigiBook.Infrastructure.dll": {}
         }
       }
     }
@@ -5690,6 +5700,11 @@
       "sha512": ""
     },
     "BlastAsia.DigiBook.Infrastracture.Persistence/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BlastAsia.DigiBook.Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

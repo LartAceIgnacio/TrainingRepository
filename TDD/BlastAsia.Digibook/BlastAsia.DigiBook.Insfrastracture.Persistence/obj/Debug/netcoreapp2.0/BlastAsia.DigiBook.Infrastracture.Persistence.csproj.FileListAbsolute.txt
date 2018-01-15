@@ -11,3 +11,5 @@ C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digiboo
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Insfrastracture.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastracture.Persistence.dll
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Insfrastracture.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastracture.Persistence.pdb
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Insfrastracture.Persistence\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastracture.Persistence.csprojResolveAssemblyReference.cache
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Insfrastracture.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Insfrastracture.Persistence\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb

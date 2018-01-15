@@ -4775,6 +4775,20 @@
         "runtime": {
           "bin/placeholder/BlastAsia.DigiBook.Domain.Models.dll": {}
         }
+      },
+      "BlastAsia.DigiBook.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity": "2.0.1",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.1"
+        },
+        "compile": {
+          "bin/placeholder/BlastAsia.DigiBook.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlastAsia.DigiBook.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -12564,12 +12578,18 @@
       "type": "project",
       "path": "../BlastAsia.DigiBook.Domain.Models/BlastAsia.DigiBook.Domain.Models.csproj",
       "msbuildProject": "../BlastAsia.DigiBook.Domain.Models/BlastAsia.DigiBook.Domain.Models.csproj"
+    },
+    "BlastAsia.DigiBook.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../BlastAsia.DigiBook.Infrastructure/BlastAsia.DigiBook.Infrastructure.csproj",
+      "msbuildProject": "../BlastAsia.DigiBook.Infrastructure/BlastAsia.DigiBook.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "BlastAsia.DigiBook.Domain >= 1.0.0",
       "BlastAsia.DigiBook.Domain.Models >= 1.0.0",
+      "BlastAsia.DigiBook.Infrastructure >= 1.0.0",
       "Microsoft.AspNetCore.All >= 2.0.3",
       "Microsoft.AspNetCore.Identity >= 2.0.1",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 2.0.1",
@@ -12619,6 +12639,9 @@
             },
             "C:\\Users\\emagadia\\Documents\\GitTraining\\TrainingRepository\\TDD\\BlastAsia.Digibook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj": {
               "projectPath": "C:\\Users\\emagadia\\Documents\\GitTraining\\TrainingRepository\\TDD\\BlastAsia.Digibook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj"
+            },
+            "C:\\Users\\emagadia\\Documents\\GitTraining\\TrainingRepository\\TDD\\BlastAsia.Digibook\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\emagadia\\Documents\\GitTraining\\TrainingRepository\\TDD\\BlastAsia.Digibook\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj"
             }
           }
         }

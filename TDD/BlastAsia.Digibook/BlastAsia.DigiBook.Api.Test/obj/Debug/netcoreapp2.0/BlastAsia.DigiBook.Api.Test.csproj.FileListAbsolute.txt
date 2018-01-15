@@ -20,3 +20,5 @@ C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digiboo
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Api.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Api.Test.AssemblyInfo.cs
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Api.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Api.Test.dll
 C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Api.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Api.Test.pdb
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Api.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
+C:\Users\emagadia\Documents\GitTraining\TrainingRepository\TDD\BlastAsia.Digibook\BlastAsia.DigiBook.Api.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb

@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
-    [EnableCors("PrimeNgDemoApp")]
+    [EnableCors("DemoAppDay2")]
     [Produces("application/json")]
     //[Route("api/Contacts")]
     public class ContactsController : Controller
