@@ -1,0 +1,12 @@
+{
+    "data": [
+        { "lastname": "De Guzman", "firstname": "Duane", "mobilephone": "09158959384", "email": "deguzman@gmail.com", 
+            "officephone": "101", "extension": "100" },
+        { "lastname": "Celis", "firstname": "Gelo", "mobilephone": "0919595959", "email": "celis@gmail.com", 
+            "officephone": "101", "extension": "100" },
+        { "lastname": "Nebran", "firstname": "Renz", "mobilephone": "0919595418", "email": "nebran@gmail.com", 
+            "officephone": "101", "extension": "100" },
+        { "lastname": "Matencio", "firstname": "Karl", "mobilephone": "0995151544", "email": "matencio@gmail.com", 
+            "officephone": "101", "extension": "100" }
+    ]
+}

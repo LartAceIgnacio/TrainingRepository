@@ -1,0 +1,52 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0; 
+    padding: 0;
+}
+header {
+    top: 0;
+    height: 70px;
+    background-color: #f6a828;
+}
+
+header h2 {
+    margin-left: 15px;
+    line-height: 70px;
+    font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+    color: #ffff;
+    float: left;
+}
+
+
+header .header-left {
+    margin-right: 15px;
+    line-height: 70px;
+    float: right;
+}
+
+header .header-left button {
+    width: 70px;
+    height: 25px;
+    background-color:#f6a828;
+    color: #ffff;
+    border-color: #ffff;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+    cursor: pointer;
+}
+
+.ui-menu {
+    width: 15.5em;
+}
+
+.header-left {
+    position: relative;
+    left:0;
+    text-align: left;
+}
+
+.header-search {
+    float: right;
+}
