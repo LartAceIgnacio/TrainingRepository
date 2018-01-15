@@ -13,7 +13,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
             : base(context)
         {
         }
-
         public PaginationResult<Venue> Retrieve(int pageNo, int numRec, string filterValue)
         {
             PaginationResult<Venue> result = new PaginationResult<Venue>();

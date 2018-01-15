@@ -58,7 +58,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPost]
-        [Route("api/Contacts/{page}/{record}")]
+        [Route("api/Contacts")]
         public IActionResult CreateContact(
            [FromBody] Contact contact)
         {

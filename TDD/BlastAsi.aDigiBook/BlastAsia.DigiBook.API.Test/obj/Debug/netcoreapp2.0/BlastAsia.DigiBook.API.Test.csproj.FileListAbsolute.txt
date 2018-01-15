@@ -5,10 +5,6 @@ C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\Bla
 C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.runtimeconfig.json
 C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.runtimeconfig.dev.json
 C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.dll
-C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.csprojResolveAssemblyReference.cache
-C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.csproj.CoreCompileInputs.cache
-C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.AssemblyInfoInputs.cache
-C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.AssemblyInfo.cs
 C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.pdb
 C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.dll
 C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
@@ -18,5 +14,11 @@ C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\Bla
 C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
 C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
 C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.csprojResolveAssemblyReference.cache
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.csproj.CoreCompileInputs.cache
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.AssemblyInfoInputs.cache
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.AssemblyInfo.cs
 C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.dll
 C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.pdb
+C:\Users\jmagdaleno\Documents\Visual Studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
+C:\Users\jmagdaleno\Documents\Visual Studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb

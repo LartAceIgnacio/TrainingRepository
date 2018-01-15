@@ -22,8 +22,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.0 Persistence", "4.0 Persistence", "{16755172-20BE-47C7-AB9E-7C8FA06DED28}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.API", "BlastAsia.DigiBook.API\BlastAsia.DigiBook.API.csproj", "{096E8A54-4C29-4902-A9E3-153722C51A79}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DD622347-6841-412E-B7A3-5710813B21F5} = {DD622347-6841-412E-B7A3-5710813B21F5}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.DigiBook.API.Test", "BlastAsia.DigiBook.API.Test\BlastAsia.DigiBook.API.Test.csproj", "{4485CC29-1803-4FFF-BF31-495267051A4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlastAsia.DigiBook.API.Test", "BlastAsia.DigiBook.API.Test\BlastAsia.DigiBook.API.Test.csproj", "{4485CC29-1803-4FFF-BF31-495267051A4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastAsia.DigiBook.Infrastructure", "BlastAsia.DigiBook.Infrastructure\BlastAsia.DigiBook.Infrastructure.csproj", "{DD622347-6841-412E-B7A3-5710813B21F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +64,10 @@ Global
 		{4485CC29-1803-4FFF-BF31-495267051A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4485CC29-1803-4FFF-BF31-495267051A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4485CC29-1803-4FFF-BF31-495267051A4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD622347-6841-412E-B7A3-5710813B21F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD622347-6841-412E-B7A3-5710813B21F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD622347-6841-412E-B7A3-5710813B21F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD622347-6841-412E-B7A3-5710813B21F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +80,7 @@ Global
 		{AF4643E8-9346-4021-AB8B-D07020C1CC84} = {16755172-20BE-47C7-AB9E-7C8FA06DED28}
 		{096E8A54-4C29-4902-A9E3-153722C51A79} = {E2CE475B-3B87-4824-8FF2-81DA7811A698}
 		{4485CC29-1803-4FFF-BF31-495267051A4A} = {E2CE475B-3B87-4824-8FF2-81DA7811A698}
+		{DD622347-6841-412E-B7A3-5710813B21F5} = {16755172-20BE-47C7-AB9E-7C8FA06DED28}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {17DA3890-B80E-45AB-B3C3-08C9702BAE31}

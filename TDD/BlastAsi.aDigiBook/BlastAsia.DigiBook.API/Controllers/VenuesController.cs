@@ -18,6 +18,7 @@ namespace BlastAsia.DigiBook.API.Controllers
     //[Route("api/Venues")]
     public class VenuesController : Controller
     {
+        //private static List<Venue> venues = new List<Venue>();
         private IVenueService venueService;
         private IVenueRepository venueRepository;
 
@@ -46,7 +47,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpGet, ActionName("GetVenue")]
         [Route("api/Venues/{id?}")]
-        public IActionResult GetVenue(Guid? id, int pageNo, int recPerPage)
+        public IActionResult GetVenue(Guid? id)
         {
             var result = new List<Venue>();
             if (id == null)
