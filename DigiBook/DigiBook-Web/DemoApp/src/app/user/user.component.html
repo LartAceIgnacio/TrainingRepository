@@ -1,0 +1,37 @@
+<p-panel header="Registration">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="ui-g">
+            <label for="displayName" class="ui-g-12 ui-md-2">Display Name:</label>
+            <input id="displayName" formControlName="DisplayName" class="ui-g-12 ui-md-10" placeholder="Enter display name"  type="text"/>
+            <div class="ui-message ui-messages-error ui-corner-all ui-g-12 ui-md-10" *ngIf="!form.controls['DisplayName'].valid&&form.controls['DisplayName'].dirty">
+                    <i class="fa fa-close"></i>
+                    DisplayName is required
+                </div> 
+        </div>
+    <div class="ui-g">
+        <label for="userName" class="ui-g-12 ui-md-2">User Name:</label>
+        <input id="userName" class="ui-g-12 ui-md-10" placeholder="Enter user name" 
+               formControlName="Username"  type="text"/>
+        <div class="ui-message ui-messages-error ui-corner-all ui-g-12" *ngIf="!form.controls['Username'].valid&&form.controls['Username'].dirty">
+            <i class="fa fa-close"></i>
+            Username is required
+        </div>  
+      </div>
+    <div class="ui-g">
+        <label for="email" class="ui-g-12 ui-md-2">Email:</label>
+        <input id="email" class="ui-g-12 ui-md-10" formControlName="Email"
+            placeholder="Enter email"  type="text"/>
+    </div>
+      <div class="ui-g">
+          <label for="password" class="ui-g-12 ui-md-2">Password:</label>
+          <input id="password" class="ui-g-12 ui-md-10" formControlName="Password"
+              placeholder="Enter password"  type="password"/>
+        </div>
+        <div class="ui-g">
+            <label for="confirmPassword" class="ui-g-12 ui-md-2">Confirm Password:</label>
+            <input id="confirmPassword" class="ui-g-12 ui-md-10" 
+                placeholder="Confirm password"  type="password"/> 
+          </div>
+          <button type="submit" pButton class="ui-button-primary" label="Register"></button>
+  </form>
+  </p-panel>

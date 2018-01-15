@@ -1,0 +1,66 @@
+<p-breadcrumb [model]="breadcrumb"></p-breadcrumb>
+<p-panel class="ui-g-12" header="VenueDetail">
+    
+ <p-dataTable [value]="venueList" selectionMode="single" [(selection)]="selectedVenue"
+ [paginator]="true" [rows]="10" [responsive]="true"  [loading]="loading" loadingIcon="fa-refresh" [globalFilter]="gb">
+    <p-header>           
+        <span> 
+            <button type="button" pButton icon="fa-plus" (click)="addVenue()" ></button>  
+             Venues
+            <input #gb type="text" pInputText size="40" placeholder="Search">
+            <i class="fa fa-search" ></i>
+        </span>
+
+    </p-header>
+    <p-column styleClass="col-button">
+        <ng-template let-Venue="rowData" pTemplate="body" >
+            <button type="button" pButton class="ui-button-success" (click)="editVenue(Venue)" icon="fa-pencil"></button>
+            <button type="button" pButton  class="ui-button-danger" (click)="deleteVenue(Venue)" icon="fa-trash-o" >
+            </button>
+            
+        </ng-template>
+    </p-column>
+     <p-column field="venueName" header="venueName" [sortable]="true"></p-column>
+     <p-column field="description" header="description" [sortable]="true"></p-column>
+     
+ </p-dataTable>
+
+ <form [formGroup]="venueForm">     
+        <p-dialog header="Venue Details" [(visible)]="displayDialog" [width]="500" [responsive]="true" showEffect="fade" [modal]="true" *ngIf="selectedVenue">
+            <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="venue">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-4"><label for="firstName">Venue Name</label></div>
+                    <div class="ui-grid-col-8">
+                        <input pInputText id="firstName" formControlName="venuename" [(ngModel)]="selectedVenue.venueName" />
+                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!venueForm.controls['venuename'].valid&&venueForm.controls['venuename'].dirty">
+                                <i class="fa fa-close"></i>
+                                Venue Name is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-4"><label  for="lastName">Description</label></div>
+                    <div class="ui-grid-col-8">
+                        <input pInputText id="lastName" formControlName="description" [(ngModel)]="selectedVenue.description" />
+                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!venueForm.controls['description'].valid&&venueForm.controls['description'].dirty">
+                                <i class="fa fa-close"></i>
+                                Description is required
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"> 
+                <button type="button" pButton icon="fa-close" (click)="cancelVenue()" [disabled]="!venueForm.dirty" label="Cancel"></button>
+                <button type="button" pButton icon="fa-check" (click)="saveVenue()"  [disabled]="!venueForm.valid" label="Save"></button>
+                <button type="button" pButton icon="fa-close" (click)="saveAndNewVenue()" *ngIf="isNewVenue==true" [disabled]="!venueForm.valid" label="Save & New"></button>     
+            </div>
+        </footer> 
+        </p-dialog>
+    </form> 
+    <p-confirmDialog header="DeleteConfirmation" icon="fa fa-question-circle" width="425" ></p-confirmDialog>
+</p-panel>
+
+<p-growl [value]="msgs" life="3000"></p-growl>
+
+  

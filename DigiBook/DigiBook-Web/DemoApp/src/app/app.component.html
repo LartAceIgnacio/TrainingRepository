@@ -1,0 +1,26 @@
+<header class="ui-g">
+    <div class="ui-g-12 ui-md-12">
+        <p-menubar [model]="header">
+            <button class="btn" pButton *ngIf="!this.auth.isLoggedIn()" [routerLinkActive]="['link-active']"  
+            [routerLink]="['/login']" label="Login" icon="fa-sign-in"></button>
+            <button class="btn" pButton *ngIf="!this.auth.isLoggedIn()" [routerLinkActive]="['link-active']"  
+            [routerLink]="['/user']" label="Register" icon="fa-sign-in"></button>
+            <button class="btn" pButton *ngIf="this.auth.isLoggedIn()" (click)="this.auth.logout()"
+             label="Logout" icon="fa-sign-out"></button>
+        </p-menubar>
+    </div>    
+</header>
+
+<div class="ui-g">
+    <div id="sidenav" class="ui-g-12 ui-md-2">
+        <p-menu *ngIf="this.auth.isLoggedIn()" [model]="items"></p-menu>
+    </div>
+    <div class="ui-g-12 ui-md-10">
+         <router-outlet></router-outlet>
+    </div>
+    
+</div>
+
+
+
+

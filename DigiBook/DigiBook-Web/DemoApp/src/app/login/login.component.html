@@ -1,0 +1,52 @@
+<div class="login-container">
+  <img id="login-img" class="login-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+  <h2 class="login-title">{{title}}</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+      <div *ngIf="form.errors?.auth"
+          class="error-panel help-block">
+          {{form.errors.auth}}
+      </div>
+
+      <div class="ui-g ui-fluid" [ngClass]="{ 'has-error has-feedback' : hasError('Username') }">
+            <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                    <input type="text" formControlName="Username" pInputText placeholder="Username or Email address"/>            
+                </div>
+                <span *ngIf="hasError('Username')" class="glyphicon glyphicon-remove form-control-feedback" 
+                           aria-hidden="true"></span>
+                <div *ngIf="hasError('Username')" class="help-block"> \
+                        Please insert a valid username or e-mail address. 
+                   </div>  
+            </div>
+      </div>
+      <div class="ui-g ui-fluid" [ngClass]="{ 'has-error has-feedback' :hasError('Password') }">
+            <div class="ui-g-12 ">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="fa fa-lock"></i></span>
+                    <input type="password" formControlName="Password" pInputText placeholder="Password">           
+                </div>
+                <span *ngIf="hasError('Password')" class="glyphicon glyphicon-remove form-control-feedback" 
+                aria-hidden="true"></span>
+          <div *ngIf="hasError('Password')" class="help-block"> Please insert a password. </div>
+            </div>
+      </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" name="remember" value="remember" />Remember me
+        </label>
+    </div>
+    <button pButton type="submit" [disabled]="form.invalid" class="ui-button-primary btn-signin"  label="Sign In">
+    </button>
+</form>
+<div class="login-link">
+<a href="#">
+    Forgot the password?
+</a>
+</div>
+<div class="login-link">
+    <a [routerLink]="['/register']">
+        Don't have an account? Click here to create one!
+    </a>
+</div>
+</div>

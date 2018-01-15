@@ -1,0 +1,51 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+    margin: 0;
+    padding: 0;
+}
+header .ui-menubar {
+    background: #E53A40;
+    border: none;
+    color:#fff;
+}
+header .ui-menubar .ui-menuitem-text{
+    color:#fff;
+    font-size:20px;
+}
+header .ui-menubar .ui-menuitem-icon{
+    color:#fff;
+}
+
+input{
+    height:35px;
+}
+
+div #sidenav .ui-menu{
+    width:100%;
+    height:90vh;
+    background-color: #E0E3DA;
+    border:none;
+}
+
+div #sidenav .ui-menuitem .ui-menuitem-link{ 
+    padding: 10px;
+  
+}
+
+p-panel p-header button{
+    float:left;
+}
+p-panel p-header i{
+    float:right;
+    margin:4px 4px 0 0;
+}
+p-panel p-header input{
+    float:  right;
+    left:0;
+    right:10px;
+}
+.ui-datatable .ui-datatable-header{
+    height:50px;
+    font-size: 17px;
+    line-height: 2em;
+}
