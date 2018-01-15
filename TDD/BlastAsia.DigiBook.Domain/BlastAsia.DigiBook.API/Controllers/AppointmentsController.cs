@@ -44,8 +44,8 @@ namespace BlastAsia.DigiBook.API.Controllers
             return Ok(result);
         }
 
-        [Route("api/Appointments/{id?}")]
         [HttpGet, ActionName("GetAppointments")]
+        [Route("api/Appointments/{id?}")]
         public IActionResult GetAppointments(Guid? id)
         {
             var result = new List<Appointment>();
@@ -53,15 +53,15 @@ namespace BlastAsia.DigiBook.API.Controllers
                 result.AddRange(this.appointmentRepository.Retrieve());
             }
             else {
-                var employee = this.appointmentRepository.Retrieve(id.Value);
-                result.Add(employee);
+                var appointment = this.appointmentRepository.Retrieve(id.Value);
+                result.Add(appointment);
             }
 
             return Ok(result);
         }
 
-        [Route("api/Appointments")]
         [HttpPost]
+        [Route("api/Appointments")]
         public IActionResult CreateAppointment([FromBody] Appointment appointment)
         {
             try {
@@ -78,8 +78,8 @@ namespace BlastAsia.DigiBook.API.Controllers
             }
         }
 
-        [Route("api/Appointments/{id}")]
         [HttpDelete]
+        [Route("api/Appointments/{id}")]
         public IActionResult DeleteAppointment(Guid id)
         {
             var appointmentToDelete = this.appointmentRepository.Retrieve(id);
@@ -91,8 +91,8 @@ namespace BlastAsia.DigiBook.API.Controllers
             return NotFound();
         }
 
-        [Route("api/Appointments/{id}")]
         [HttpPut]
+        [Route("api/Appointments/{id}")]
         public IActionResult UpdateAppointment(
             [FromBody] Appointment appointment, Guid id)
         {
@@ -116,8 +116,8 @@ namespace BlastAsia.DigiBook.API.Controllers
             }
         }
 
-        [Route("api/Appointments/{id}")]
         [HttpPatch]
+        [Route("api/Appointments/{id}")]
         public IActionResult PatchAppointment([FromBody]JsonPatchDocument patchedAppointment, Guid id)
         {
             try {

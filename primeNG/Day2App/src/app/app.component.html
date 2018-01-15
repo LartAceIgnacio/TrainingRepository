@@ -5,9 +5,19 @@
     </div>
     <div id="top-menu">
       <ul>
-        <li><a>
-            <button pButton label="Login" icon="fa-sign-in"></button>
-        </a></li>
+        <li *ngIf="!this.auth.isLoggedIn()" [routerLinkActive]="['link-active']"> 
+          <a [routerLink]="['/login']">
+            <span class='glyphicon glyphicon-log-in'></span> Login
+          </a> |
+          <a [routerLink]="['/register']">
+            <span class='glyphicon glyphicon-log-in'></span> Register
+          </a>
+        </li>
+        <li *ngIf="this.auth.isLoggedIn()">
+          <a (click)="this.auth.logout()" style="cursor: pointer;">
+            <span class='glyphicon glyphicon-log-out'></span> Hi , Logout
+          </a>
+        </li>
       </ul>
     </div>
   </header>

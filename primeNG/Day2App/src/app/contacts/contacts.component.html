@@ -12,7 +12,7 @@
           <button pButton type="button" icon="fa-search" (click)="searchContact()"></button>   
         </div>
       </p-header>
-      <p-column field="contactId">
+      <p-column field="contactId" *ngIf="this.auth.isLoggedIn()">
         <ng-template pTemplate type="body" let-Contact="rowData">
           <span>
             <button pButton type="button" icon="fa-pencil" (click)="onRowSelect(Contact)" ></button>

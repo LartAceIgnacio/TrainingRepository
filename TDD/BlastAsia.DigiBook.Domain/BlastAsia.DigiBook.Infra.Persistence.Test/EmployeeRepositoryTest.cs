@@ -71,7 +71,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 
         [TestMethod]
         [TestProperty("TestType", "Integration")]
-        public void Delete_WithExistingContact_RemovesRecordFromDatabase()
+        public void Delete_WithExistingEmployee_RemovesRecordFromDatabase()
         {
             //Arrange
             var newEmployee = sut.Create(employee);
@@ -86,7 +86,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 
         [TestMethod]
         [TestProperty("TestType", "Integration")]
-        public void Retrieve_WithExistingContactId_ReturnsRecordFromDatabase()
+        public void Retrieve_WithExistingEmployeeId_ReturnsRecordFromDatabase()
         {
             //Arrange
             var newEmployee = sut.Create(employee);

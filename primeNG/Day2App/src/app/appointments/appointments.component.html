@@ -7,7 +7,8 @@
           <button type="button" pButton icon="fa-plus" (click)="addAppointment()"></button> &nbsp;Appointments
         </div>
         <div class="searchHeader">
-          <p-calendar [(ngModel)]="dateFilter" selectionMode="range" readonlyInput="true" placeholder="Search..."></p-calendar>
+          <!-- <p-calendar [(ngModel)]="dateFilter" selectionMode="range" readonlyInput="true" placeholder="Search..."></p-calendar> -->
+          <input type="text" pInputText placeholder="Search Guest or Host" [(ngModel)]="searchFilter" />
           <button pButton type="button" icon="fa-search" (click)="searchAppointment()"></button>
         </div>
       </p-header>
@@ -19,9 +20,9 @@
           </span>
         </ng-template>
       </p-column>
+      <p-column field="appointmentDate" header="Appointment Date"></p-column>
       <p-column field="guestName" header="Guest Name"></p-column>
       <p-column field="hostName" header="Host Name"></p-column>
-      <p-column field="appointmentDate" header="Appointment Date"></p-column>
       <p-column field="startTime" header="Start Time"></p-column>
       <p-column field="endTime" header="End Time"></p-column>
       <p-column field="isCancelled" header="Is Cancelled?"></p-column>
@@ -53,7 +54,7 @@
         <div class="ui-g-12 ui-md-2"><label>Guest</label></div>
         <div class="ui-g-12 ui-md-4">
           <p-dropdown [options]="contactList" [(ngModel)]="selectedContact" formControlName="guestName" placeholder="Select Guest"
-            optionLabel="fullName"></p-dropdown>
+            optionLabel="fullName" ></p-dropdown>
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['guestName'].valid && 
             userform.controls['guestName'].dirty">
             <i class="fa fa-close"></i> Guest is Required

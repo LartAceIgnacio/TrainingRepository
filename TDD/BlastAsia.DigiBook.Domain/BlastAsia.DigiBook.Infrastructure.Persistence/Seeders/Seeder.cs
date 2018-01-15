@@ -2,6 +2,7 @@
 using BlastAsia.DigiBook.Domain.Models.Appointments;
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Employees;
+using BlastAsia.DigiBook.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
@@ -48,10 +49,12 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Seeders
                 await roleManager.CreateAsync(new
                 ApplicationRole(role_Administrator));
             }
+
             if (!await roleManager.RoleExistsAsync(role_RegisteredUser)) {
                 await roleManager.CreateAsync(new
                 ApplicationRole(role_RegisteredUser));
             }
+
             // Create the "Admin" ApplicationUser account
             var user_Admin = new ApplicationUser() {
                 SecurityStamp = Guid.NewGuid().ToString(),
@@ -73,7 +76,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Seeders
                 user_Admin.LockoutEnabled = false;
             }
 
-#if DEBUG
+            #if DEBUG
             // Create some sample registered user accounts
             var user_Ryan = new ApplicationUser() {
                 SecurityStamp = Guid.NewGuid().ToString(),
@@ -90,6 +93,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Seeders
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             };
+
             var user_Vodan = new ApplicationUser() {
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = "Vodan",
@@ -97,6 +101,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Seeders
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate
             };
+
             // Insert sample registered users into the Database and also assign the "Registered" role to him.
             if (await userManager.FindByNameAsync(user_Ryan.UserName) == null) {
                 await userManager.CreateAsync(user_Ryan, "P@ss4Ryan");
@@ -105,6 +110,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Seeders
                 user_Ryan.EmailConfirmed = true;
                 user_Ryan.LockoutEnabled = false;
             }
+
             if (await userManager.FindByNameAsync(user_Solice.UserName) == null) {
                 await userManager.CreateAsync(user_Solice, "P@ss4Solice");
                 await userManager.AddToRoleAsync(user_Solice, role_RegisteredUser);
@@ -112,6 +118,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Seeders
                 user_Solice.EmailConfirmed = true;
                 user_Solice.LockoutEnabled = false;
             }
+
             if (await userManager.FindByNameAsync(user_Vodan.UserName) == null) {
                 await userManager.CreateAsync(user_Vodan, "P@ss4Vodan");
                 await userManager.AddToRoleAsync(user_Vodan, role_RegisteredUser);
@@ -119,7 +126,8 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Seeders
                 user_Vodan.EmailConfirmed = true;
                 user_Vodan.LockoutEnabled = false;
             }
-#endif
+            #endif
+
             await context.SaveChangesAsync();
         }
 

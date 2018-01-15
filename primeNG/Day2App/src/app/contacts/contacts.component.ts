@@ -6,6 +6,7 @@ import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms'
 import { ConfirmationService, DataTable } from 'primeng/primeng';
 import { ViewChild } from '@angular/core';
 import { PaginationResult } from "../domain/paginationresult";
+import { AuthService } from "../services/authservice";
 
 @Component({
   selector: 'app-contacts',
@@ -33,7 +34,7 @@ export class ContactsComponent implements OnInit {
   rexExpEmailFormat: string = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
   constructor(private globalService: GlobalService, private confirmationService: ConfirmationService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder, public auth: AuthService) { }
 
     
   @ViewChild('dt') public dataTable: DataTable;
@@ -123,11 +124,16 @@ export class ContactsComponent implements OnInit {
         if(!isSaveAndNew) {
           this.setCurrentPage(1); 
         }
+        else {
+          this.selectedActive = "false";
+          this.dateActivate = null;
+        }
       });
     }
     else {
       this.globalService.updateSomething<Contact>("Contacts", this.selectedContact.contactId, this.selectedContact).then(contacts => {
         tmpContactList[this.indexOfContact] = this.selectedContact;
+        this.setCurrentPage(1);
         this.contactList = tmpContactList;
         this.selectedContact = null;
         this.isNewContact = false;

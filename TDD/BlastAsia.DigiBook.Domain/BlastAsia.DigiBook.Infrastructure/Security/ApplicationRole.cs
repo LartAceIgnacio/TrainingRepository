@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlastAsia.DigiBook.Domain.Models
+namespace BlastAsia.DigiBook.Infrastructure.Security
 {
     public class ApplicationRole : IdentityRole<Guid>
     {

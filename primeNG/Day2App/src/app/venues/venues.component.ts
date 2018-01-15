@@ -38,7 +38,7 @@ export class VenuesComponent implements OnInit {
   }
 
   paginate(event) {
-    this.globalService.getSomethingWithPagination<PaginationResult<Venue>>("Venues", event.first, event.rows,
+    this.globalService.getSomethingWithPagination<PaginationResult<Venue>>("venues", event.first, event.rows,
       this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
         this.paginationResult = paginationResult;
         this.venueList = this.paginationResult.results;
@@ -54,11 +54,11 @@ export class VenuesComponent implements OnInit {
 
   setCurrentPage(n: number) {
     this.dataTable.reset();
-    let paging = {
-      first: ((n - 1) * this.dataTable.rows),
-      rows: this.dataTable.rows
-    };
-    this.dataTable.paginate();
+    // let paging = {
+    //   first: ((n - 1) * this.dataTable.rows),
+    //   rows: this.dataTable.rows
+    // };
+    // this.dataTable.paginate();
   }
 
   addVenue() {
@@ -96,6 +96,7 @@ export class VenuesComponent implements OnInit {
         this.venueList = tmpVenueList;
         this.selectedVenue = null;
         this.isNewVenue = false;
+        this.setCurrentPage(1);
       });
     }
   }

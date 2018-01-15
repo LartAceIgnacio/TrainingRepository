@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/primeng';
+import { AuthService } from './services/authservice';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,12 @@ import { MenuItem } from 'primeng/primeng';
 export class AppComponent {
   menuItems: MenuItem[]
 
+  constructor(public auth: AuthService) {  }
+
   ngOnInit(): void {
     this.menuItems = [
-      { label: 'Dashboard', icon: 'fa-tachometer', routerLink:['/dashboard'] },
+      { label: 'Statistics', icon: 'fa-tachometer', routerLink:['/statistic'] },
+      { label: 'Calendar', icon: 'fa-calendar', routerLink:['/dashboard'] },
       { label: 'Appointments', icon: 'fa-calendar-check-o', routerLink:['/appointments'] },
       { label: 'Contacts', icon: 'fa-id-card', routerLink:['/contacts'] },
       { label: 'Employees', icon: 'fa-users', routerLink:['/employees'] },

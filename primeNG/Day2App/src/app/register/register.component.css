@@ -1,0 +1,85 @@
+#relativeDiv {
+    font-family: 'Century Gothic';
+    position: relative;
+    height: 670px;
+    background-color: #fff;
+    color: #000;
+    padding-top: 10px;
+    padding-left: 15px;
+    position: relative;
+}
+
+#form-section {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-60%,-50%); /* IE 9 */
+    -webkit-transform: translate(-60%,-50%); /* Safari */
+    transform: translate(-60%,-50%); /* Standard syntax */
+}
+
+header {
+    height: 75px;
+    background-color: #2399e5;
+    padding-left: 25px;
+    padding-right: 25px;
+    border: 1px solid black;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    color: #fff;
+}
+
+#top-logo {
+    float: left;
+    padding-top: 3px;
+}
+
+.help-block {
+    color: red;
+    font-style: bold italic;
+    font-size: 13px;
+}
+
+.designPadding {
+    height: auto;
+    padding: 20px;
+    border: 1px solid black;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #c3c3c3;
+    font-weight: bold;
+}
+
+    .designPadding div label {
+        display: block;
+    }
+
+    .designPadding div input {
+        width: 400px;
+    }
+
+#sumbitLogin {
+    background-color: #2399e5;
+    float: right;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#sumbitLogin:disabled {
+    background-color: #c5c5c5;
+    text-align: right;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.login-link {
+    text-align: center;
+    font-size: 12px;
+}
+
+input, span {
+    font-family: 'Century Gothic';
+    font-size: 12px;
+}

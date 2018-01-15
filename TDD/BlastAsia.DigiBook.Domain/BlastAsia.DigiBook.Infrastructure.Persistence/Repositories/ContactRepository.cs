@@ -10,6 +10,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
 {
     public class ContactRepository : RepositoryBase<Contact>, IContactRepository
     {
+        public DigiBookDbContext dbContext;
         public ContactRepository(IDigiBookDbContext context)
             :base(context)
         {

@@ -11,12 +11,14 @@ import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms'
 import { ConfirmationService, DataTable } from 'primeng/primeng';
 import { ViewChild } from '@angular/core';
 import { PaginationResult } from "../domain/paginationresult";
+import { AuthService } from "../services/authservice";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.css'],
-  providers: [GlobalService, ConfirmationService]
+  providers: [GlobalService, ConfirmationService, DatePipe]
 })
 
 export class AppointmentsComponent implements OnInit {
@@ -38,13 +40,13 @@ export class AppointmentsComponent implements OnInit {
   minDate: Date = new Date();
   userform: FormGroup;
   searchFilter: string = "";
-  dateFilter: Date[];
+  //dateFilter: Date[];
   totalRecords: number = 0;
   paginationResult: PaginationResult<Appointment>;
   rexExpTimeFormat: string = "^([0-1]?[0-9]|[2][0-3]):([0-5][0-9])(:[0-5][0-9])?$";
 
   constructor(private globalService: GlobalService, private confirmationService: ConfirmationService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder, public auth: AuthService, private datePipe: DatePipe) { }
 
   @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
@@ -92,23 +94,24 @@ export class AppointmentsComponent implements OnInit {
   }
 
   searchAppointment() {
-    if (this.dateFilter != null && (this.dateFilter[0] != null || this.dateFilter[1] != null)) {
-      this.searchFilter = this.dateFilter[0].toLocaleDateString() + "," + this.dateFilter[1].toLocaleDateString();
-      if (this.searchFilter.length > 0) {
-        this.searchFilter = this.searchFilter.replace(/\//g, "%2F");
-      }
+    if (this.searchFilter.length != 1) {
+      this.setCurrentPage(1);
     }
-
-    this.setCurrentPage(1);
+    // if (this.dateFilter != null && (this.dateFilter[0] != null || this.dateFilter[1] != null)) {
+    //   this.searchFilter = this.dateFilter[0].toLocaleDateString() + "," + this.dateFilter[1].toLocaleDateString();
+    //   if (this.searchFilter.length > 0) {
+    //     this.searchFilter = this.searchFilter.replace(/\//g, "%2F");
+    //   }
+    // }
   }
 
   setCurrentPage(n: number) {
     this.dataTable.reset();
-    let paging = {
-      first: ((n - 1) * this.dataTable.rows),
-      rows: this.dataTable.rows
-    };
-    this.dataTable.paginate();
+    // let paging = {
+    //   first: ((n - 1) * this.dataTable.rows),
+    //   rows: this.dataTable.rows
+    // };
+    // this.dataTable.paginate();
   }
 
   addAppointment() {
@@ -124,7 +127,12 @@ export class AppointmentsComponent implements OnInit {
 
   onRowSelect(appointment) {
     this.isNewAppointment = false;
+    
     this.userform.enable();
+    if(!this.auth.isLoggedIn()) {
+      this.userform.controls['guestName'].disable();
+    }
+
     this.selectedAppointment = appointment;
     this.indexOfAppointment = this.appointmentList.indexOf(this.selectedAppointment);
 
@@ -146,7 +154,7 @@ export class AppointmentsComponent implements OnInit {
     this.selectedAppointment.isDone = this.selectedDone == 'true' ? true : false;
     this.selectedAppointment.guestId = this.selectedContact.contactId;
     this.selectedAppointment.hostId = this.selectedEmployee.employeeId;
-    this.selectedAppointment.appointmentDate = this.dateActivated;
+    this.selectedAppointment.appointmentDate = this.datePipe.transform(this.dateActivated, 'yyyy-MM-dd');;
     if (this.isNewAppointment) {
       this.globalService.addSomething<Appointment>("Appointments", this.selectedAppointment).then(appointments => {
         tmpAppointmentList.push(appointments);
@@ -154,13 +162,13 @@ export class AppointmentsComponent implements OnInit {
         this.getFullName();
         this.selectedAppointment = isSaveAndNew ? new AppointmentClass() : null;
         this.isNewAppointment = isSaveAndNew ? true : false;
+        this.selectedContact = new ContactClass();
+        this.selectedEmployee = new EmployeeClass();
+        this.selectedCancelled = "false";
+        this.selectedDone = "false";
+        this.dateActivated = null;
         if (!isSaveAndNew) {
           this.setCurrentPage(1);
-          this.selectedContact = new ContactClass();
-          this.selectedEmployee = new EmployeeClass();
-          this.selectedCancelled = "false";
-          this.selectedDone = "false";
-          this.dateActivated = null;
         }
       });
     }
@@ -168,6 +176,7 @@ export class AppointmentsComponent implements OnInit {
       this.globalService.updateSomething<Appointment>("Appointments", this.selectedAppointment.appointmentId, this.selectedAppointment).then(appointments => {
         tmpAppointmentList[this.indexOfAppointment] = this.selectedAppointment;
         this.appointmentList = tmpAppointmentList;
+        this.setCurrentPage(1);
         this.getFullName();
         this.selectedAppointment = null;
         this.isNewAppointment = false;

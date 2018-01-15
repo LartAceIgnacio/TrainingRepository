@@ -25,8 +25,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
                     result.PageNo = pageNo;
                     result.RecordPage = numRec;
                 }
-
-                return result;
             }
             else {
                 result.Results = context.Set<Venue>().Where(x => x.VenueName.ToLower().Contains(filterValue.ToLower()))
@@ -39,9 +37,9 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
                     result.PageNo = pageNo;
                     result.RecordPage = numRec;
                 }
-
-                return result;
             }
+
+            return result;
         }
     }
 }

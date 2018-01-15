@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BlastAsia.DigiBook.Domain.Models;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
 using BlastAsia.DigiBook.Infrastructure.Persistence.Seeders;
+using BlastAsia.DigiBook.Infrastructure.Security;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;

@@ -6,6 +6,15 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\20180110075147_Initial Migration.cs" />
+    <Compile Remove="Migrations\20180110075653_Initial Migration.cs" />
+    <Compile Remove="Migrations\20180112093702_Added Token Table.cs" />
+    <Compile Remove="Migrations\20180115013049_Added Token Table.cs" />
+    <Compile Remove="Migrations\20180115013229_Added Token Table.cs" />
+    <Compile Remove="Migrations\20180115013435_Added Token Table.cs" />
+    <Compile Remove="Migrations\20180115015202_Initial Migration.cs" />
+    <Compile Remove="Migrations\20180115045003_Added Token Table.cs" />
+    <Compile Remove="Migrations\20180115082024_Change Table Name.cs" />
+    <Compile Remove="Migrations\20180115082445_Change Table Name.cs" />
   </ItemGroup>
 
   <ItemGroup>

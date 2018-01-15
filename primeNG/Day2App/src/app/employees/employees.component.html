@@ -1,6 +1,6 @@
 <p-panel>
   <div class="ui-g">
-    <p-dataTable #dt [value]="employeeList" [rows]="5" [paginator]="true" [pageLinks]="5" [responsive]="true" 
+    <p-dataTable #dt [value]="employeeList" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true" 
       (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
       <p-header>
         <div class="addHeader">
@@ -19,7 +19,7 @@
           </span>
         </ng-template>
       </p-column>
-      <p-column field="firstName" header="Contact Name">
+      <p-column field="firstName" header="Employee Name">
         <ng-template pTemplate type="body" let-Employee="rowData">
           {{ Employee.firstName + " " + Employee.lastName }}
         </ng-template>

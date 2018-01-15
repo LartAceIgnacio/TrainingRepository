@@ -1,3 +1,5 @@
+import { Contact } from "./contact";
+
 export interface Appointment {
     appointmentId?;
     appointmentDate?;
@@ -10,5 +12,5 @@ export interface Appointment {
     isCancelled?;
     isDone?;
     notes?;
-    appointmentCount?;
+    contact?: Contact;
 }

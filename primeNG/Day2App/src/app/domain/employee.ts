@@ -8,5 +8,4 @@ export interface Employee {
     emailAddress?;
     officePhone?;
     extension?;
-    employeeCount?;
 }

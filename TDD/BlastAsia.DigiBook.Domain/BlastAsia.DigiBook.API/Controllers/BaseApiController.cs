@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BlastAsia.DigiBook.Domain.Models;
-using BlastAsia.DigiBook.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Http;
+﻿using BlastAsia.DigiBook.Infrastructure.Persistence;
+using BlastAsia.DigiBook.Infrastructure.Security;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +8,7 @@ using Newtonsoft.Json;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
+    [EnableCors("Day2App")]
     [Route("api/[controller]")]
     public class BaseApiController : Controller
     {
@@ -25,6 +22,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         {
             // Instantiate the required classes through DI DbContext = context;
             RoleManager = roleManager;
+            DbContext = context;
             UserManager = userManager;
             Configuration = configuration;
             // Instantiate a single JsonSerializerSettings object

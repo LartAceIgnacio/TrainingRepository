@@ -701,6 +701,15 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "Newtonsoft.Json/11.0.1-beta3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
       "Remotion.Linq/2.1.1": {
         "type": "package",
         "dependencies": {
@@ -1129,6 +1138,20 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Threading.Tasks.dll": {}
+        }
+      },
+      "BlastAsia.DigiBook.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity": "2.0.1",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.1"
+        },
+        "compile": {
+          "bin/placeholder/BlastAsia.DigiBook.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlastAsia.DigiBook.Infrastructure.dll": {}
         }
       }
     }
@@ -2089,6 +2112,35 @@
         "lib/netstandard1.0/_._",
         "netstandard.library.2.0.0.nupkg.sha512",
         "netstandard.library.nuspec"
+      ]
+    },
+    "Newtonsoft.Json/11.0.1-beta3": {
+      "sha512": "z9IZ3Ecun2TuF/vjYstOuAvk5lldAPrw0foD5pLJi2toown8KX69gExZwPP8oknynMieQ6lBFf+l/MVZ+/BFAw==",
+      "type": "package",
+      "path": "newtonsoft.json/11.0.1-beta3",
+      "files": [
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "newtonsoft.json.11.0.1-beta3.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "tools/install.ps1"
       ]
     },
     "Remotion.Linq/2.1.1": {
@@ -3725,13 +3777,20 @@
         "system.threading.tasks.4.0.11.nupkg.sha512",
         "system.threading.tasks.nuspec"
       ]
+    },
+    "BlastAsia.DigiBook.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../BlastAsia.DigiBook.Infrastructure/BlastAsia.DigiBook.Infrastructure.csproj",
+      "msbuildProject": "../BlastAsia.DigiBook.Infrastructure/BlastAsia.DigiBook.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "BlastAsia.DigiBook.Infrastructure >= 1.0.0",
       "Microsoft.AspNetCore.Identity >= 2.0.1",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 2.0.1",
-      "Microsoft.NETCore.App >= 2.0.0"
+      "Microsoft.NETCore.App >= 2.0.0",
+      "Newtonsoft.Json >= 11.0.1-beta3"
     ]
   },
   "packageFolders": {
@@ -3769,7 +3828,11 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\cmanuel\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -3794,6 +3857,10 @@
             "target": "Package",
             "version": "[2.0.0, )",
             "autoReferenced": true
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[11.0.1-beta3, )"
           }
         },
         "imports": [

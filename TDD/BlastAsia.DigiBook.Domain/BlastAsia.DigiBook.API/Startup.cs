@@ -2,10 +2,10 @@
 using BlastAsia.DigiBook.Domain.Appointments;
 using BlastAsia.DigiBook.Domain.Contacts;
 using BlastAsia.DigiBook.Domain.Employees;
-using BlastAsia.DigiBook.Domain.Models;
 using BlastAsia.DigiBook.Domain.Venues;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
 using BlastAsia.DigiBook.Infrastructure.Persistence.Repositories;
+using BlastAsia.DigiBook.Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -39,9 +39,10 @@ namespace BlastAsia.DigiBook.API
                    .GetConnectionString("DefaultConnection"))
                    );
 
+
+            #region Security
             services
-                .AddIdentity<ApplicationUser, ApplicationRole>(options =>
-                {
+                .AddIdentity<ApplicationUser, ApplicationRole>(options => {
                     options.Password.RequireDigit = true;
                     options.Password.RequiredLength = 8;
                     options.Password.RequireLowercase = true;
@@ -63,7 +64,7 @@ namespace BlastAsia.DigiBook.API
                 .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options => {
-                options.Cookie.Name = "DigBookCookie";
+                options.Cookie.Name = "DigiBookCookie";
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                 options.LoginPath = "/Account/Login";
@@ -73,11 +74,11 @@ namespace BlastAsia.DigiBook.API
                 // Requires `using Microsoft.AspNetCore.Authentication.Cookies;`
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
             });
+            #endregion
 
             #region Authentication
             services
-                .AddAuthentication(opts =>
-                {
+                .AddAuthentication(opts => {
                     opts.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                     opts.DefaultAuthenticateScheme =
                     JwtBearerDefaults.AuthenticationScheme;
@@ -102,32 +103,39 @@ namespace BlastAsia.DigiBook.API
                 });
             #endregion
 
+            #region DI
             services.AddScoped<IDigiBookDbContext, DigiBookDbContext>();
             services.AddTransient<IContactService, ContactService>();
             services.AddScoped<IContactRepository, ContactRepository>();
-            
+
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-            
+
             services.AddTransient<IVenueService, VenueService>();
             services.AddScoped<IVenueRepository, VenueRepository>();
 
-            services.AddSwaggerGen(x => 
-            {
+            #endregion
+
+            #region Swagger
+            services.AddSwaggerGen(x => {
                 x.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "DigiBook API" });
             });
+
 
             services.AddCors(config => {
                 config.AddPolicy("Day2App", policy => {
                     policy.AllowAnyMethod();
-                    policy.AllowAnyMethod();
-                    policy.WithOrigins("http://localhost:4200");
+                    policy.AllowAnyHeader();
+                    policy.AllowAnyOrigin();
+                    policy.AllowCredentials();
+                    //policy.WithOrigins("http://localhost:4200", "http://localhost:4200/");
 
                 });
             });
+            #endregion
 
             services.AddMvc();
         }
@@ -135,16 +143,14 @@ namespace BlastAsia.DigiBook.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
+            if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
 
             app.UseCors("Day2App");
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => 
-            {
+            app.UseSwaggerUI(c => {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "DigiBook Api v1");
             });
 

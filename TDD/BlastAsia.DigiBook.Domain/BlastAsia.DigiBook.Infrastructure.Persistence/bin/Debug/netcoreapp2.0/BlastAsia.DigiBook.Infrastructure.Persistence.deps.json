@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "a6fc4972457d0b1f33b603d6f5f7fa9e42cd65d9"
+    "signature": "4b9a5b5888ce5c35e47d923b9e737f834630995c"
   },
   "compilationOptions": {},
   "targets": {
@@ -368,6 +368,11 @@
           }
         }
       },
+      "Newtonsoft.Json/11.0.1-beta3": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
       "Remotion.Linq/2.1.1": {
         "dependencies": {
           "System.Collections": "4.0.11",
@@ -675,11 +680,22 @@
       },
       "BlastAsia.DigiBook.Domain.Models/1.0.0": {
         "dependencies": {
+          "BlastAsia.DigiBook.Infrastructure": "1.0.0",
+          "Microsoft.AspNetCore.Identity": "2.0.1",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.1",
+          "Newtonsoft.Json": "11.0.1-beta3"
+        },
+        "runtime": {
+          "BlastAsia.DigiBook.Domain.Models.dll": {}
+        }
+      },
+      "BlastAsia.DigiBook.Infrastructure/1.0.0": {
+        "dependencies": {
           "Microsoft.AspNetCore.Identity": "2.0.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.1"
         },
         "runtime": {
-          "BlastAsia.DigiBook.Domain.Models.dll": {}
+          "BlastAsia.DigiBook.Infrastructure.dll": {}
         }
       }
     }
@@ -963,6 +979,13 @@
       "path": "microsoft.win32.registry/4.4.0",
       "hashPath": "microsoft.win32.registry.4.4.0.nupkg.sha512"
     },
+    "Newtonsoft.Json/11.0.1-beta3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-z9IZ3Ecun2TuF/vjYstOuAvk5lldAPrw0foD5pLJi2toown8KX69gExZwPP8oknynMieQ6lBFf+l/MVZ+/BFAw==",
+      "path": "newtonsoft.json/11.0.1-beta3",
+      "hashPath": "newtonsoft.json.11.0.1-beta3.nupkg.sha512"
+    },
     "Remotion.Linq/2.1.1": {
       "type": "package",
       "serviceable": true,
@@ -1235,6 +1258,11 @@
       "sha512": ""
     },
     "BlastAsia.DigiBook.Domain.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BlastAsia.DigiBook.Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

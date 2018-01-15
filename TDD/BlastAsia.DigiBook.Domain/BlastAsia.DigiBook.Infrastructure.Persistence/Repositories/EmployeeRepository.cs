@@ -26,8 +26,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
                     result.PageNo = pageNo;
                     result.RecordPage = numRec;
                 }
-
-                return result;
             }
             else {
                 result.Results = context.Set<Employee>().Where(x => x.FirstName.ToLower().Contains(filterValue.ToLower()) ||
@@ -41,9 +39,9 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
                     result.PageNo = pageNo;
                     result.RecordPage = numRec;
                 }
-
-                return result;
             }
+
+            return result;
         }
     }
 }

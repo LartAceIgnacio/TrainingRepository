@@ -53,18 +53,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   searchEmployee() {
-    if (this.searchFilter.length != 1) {
-      this.setCurrentPage(1);
-    }
-  }
-
-  setCurrentPage(n: number) {
     this.dataTable.reset();
-    // let paging = {
-    //   first: ((n - 1) * this.dataTable.rows),
-    //   rows: this.dataTable.rows
-    // };
-    //this.dataTable.paginate();
   }
 
   addEmployee() {
@@ -92,7 +81,7 @@ export class EmployeesComponent implements OnInit {
         this.selectedEmployee = isSaveAndNew ? new EmployeeClass() : null;
         this.isNewEmployee = isSaveAndNew ? true : false;
         if (!isSaveAndNew) {
-          this.setCurrentPage(1);
+          this.dataTable.reset();
         }
       });
     }
@@ -100,6 +89,7 @@ export class EmployeesComponent implements OnInit {
       this.globalService.updateSomething<Employee>("Employees", this.selectedEmployee.employeeId, this.selectedEmployee).then(employees => {
         tmpEmployeeList[this.indexOfEmployee] = this.selectedEmployee;
         this.employeeList = tmpEmployeeList;
+        this.dataTable.reset();
         this.selectedEmployee = null;
         this.isNewEmployee = false;
       });
@@ -149,7 +139,7 @@ export class EmployeesComponent implements OnInit {
           this.selectedEmployee = null;
           this.isNewEmployee = false;
           this.isDeleteEmployee = false;
-          this.setCurrentPage(1);
+          this.dataTable.reset();
         });
       }
     });

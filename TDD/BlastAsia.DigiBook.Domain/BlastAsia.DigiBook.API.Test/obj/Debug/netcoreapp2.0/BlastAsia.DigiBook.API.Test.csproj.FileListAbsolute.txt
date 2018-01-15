@@ -9,11 +9,13 @@ C:\Users\cmanuel\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain
 C:\Users\cmanuel\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.dll
 C:\Users\cmanuel\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
 C:\Users\cmanuel\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\cmanuel\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
 C:\Users\cmanuel\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.dll
 C:\Users\cmanuel\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.pdb
 C:\Users\cmanuel\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
 C:\Users\cmanuel\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
 C:\Users\cmanuel\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\cmanuel\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb
 C:\Users\cmanuel\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.csprojResolveAssemblyReference.cache
 C:\Users\cmanuel\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.csproj.CoreCompileInputs.cache
 C:\Users\cmanuel\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.AssemblyInfoInputs.cache
