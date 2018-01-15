@@ -1,0 +1,26 @@
+header {
+    font-family: 'Century Gothic';
+    height: 75px;
+    background-color: green;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+#top-menu {
+    float: right;
+    padding-top: 5px;
+}
+
+    #top-menu ul {
+        list-style-type: none;
+    }
+
+        #top-menu ul li a {
+            text-decoration: none;
+            color: #000 !important;
+            font-weight: bold;
+        }
+
+#top-logo {
+    float: left;
+}

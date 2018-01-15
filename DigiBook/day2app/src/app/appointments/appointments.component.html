@@ -1,0 +1,108 @@
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+
+<p-growl [value]="msgs"></p-growl>
+
+<p-panel>
+    <p-header>
+        <button *ngIf="this.auth.isLoggedIn()" pButton icon="fa fa-plus" (click)="newAppointment()"></button> Appointment
+        List
+        <input id="right" type="text" pInputText placeholder="Search" [(ngModel)]="searchQuery" />
+        <button id="right" pButton type="button" icon="fa-search" (click)="search()"></button>
+    </p-header>
+    <div class="ui-g">
+        <p-dataTable #dt [value]="appointmentList" [rows]="5" [paginator]="true" [pageLinks]="5" [responsive]="true" (onLazyLoad)="paginate($event)"
+            [lazy]="true" [totalRecords]="totalRecord">
+            <p-column styleClass="col-button">
+                <ng-template let-appointment="rowData" pTemplate="body">
+                    <button type="button" *ngIf="this.auth.isLoggedIn()" pButton (click)="editAppointment(appointment)" icon="fa fa-pencil"></button>
+                    <button type="button" *ngIf="this.auth.isLoggedIn()" pButton (click)="deleteAppoint(appointment)" icon="fa fa-trash-o"></button>
+                </ng-template>
+            </p-column>
+            <p-column field="appointmentId" header="Appointment ID" [sortable]="true"></p-column>
+            <p-column field="appointmentDate" header="Appointment Date" [sortable]="true"></p-column>
+            <p-column field="guestName" header="Guest Name" [sortable]="true"></p-column>
+            <p-column field="hostName" header="Host Name" [sortable]="true"></p-column>
+            <p-column field="startTime" header="Start Time" [sortable]="true"></p-column>
+            <p-column field="endTime" header="End Time" [sortable]="true"></p-column>
+            <p-column field="isCancelled" header="Cancelled" [sortable]="true"></p-column>
+            <p-column field="isDone" header="Done" [sortable]="true"></p-column>
+            <p-column field="notes" header="Notes" [sortable]="true"></p-column>
+        </p-dataTable>
+    </div>
+</p-panel>
+
+<form [formGroup]="userform">
+    <p-dialog header="Appointment" [(visible)]="display" [responsive]="true" showEffect="fade" [modal]="true">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedAppointment">
+            <div class="ui-g">
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Host Name:</label>
+                    <p-dropdown [options]="employeeList" formControlName="hostName" [(ngModel)]="selectedHost" class="ui-g-12 ui-md-12" placeholder="Select a Host"
+                        optionLabel="lastName"></p-dropdown>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Guest Name:</label>
+                    <p-dropdown [options]="contactList" formControlName="guestName" [(ngModel)]="selectedGuest" class="ui-g-12 ui-md-12" placeholder="Select a Guest"
+                        optionLabel="lastName"></p-dropdown>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Start Time: </label>
+                    <input class="ui-g-12 ui-md-12" formControlName="startTime" placeholder="HH:mm:ss" [(ngModel)]="selectedAppointment.startTime"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['startTime'].valid&&userform.controls['startTime'].dirty">
+                            <i class="fa fa-close"></i> Start Time is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">End Time: </label>
+                    <input class="ui-g-12 ui-md-12" formControlName="endTime" placeholder="HH:mm:ss" [(ngModel)]="selectedAppointment.endTime"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['endTime'].valid&&userform.controls['endTime'].dirty">
+                            <i class="fa fa-close"></i> End Time is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Appointment Date: </label>
+                    <p-calendar class="ui-g-12 ui-md-12" formControlName="date" placeholder="Enter Date" [(ngModel)]="selectedAppointment.appointmentDate">
+                    </p-calendar>
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['date'].valid&&userform.controls['date'].dirty">
+                            <i class="fa fa-close"></i> Date is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Notes: </label>
+                    <input class="ui-g-12 ui-md-12" formControlName="notes" placeholder="Enter Date" [(ngModel)]="selectedAppointment.notes"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['notes'].valid&&userform.controls['notes'].dirty">
+                            <i class="fa fa-close"></i> Notes is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6">
+                    <label class="ui-g-12 ui-md-4">Done:</label>
+                    <p-selectButton [options]="isDone" formControlName="done" [(ngModel)]="selectedAppointment.isDone"></p-selectButton>
+                </div>
+                <div class="ui-g-6">
+                    <label class="ui-g-12 ui-md-4">Cancel Appointment:</label>
+                    <p-selectButton [options]="isCancel" formControlName="cancel" [(ngModel)]="selectedAppointment.isCancel"></p-selectButton>
+                </div>
+            </div>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" pButton icon="fa-close" (click)="cancelAppoint()" label="Cancel"></button>
+                <button type="button" pButton icon="fa-check" (click)="saveAppointment()" [disabled]="!userform.valid" label="Save"></button>
+                <button type="button" pButton (click)="saveAndNewAppointment()" icon="fa fa-pencil" *ngIf="isNewAppointment==true" [disabled]="!userform.valid"
+                    [disabled]="!userform.valid" label="Save and New"></button>
+            </div>
+        </p-footer>
+    </p-dialog>
+</form>
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
