@@ -10,6 +10,7 @@ using BlastAsia.DigiBook.Api.Utils;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Cors;
 using BlastAsia.DigiBook.Domain.Models.Pagination;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
@@ -62,6 +63,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("api/Employee")]
         public IActionResult CreateEmployee([FromBody] Employee employee)
         {
@@ -82,6 +84,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("api/Employee")]
         public IActionResult DeleteEmployee(Guid id)
         {
@@ -97,6 +100,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("api/Employee")]
         public IActionResult UpdateEmployee(
             [FromBody]
@@ -132,6 +136,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
 
        
         [HttpPatch]
+        [Authorize]
         [Route("api/Employee")]
         public IActionResult PatchEmployee([FromBody]JsonPatchDocument patchedEmployee, Guid id)
         {

@@ -2,15 +2,17 @@
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Departments;
 using BlastAsia.DigiBook.Domain.Models.Employees;
+using BlastAsia.DigiBook.Domain.Models.Security;
 using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Infrastracture.Persistence;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace BlastAsia.DigiBook.Insfrastracture.Persistence
 {
     public class DigiBookDbContext
-        : DbContext, IDigiBookDbContext
+        : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>, IDigiBookDbContext
     {
         public DigiBookDbContext(DbContextOptions<DigiBookDbContext> options)
             :base (options)
@@ -27,7 +29,58 @@ namespace BlastAsia.DigiBook.Insfrastracture.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            
+
+            #region Appointments
+
+            modelBuilder.Entity<Appointment>().ToTable("Appointments");
+            // Generate id
+            modelBuilder.Entity<Appointment>()
+                .Property(a => a.AppointmentId)
+                .ValueGeneratedOnAdd();
+            // relationship to host
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Host)
+                .WithMany(e => e.Appointments);
+            // relationship to guest
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Guest)
+                .WithMany(g => g.Appointments);
+
+            #endregion
+
+
+            #region Employee
+
+            modelBuilder.Entity<Employee>().ToTable("Employees");
+
+            modelBuilder.Entity<Employee>()
+                .Property(e => e.EmployeeId)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Employee>()
+                .HasMany(e => e.Appointments)
+                .WithOne(a => a.Host);
+
             modelBuilder.Entity<Employee>().Ignore(x => x.Photo);
-        } 
+            #endregion
+
+
+            #region Employee
+
+            modelBuilder.Entity<Contact>().ToTable("Contacts");
+
+            modelBuilder.Entity<Contact>()
+                .Property(e => e.ContactId)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Contact>()
+                .HasMany(e => e.Appointments)
+                .WithOne(a => a.Guest);
+
+            #endregion
+
+        }
     }
 }

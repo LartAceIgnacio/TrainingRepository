@@ -30,19 +30,19 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Repositories
 
             if (pageNumber < 0)
             {
-                result.Result = this.context.Set<Appointment>().Skip(0).Take(10).OrderBy(c => c.AppointmentDate).ToList();
+                result.Result = this.context.Set<Appointment>().OrderBy(c => c.AppointmentDate).Skip(0).Take(10).ToList();
                 return result;
             }
 
             if (recordNumber < 0)
             {
-                result.Result = this.context.Set<Appointment>().Skip(0).Take(10).OrderBy(c => c.AppointmentDate).ToList();
+                result.Result = this.context.Set<Appointment>().OrderBy(c => c.AppointmentDate).Skip(0).Take(10).ToList();
                 return result;
             }
 
             if (date == null)
             {
-                result.Result = this.context.Set<Appointment>().Skip(pageNumber).OrderBy(c => c.AppointmentDate)
+                result.Result = this.context.Set<Appointment>().OrderBy(c => c.AppointmentDate).Skip(pageNumber)
                                                   .Take(recordNumber)
                                                   .ToList();
                 return result;

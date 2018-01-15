@@ -10,6 +10,7 @@ using BlastAsia.DigiBook.Api.Utils;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Cors;
 using BlastAsia.DigiBook.Domain.Models.Pagination;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlastAsia.DigiBook.Api.Controllers
 {
@@ -62,6 +63,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("api/Appointments")]
         public IActionResult CreateAppointment([FromBody] Appointment appointment)
         {
@@ -73,7 +75,8 @@ namespace BlastAsia.DigiBook.Api.Controllers
                 }
 
                 var result = appointmentService.Save(Guid.Empty, appointment);
-                return CreatedAtAction("GetAppointments", new { id = appointment.AppointmentId }, result);
+                return Ok(result);
+                //return CreatedAtAction("GetAppointments", new { id = appointment.AppointmentId }, result);
             }
             catch (Exception)
             {
@@ -82,6 +85,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("api/Appointments")]
         public IActionResult DeleteAppointment(Guid id)
         {
@@ -96,6 +100,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("api/Appointments")]
         public IActionResult UpdateAppointment([FromBody] Appointment appointment, Guid id)
         {
@@ -125,6 +130,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
             }
         }
         [HttpPatch]
+        [Authorize]
         [Route("api/Appointments")]
         public IActionResult PatchAppointment([FromBody]JsonPatchDocument patchedAppointment, Guid id)
         {
