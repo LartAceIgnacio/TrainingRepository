@@ -6,3 +6,4 @@ C:\Users\roribello\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\Blas
 C:\Users\roribello\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.AssemblyInfo.cs
 C:\Users\roribello\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
 C:\Users\roribello\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb
+C:\Users\roribello\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.csprojResolveAssemblyReference.cache

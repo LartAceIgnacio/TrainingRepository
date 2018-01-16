@@ -25,8 +25,6 @@ export class AppComponent implements OnInit{
       {label: 'Contacts', icon: 'fa fa-user-o', routerLink: ['/contacts']},
       {label: 'Appointments', icon: 'fa-handshake-o', routerLink: ['/appointments']},
       {label: 'Venues', icon: 'fa fa-university', routerLink: ['/venues']},
-      {label: 'Register', icon: 'fa fa-user-plus', routerLink: ['/register']},
-      {label: 'Login', icon: 'fa-lock', routerLink:['/login'] },
       {label: 'Google', icon: 'fa fa-tachometer', url: "http://google.com" },
     ];
 

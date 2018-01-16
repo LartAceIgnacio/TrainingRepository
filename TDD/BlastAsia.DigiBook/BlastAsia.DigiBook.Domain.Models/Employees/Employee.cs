@@ -1,4 +1,5 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Appointments;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +16,7 @@ namespace BlastAsia.DigiBook.Domain.Models.Employees
         public string OfficePhone { get; set; }
         public string Extension { get; set; }
         public Guid EmployeeId { get; set; }
-
+        [JsonIgnore]
         public List<Appointment> Appointments { get; set; }
     }
 }

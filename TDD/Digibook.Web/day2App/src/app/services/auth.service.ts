@@ -35,8 +35,10 @@ export class AuthService {
           this.setAuth(res);
           return true;
         }
+        console.log("Error Auth Here");
         return Observable.throw('Unauthorized');
       }).catch(error => {
+        console.log("Error Auth");
         return new Observable<any>(error);
       });
   }

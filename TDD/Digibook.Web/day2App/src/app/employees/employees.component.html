@@ -85,7 +85,7 @@
                              <div class="ui-grid-col-12">
                                  <span class="ui-float-label">
                                      <input pInputText type="text"  id="float-input" size="30" formControlName="emailAddress" [(ngModel)]="selectedEmployee.EmailAddress"/> 
-                                     <label for="float-input">Street Address</label>
+                                     <label for="float-input">Email Address</label>
                                  </span>
                                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['emailAddress'].valid&&userform.controls['emailAddress'].dirty">
                                     <span *ngIf="userform.controls['emailAddress'].errors['required']">Email Address is required</span>

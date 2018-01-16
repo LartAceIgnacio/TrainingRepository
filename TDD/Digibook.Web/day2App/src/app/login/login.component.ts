@@ -38,17 +38,11 @@ export class LoginComponent {
                   // login successful
                   // outputs the login info through a JS alert.
                   // IMPORTANT: remove this when test is done.
-                  alert("Login successful! "
-                      + "USERNAME: "
-                      + username
-                      + " TOKEN: "
-                      + this.authService.getAuth()!.token
-                  );
                   this.router.navigate(["/"]);
               },
               err => {
                   // login failed
-                  console.log(err)
+                  console.log("Error"+ err);
                   this.form.setErrors({
                       "auth": "Incorrect username or password"
                   });

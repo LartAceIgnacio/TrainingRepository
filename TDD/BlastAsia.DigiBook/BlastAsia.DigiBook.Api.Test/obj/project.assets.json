@@ -3615,20 +3615,6 @@
           "lib/netstandard1.6/Swashbuckle.AspNetCore.dll": {}
         }
       },
-      "SwashBuckle.AspNetCore.MicrosoftExtensions/0.4.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNetCore.WebUtilities": "1.1.2",
-          "NETStandard.Library": "1.6.1",
-          "Swashbuckle.AspNetCore.SwaggerGen": "1.0.0"
-        },
-        "compile": {
-          "lib/netstandard1.6/SwashBuckle.AspNetCore.MicrosoftExtensions.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.6/SwashBuckle.AspNetCore.MicrosoftExtensions.dll": {}
-        }
-      },
       "Swashbuckle.AspNetCore.Swagger/1.1.0": {
         "type": "package",
         "dependencies": {
@@ -5604,7 +5590,6 @@
           "Microsoft.AspNetCore.Identity": "2.0.1",
           "Microsoft.NETCore.App": "2.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.2",
-          "SwashBuckle.AspNetCore.MicrosoftExtensions": "0.4.0",
           "Swashbuckle.AspNetCore": "1.1.0"
         },
         "compile": {
@@ -9529,16 +9514,6 @@
         "lib/netstandard1.6/Swashbuckle.AspNetCore.dll",
         "swashbuckle.aspnetcore.1.1.0.nupkg.sha512",
         "swashbuckle.aspnetcore.nuspec"
-      ]
-    },
-    "SwashBuckle.AspNetCore.MicrosoftExtensions/0.4.0": {
-      "sha512": "9yb0V3GCldP9h6NBoznksiMP/b5zzWKBBbqKgPi+1lGmPaytTtpJfjPIFfFa5MbkLoB5rUv2OSeFsXYt5iQXKA==",
-      "type": "package",
-      "path": "swashbuckle.aspnetcore.microsoftextensions/0.4.0",
-      "files": [
-        "lib/netstandard1.6/SwashBuckle.AspNetCore.MicrosoftExtensions.dll",
-        "swashbuckle.aspnetcore.microsoftextensions.0.4.0.nupkg.sha512",
-        "swashbuckle.aspnetcore.microsoftextensions.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore.Swagger/1.1.0": {

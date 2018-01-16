@@ -155,4 +155,17 @@ export class AppointmentsComponent implements OnInit {
       this.selectedAppointment = null;
     }
   }
+  // onRowSelect(){
+  //   this.isNewEmployee = false;
+  //   this.cloneEmployee = this.cloneRecord(this.selectedEmployee);
+  // }
+
+  // cloneRecord(r: Employee): Employee{
+  //   let employee = new EmployeeClass();
+  //   for(let prop in r){
+  //     employee[prop] = r[prop];
+  //   }
+  //   return employee;
+  // }
 }
+

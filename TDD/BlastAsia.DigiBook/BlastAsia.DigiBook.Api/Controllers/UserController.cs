@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using BlastAsia.DigiBook.Domain.Models;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
 
-using BlastAsia.DigiBook.Api.Controllers;
+
 using BlastAsia.DigiBook.Domain.Models.Security;
 using BlastAsia.DigiBook.Api.ViewModel;
 using Mapster;
@@ -72,7 +72,14 @@ namespace BlastAsia.DigiBook.Api.Controllers
             user.EmailConfirmed = true;
             user.LockoutEnabled = false;
             // persist the changes into the Database.
-            DbContext.SaveChanges();
+            try
+            {
+                DbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                
+            }
             // return the newly-created User to the client.
             return Json(user.Adapt<UserViewModel>(),
                 JsonSettings);
