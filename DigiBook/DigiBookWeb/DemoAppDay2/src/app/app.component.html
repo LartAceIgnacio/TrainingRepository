@@ -1,0 +1,38 @@
+<div class="app-header">
+    <h1 id="site-name">
+        <i class="fa fa-book" aria-hidden="true"> </i>DigiBook!</h1>
+    <ul id="user-settings">
+        <li *ngIf="!this.auth.isLoggedIn()" [routerLinkActive]="['link-active']">
+            <a [routerLink]="['/login']">
+                <span class='fa fa-sign-in fa'></span> Login
+            </a>
+        </li>
+        <li *ngIf="!this.auth.isLoggedIn()" [routerLinkActive]="['link-active']">
+            <a [routerLink]="['/register']">
+                <span class='fa fa-address-card-o '></span> Register
+            </a>
+        </li>
+        <li *ngIf="this.auth.isLoggedIn()">
+            <a (click)="this.auth.logout()" [routerLink]="['/login']">
+                <span class='fa fa-circle-o-notch'></span> Logout
+            </a>
+        </li>
+        <li>
+            <a [routerLink]="['/about']">
+                <span class='fa fa-question-circle'></span> About
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="ui-g app-body">
+    <div class="ui-g-12 ui-md-2 sidebar">
+        <p-menu [model]="menuItems"></p-menu>
+    </div>
+    <div class="ui-g-12 ui-md-10 main-menu">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<!-- <div>
+    <p-tabMenu [model]="menuItems"></p-tabMenu>
+    <router-outlet></router-outlet>
+</div> -->

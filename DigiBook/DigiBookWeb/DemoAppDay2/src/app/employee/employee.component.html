@@ -1,0 +1,162 @@
+<div>
+  <p-panel>
+    <p-header>
+      <div class="ui-g">
+        <div class="ui-g-2">
+          <button pButton type="button" icon="fa-plus" (click)="add()" *ngIf="this.authService.isLoggedIn()"></button>
+          <span> Employee </span>
+        </div>
+        <div class="ui-g-10">
+          <div class="ui-inputgroup" style="float:right;">
+            <input type="text" pInputText placeholder="Search" [(ngModel)]="searchQuery" (ngModelChange)="checkIfEmpty($event)">
+            <button pButton type="button" icon="fa-search" (click)="search()"></button>
+          </div>
+        </div>
+      </div>
+    </p-header>
+    <div class="ui-g">
+
+      <p-dataTable #dt [value]="employeeList" [rows]="5" [paginator]="true" [pageLinks]="5" [responsive]="true" (onLazyLoad)="paginate($event)"
+        [lazy]="true" [totalRecords]="totalRecords">
+
+        <p-column field="firstName" header="Controls" *ngIf="this.authService.isLoggedIn()">
+          <ng-template let-row="rowData" pTemplate type="body" let-i="rowIndex">
+            <div style="text-align:center;">
+              <button pButton type="button" icon="fa-pencil" (click)="edit(row)"></button>
+              <button pButton type="button" icon="fa-times" (click)="setdeletion(row)"></button>
+            </div>
+          </ng-template>
+        </p-column>
+
+        <p-column field="firstName" header="First name" [sortable]="true"></p-column>
+        <p-column field="lastName" header="Last name" [sortable]="true"></p-column>
+        <p-column field="mobilePhone" header="Mobile number" [sortable]="true"></p-column>
+        <p-column field="emailAddress" header="Email Address" [sortable]="true"></p-column>
+        <p-column field="officePhone" header="Office Phone" [sortable]="true"></p-column>
+      </p-dataTable>
+
+    </div>
+  </p-panel>
+
+  <p-dialog header="" [(visible)]="displayModal" [width]="800" [height]="520" [modal]="true">
+    <p-header>
+      Add Employee
+    </p-header>
+    <div>
+      <form [formGroup]="userform" (ngSubmit)="saveEmployee()" *ngIf="clonedSelectedEmployee">
+        <p-panel header="Employee Details">
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                First Name *:
+              </div>
+              <div class="ui-grid-col-6">
+                <input pInputText type="text" formControlName="firstname" placeholder="Required" [(ngModel)]="clonedSelectedEmployee.firstName"
+                />
+
+              </div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty">
+                  <i class="fa fa-close"></i>
+                  First name is required
+                </div>
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Last Name *:
+              </div>
+              <div class="ui-grid-col-6">
+                <input pInputText type="text" formControlName="lastname" placeholder="Required" [(ngModel)]="clonedSelectedEmployee.lastName"
+                />
+              </div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty">
+                  <i class="fa fa-close"></i>
+                  Last name is required
+                </div>
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Mobile Number *:
+              </div>
+              <div class="ui-grid-col-6">
+                <input pInputText type="text" formControlName="mobilePhone" placeholder="Required - Min(11)" [(ngModel)]="clonedSelectedEmployee.mobilePhone"
+                />
+              </div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['mobilePhone'].valid&&userform.controls['mobilePhone'].dirty">
+                  <i class="fa fa-close"></i>
+                  <span *ngIf="userform.controls['mobilePhone'].errors['required']">Mobile number is required</span>
+                  <span *ngIf="userform.controls['mobilePhone'].errors['minlength']">Must be longer than 11 characters</span>
+                </div>
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Office Phone *:
+              </div>
+              <div class="ui-grid-col-6">
+                <input pInputText type="text" formControlName="officePhone" placeholder="Required" [(ngModel)]="clonedSelectedEmployee.officePhone"
+                />
+
+              </div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['officePhone'].valid&&userform.controls['officePhone'].dirty">
+                  <i class="fa fa-close"></i>
+                  Office Phone is required
+                </div>
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Email *:
+              </div>
+              <div class="ui-grid-col-6">
+                <input pInputText type="email" formControlName="emailAddress" placeholder="Required" [(ngModel)]="clonedSelectedEmployee.emailAddress"
+                  email pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" />
+
+              </div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['emailAddress'].valid&&userform.controls['emailAddress'].dirty">
+                  <i class="fa fa-close"></i>
+                  Email Address is required / must be in correct format
+                </div>
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Extention *:
+              </div>
+              <div class="ui-grid-col-6">
+                <input pInputText type="email" formControlName="extension" placeholder="Required" [(ngModel)]="clonedSelectedEmployee.extension"
+                />
+
+              </div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['extension'].valid&&userform.controls['extension'].dirty">
+                  <i class="fa fa-close"></i>
+                  Extension is required
+                </div>
+              </div>
+            </div>
+            <div style="text-align:center;margin-top:20px" *ngIf="submitted">
+            </div>
+          </div>
+        </p-panel>
+      </form>
+    </div>
+    <p-footer>
+      <button pButton type="button" icon="fa fa-floppy-o" label="Save and New" [disabled]="!userform.valid" class="ui-button-success"
+        (click)="save('SaveAndNew')" *ngIf="showAddAndNew"></button>
+
+      <button pButton type="button" icon="fa fa-floppy-o" label="Save" [disabled]="!userform.valid" class="ui-button-success" (click)="save('Save')"
+        *ngIf="showAdd"></button>
+
+      <button pButton type="button" icon="fa fa-times" label="Delete" class="ui-button-success" (click)="delete()" *ngIf="showDelete"></button>
+      <button pButton type="button" icon="fa fa-window-close" label="Cancel" class="ui-button-danger" (click)="cancel('Add')"></button>
+    </p-footer>
+  </p-dialog>
+  <p-growl [value]="msgs" sticky="sticky" life="1000"></p-growl>
+</div>
