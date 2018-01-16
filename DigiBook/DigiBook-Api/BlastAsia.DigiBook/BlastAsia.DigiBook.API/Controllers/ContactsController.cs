@@ -68,6 +68,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
       
         [HttpPost]
+        [Route("api/Contacts")]
         [Authorize]
         public IActionResult CreateContact(
             //[Bind("FirstName","LastName","MobilePhone","StreetAddress","CitryAddress","ZipCode","Country",
@@ -93,6 +94,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpDelete]
+        [Route("api/Contacts/{id}")]
         [Authorize]
         public IActionResult DeleteContact(Guid id)
         {
@@ -107,6 +109,7 @@ namespace BlastAsia.DigiBook.API.Controllers
      
 
         [HttpPut]
+        [Route("api/Contacts/{id}")]
         [Authorize]
         public IActionResult UpdateContact(
             //  [Bind("FirstName","LastName","MobilePhone","StreetAddress","CitryAddress","ZipCode","Country",
@@ -141,6 +144,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPatch]
+        [Route("api/Contacts/{id}")]
         [Authorize]
         public IActionResult PatchContact(
             [FromBody]JsonPatchDocument patchedContact, Guid id)

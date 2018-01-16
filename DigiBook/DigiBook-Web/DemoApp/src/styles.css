@@ -2,6 +2,7 @@
 body{
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', sans-serif;
 }
 header .ui-menubar {
     background: #E53A40;
@@ -30,7 +31,12 @@ div #sidenav .ui-menu{
 div #sidenav .ui-menuitem .ui-menuitem-link{ 
     padding: 10px;
 }
-
+#add{
+    float:left;
+}
+#searchGroup{
+    float:right;
+}
 p-panel p-header button{
     float:left;
 }

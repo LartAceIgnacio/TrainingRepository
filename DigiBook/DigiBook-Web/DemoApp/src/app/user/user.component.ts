@@ -44,6 +44,7 @@ export class UserComponent implements OnInit {
     tempUser.Email = this.form.value.Email;
     tempUser.Password = this.form.value.Password;
     tempUser.DisplayName = this.form.value.DisplayName;
+
     var url = `${this.baseUrl}/User`;
     this.http
         .post<User>(url, tempUser)
@@ -51,8 +52,12 @@ export class UserComponent implements OnInit {
     
     if (res) {
         var v = res;
+      
+        this.msgs.push({severity:'info', summary:'Register Sucess', detail:'Success'});
         console.log("User " + v.Username + " has been created.");
-        this.msgs.push({severity:'info', summary:'Register Sucess', detail:''});
+        setTimeout(() => {
+           
+        }, 3000);
         // redirect to login page
         this.router.navigate(["login"]);  
     }
@@ -62,7 +67,9 @@ export class UserComponent implements OnInit {
                 "register": "User registration failed."
             });
         }
-    }, error => console.log(error));
+    },
+     error => console.log(error));
+
   }
 
 onBack() {

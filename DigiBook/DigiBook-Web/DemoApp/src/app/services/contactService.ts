@@ -27,15 +27,15 @@ constructor(private http: HttpClient) {}
     addContacts(addContacts) {
         return this.http.post('http://localhost:55775/api/contacts/',addContacts)
                 .toPromise()
-                .then(data => { return data as Contact[]; });
+                .then(data => { return data as Contact; });
     }
     saveContacts(id,contact) {
-        return this.http.put('http://localhost:55775/api/contacts/?id='+ id, contact)
+        return this.http.put('http://localhost:55775/api/contacts/'+ id, contact)
                 .toPromise()
-                .then(data => { return data as Contact[]; });
+                .then(data => { return data as Contact; });
     }
     deleteContacts(contactId) {
-        return this.http.delete('http://localhost:55775/api/contacts/?id='+ contactId)
+        return this.http.delete('http://localhost:55775/api/contacts/'+ contactId)
                 .toPromise()
                 .then(()=>null);
     }

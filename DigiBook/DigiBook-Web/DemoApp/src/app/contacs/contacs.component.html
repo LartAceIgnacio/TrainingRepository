@@ -7,10 +7,15 @@
  [totalRecords]="totalRecords" (onLazyLoad)="paginate($event)" [lazy]="true" >
      <p-header>
         <span> 
-            <button type="button" pButton icon="fa-plus" (click)="addContact()" ></button>  
+            <button id="add" type="button" pButton icon="fa-plus" (click)="addContact()" ></button>  
             Contacts
-            <input #gb type="text" pInputText size="40" placeholder="Search">
-            <i class="fa fa-search" ></i>
+            <div id="searchGroup" class="ui-inputgroup">
+                <input type="text" pInputText size="30" placeholder="Search" [(ngModel)]="searchFilter">
+                <button pButton id="search" type="button" icon="fa-search" (click)="searchContact()"></button>            
+            </div>
+            <!-- <button pButton id="search" type="button" icon="fa-search" (click)="searchContact()" placeholder="Search"></button>
+            <input type="text" pInputText size="30" placeholder="Search" [(ngModel)]="searchFilter"> -->
+            <!-- <i class="fa fa-search" ></i> -->
         </span>
     </p-header>
     <p-column styleClass="col-button">

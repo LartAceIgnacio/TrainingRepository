@@ -50,8 +50,6 @@ constructor(private contactService: ContactService, private fb: FormBuilder, pri
 @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
   
-  
-
     this.contactForm = this.fb.group({
       'firstname': new FormControl('', Validators.required),
       'lastname': new FormControl('', Validators.required),
@@ -117,14 +115,19 @@ constructor(private contactService: ContactService, private fb: FormBuilder, pri
   saveContact() {
     let tmpContactList = [...this.contactList];
     if(this.isNewContact){
-        this.contactService.addContacts(this.selectedContact);
-        tmpContactList.push(this.selectedContact);
+        this.contactService.addContacts(this.selectedContact).then(contacts => {
+          tmpContactList.push(contacts);
+          this.contactList = tmpContactList;
+          this.selectedContact=null;
+        });
         this.submitted = true;
         this.msgs = [];
         this.msgs.push({severity:'info', summary:'Success', detail:'Added Contact Details'});
     }else{
         this.contactService.saveContacts(this.selectedContact.contactId, this.selectedContact).then(contacts =>{
         tmpContactList[this.contactList.indexOf(this.selectedContact)] = this.selectedContact;
+          this.contactList=tmpContactList;
+          this.selectedContact=null;
         });
         this.submitted = true;
         this.msgs = [];
@@ -153,10 +156,10 @@ constructor(private contactService: ContactService, private fb: FormBuilder, pri
   }
 
   deleteContact(contacts : Contact){
+     this.contactForm.disable(); 
      this.selectedContact = contacts;
      this.displayDialog = true;
      this.delete = true;
-     this.contactForm.disable(); 
   }
   
   delContact(){

@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MenuModule, PanelModule, TabViewModule, DataTableModule, SharedModule, DialogModule, InputTextModule, ButtonModule,
          MenuItem, TreeTableModule, TreeNode, DropdownModule, ToggleButtonModule, GrowlModule, InputSwitchModule, CalendarModule,
-         MenubarModule, BreadcrumbModule, ConfirmDialogModule, ConfirmationService, ChartModule, PaginatorModule } from "primeng/primeng";
+         MenubarModule, BreadcrumbModule, ConfirmDialogModule, ConfirmationService, ChartModule, PaginatorModule, CheckboxModule } from "primeng/primeng";
 import { FormsModule } from '@angular/forms';
 import { Validators, FormControl, FormGroup, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Routes} from '@angular/router';
@@ -82,6 +82,7 @@ const appRoutes: Routes = [
     ConfirmDialogModule,
     ChartModule,
     PaginatorModule, 
+    CheckboxModule,
     
     RouterModule.forRoot(appRoutes)
   ],

@@ -3,39 +3,39 @@
   <h2 class="login-title">{{title}}</h2>
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
       <div *ngIf="form.errors?.auth"
-          class="error-panel help-block">
+          class="error-panel help-block ui-message ui-messages-error ui-corner-all">
           {{form.errors.auth}}
       </div>
 
       <div class="ui-g ui-fluid" [ngClass]="{ 'has-error has-feedback' : hasError('Username') }">
             <div class="ui-g-12">
                 <div class="ui-inputgroup">
-                    <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
-                    <input type="text" formControlName="Username" pInputText placeholder="Username or Email address"/>            
+                    <span class="ui-inputgroup-addon"><i class="fa fa-user fa-lg"></i></span>
+                    <input type="text" class="txtbox" formControlName="Username" pInputText placeholder="Username or Email address"/>            
                 </div>
                 <span *ngIf="hasError('Username')" class="glyphicon glyphicon-remove form-control-feedback" 
                            aria-hidden="true"></span>
-                <div *ngIf="hasError('Username')" class="help-block"> \
+                <div *ngIf="hasError('Username')" class="help-block ui-message ui-messages-error ui-corner-all">
                         Please insert a valid username or e-mail address. 
-                   </div>  
+                </div>  
             </div>
       </div>
       <div class="ui-g ui-fluid" [ngClass]="{ 'has-error has-feedback' :hasError('Password') }">
             <div class="ui-g-12 ">
                 <div class="ui-inputgroup">
-                    <span class="ui-inputgroup-addon"><i class="fa fa-lock"></i></span>
-                    <input type="password" formControlName="Password" pInputText placeholder="Password">           
+                    <span class="ui-inputgroup-addon"><i class="fa fa-lock fa-lg"></i></span>
+                    <input class="txtbox" type="password" formControlName="Password" pInputText placeholder="Password">           
                 </div>
                 <span *ngIf="hasError('Password')" class="glyphicon glyphicon-remove form-control-feedback" 
                 aria-hidden="true"></span>
-          <div *ngIf="hasError('Password')" class="help-block"> Please insert a password. </div>
+             <div *ngIf="hasError('Password')" class="help-block ui-message ui-messages-error ui-corner-all"> 
+                 Please insert a password. 
+             </div>
             </div>
       </div>
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" name="remember" value="remember" />Remember me
-        </label>
-    </div>
+            <div class="checkbox">   
+                <p-checkbox name="remember" value="remember"></p-checkbox>Remember me
+            </div>
     <button pButton type="submit" [disabled]="form.invalid" class="ui-button-primary btn-signin"  label="Sign In">
     </button>
 </form>
