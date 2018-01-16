@@ -16,7 +16,11 @@ export class RegisterComponent {
     baseUrl: string = API_URL;
 
     regexEmailFormat: string = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+    display: boolean = true;
 
+    showDialog() {
+      this.display = true;
+    }
     constructor(private router: Router,
         private fb: FormBuilder,
         private http: HttpClient
@@ -26,6 +30,7 @@ export class RegisterComponent {
         this.createForm();
     }
     ngOnInit() {
+        this.form.enable();
         // this.loading = true;
         // setTimeout(() => {
         //   this.employeeService.getEmployees().then(employees => this.employeeList = employees);

@@ -22,6 +22,11 @@ export class LoginComponent {
     this.createForm();
   }
 
+  display: boolean = true;
+
+  showDialog() {
+    this.display = true;
+  }
   createForm() {
     this.form = this.fb.group({
       Username: ['', Validators.required],

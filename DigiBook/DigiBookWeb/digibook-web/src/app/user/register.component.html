@@ -1,4 +1,4 @@
-<p-panel header="Reigstration">
+<p-dialog header="Registration Details" [(visible)]="display" modal="modal" width="500" [responsive]="true">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="register-form">
         <div class="ui-g">
             <label for="userName" class="ui-g-12 ui-md-2">User Name:</label>
@@ -52,4 +52,4 @@
             <button pButton icon="fa fa-plus" type="submit" label="Register"></button>
         </div>
     </form>
-</p-panel>
+</p-dialog>
