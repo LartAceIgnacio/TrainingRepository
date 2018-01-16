@@ -27,6 +27,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         {
             // Instantiate the required classes through DI DbContext = context;
             RoleManager = roleManager;
+            DbContext = context;
             UserManager = userManager;
             Configuration = configuration;
             // Instantiate a single JsonSerializerSettings object

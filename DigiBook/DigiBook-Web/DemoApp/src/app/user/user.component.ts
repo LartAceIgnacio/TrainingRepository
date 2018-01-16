@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from '../services/constants';
+import {Message} from 'primeng/primeng';
 
 @Component({
   selector: 'app-user',
@@ -13,6 +14,7 @@ export class UserComponent implements OnInit {
   title: string;
   form: FormGroup;
   baseUrl: string = API_URL;
+  msgs: Message[] = [];
   
   constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) { 
       this.title = "New User Registration";
@@ -50,7 +52,7 @@ export class UserComponent implements OnInit {
     if (res) {
         var v = res;
         console.log("User " + v.Username + " has been created.");
-
+        this.msgs.push({severity:'info', summary:'Register Sucess', detail:''});
         // redirect to login page
         this.router.navigate(["login"]);  
     }

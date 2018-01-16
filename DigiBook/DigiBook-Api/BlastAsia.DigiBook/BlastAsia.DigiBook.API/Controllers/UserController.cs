@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Cors;
 namespace BlastAsia.DigiBook.API.Controllers
 {
     [EnableCors("demoApp")]
-    [Produces("application/json")]
     [Route("api/User")]
     public class UserController : BaseApiController
     {
