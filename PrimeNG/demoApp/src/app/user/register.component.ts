@@ -28,9 +28,9 @@ export class RegisterComponent {
             Email: ['',
                 [Validators.required,
                 Validators.email] ],
-               Password: ['', Validators.required],
-               PasswordConfirm: ['', Validators.required],
-               DisplayName: ['', Validators.required]
+            Password: ['', Validators.required],
+            PasswordConfirm: ['', Validators.required],
+            DisplayName: ['', Validators.required]
           }, {
             validator: this.passwordConfirmValidator
       }); 

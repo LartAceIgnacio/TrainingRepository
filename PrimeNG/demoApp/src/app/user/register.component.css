@@ -4,3 +4,17 @@
     padding: 5px;
     background: rgba(0,0,0,.1);
 }
+
+.content-margin{
+    position: absolute;
+    top:100px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 60%;
+}
+
+.float-right{
+    float: right;
+}

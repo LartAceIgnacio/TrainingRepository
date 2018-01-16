@@ -1,7 +1,7 @@
 <header id="header">
     <div id="top-logo">
         <h2><i class="fa fa-book" aria-hidden="true"></i> 
-           <a [routerLink]="['/login']">DigiBook</a>
+           DigiBook
         </h2>
     </div>
     <div id="top-menu">
@@ -20,7 +20,7 @@
     </div>
 </header>
 
-<div class="ui-g">
+<div id="content-margin" class="ui-g">
      <div *ngIf="this.auth.isLoggedIn()" class="ui-g-12 ui-md-2 full-height">
          <!-- <p-menu [model]="menuItems"></p-menu> -->
          <p-menu [model]="menuItems"></p-menu>
