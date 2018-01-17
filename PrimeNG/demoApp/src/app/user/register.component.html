@@ -58,10 +58,8 @@
             </div>
             </div>
         <br><br>
-        <div class="ui-g float-right">
-            <div class ="ui-g-12">
-            <button pButton type="submit" label="Register"></button>
-            </div>
+        <div class ="ui-g-12 ui-md-2 ui-md-offset-10">
+            <button pButton type="button" label="Register" [disabled]="!form.valid"></button>
         </div>
     </div>
 </p-panel>

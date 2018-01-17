@@ -98,29 +98,43 @@ export class AppointmentsComponent implements OnInit {
   }
 
   paginate(event) {
-    if (this.ctr == 0) {
-      this.contactService.getContacts().then(contacts => {
-      this.guestList = contacts
-      this.employeeService.getEmployees().then(employees =>{
-        this.hostList = employees
-        this.appointmentService.getAppointments().then(appointments => {
-          this.appointmentList = appointments
-          for(let i=0;i < this.appointmentList.length; i++){
-            this.appointmentList[i].guestName = this.guestList.find(id=>id.contactId==this.appointmentList[i].guestId).firstName;
-            this.appointmentList[i].hostName = this.hostList.find(id=>id.employeeId==this.appointmentList[i].hostId).firstName;
-            this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate)
-          }});
-      });
-    });
-    }
-    else {
+    // if (this.ctr == 0) {
+    //   this.contactService.getContacts().then(contacts => {
+    //   this.guestList = contacts
+    //   this.employeeService.getEmployees().then(employees =>{
+    //     this.hostList = employees
+    //     this.appointmentService.getAppointments().then(appointments => {
+    //       this.appointmentList = appointments
+    //       for(let i=0;i < this.appointmentList.length; i++){
+    //         this.appointmentList[i].guestName = this.guestList.find(id=>id.contactId==this.appointmentList[i].guestId).firstName;
+    //         this.appointmentList[i].hostName = this.hostList.find(id=>id.employeeId==this.appointmentList[i].hostId).firstName;
+    //         this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate)
+    //       }});
+    //   });
+    // });
+    // }
+    // else {
       this.globalService.getSomethingWithPagination<PaginationResult<Appointment>>("Appointments", event.first, event.rows,
         this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
           this.paginationResult = paginationResult;
           this.appointmentList = this.paginationResult.results;
           this.totalRecords = this.paginationResult.totalRecords;
+          this.contactService.getContacts().then(contacts => {
+              this.guestList = contacts
+              this.employeeService.getEmployees().then(employees =>{
+                this.hostList = employees
+                // this.appointmentService.getAppointments().then(appointments => {
+                //   this.appointmentList = appointments
+                  for(let i=0;i < this.appointmentList.length; i++){
+                    this.appointmentList[i].guestName = this.guestList.find(id=>id.contactId==this.appointmentList[i].guestId).firstName;
+                    this.appointmentList[i].hostName = this.hostList.find(id=>id.employeeId==this.appointmentList[i].hostId).firstName;
+                    this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate).toLocaleDateString();
+                  }
+                    // }});
+              });
+            });
         });
-    }
+    // }
   }
 
   searchAppointment() {
@@ -136,11 +150,11 @@ export class AppointmentsComponent implements OnInit {
 
   setCurrentPage(n: number) {
     this.dataTable.reset();
-    let paging = {
-      first: ((n - 1) * this.dataTable.rows),
-      rows: this.dataTable.rows
-    };
-    this.dataTable.paginate();
+    // let paging = {
+    //   first: ((n - 1) * this.dataTable.rows),
+    //   rows: this.dataTable.rows
+    // };
+    // this.dataTable.paginate();
   }
 
   addAppointment(){
