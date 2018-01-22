@@ -1,5 +1,6 @@
 ﻿using BlastAsia.DigiBook.Domain.Exceptions;
 using BlastAsia.DigiBook.Domain.Flights;
+using BlastAsia.DigiBook.Domain.Flights.Exceptions;
 using BlastAsia.DigiBook.Domain.Models.Flights;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -25,10 +26,8 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
             {
                 CityOfOrigin = "123",
                 CityOfDestination = "123",
-                ExpectedTimeOfArrivalDate = DateTime.Today,
-                ExpectedTimeOfArrivalTime = new DateTime().TimeOfDay,
-                ExpectedTimeOfDepartureDate = DateTime.Today,
-                ExpectedTimeOfDepartureTime = new DateTime().TimeOfDay,
+                ExpectedTimeOfArrival = DateTime.Now.AddHours(1),
+                ExpectedTimeOfDeparture = DateTime.Now.AddHours(1),
                 FlightCode = "OOODDDYYMMddNN",
                 DateCreated = new Nullable<DateTime>(),
                 DateModified = new Nullable<DateTime>()
@@ -135,6 +134,24 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
                 .Verify(c => c.Create(flight), Times.Never());
             Assert.ThrowsException<MaximumLengthException>(
                 () => sut.Save(flight.FlightId, flight));
+        }
+        [TestMethod]
+        public void Save_WithETAGreaterThanETD_ThrowsDateAndTimeException()
+        {
+            // Arrange
+
+            flight.ExpectedTimeOfArrival = DateTime.Now.AddHours(2);
+            flight.ExpectedTimeOfDeparture = DateTime.Now.AddHours(1);
+
+            // Act
+
+            // Assert
+
+            mockFlightRepository
+                .Verify(c => c.Create(flight), Times.Never());
+            Assert.ThrowsException<DateAndTimeException>(
+                () => sut.Save(flight.FlightId, flight));
+
         }
     }
 }

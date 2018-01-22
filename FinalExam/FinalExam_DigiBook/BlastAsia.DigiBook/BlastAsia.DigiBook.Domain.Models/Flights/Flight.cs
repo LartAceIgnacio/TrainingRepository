@@ -7,13 +7,11 @@ namespace BlastAsia.DigiBook.Domain.Models.Flights
         public Guid FlightId { get; set; }
         public string CityOfOrigin { get; set; }
         public string CityOfDestination { get; set; }
-        public DateTime ExpectedTimeOfArrivalDate { get; set; }
-        public TimeSpan ExpectedTimeOfArrivalTime { get; set; }
-        public DateTime ExpectedTimeOfDepartureDate { get; set; }
-        public TimeSpan ExpectedTimeOfDepartureTime { get; set; }
+        public DateTime ExpectedTimeOfArrival { get; set; }
+        public DateTime ExpectedTimeOfDeparture { get; set; }
         public string FlightCode { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
-
+        
     }
 }

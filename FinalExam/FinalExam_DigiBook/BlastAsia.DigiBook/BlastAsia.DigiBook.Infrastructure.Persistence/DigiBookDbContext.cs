@@ -2,6 +2,7 @@
 using BlastAsia.DigiBook.Domain.Models.Appointments;
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Employees;
+using BlastAsia.DigiBook.Domain.Models.Flights;
 using BlastAsia.DigiBook.Domain.Models.Luigis;
 using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Infrastructure.Security;
@@ -27,6 +28,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Venue> Venues { get; set; }
         public DbSet<Token> Tokens { get; set; }
+        public DbSet<Flight> Flight { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
