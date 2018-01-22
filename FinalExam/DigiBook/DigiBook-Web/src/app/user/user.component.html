@@ -1,0 +1,44 @@
+<div class="registerForm ui-g-12">
+<p-growl life="3000" [(value)]="msgs"> </p-growl>
+<p-panel class="ui-g-12 ui-md-12" header="Registration">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="ui-g">
+            <label for="displayName" class="ui-g-12 ui-md-3">Display Name:</label>
+            <input id="displayName" formControlName="DisplayName" class="ui-g-12 ui-md-9 txtbox" placeholder="Enter display name"  type="text"/>
+            <div class="ui-message ui-messages-error ui-corner-all ui-g-12 ui-md-10" *ngIf="!form.controls['DisplayName'].valid&&form.controls['DisplayName'].dirty">
+                    <i class="fa fa-close"></i>
+                    DisplayName is required
+                </div>
+     </div>
+    <div class="ui-g">
+        <label for="userName" class="ui-g-12 ui-md-3">User Name:</label>
+        <input id="userName" class="ui-g-12 ui-md-9 txtbox" placeholder="Enter user name"
+               formControlName="Username"  type="text"/>
+        <div class="ui-message ui-messages-error ui-corner-all ui-g-12" *ngIf="!form.controls['Username'].valid&&form.controls['Username'].dirty">
+            <i class="fa fa-close"></i>
+            Username is required
+        </div>
+      </div>
+    <div class="ui-g">
+        <label for="email" class="ui-g-12 ui-md-3">Email:</label>
+        <input id="email" class="ui-g-12 ui-md-9 txtbox" formControlName="Email"
+            placeholder="Enter email"  type="text"/>
+        <div class="ui-message ui-messages-error ui-corner-all ui-g-12" *ngIf="!form.controls['Email'].valid&&form.controls['Email'].dirty">
+            <i class="fa fa-close"></i>
+            Email is required
+        </div>
+    </div>
+      <div class="ui-g">
+          <label for="password" class="ui-g-12 ui-md-3">Password:</label>
+          <input id="password" class="ui-g-12 ui-md-9 txtbox" formControlName="Password"
+              placeholder="Enter password"  type="password"/>
+        </div>
+        <div class="ui-g">
+            <label for="confirmPassword" class="ui-g-12 ui-md-3">Confirm Password:</label>
+            <input id="confirmPassword" class="ui-g-12 ui-md-9 txtbox"
+                placeholder="Confirm password"  type="password"/>
+          </div>
+          <button type="submit" pButton class="ui-button-primary" label="Register"></button>
+  </form>
+  </p-panel>
+</div>
