@@ -73,11 +73,6 @@ export class EmployeesComponent implements OnInit {
 
   setCurrentPage(n: number) {
     this.dataTable.reset();
-    // let paging = {
-    //   first: ((n - 1) * this.dataTable.rows),
-    //   rows: this.dataTable.rows
-    // };
-    //this.dataTable.paginate();
   }
 
   addEmployee(){

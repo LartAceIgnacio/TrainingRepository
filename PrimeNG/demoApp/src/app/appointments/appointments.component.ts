@@ -175,8 +175,9 @@ export class AppointmentsComponent implements OnInit {
 
     if(this.isNewAppointment){
       this.appointmentService.postAppointments(this.selectedAppointment).then(appointment => {
+        appointment.guestName = this.guestList.find(id=>id.contactId==appointment.guestId).firstName;
+        appointment.hostName = this.hostList.find(id=>id.employeeId==appointment.hostId).firstName;
         tmpAppointmentList.push(appointment);
-        //tmpAppointmentList.push(this.appointmentList[i].guestName = this.guestList.find(id=>id.contactId==this.appointmentList[i].guestId).firstName);
         this.appointmentList=tmpAppointmentList;       
         this.selectedAppointment=null;
       });

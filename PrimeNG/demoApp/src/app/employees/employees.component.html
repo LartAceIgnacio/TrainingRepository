@@ -2,14 +2,12 @@
 <p-breadcrumb [model]="brEmployee" [home]="home"></p-breadcrumb>
 
   <div class="ui-g">
-     <!-- <p-dataTable [value]="employeeList" selectionMode="single" [(selection)]="selectedEmployee" [paginator]="true" [rows]="10" [responsive]="true"> -->
-        <p-dataTable #dt [value]="employeeList" [rows]="6" [paginator]="true" [pageLinks]="6" [responsive]="true" 
+    <p-dataTable #dt [value]="employeeList" [rows]="6" [paginator]="true" [pageLinks]="5" [responsive]="true" 
         (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
         <p-header>
             <button type="button" pButton class="float-left" (click)="addEmployee()" icon="fa-plus"></button>
             Employees
             <div class="float-right">
-                <!-- <input #gb type="text" pInputText size="25" placeholder="Search"> -->
                 <input #gb type="text" pInputText size="25" placeholder="Search" [(ngModel)]="searchFilter">
                 <button pButton type="button" icon="fa-search" (click)="searchEmployee()"></button>
             </div>

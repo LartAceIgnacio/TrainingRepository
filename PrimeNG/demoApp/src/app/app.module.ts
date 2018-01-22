@@ -34,17 +34,20 @@ import { AuthInterceptor } from "./services/auth-interceptor";
 import { StatisticComponent } from './statistic/statistic.component';
 import { RegisterComponent } from './user/register.component';
 import { AuthResponseInterceptor } from "./services/auth-response-interceptor";
+import { AppRoutingModule } from "./app-routing.module";
+import { ReservationsComponent } from './reservations/reservations.component';
+import { DepartmentsComponent } from './departments/departments.component';
 
-const appRoutes: Routes =[
-  {path:"", redirectTo:"/dashboard", pathMatch:"full"},
-  {path:"dashboard", component:DashboardComponent},
-  {path:"employees", component:EmployeesComponent},
-  {path:"contacts", component:ContactsComponent},
-  {path:"appointments", component:AppointmentsComponent},
-  {path:"venues", component:VenuesComponent},
-  {path:"login", component:LoginComponent},
-  {path:"register", component:RegisterComponent}
-]
+// const appRoutes: Routes =[
+//   {path:"", redirectTo:"/dashboard", pathMatch:"full"},
+//   {path:"dashboard", component:DashboardComponent},
+//   {path:"employees", component:EmployeesComponent},
+//   {path:"contacts", component:ContactsComponent},
+//   {path:"appointments", component:AppointmentsComponent},
+//   {path:"venues", component:VenuesComponent},
+//   {path:"login", component:LoginComponent},
+//   {path:"register", component:RegisterComponent}
+// ]
 
 @NgModule({
   declarations: [
@@ -57,7 +60,9 @@ const appRoutes: Routes =[
     VenuesComponent,
     LoginComponent,
     StatisticComponent,
-    RegisterComponent
+    RegisterComponent,
+    ReservationsComponent,
+    DepartmentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +75,7 @@ const appRoutes: Routes =[
     DropdownModule,
     FormsModule,
     InputTextareaModule,
-    RouterModule.forRoot(appRoutes),
+    // RouterModule.forRoot(appRoutes),
     ButtonModule,
     InputTextModule,
     HttpModule,
@@ -84,7 +89,8 @@ const appRoutes: Routes =[
     BreadcrumbModule,
     DialogModule,
     ConfirmDialogModule,
-    ChartModule
+    ChartModule,
+    AppRoutingModule
   ],
   providers: [
     AuthService,
