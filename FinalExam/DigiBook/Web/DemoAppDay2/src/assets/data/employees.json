@@ -1,0 +1,34 @@
+{
+    "data": [
+        {
+            "Name": "Emmanuel P. Magadia",
+            "Address": "#245, Mayuro Rosario Batangas",
+            "MobileNumber": "09751918607",
+            "Rating": "99"
+        },
+        {
+            "Name": "Kyrie Irving",
+            "Address": "#11, Boston Celtics",
+            "MobileNumber": "09751918607",
+            "Rating": "100"
+        },
+        {
+            "Name": "Curry Irving",
+            "Address": "#1130, Boston Warriors",
+            "MobileNumber": "09751918607",
+            "Rating": "100"
+        },
+        {
+            "Name": "Kevin James",
+            "Address": "#2335, Golden State Cavaliers",
+            "MobileNumber": "09751918607",
+            "Rating": "100"
+        },
+        {
+            "Name": "Stephen Irving",
+            "Address": "#6969, Golden State Cavaliers",
+            "MobileNumber": "09751918607",
+            "Rating": "100"
+        }
+    ]
+}

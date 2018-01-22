@@ -1,0 +1,98 @@
+<p-panel header="Registration">
+  <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+
+    <div class="ui-g">
+      <label for="userName" class="ui-g-12 ui-md-2">First Name</label>
+      <input id="firstName" class="ui-g-12 ui-md-10" placeholder="Enter first name" type="text" required formControlName="FirstName"
+      />
+      <div class="ui-g-12 ui-md-2"></div>
+      <div class="ui-g-12 ui-md-10">
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!regForm.controls['FirstName'].valid&&regForm.controls['FirstName'].dirty">
+          <i class="fa fa-close"></i>
+          Required!
+        </div>
+      </div>
+    </div>
+    
+    <div class="ui-g">
+      <label for="userName" class="ui-g-12 ui-md-2">Last Name</label>
+      <input id="lastName" class="ui-g-12 ui-md-10" placeholder="Enter last name" type="text" required formControlName="LastName"
+      />
+      <div class="ui-g-12 ui-md-2"></div>
+      <div class="ui-g-12 ui-md-10">
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!regForm.controls['LastName'].valid&&regForm.controls['LastName'].dirty">
+          <i class="fa fa-close"></i>
+          Required!
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g">
+      <label for="firstName" class="ui-g-12 ui-md-2">User Name:</label>
+      <input id="userName" class="ui-g-12 ui-md-10" placeholder="Enter user name" type="text" required formControlName="Username"
+      />
+      <div class="ui-g-12 ui-md-2"></div>
+      <div class="ui-g-12 ui-md-10">
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!regForm.controls['Username'].valid&&regForm.controls['Username'].dirty">
+          <i class="fa fa-close"></i>
+          Required!
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g">
+      <label for="userName" class="ui-g-12 ui-md-2">Email:</label>
+      <input id="email" class="ui-g-12 ui-md-10" placeholder="Enter email" type="email" required formControlName="Email" />
+      <div class="ui-g-12 ui-md-2"></div>
+      <div class="ui-g-12 ui-md-10">
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!regForm.controls['Email'].valid&&regForm.controls['Email'].dirty">
+          <i class="fa fa-close"></i>
+          Required!
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g">
+      <label for="password" class="ui-g-12 ui-md-2">Password:</label>
+      <input id="password" class="ui-g-12 ui-md-10" placeholder="Enter password" type="password" required formControlName="Password"
+      />
+      <div class="ui-g-12 ui-md-2"></div>
+      <div class="ui-g-12 ui-md-10">
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!regForm.controls['Password'].valid&&regForm.controls['Password'].dirty">
+          <i class="fa fa-close"></i>
+          Required!
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g">
+      <label for="confirmPassword" class="ui-g-12 ui-md-2">Confirm Password:</label>
+      <input id="confirmPassword" class="ui-g-12 ui-md-10" placeholder="Confirm password" type="password" required formControlName="PasswordConfirm"
+      />
+      <div class="ui-g-12 ui-md-2"></div>
+      <div class="ui-g-12 ui-md-10">
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!regForm.controls['PasswordConfirm'].valid&&regForm.controls['PasswordConfirm'].dirty">
+          <i class="fa fa-close"></i>
+          Required!
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g">
+      <label for="userName" class="ui-g-12 ui-md-2">Display Name:</label>
+      <input id="displayName" class="ui-g-12 ui-md-10" placeholder="Enter display name" type="text" required formControlName="DisplayName"
+      />
+      <div class="ui-g-12 ui-md-2"></div>
+      <div class="ui-g-12 ui-md-10">
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!regForm.controls['DisplayName'].valid&&regForm.controls['DisplayName'].dirty">
+          <i class="fa fa-close"></i>
+          Required!
+        </div>
+      </div>
+    </div>
+
+    <button pButton icon="fa fa-check" label="Register" class="ui-button-success" type="submit" [disabled]="regForm.invalid">
+    </button>
+    <button pButton type="button" icon="fa fa-window-close" label="Cancel" class="ui-button-danger" (click)="onBack()"></button>
+  </form>
+</p-panel>
