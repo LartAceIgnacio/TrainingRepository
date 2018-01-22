@@ -1,0 +1,40 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <p-panel>
+        <p-header>Login</p-header>
+        <div *ngIf="form.errors?.auth" class="error-panel help-block">
+            {{form.errors.auth}}
+        </div>
+        Username
+        <input type="text" required formControlName="Username" class="ui-md-12" placeholder="Username or Email address" />
+        <span *ngIf="hasError('Username')" class="glyphicon glyphicon-remove form-control-
+                             feedback" aria-hidden="true"></span>
+        <div *ngIf="hasError('Username')" class="help-block">
+            Please insert a valid username or e-mail address.
+        </div>
+        <br> Password
+        <input type="password" required formControlName="Password" class="ui-md-12" placeholder="Password" />
+        <span *ngIf="hasError('Password')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+        <div *ngIf="hasError('Password')">
+            Please insert a password.
+        </div>
+        <br>
+
+
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="remember" value="remember" />Remember me
+            </label>
+
+            <a href="#">
+                Forgot the password?
+            </a>
+            <button type="submit" pButton label="Sign in!" [disabled]="form.invalid" class="ui-button-success  ui-md-12"></button>
+
+            <br>
+            <br>
+            <br> Don't have an account?
+            <a [routerLink]="['/register']">Sign up!</a>
+        </div>
+    </p-panel>
+
+</form>

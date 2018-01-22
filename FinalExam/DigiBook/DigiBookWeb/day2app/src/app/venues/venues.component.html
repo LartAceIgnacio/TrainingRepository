@@ -1,0 +1,38 @@
+<p-panel header="Venue List">
+  <div class="ui-g">
+    <div class="ui-g-12 ui-md-12">
+      <p-dataTable [value]="venueList" selectionMode="single" [(selection)]="selectedVenue"  (onRowSelect)="onRowSelect($event)"
+        [paginator]="true" rows="10" [responsive]="true">
+        <p-column field="venueName" header="Venue Name" [sortable]="true"></p-column>
+        <p-column field="description" header="Description" [sortable]="true"></p-column>
+        
+        <p-footer>
+          <div class="ui-helper-clearfix" style="width:100%">
+            <button type="button" pButton icon="fa-plus" style="float:left" (click)="addVenue()" label="Add"></button>
+          </div>
+        </p-footer>
+      </p-dataTable>
+    </div>
+  </div>
+</p-panel>
+
+<p-panel header="Venue Details" *ngIf="selectedVenue">
+  <div class="ui-g">
+    <div class="ui-g-12 ui-md-6">
+      <label for="" class="ui-g-12 ui-md-4">Venue Name</label>
+      <input class="ui-g-12 ui-md-8" type="text" [(ngModel)]="selectedVenue.venueName" pInputText>
+    </div>
+    <div class="ui-g-12 ui-md-6">
+      <label for="" class="ui-g-12 ui-md-4">Description</label>
+      <input class="ui-g-12 ui-md-8" type="text" [(ngModel)]="selectedVenue.description" pInputText>
+    </div>
+  </div>
+
+  <div class="ui-g">
+    <button type="button" pButton icon="fa-trash" style="float:left" class="ui-button-danger" *ngIf="selectedVenue" (click)="deleteVenue()"
+      label="Delete"></button>
+    <button icon="fa fa-ban" (click)="cancelVenue()" pButton label="Cancel" class="ui-button-warning"></button>
+    <button icon="fa fa-save" (click)="saveVenue()" pButton label="Submit" class="ui-button-primary"></button>
+
+  </div>
+</p-panel>

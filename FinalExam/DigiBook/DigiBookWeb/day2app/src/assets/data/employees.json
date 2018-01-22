@@ -1,0 +1,28 @@
+{
+    "data": [
+        {
+            "name": "Renz Nebran",
+            "address": "Quezon City",
+            "phone": "09123456789",
+            "rating": "69"
+        },
+        {
+            "name": "Julius Nebran",
+            "address": "Manila City",
+            "phone": "09123456789",
+            "rating": "99"
+        },
+        {
+            "name": "Karl Olsen",
+            "address": "Pasig City",
+            "phone": "091251267388",
+            "rating": "88"
+        },
+        {
+            "name": "Kevin Durant",
+            "address": "Mandaluyong City",
+            "phone": "09123456789",
+            "rating": "35"
+        }
+    ]
+}

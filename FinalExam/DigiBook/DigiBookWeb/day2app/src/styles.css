@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+*,body{
+    margin:0;
+    padding:0;
+   }
+
+#header {
+    background-color: #20272a;
+    height: 70px;
+    top: 0;
+    width:100%;
+    position: relative;
+    z-index: 1;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;   
+}
+#header ul li{
+    color:white;
+    float:right;
+    list-style: none;
+    padding:25px;
+}
+#header ul li a{
+    color:#fff;
+    text-decoration:none;
+
+}
+#header h2 {
+    line-height: 70px;
+    padding: 0 15px;
+    color: #fff;
+}
+.ui-message{
+    text-align: center;
+}
+.ui-search-bar{
+    float: right;
+}
+.ui-center-action{
+    text-align:center;
+}
+.header-left{
+    text-align: left;
+    padding:5px;
+}
+#side-bar {
+    width: 15.5em;
+    height: 100vh;
+}

@@ -1,0 +1,17 @@
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Api.deps.json
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Api.runtimeconfig.json
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Api.runtimeconfig.dev.json
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Api.dll
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Api.pdb
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.dll
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.dll
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Domain.pdb
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\bin\Debug\netcoreapp1.1\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Api.csprojResolveAssemblyReference.cache
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Api.AssemblyInfo.cs
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Api.dll
+C:\Users\rnebran\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Api.pdb
+C:\Users\rnebran\documents\visual studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Api.csproj.CoreCompileInputs.cache
+C:\Users\rnebran\documents\visual studio 2017\Projects\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Api\obj\Debug\netcoreapp1.1\BlastAsia.DigiBook.Api.AssemblyInfoInputs.cache
