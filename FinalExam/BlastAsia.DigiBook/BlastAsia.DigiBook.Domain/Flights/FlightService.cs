@@ -7,6 +7,7 @@ namespace BlastAsia.DigiBook.Domain.Flights
     {
         private IFlightRepository flightRepository;
         private readonly int fixedLength = 3;
+        private int incrementalNumber = 1;
 
         public FlightService(IFlightRepository flightRepository)
         {
@@ -47,18 +48,20 @@ namespace BlastAsia.DigiBook.Domain.Flights
             {
                 throw new InclusiveArrivalAndDepartureTimeException("Departure time should be later than Arrival Time.");
             }
-            if (String.IsNullOrEmpty(flight.FlightCode))
-            {
-                throw new FlightCodeRequiredException("Flight code required");
-            }
             Flight result = null;
             var found = flightRepository.Retrieve(id);
             if (found == null)
             {
+                flight.DateCreated = DateTime.Now;
+                flight.DateModified = DateTime.Now;
+                flight.FlightCode = flight.CityOfOrigin + flight.CityOfDestination +flight.Etd.ToString("yy")
+                    + flight.Etd.ToString("MM") + flight.Etd.ToString("dd") + incrementalNumber.ToString().PadLeft(2, '0');
                 result = flightRepository.Create(flight);
+                incrementalNumber++;
             }
             else
             {
+                flight.DateModified = DateTime.Now;
                 result = flightRepository.Update(id, flight);
             }
             return result;

@@ -23,10 +23,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
                 CityOfOrigin = "MNL",
                 CityOfDestination = "LGN",
                 Eta = DateTime.Now.AddHours(2),
-                Etd = DateTime.Now.AddHours(3),
-                FlightCode = "MNLLGN18012201",
-                DateCreated = DateTime.Now,
-                DateModified = DateTime.Now.AddMinutes(10)
+                Etd = DateTime.Now.AddHours(3)
             };
             mockFlightRepository = new Mock<IFlightRepository>();
             sut = new FlightService(mockFlightRepository.Object);
@@ -61,6 +58,17 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
             sut.Save(flight.FlightId, flight);
 
             // Assert
+            mockFlightRepository.Verify(f => f.Create(flight), Times.Once);
+        }
+
+        [TestMethod]
+        public void Save_FlightWithValidData_ShouldReturnFlightCode()
+        {
+            // Act
+            sut.Save(flight.FlightId, flight);
+
+            // Assert
+            Assert.IsTrue(flight.FlightCode != null);
             mockFlightRepository.Verify(f => f.Create(flight), Times.Once);
         }
 
@@ -170,17 +178,6 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
 
             // Assert
             Assert.ThrowsException<InclusiveArrivalAndDepartureTimeException>(
-                () => sut.Save(flight.FlightId, flight));
-        }
-
-        [TestMethod]
-        public void Save_BlankFlightCode_ShouldReturnFlightCodeRequiredException()
-        {
-            // Arrange
-            flight.FlightCode = null;
-
-            // Assert
-            Assert.ThrowsException<FlightCodeRequiredException>(
                 () => sut.Save(flight.FlightId, flight));
         }
     }
