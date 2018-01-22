@@ -129,7 +129,7 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void PutLocation_WithEmptyVenue_ReturnsBadRequest()
+        public void PutLocation_WithEmptyLocation_ReturnsBadRequest()
         {
             // Act
             var result = sut.PutLocation(null, existingLocationId);
