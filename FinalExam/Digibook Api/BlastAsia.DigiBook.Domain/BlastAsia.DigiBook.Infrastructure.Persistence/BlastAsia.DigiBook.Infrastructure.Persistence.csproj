@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20180110075147_Initial Migration.cs" />
+    <Compile Remove="Migrations\20180110075653_Initial Migration.cs" />
+    <Compile Remove="Migrations\20180112093702_Added Token Table.cs" />
+    <Compile Remove="Migrations\20180115013049_Added Token Table.cs" />
+    <Compile Remove="Migrations\20180115013229_Added Token Table.cs" />
+    <Compile Remove="Migrations\20180115013435_Added Token Table.cs" />
+    <Compile Remove="Migrations\20180115015202_Initial Migration.cs" />
+    <Compile Remove="Migrations\20180115045003_Added Token Table.cs" />
+    <Compile Remove="Migrations\20180115082024_Change Table Name.cs" />
+    <Compile Remove="Migrations\20180115082445_Change Table Name.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlastAsia.DigiBook.Domain.Models\BlastAsia.DigiBook.Domain.Models.csproj" />
+    <ProjectReference Include="..\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
