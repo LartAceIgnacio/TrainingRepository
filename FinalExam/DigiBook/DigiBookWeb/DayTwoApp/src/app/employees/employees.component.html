@@ -1,0 +1,106 @@
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<p-panel>
+  <div class="ui-g">
+    <p-dataTable #dt [value]="employeeList" [paginator]="true" rows="10" [responsive]="true" [pageLinks]="5" (onLazyLoad)="paginate($event)"
+      [lazy]="true" [totalRecords]="totalRecords">
+      <p-header>
+        <div class="header-left">
+          <button pButton icon="fa fa-plus" (click)="showDialog()"></button> Employees
+          <div class="header-search">
+            <button type="button" pButton (click)="searchEmployee()" icon="fa-search"></button>
+            <input #gb type="text" size="20" placeholder="Search">
+          </div>
+        </div>
+      </p-header>
+      <p-column styleClass="col-button">
+        <ng-template let-Employee="rowData" pTemplate="body">
+          <button type="button" pButton (click)="editEmployee(Employee)" icon="fa-pencil"></button>
+          <button type="button" pButton (click)="deleteEmployee(Employee)" icon="fa-trash"></button>
+        </ng-template>
+      </p-column>
+      <p-column field="lastName" header="Last Name" [sortable]="true"></p-column>
+      <p-column field="firstName" header="First Name" [sortable]="true"></p-column>
+      <p-column field="mobilePhone" header="Mobile Phone" [sortable]="true"></p-column>
+      <p-column field="emailAddress" header="Email Address" [sortable]="true"></p-column>
+      <p-column field="officePhone" header="Office Phone" [sortable]="true"></p-column>
+      <p-column field="extension" header="Extension Number" [sortable]="true"></p-column>
+    </p-dataTable>
+  </div>
+</p-panel>
+
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+<form [formGroup]="userform">
+  <p-dialog header="Employee Details" [(visible)]="display" modal="modal" width="1000" [responsive]="true">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedEmployee">
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="lastName">Last Name: </label>
+        <input class="ui-g-12 ui-md-8" [disabled]="isDelete" id="lastName" formControlName="lastname" placeholder="Enter Last Name"
+          pInputText [(ngModel)]="selectedEmployee.lastName">
+
+        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty">
+          <i class="fa fa-close"></i> Last Name is required
+        </div>
+      </div>
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="firstName">First Name: </label>
+        <input class="ui-g-12 ui-md-8" [disabled]="isDelete" id="firstName" formControlName="firstname" placeholder="Enter First Name"
+          pInputText [(ngModel)]="selectedEmployee.firstName">
+
+        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty">
+          <i class="fa fa-close"></i> First Name is required
+        </div>
+      </div>
+
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="mobilePhone">Mobile Phone: </label>
+        <input class="ui-g-12 ui-md-8" [disabled]="isDelete" id="mobilePhone" formControlName="mobilephone" placeholder="Enter Mobile Phone"
+          pInputText [(ngModel)]="selectedEmployee.mobilePhone">
+
+        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['mobilephone'].valid&&userform.controls['mobilephone'].dirty">
+          <i class="fa fa-close"></i> Mobile Phone is required
+        </div>
+      </div>
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="emailAddress">Email Address: </label>
+        <input class="ui-g-12 ui-md-8" [disabled]="isDelete" id="emailAddress" formControlName="emailaddress" placeholder="Enter Email Address"
+          pInputText [(ngModel)]="selectedEmployee.emailAddress">
+
+        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['emailaddress'].valid&&userform.controls['emailaddress'].dirty">
+          <i class="fa fa-close"></i> Email Address is required
+        </div>
+      </div>
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="officePhone">Office Phone: </label>
+        <input class="ui-g-12 ui-md-8" [disabled]="isDelete" id="officePhone" formControlName="officephone" placeholder="Enter Office Phone"
+          pInputText [(ngModel)]="selectedEmployee.officePhone">
+
+        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['officephone'].valid&&userform.controls['officephone'].dirty">
+          <i class="fa fa-close"></i> Office Phone is required
+        </div>
+      </div>
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="extension">Extension Number: </label>
+        <input class="ui-g-12 ui-md-8" [disabled]="isDelete" id="extension" formControlName="extensionNumber" placeholder="Enter Extension Number"
+          pInputText [(ngModel)]="selectedEmployee.extension">
+
+        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['extensionNumber'].valid&&userform.controls['extensionNumber'].dirty">
+          <i class="fa fa-close"></i> Extension Number is required
+        </div>
+      </div>
+    </div>
+    <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix" *ngIf="isDelete">
+        <button pButton type="button" style="float:left" label="Delete" (click)="confirmDelete()" icon="fa fa-trash" iconPos="left"></button>
+        <button pButton type="button" style="float:left" label="Cancel" (click)="cancelEmployee()" icon="fa fa-ban" iconPos="left"></button>
+      </div>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix" *ngIf="!isDelete">
+        <button pButton type="button" style="float:left" label="Save & New" *ngIf="!isEdit" [disabled]="!userform.valid" (click)="newSaveEmployee()"
+          icon="fa fa-save" iconPos="left"></button>
+        <button pButton type="button" style="float:left" label="Save" (click)="saveEmployee()" [disabled]="!userform.valid" icon="fa fa-save"
+          iconPos="left"></button>
+        <button pButton type="button" style="float:left" label="Cancel" (click)="cancelEmployee()" icon="fa fa-ban" iconPos="left"></button>
+      </div>
+    </p-footer>
+  </p-dialog>
+</form>

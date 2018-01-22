@@ -1,0 +1,53 @@
+header {
+    top: 0;
+    height: 70px;
+    background-color: #f6a828;
+}
+
+header h2 {
+    margin-left: 15px;
+    line-height: 70px;
+    font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+    color: #ffff;
+    float: left;
+}
+
+
+header .header-right {
+    margin-right: 15px;
+    line-height: 70px;
+    float: right;
+}
+
+/* header .header-right button {
+    width: 70px;
+    height: 25px;
+    background-color:#f6a828;
+    color: #ffff;
+    border-color: #ffff;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+    cursor: pointer;
+} */
+
+.button {
+    background-color:#f6a828;
+    color: #ffff;
+    border-color: #ffff;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+}
+
+header .header-right ul li {
+    text-decoration: none;
+    list-style: none;
+}
+
+.ui-menu {
+    width: 15.5em;
+}
+

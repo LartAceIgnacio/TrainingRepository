@@ -1,0 +1,28 @@
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<p-panel>
+  <div class="ui-g">
+    <p-dataTable #dt [value]="inventoryList" [paginator]="true" rows="10" [responsive]="true" [pageLinks]="5" (onLazyLoad)="paginate($event)"
+      [lazy]="true" [totalRecords]="totalRecords">
+      <p-header>
+        <div class="header-left">
+          <button pButton icon="fa fa-plus" (click)="showDialog()"></button> Products
+          <div class="header-search">
+            <button type="button" pButton icon="fa-search"></button>
+            <input #gb type="text" size="20" placeholder="Search">
+          </div>
+        </div>
+      </p-header>
+      <p-column styleClass="col-button">
+        <ng-template let-Inventory="rowData" pTemplate="body">
+          <button type="button" pButton icon="fa-pencil"></button>
+          <button type="button" pButton icon="fa-trash"></button>
+        </ng-template>
+      </p-column>
+      <p-column field="productName" header="Product Name" [sortable]="true"></p-column>
+      <p-column field="productDescription" header="Product Description" [sortable]="true"></p-column>
+      <p-column field="QOH" header="Quantity on Hand" [sortable]="true"></p-column>
+      <p-column field="QOR" header="Quantity Reserved" [sortable]="true"></p-column>
+      <p-column field="QOO" header="Quantity Ordered" [sortable]="true"></p-column>
+    </p-dataTable>
+  </div>
+</p-panel>
