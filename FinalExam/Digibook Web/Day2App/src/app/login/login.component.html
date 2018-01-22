@@ -1,0 +1,47 @@
+<div id="relativeDiv" class="login-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form" id="form-section">
+    <header id="headerLogin">
+        <div id="top-logo">
+            <h2>Login</h2>
+        </div>
+    </header>
+    <div class="designPadding">
+      <div *ngIf="form.errors?.auth" class="error-panel help-block">
+        {{form.errors.auth}}
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Username') }">
+        <label>Username: </label>
+        <input type="text" required formControlName="Username" class="form-control" placeholder="Username or Email address" />
+        <span *ngIf="hasError('Username')" class="glyphicon glyphicon-remove form-control-
+                   feedback" aria-hidden="true"></span>
+        <div *ngIf="hasError('Username')" class="help-block">
+          Please insert a valid username or e-mail address.
+        </div>
+        <br /><br />
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Password') }">
+        <label>Password: </label>
+        <input type="password" required formControlName="Password" class="form-control" placeholder="Password" />
+        <span *ngIf="hasError('Password')" class="glyphicon glyphicon-remove form-control-
+                               feedback" aria-hidden="true"></span>
+        <div *ngIf="hasError('Password')" class="help-block">
+          Please insert a password.
+        </div>
+        <br /><br />
+      </div>
+      <div>
+        <a href="#" style="font-size: 12px">
+          Forgot the password?
+        </a>
+        <!-- <label style="text-align:left"><input type="checkbox" name="remember" value="remember" />Remember me</label> -->
+        <button type="submit" [disabled]="form.invalid" id="sumbitLogin"> Sign in </button>
+      </div>
+      <br />
+      <div class="login-link">
+          <a [routerLink]="['/register']">
+              Don't have an account? Click here to create one!
+          </a>
+      </div>
+    </div>
+  </form>
+</div>

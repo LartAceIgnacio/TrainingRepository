@@ -1,0 +1,80 @@
+<div id="relativeDiv" class="login-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form" id="form-section">
+    <header id="headerLogin">
+      <div id="top-logo">
+        <h2>Register</h2>
+      </div>
+    </header>
+    <div class="designPadding">
+      <div>
+        <label for="firstName">First Name:&nbsp;</label>
+        <input id="firstName" placeholder="Enter first name" type="text" required formControlName="firstName" class="form-control"
+        />
+        <br/>
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['firstName'].valid && 
+          form.controls['firstName'].dirty">
+          <span>First Name is required</span>
+        </div>
+      </div>
+      <br />
+      <div>
+        <label for="lastName">Last Name:&nbsp;</label>
+        <input id="lastName" placeholder="Enter last name" type="text" required formControlName="lastName" class="form-control" />
+        <br/>
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['lastName'].valid && 
+            form.controls['lastName'].dirty">
+            <span>Last Name is required</span>
+        </div>
+      </div>
+      <br />
+      <div>
+        <label for="userName">User Name:</label>
+        <input id="userName" placeholder="Enter user name" type="text" required formControlName="userName" class="form-control" />
+        <br/>
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['userName'].valid && 
+            form.controls['userName'].dirty">
+            <span>User Name is required</span>
+        </div>
+      </div>
+      <br />
+      <div>
+        <label for="email">Email:</label>
+        <input id="email" placeholder="Enter email" type="text" required formControlName="email" class="form-control" />
+        <br/>
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['email'].valid && 
+          form.controls['email'].dirty">
+          <span *ngIf="form.controls['email'].errors['required']">Email is required</span>
+          <span *ngIf="form.controls['email'].errors['pattern']">Invalid Email</span>
+        </div>
+      </div>
+      <br />
+      <div>
+        <label for="Password">Password:</label>
+        <input id="Password" placeholder="Enter Password" type="password" required formControlName="Password" class="form-control" />
+        <br/>
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['Password'].valid && 
+          form.controls['Password'].dirty">
+          <span *ngIf="form.controls['Password'].errors['required']">Password is required</span>
+          <span *ngIf="form.controls['Password'].errors['UpperCase']">Password must have at least 1 Upper Case and Symbol</span>
+          <!-- <span *ngIf="form.controls['Password'].errors['pattern']">Password must at least 8 characters and must have 1 Upper Case and Symbol</span> -->
+        </div>
+      </div>
+      <br />
+      <div>
+        <label for="confirmPassword">Confirm Password:</label>
+        <input id="confirmPassword" placeholder="Confirm Password" type="password" required formControlName="confirmPassword" class="form-control"/>
+        <br />
+        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['confirmPassword'].valid && 
+          form.controls['confirmPassword'].dirty">
+          <span *ngIf="form.controls['confirmPassword'].errors['required']">Confrim Password is required</span>
+          <span *ngIf="form.controls['confirmPassword'].errors['PasswordMismatch']">Password Mismatch</span>
+        </div>
+      </div>
+      <br />
+      <div>
+        <button type="submit" [disabled]="!form.valid" id="sumbitLogin">Register</button>
+      </div>
+      <br />
+    </div>
+  </form>
+</div>
