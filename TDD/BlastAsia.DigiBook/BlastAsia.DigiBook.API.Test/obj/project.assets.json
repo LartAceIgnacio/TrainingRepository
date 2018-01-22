@@ -12272,11 +12272,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\aolarte\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API.Test\\BlastAsia.DigiBook.API.Test.csproj",
+      "projectUniqueName": "C:\\Projects\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API.Test\\BlastAsia.DigiBook.API.Test.csproj",
       "projectName": "BlastAsia.DigiBook.API.Test",
-      "projectPath": "C:\\Users\\aolarte\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API.Test\\BlastAsia.DigiBook.API.Test.csproj",
+      "projectPath": "C:\\Projects\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API.Test\\BlastAsia.DigiBook.API.Test.csproj",
       "packagesPath": "C:\\Users\\aolarte\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aolarte\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API.Test\\obj\\",
+      "outputPath": "C:\\Projects\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API.Test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
@@ -12297,11 +12297,11 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\aolarte\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj": {
-              "projectPath": "C:\\Users\\aolarte\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj"
+            "C:\\Projects\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj": {
+              "projectPath": "C:\\Projects\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj"
             },
-            "C:\\Users\\aolarte\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\BlastAsia.DigiBook.API.csproj": {
-              "projectPath": "C:\\Users\\aolarte\\documents\\visual studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\BlastAsia.DigiBook.API.csproj"
+            "C:\\Projects\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\BlastAsia.DigiBook.API.csproj": {
+              "projectPath": "C:\\Projects\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.API\\BlastAsia.DigiBook.API.csproj"
             }
           }
         }
