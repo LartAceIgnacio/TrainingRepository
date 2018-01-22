@@ -26,8 +26,8 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
             {
                 CityOfOrigin = "123",
                 CityOfDestination = "123",
-                ExpectedTimeOfArrival = DateTime.Now.AddHours(1),
-                ExpectedTimeOfDeparture = DateTime.Now.AddHours(1),
+                ExpectedTimeOfArrival = DateTime.Now.AddHours(5),
+                ExpectedTimeOfDeparture = DateTime.Now.AddHours(3),
                 FlightCode = "OOODDDYYMMddNN",
                 DateCreated = new Nullable<DateTime>(),
                 DateModified = new Nullable<DateTime>()
@@ -140,8 +140,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
         {
             // Arrange
 
-            flight.ExpectedTimeOfArrival = DateTime.Now.AddHours(2);
-            flight.ExpectedTimeOfDeparture = DateTime.Now.AddHours(1);
+            flight.ExpectedTimeOfArrival = DateTime.Now.AddHours(1);
 
             // Act
 

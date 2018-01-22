@@ -1,0 +1,57 @@
+<p-breadcrumb [model]="luigitItems"></p-breadcrumb>
+<p-growl [value]="msgs" sticky="sticky"></p-growl>
+<form [formGroup]="userform">
+    <p-panel header="Luigi List">
+        <button pButton icon="fa fa-plus" (click)="addLuigis(); showDialog();" label="Luigi"></button>
+        <div class="searchHeader" style="float:right">
+            <input type="text" pInputText placeholder="Search Luigi" [(ngModel)]="searchFilter" [ngModelOptions]="{standalone: true}"
+            />
+            <button pButton type="button" icon="fa-search" (click)="searchLuigis()"></button>
+        </div>
+        <p-dataTable #dt [value]="luigiList" selectionMode="single" [pageLinks]="5" [(selection)]="selectedLuigi" [totalRecords]="totalRecords"
+            (onLazyLoad)="paginate($event)" [lazy]="true" [paginator]="true" rows="10" [responsive]="true" [globalFilter]="gb">
+            <p-column styleClass="col-button">
+                <ng-template let-Luigi="rowData" pTemplate="body">
+                    <button type="button" pButton class="ui-button-success" (click)="editLuigis(Luigi); showDialog();" icon="fa-pencil"></button>
+                    <button type="button" pButton class="ui-button-danger" (click)="deleteConfirmation(Luigi); showDialog();" icon="fa-trash-o">
+                    </button>
+                </ng-template>
+            </p-column>
+            <p-column field="firstName" header="Luigi Name" [sortable]="true"></p-column>
+            <p-column field="lastName" header="Description" [sortable]="true"></p-column>
+        </p-dataTable>
+    </p-panel>
+    <p-dialog header="Luigi Details" [(visible)]="display" *ngIf="selectedLuigi" modal="modal" width="300" [responsive]="true">
+        <div class="ui-g">
+            <label class="ui-g-12 ui-md-4" for="luigi">First Name: </label>
+            <input class="ui-g-12 ui-md-8" type="text" formControlName="firstName" placeholder="Enter First Name" [(ngModel)]="selectedLuigi.firstName">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['firstName'].valid&&userform.controls['firstName'].dirty">
+                <i class="fa fa-close"></i>
+                <span *ngIf="userform.controls['firstName'].errors['required']">First Name is required</span>
+            </div>
+        </div>
+        <br/>
+        <div class="ui-g">
+            <label class="ui-g-12 ui-md-4" for="luigi">Last Name: </label>
+            <input class="ui-g-12 ui-md-8" type="text" formControlName="lastName" placeholder="Enter Last Name" [(ngModel)]="selectedLuigi.lastName">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['lastName'].valid&&userform.controls['lastName'].dirty">
+                <i class="fa fa-close"></i>
+                <span *ngIf="userform.controls['lastName'].errors['required']">Last Name is required</span>
+            </div>
+        </div>
+        <p-footer>
+            <div>
+                <button pButton icon="fa fa-plus-square" (click)="saveNewLuigis()" label="Save & New" [disabled]="!userform.valid" *ngIf="btnSaveNew"></button>
+
+
+                <button pButton icon="fa fa-floppy-o" (click)="saveLuigis()" label="Save" [disabled]="!userform.valid" *ngIf="btnSave"></button>
+
+                <button pButton icon="fa fa-floppy-o" (click)="deleteLuigis()" label="Delete" *ngIf="btnDelete"></button>
+
+                <button pButton icon="fa fa-ban" (click)="cancelLuigis()" label="Cancel"></button>
+            </div>
+        </p-footer>
+    </p-dialog>
+</form>
+<p-growl [value]="msgs" life="2000"></p-growl>
+<p-confirmDialog></p-confirmDialog>

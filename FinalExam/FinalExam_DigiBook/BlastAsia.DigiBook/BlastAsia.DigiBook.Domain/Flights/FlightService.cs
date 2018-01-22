@@ -1,10 +1,11 @@
 ﻿using System;
 using BlastAsia.DigiBook.Domain.Exceptions;
+using BlastAsia.DigiBook.Domain.Flights.Exceptions;
 using BlastAsia.DigiBook.Domain.Models.Flights;
 
 namespace BlastAsia.DigiBook.Domain.Flights
 {
-    public class FlightService
+    public class FlightService : IFlightService
     {
         private IFlightRepository flightRepository;
 
@@ -22,6 +23,10 @@ namespace BlastAsia.DigiBook.Domain.Flights
             if(flight.CityOfDestination.Length != 3)
             {
                 throw new MaximumLengthException("City of Destination should be equal to 3");
+            }
+            if(flight.ExpectedTimeOfArrival <= flight.ExpectedTimeOfDeparture)
+            {
+                throw new DateAndTimeException("ETA should be greater than ETD");
             }
 
             Flight result = null;
