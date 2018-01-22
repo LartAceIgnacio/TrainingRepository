@@ -18,8 +18,6 @@ namespace BlastAsia.DigiBook.Domain.Test.Employees
         private Guid existingEmployeeId = Guid.NewGuid();
         private Guid nonExistingEmployeeId = Guid.Empty;
 
-
-
         [TestInitialize]
         public void InitializeTest()
         {

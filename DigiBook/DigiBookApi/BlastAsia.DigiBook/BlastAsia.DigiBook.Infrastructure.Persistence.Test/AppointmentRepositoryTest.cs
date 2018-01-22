@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
@@ -16,19 +17,12 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         private DigiBookDbContext dbContext = null;
         private String connectionString = null;
         private AppointmentRepository sut = null;
+        private ContactRepository sutContact = null;
+        private EmployeeRepository sutEmployee = null;
 
         [TestInitialize]
         public void InitializeTest()
         {
-            appointment = new Appointment
-            {
-                AppointmentDate = DateTime.Today,
-                StartTime = new DateTime().TimeOfDay,
-                EndTime = new DateTime().TimeOfDay.Add(TimeSpan.Parse("01:00:00")),
-                IsCancelled = false,
-                IsDone = true,
-                Notes = ""
-            };
             connectionString
                 = @"Data Source=.;Database=DigiBookDb;Integrated Security=true;";
             dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
@@ -39,6 +33,20 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             dbContext.Database.EnsureCreated();
 
             sut = new AppointmentRepository(dbContext);
+            sutContact = new ContactRepository(dbContext);
+            sutEmployee = new EmployeeRepository(dbContext);
+
+            appointment = new Appointment
+            {
+                AppointmentDate = DateTime.Today,
+                StartTime = new DateTime().TimeOfDay,
+                EndTime = new DateTime().TimeOfDay.Add(TimeSpan.Parse("01:00:00")),
+                IsCancelled = false,
+                IsDone = true,
+                Notes = "",
+                GuestId = sutContact.Retrieve().FirstOrDefault().ContactId,
+                HostId = sutEmployee.Retrieve().FirstOrDefault().EmployeeId
+            };
         }
 
         [TestCleanup]

@@ -57,7 +57,7 @@ namespace BlastAsia.DigiBook.API.Test
                 .Returns(new List<Contact>());
 
             // Act
-            var result = sut.GetContacts(emptyContactId);
+            var result = sut.GetContacts(null);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));

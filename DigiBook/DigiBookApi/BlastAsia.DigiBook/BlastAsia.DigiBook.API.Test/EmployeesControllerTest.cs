@@ -57,7 +57,7 @@ namespace BlastAsia.DigiBook.API.Test
                 .Returns(new List<Employee>());
 
             // Act
-            var result = sut.GetEmployees(emptyEmployeeId);
+            var result = sut.GetEmployees(null);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));

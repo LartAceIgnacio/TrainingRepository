@@ -9,11 +9,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using BlastAsia.DigiBook.Infrastructure.Security;
+using BlastAsia.DigiBook.Domain.Models.Locations;
+using BlastAsia.DigiBook.Domain.Models.Inventories;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence
 {
     public class DigiBookDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid,
-            ApplicationUserClaim, ApplicationUserRole, ApplicationUserLogin, ApplicationRoleClaim, ApplicationUserToken>, IDigiBookDbContext
+            ApplicationUserClaim, ApplicationUserRole, ApplicationUserLogin, ApplicationRoleClaim, 
+            ApplicationUserToken>, IDigiBookDbContext
     {
         private DbContextOptionsBuilder<DigiBookDbContext> dbOptions;
 
@@ -24,15 +27,12 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
 
         }
 
-        public DigiBookDbContext(DbContextOptionsBuilder<DigiBookDbContext> dbOptions)
-        {
-            this.dbOptions = dbOptions;
-        }
-
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Venue> Venues { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Inventory> Inventories { get; set; }
         public DbSet<Token> Tokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -96,6 +96,8 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
             #endregion
 
             modelBuilder.Entity<Venue>().ToTable("Venue");
+            modelBuilder.Entity<Inventory>().ToTable("Inventory");
+            modelBuilder.Entity<Location>().ToTable("Location");
         }
     }
 }

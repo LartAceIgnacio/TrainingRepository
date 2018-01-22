@@ -58,7 +58,7 @@ namespace BlastAsia.DigiBook.API.Test
                 .Returns(new List<Venue>());
 
             // Act
-            var result = sut.GetVenues(emptyVenueId);
+            var result = sut.GetVenues(null);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));

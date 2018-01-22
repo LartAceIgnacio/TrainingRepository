@@ -63,6 +63,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 
             // Cleanup
             sut.Delete(newEmployee.EmployeeId);
+
         }
 
         [TestMethod]

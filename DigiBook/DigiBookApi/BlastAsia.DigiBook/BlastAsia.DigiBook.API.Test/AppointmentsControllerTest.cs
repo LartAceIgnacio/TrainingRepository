@@ -57,7 +57,7 @@ namespace BlastAsia.DigiBook.API.Test
                 .Returns(new List<Appointment>());
 
             // Act
-            var result = sut.GetAppointments(emptyAppointmentId);
+            var result = sut.GetAppointments(null);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
