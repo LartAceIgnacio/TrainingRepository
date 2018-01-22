@@ -4,18 +4,30 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { PanelModule, MenuModule, DataTableModule,
   SharedModule, InputTextModule, ButtonModule, ToggleButtonModule,
-   CalendarModule, BreadcrumbModule, DialogModule
+   CalendarModule, BreadcrumbModule, DialogModule, ConfirmDialogModule
 } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { ContactsComponent } from './contacts/contacts.component';
-import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+
+import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { AppointmentsComponent } from './appointments/appointments.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
+import { AuthService } from './services/auth.service';
+import { AuthInterceptor } from './services/auth-interceptor';
+import { AuthResponseInterceptor} from './services/auth-response-interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './user/register.component';
+import { StatisticComponent } from './statistic/statistic.component';
+
 
 // const appRoutes: Routes = [
 //   // { path: "", redirectTo: "/dashboard", pathMatch: "full" },
@@ -29,22 +41,33 @@ import { AppointmentsComponent } from './appointments/appointments.component';
     EmployeesComponent,
     ContactsComponent,
     DashboardComponent,
-    AppointmentsComponent
+    AppointmentsComponent,
+    LoginComponent,
+    RegisterComponent,
+    StatisticComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     PanelModule,
     MenuModule,
+    CommonModule,
     DataTableModule,SharedModule,
-    InputTextModule, ButtonModule,
+    InputTextModule, ButtonModule, ConfirmDialogModule,
     ToggleButtonModule, CalendarModule,BreadcrumbModule,DialogModule,
     AppRoutingModule,
     HttpModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

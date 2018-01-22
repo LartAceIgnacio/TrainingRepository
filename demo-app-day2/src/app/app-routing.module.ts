@@ -5,13 +5,20 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { EmployeesComponent }   from './employees/employees.component';
 import { ContactsComponent }      from './contacts/contacts.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './user/register.component';
+
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'employees', component: EmployeesComponent },
   { path: 'contacts', component: ContactsComponent },
-  { path: 'appointments', component: AppointmentsComponent }
+  { path: 'appointments', component: AppointmentsComponent },
+  { path: 'login', component: LoginComponent},
+  { path: 'register', component: RegisterComponent }
+
 ];
 
 @NgModule({

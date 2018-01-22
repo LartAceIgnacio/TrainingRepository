@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Authorization;
 //using System.Web.Http.Routing;
 
 namespace BlastAsia.DigiBook.API.Controllers
@@ -105,6 +106,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public IActionResult PostEmployee([FromBody] Employee employee)
         {
 
@@ -123,6 +125,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         public IActionResult DeleteEmployee(Guid id)
         {
             var result = this.employeeRepo.Retrieve(id);
@@ -133,6 +136,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public IActionResult UpdateEmployee([FromBody]Employee employee, Guid id)
         {
             try
@@ -152,6 +156,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
 
         [HttpPatch]
+        [Authorize]
         public IActionResult PatchEmployee([FromBody]JsonPatchDocument patchedDocuments, Guid id)
         {
             if (patchedDocuments == null)
