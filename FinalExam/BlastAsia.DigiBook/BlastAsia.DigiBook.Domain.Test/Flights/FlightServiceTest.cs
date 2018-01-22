@@ -125,6 +125,17 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
         }
 
         [TestMethod]
+        public void Save_CityOriginAndCityDestinationTheSame_ShouldReturnDestinationErrorException()
+        {
+            // Arrange
+            flight.CityOfOrigin = flight.CityOfDestination;
+
+            //Assert
+            Assert.ThrowsException<DestinationErrorException>(
+                () => sut.Save(flight.FlightId, flight));
+        }
+
+        [TestMethod]
         public void Save_CityOfDestinationLessThanFixedLength_ShouldThrowCityDestinationFixedLengthException()
         {
             // Arrange

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using BlastAsia.DigiBook.Domain.Models.Flights;
 
 namespace BlastAsia.DigiBook.Domain.Flights
@@ -7,7 +8,7 @@ namespace BlastAsia.DigiBook.Domain.Flights
     {
         private IFlightRepository flightRepository;
         private readonly int fixedLength = 3;
-        private int incrementalNumber = 1;
+        private int incrementalNumber;
 
         public FlightService(IFlightRepository flightRepository)
         {
@@ -16,6 +17,10 @@ namespace BlastAsia.DigiBook.Domain.Flights
 
         public Flight Save(Guid id, Flight flight)
         {
+            if (flight.CityOfOrigin == flight.CityOfDestination)
+            {
+                throw new DestinationErrorException("City of origin should not be the same with City of Destination.");
+            }
             if (String.IsNullOrEmpty(flight.CityOfOrigin))
             {
                 throw new CityOfOriginRequiredException("City of origin required");
@@ -50,14 +55,16 @@ namespace BlastAsia.DigiBook.Domain.Flights
             }
             Flight result = null;
             var found = flightRepository.Retrieve(id);
+            incrementalNumber = flightRepository.Retrieve().Count();
             if (found == null)
             {
                 flight.DateCreated = DateTime.Now;
                 flight.DateModified = DateTime.Now;
+                incrementalNumber++;
                 flight.FlightCode = flight.CityOfOrigin + flight.CityOfDestination +flight.Etd.ToString("yy")
                     + flight.Etd.ToString("MM") + flight.Etd.ToString("dd") + incrementalNumber.ToString().PadLeft(2, '0');
+                
                 result = flightRepository.Create(flight);
-                incrementalNumber++;
             }
             else
             {
