@@ -1,4 +1,5 @@
 ﻿using System;
+using BlastAsia.DigiBook.Domain.Exceptions;
 using BlastAsia.DigiBook.Domain.Models.Flights;
 
 namespace BlastAsia.DigiBook.Domain.Flights
@@ -14,6 +15,15 @@ namespace BlastAsia.DigiBook.Domain.Flights
 
         public Flight Save(Guid id, Flight flight)
         {
+            if(flight.CityOfOrigin.Length != 3)
+            {
+                throw new MaximumLengthException("City of Origin should be equal to 3");
+            }
+            if(flight.CityOfDestination.Length != 3)
+            {
+                throw new MaximumLengthException("City of Destination should be equal to 3");
+            }
+
             Flight result = null;
             var found = flightRepository
                 .Retrieve(flight.FlightId);

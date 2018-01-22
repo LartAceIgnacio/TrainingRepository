@@ -1,4 +1,5 @@
-﻿using BlastAsia.DigiBook.Domain.Flights;
+﻿using BlastAsia.DigiBook.Domain.Exceptions;
+using BlastAsia.DigiBook.Domain.Flights;
 using BlastAsia.DigiBook.Domain.Models.Flights;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -22,11 +23,13 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
         {
             flight = new Flight
             {
-                CityOfOrigin = "",
-                CityOfDestination = "",
-                ExpectedTimeOfArrival = new DateTime(),
-                ExpectedTimeOfDeparture = new DateTime(),
-                FlightCode = "",
+                CityOfOrigin = "123",
+                CityOfDestination = "123",
+                ExpectedTimeOfArrivalDate = DateTime.Today,
+                ExpectedTimeOfArrivalTime = new DateTime().TimeOfDay,
+                ExpectedTimeOfDepartureDate = DateTime.Today,
+                ExpectedTimeOfDepartureTime = new DateTime().TimeOfDay,
+                FlightCode = "OOODDDYYMMddNN",
                 DateCreated = new Nullable<DateTime>(),
                 DateModified = new Nullable<DateTime>()
 
@@ -43,6 +46,11 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
             mockFlightRepository
                 .Setup(c => c.Retrieve(nonExistingFlightId))
                 .Returns<Flight>(null);
+        }
+        [TestCleanup]
+        public void CleanupTest()
+        {
+
         }
         [TestMethod]
         public void Create_NewFlightWithValidData_ShouldCallRepositoryCreate()
@@ -77,6 +85,56 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
                 .Verify(c => c.Retrieve(existingFlightId), Times.Once);
             mockFlightRepository
                 .Verify(c => c.Update(existingFlightId, flight), Times.Once);
+        }
+        [TestMethod]
+        public void Save_WithValidData_ReturnsNewFlightWithFlightId()
+        {
+            // Arrange
+
+            mockFlightRepository
+                .Setup(c => c.Create(flight))
+                .Callback(() => flight.FlightId = Guid.NewGuid())
+                .Returns(flight);
+
+            // Act
+
+            var newFlight = sut.Save(flight.FlightId, flight);
+
+            // Assert
+
+            Assert.IsTrue(newFlight.FlightId != Guid.Empty);
+        }
+        [TestMethod]
+        public void Save_WithCityOfOriginNotEqualToThree_ThrowsMaximumLengthException()
+        {
+            // Arrange
+
+            flight.CityOfOrigin = "1234";
+
+            // Act
+
+            // Assert
+
+            mockFlightRepository
+                .Verify(c => c.Create(flight), Times.Never());
+            Assert.ThrowsException<MaximumLengthException>(
+                () => sut.Save(flight.FlightId, flight));
+        }
+        [TestMethod]
+        public void Save_WithCityOfDestinationNotEqualToThree_ThrowsMaximumLenghtException()
+        {
+            // Arrange
+
+            flight.CityOfDestination = "1234";
+
+            // Act
+
+            // Assert
+
+            mockFlightRepository
+                .Verify(c => c.Create(flight), Times.Never());
+            Assert.ThrowsException<MaximumLengthException>(
+                () => sut.Save(flight.FlightId, flight));
         }
     }
 }
