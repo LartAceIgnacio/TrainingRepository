@@ -1,0 +1,129 @@
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+
+<p-growl [value]="msgs"></p-growl>
+
+<p-panel>
+    <p-header>
+        <button *ngIf="this.auth.isLoggedIn()" pButton icon="fa fa-plus" (click)="newContact()"></button> Contact List
+        <input id="right" type="text" pInputText placeholder="Search" [(ngModel)]="searchQuery" />
+        <button id="right" pButton type="button" icon="fa-search" (click)="search()"></button>
+    </p-header>
+    <div class="ui-g">
+        <p-dataTable #dt [value]="contactList" [rows]="5" [paginator]="true" [pageLinks]="5" [responsive]="true" (onLazyLoad)="paginate($event)"
+            [lazy]="true" [totalRecords]="totalRecord">
+            <p-column styleClass="col-button">
+                <ng-template let-contact="rowData" pTemplate="body">
+                    <button type="button" *ngIf="this.auth.isLoggedIn()" pButton (click)="editContact(contact)" icon="fa fa-pencil"></button>
+                    <button type="button" *ngIf="this.auth.isLoggedIn()" pButton (click)="deleteCont(contact)" icon="fa fa-trash-o"></button>
+                </ng-template>
+            </p-column>
+            <p-column field="contactId" header="Contact ID" [sortable]="true"></p-column>
+            <p-column field="firstName" header="First Name" [sortable]="true"></p-column>
+            <p-column field="lastName" header="Last Name" [sortable]="true"></p-column>
+            <p-column field="mobilePhone" header="Phone" [sortable]="true"></p-column>
+            <p-column field="streetAddress" header="Street Address" [sortable]="true"></p-column>
+            <p-column field="cityAddress" header="City Address" [sortable]="true"></p-column>
+            <p-column field="emailAddress" header="Email" [sortable]="true"></p-column>
+            <p-column field="zipCode" header="Zip Code" [sortable]="true"></p-column>
+            <p-column field="country" header="Country" [sortable]="true"></p-column>
+        </p-dataTable>
+    </div>
+</p-panel>
+
+<form [formGroup]="userform">
+    <p-dialog header="Contact" [(visible)]="display" [responsive]="true" showEffect="fade" [modal]="true">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedContact">
+            <div class="ui-g">
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12"> First Name: </label>
+                    <input class="ui-g-12 ui-md-12" formControlName="firstname" placeholder="Enter Contact First Name" [(ngModel)]="selectedContact.firstName"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty">
+                            <i class="fa fa-close"></i> Firstname is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12"> Last Name: </label>
+                    <input class="ui-g-12 ui-md-12" formControlName="lastname" placeholder="Enter Contact Last Name" [(ngModel)]="selectedContact.lastName"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty">
+                            <i class="fa fa-close"></i> Lastname is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Phone: </label>
+                    <input class="ui-g-12 ui-md-12" formControlName="phone" placeholder="Enter Contact Phone" [(ngModel)]="selectedContact.mobilePhone"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['phone'].valid&&userform.controls['phone'].dirty">
+                            <i class="fa fa-close"></i> Phone is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Street Address: </label>
+                    <input class="ui-g-12 ui-md-12" formControlName="streetaddress" placeholder="Enter Contact Street Address" [(ngModel)]="selectedContact.streetAddress"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['streetaddress'].valid&&userform.controls['streetaddress'].dirty">
+                            <i class="fa fa-close"></i> Street Address is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">City Address: </label>
+                    <input class="ui-g-12 ui-md-12" formControlName="cityaddress" placeholder="Enter Contact City Address" [(ngModel)]="selectedContact.cityAddress"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['cityaddress'].valid&&userform.controls['cityaddress'].dirty">
+                            <i class="fa fa-close"></i> City Address is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Zip Code: </label>
+                    <input class="ui-g-12 ui-md-12" formControlName="zipcode" placeholder="Enter Contact Zip Code" [(ngModel)]="selectedContact.zipCode"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['zipcode'].valid&&userform.controls['zipcode'].dirty">
+                            <i class="fa fa-close"></i> Zip Code is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Country: </label>
+                    <input class="ui-g-12 ui-md-12" formControlName="country" placeholder="Enter Country" [(ngModel)]="selectedContact.country"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['country'].valid&&userform.controls['country'].dirty">
+                            <i class="fa fa-close"></i> Country is required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Email: </label>
+                    <input class="ui-g-12 ui-md-12" formControlName="email" placeholder="Enter Email" [(ngModel)]="selectedContact.emailAddress"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['email'].valid&&userform.controls['email'].dirty">
+                            <i class="fa fa-close"></i> Email is required
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" pButton icon="fa-close" (click)="cancelCon()" label="Cancel"></button>
+                <button type="button" pButton icon="fa-check" (click)="saveContact()" [disabled]="!userform.valid" label="Save"></button>
+                <button type="button" pButton (click)="saveAndNewContact()" icon="fa fa-pencil" *ngIf="isNewContact==true" [disabled]="!userform.valid"
+                    label="Save and New"></button>
+            </div>
+        </p-footer>
+    </p-dialog>
+</form>
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>

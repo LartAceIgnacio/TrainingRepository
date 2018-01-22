@@ -1,0 +1,31 @@
+<p-panel header="Inventory">
+  
+  
+          <div class="ui-g">
+              <p-dataTable [value]="inventoryList" selectionMode="single" [(selection)]="selectedInventory" (onRowSelect)="onRowSelect($event)"
+                  [paginator]="true" rows="5" [responsive]="true" [globalFilter]="gb">
+  
+                  <p-header>
+                      <button pButton icon="fa fa-plus" (click)="newVenue()"></button> Venue List
+                      <input #gb type="text" pInputText size="50" placeholder="Search">
+                  </p-header>
+  
+                  <p-column styleClass="col-button">
+                      <ng-template let-inventory="rowData" pTemplate="body">
+                          <button type="button" pButton (click)="editInventory(inventory)" icon="fa fa-pencil"></button>
+                          <button type="button" pButton (click)="deleteInventory(inventory)" icon="fa fa-trash-o"></button>
+                      </ng-template>
+                  </p-column>
+                  <p-column field="productId" header="Product ID" [sortable]="true"></p-column>
+                  <p-column field="productCode" header="Product Code" [sortable]="true"></p-column>
+                  <p-column field="productName" header="Prodcut Name" [sortable]="true"></p-column>
+                  <p-column field="productDescription" header="Prodcut Description" [sortable]="true"></p-column>
+                  <p-column field="qonHand" header="Quantity on Hand" [sortable]="true"></p-column>
+                  <p-column field="qonReserved" header="Quantity on Reserved" [sortable]="true"></p-column>
+                  <p-column field="dateCreated" header="Date Created" [sortable]="true"></p-column>
+                  <p-column field="dateModified" header="Date Modified" [sortable]="true"></p-column>
+                  <p-column field="isActive" header="Active" [sortable]="true"></p-column>
+                  <p-column field="bin" header="Bin" [sortable]="true"></p-column>
+              </p-dataTable>
+          </div>
+      </p-panel>
