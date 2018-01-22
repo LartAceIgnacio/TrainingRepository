@@ -11,15 +11,16 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
     [TestClass]
     public class FlightServiceTest
     {
-        [TestMethod]
-        public void Create_NewFlightWithValidData_ShouldCallRepositoryCreate()
+        private Mock<IFlightRepository> mockFlightRepository;
+        private FlightService sut;
+        private Flight flight;
+        private Guid existingFlightId = Guid.NewGuid();
+        private Guid nonExistingFlightId = Guid.Empty;
+
+        [TestInitialize]
+        public void InitializeTest()
         {
-            // Arrange
-
-            var mockFlightRepository = new Mock<IFlightRepository>();
-            var sut = new FlightService(mockFlightRepository.Object);
-
-            var flight = new Flight
+            flight = new Flight
             {
                 CityOfOrigin = "",
                 CityOfDestination = "",
@@ -31,15 +32,26 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
 
             };
 
-            var nonExistingFlightId = Guid.Empty;
+            mockFlightRepository = new Mock<IFlightRepository>();
+
+            sut = new FlightService(mockFlightRepository.Object);
+
+            mockFlightRepository
+                .Setup(c => c.Retrieve(existingFlightId))
+                .Returns(flight);
 
             mockFlightRepository
                 .Setup(c => c.Retrieve(nonExistingFlightId))
                 .Returns<Flight>(null);
+        }
+        [TestMethod]
+        public void Create_NewFlightWithValidData_ShouldCallRepositoryCreate()
+        {
+            // Arrange
 
             // Act
 
-            var result = sut.Save(flight.FlightId, flight);
+            sut.Save(flight.FlightId, flight);
 
             // Assert
 
@@ -47,6 +59,24 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
                 .Verify(c => c.Retrieve(nonExistingFlightId), Times.Once);
             mockFlightRepository
                 .Verify(c => c.Create(flight), Times.Once);
+        }
+        [TestMethod]
+        public void Update_WithExistingFlight_ShouldCallRepositoryUpdate()
+        {
+            // Arrange
+
+            flight.FlightId = existingFlightId;
+
+            // Act
+
+            sut.Save(flight.FlightId, flight);
+
+            // Assert
+
+            mockFlightRepository
+                .Verify(c => c.Retrieve(existingFlightId), Times.Once);
+            mockFlightRepository
+                .Verify(c => c.Update(existingFlightId, flight), Times.Once);
         }
     }
 }

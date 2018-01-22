@@ -12,9 +12,22 @@ namespace BlastAsia.DigiBook.Domain.Flights
             this.flightRepository = flightRepository;
         }
 
-        public object Save(Guid flightId, Flight flight)
+        public Flight Save(Guid id, Flight flight)
         {
-            throw new NotImplementedException();
+            Flight result = null;
+            var found = flightRepository
+                .Retrieve(flight.FlightId);
+
+            if (found == null)
+            {
+                result = flightRepository.Create(flight);
+            }
+            else
+            {
+                result = flightRepository
+                    .Update(flight.FlightId, flight);
+            }
+            return result;
         }
     }
 }
