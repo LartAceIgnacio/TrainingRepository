@@ -24,6 +24,7 @@ using System.Text;
 using BlastAsia.DigiBook.Infrastructure.Security;
 using BlastAsia.DigiBook.Domain.Reservations;
 using BlastAsia.DigiBook.Domain.Departments;
+using BlastAsia.DigiBook.Domain.Flights;
 
 namespace BlastAsia.DigiBook.API
 {
@@ -156,6 +157,9 @@ namespace BlastAsia.DigiBook.API
 
             services.AddTransient<IDepartmentService, DepartmentService>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+
+            services.AddTransient<IFlightService, FlightService>();
+            services.AddScoped<IFlightRepository, FlightRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

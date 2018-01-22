@@ -3,7 +3,7 @@ using BlastAsia.DigiBook.Domain.Models.Flights;
 
 namespace BlastAsia.DigiBook.Domain.Flights
 {
-    public class FlightService
+    public class FlightService: IFlightService
     {
         private IFlightRepository flightRepository;
         private readonly int fixedLength = 3;
