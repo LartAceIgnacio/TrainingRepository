@@ -1,0 +1,166 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using BlastAsia.DigiBook.Domain.Models.Contacts;
+using BlastAsia.DigiBook.Infrastructure.Persistence;
+using BlastAsia.DigiBook.Domain.Contacts;
+using Microsoft.AspNetCore.JsonPatch;
+using BlastAsia.DigiBook.Api.Utils;
+using Microsoft.AspNetCore.Cors;
+using BlastAsia.DigiBook.Domain.Models.Pagination;
+using Microsoft.AspNetCore.Authorization;
+
+namespace BlastAsia.DigiBook.API.Controllers
+{
+    [EnableCors("day2app")]
+    [Produces("application/json")]
+
+    public class ContactsController : Controller
+    {
+        private static List<Contact> contacts = new List<Contact>();
+
+        private readonly IContactService contactService;
+        private readonly IContactRepository contactRepository;
+        public ContactsController(IContactService contactService, IContactRepository contactRepository)
+        {
+            this.contactService = contactService;
+            this.contactRepository = contactRepository;
+        }
+
+        [HttpGet]
+        [Route("api/Contacts/{pageNumber}/{recordNumber}/")]
+        public IActionResult GetContact(int pageNumber, int recordNumber, string query)
+        {
+            try
+            {
+                var result = new Pagination<Contact>();
+                result = this.contactRepository.Retrieve(pageNumber, recordNumber, query);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        [Route("api/Contacts")]
+        public IActionResult GetContacts(Guid? id)
+
+        {
+            var result = new List<Contact>();
+            if (id == null)
+            {
+                result.AddRange(this.contactRepository.Retreive());
+            }
+            else
+            {
+                var contact = this.contactRepository.Retrieve(id.Value);
+                result.Add(contact);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("api/Contacts")]
+        [Authorize]
+        public IActionResult CreateContact(
+            [FromBody] Contact contact)
+        {
+            try
+            {
+                if (contact == null)
+                {
+                    return BadRequest();
+                }
+
+                var result = this.contactService.Save(Guid.Empty, contact);
+
+                return CreatedAtAction("GetContacts",
+                    new { id = contact.ContactId }, result);
+            }
+
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete]
+        [Route("api/Contacts")]
+        [Authorize]
+        public IActionResult DeleteContact(Guid id)
+        {
+            var contactToDelete = this.contactRepository.Retrieve(id);
+            if (contactToDelete == null)
+            {
+                return NotFound();
+            }
+            this.contactRepository.Delete(id);
+            return NoContent();
+        }
+
+        [HttpPut]
+        [Route("api/Contacts")]
+        [Authorize]
+        public IActionResult UpdateContact(
+            [FromBody] Contact contact, Guid id)
+        {
+            try
+            {
+                if (contact == null)
+                {
+                    return BadRequest();
+                }
+
+                var oldContact = this.contactRepository.Retrieve(id);
+                if (oldContact == null)
+                {
+                    return NotFound();
+                }
+
+                oldContact.ApplyChanges(contact);
+
+                var result = this.contactService.Save(id, contact);
+
+                return Ok(oldContact);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPatch]
+        [Route("api/Contacts")]
+        [Authorize]
+        public IActionResult PatchContact(
+            [FromBody]JsonPatchDocument patchedContact, Guid id)
+        {
+            try
+            {
+                if (patchedContact == null)
+                {
+                    return BadRequest();
+                }
+                var contact = contactRepository.Retrieve(id);
+                if (contact == null)
+                {
+                    return NotFound();
+                }
+                patchedContact.ApplyTo(contact);
+                contactService.Save(id, contact);
+
+                return Ok(contact);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+    }
+}

@@ -1,0 +1,9 @@
+C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAisa.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAisa.DigiBook.Infrastructure.csprojResolveAssemblyReference.cache
+C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAisa.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAisa.DigiBook.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAisa.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAisa.DigiBook.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAisa.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAisa.DigiBook.Infrastructure.AssemblyInfo.cs
+C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAisa.DigiBook.Infrastructure\bin\Debug\netcoreapp2.0\BlastAisa.DigiBook.Infrastructure.deps.json
+C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAisa.DigiBook.Infrastructure\bin\Debug\netcoreapp2.0\BlastAisa.DigiBook.Infrastructure.dll
+C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAisa.DigiBook.Infrastructure\bin\Debug\netcoreapp2.0\BlastAisa.DigiBook.Infrastructure.pdb
+C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAisa.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAisa.DigiBook.Infrastructure.dll
+C:\Users\jmatencio\source\repos\BlastAisa.DigiBook\BlastAisa.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAisa.DigiBook.Infrastructure.pdb
