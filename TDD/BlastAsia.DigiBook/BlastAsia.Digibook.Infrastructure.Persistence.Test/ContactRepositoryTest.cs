@@ -17,7 +17,7 @@ namespace BlastAsia.Digibook.Infrastructure.Persistence.Test
         private DbContextOptions<DigiBookDbContext> dbOptions = null;
         private DigiBookDbContext dbContext = null;
         private String connectionString = null;
-        ContactRepository sut;
+        private ContactRepository sut;
 
         [TestInitialize]
         public void Initialize()

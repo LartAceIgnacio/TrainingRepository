@@ -44,7 +44,6 @@ namespace BlastAsia.DigiBook.API.Controllers
             return Ok(result);
         }
 
-        //[HttpGet, ActionName("GetEmployees")]
         [HttpGet, ActionName("GetEmployees")]
         [Route("api/Employees")]
         public IActionResult GetEmployees(Guid? id)

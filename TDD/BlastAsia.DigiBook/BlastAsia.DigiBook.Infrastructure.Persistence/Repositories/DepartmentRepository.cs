@@ -2,16 +2,13 @@
 using BlastAsia.DigiBook.Domain.Models.Departments;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
 {
-    public class DepartmentRepository
-        :RepositoryBase<Department> ,IDepartmentRepository
+    public class DepartmentRepository: RepositoryBase<Department>, IDepartmentRepository
     {
-        public DepartmentRepository(IDigiBookDbContext context)
-            :base(context)
+        public DepartmentRepository(IDigiBookDbContext context): base(context)
         {
 
         }

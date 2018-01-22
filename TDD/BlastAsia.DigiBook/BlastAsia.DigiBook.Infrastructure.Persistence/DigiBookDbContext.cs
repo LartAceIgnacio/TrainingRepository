@@ -2,6 +2,7 @@
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Departments;
 using BlastAsia.DigiBook.Domain.Models.Employees;
+using BlastAsia.DigiBook.Domain.Models.Reservations;
 using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -21,10 +22,10 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Employee> Employee { get; set; }
         public DbSet<Appointment> Appointment { get; set; }
-        public DbSet<Department> Department { get; set; }
         public DbSet<Venue> Venue { get; set; }
-
-        public DbSet<Token> Tokens { get; set; }// New
+        public DbSet<Reservation> Reservation {get; set;}
+        public DbSet<Department> Department { get; set; }
+        public DbSet<Token> Tokens { get; set; }
 
         public DigiBookDbContext(
             DbContextOptions<DigiBookDbContext> options)
@@ -57,6 +58,14 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
             //modelBuilder.Entity<Venue>()
             //    .ToTable("Venue")
             //    .HasKey(KeyExtensions => KeyExtensions.VenueId);
+
+            modelBuilder.Entity<Reservation>()
+                .ToTable("Reservation")
+                .HasKey(KeyExtensions => KeyExtensions.ReservationId);
+
+            modelBuilder.Entity<Department>()
+                .ToTable("Department")
+                .HasKey(KeyExtensions => KeyExtensions.DepartmentId);
 
             #region Appointments
             modelBuilder.Entity<Appointment>().ToTable("Appointment");

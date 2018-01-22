@@ -1,10 +1,10 @@
 ﻿using System;
-using BlastAsia.DigiBook.Domain.Models.Departments;
 using BlastAsia.DigiBook.Domain.Employees;
+using BlastAsia.DigiBook.Domain.Models.Departments;
 
 namespace BlastAsia.DigiBook.Domain.Departments
 {
-    public class DepartmentService : IDepartmentService
+    public class DepartmentService: IDepartmentService
     {
         private IDepartmentRepository departmentRepository;
         private IEmployeeRepository employeeRepository;
@@ -17,30 +17,28 @@ namespace BlastAsia.DigiBook.Domain.Departments
 
         public Department Save(Guid id, Department department)
         {
-            if (string.IsNullOrEmpty(department.DepartmentName))
+            if (String.IsNullOrEmpty(department.DepartmentName))
             {
-                throw new DeparmentNameRequiredException("Department name is required");
+                throw new DepartmentNameRequiredException("Department name is required.");
             }
 
-            var deparmentHeadFound = employeeRepository.Retrieve(department.DepartmentHeadId);
-            if (deparmentHeadFound == null)
+            var departmentHead = employeeRepository.Retrieve(department.DepartmentHeadId);
+            if (departmentHead == null)
             {
-                throw new DepartmentHeadIdNotFoundException("Department HeadId not found.");
+                throw new DepartmentHeadRequiredException("Department head is required");
             }
 
+            var found = departmentRepository.Retrieve(id);
             Department result = null;
-            var departmentFound = departmentRepository.Retrieve(department.DepartmentId);
-
-            if (departmentFound == null)
+            if (found == null)
             {
                 result = departmentRepository.Create(department);
             }
             else
             {
-                result = departmentRepository.Update(department.DepartmentId,department);
+                result = departmentRepository.Update(id, department);
             }
             
-
             return result;
         }
     }

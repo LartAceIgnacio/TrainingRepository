@@ -1,10 +1,10 @@
-﻿using BlastAsia.DigiBook.Domain.Models.Departments;
-using System;
+﻿using System;
+using BlastAsia.DigiBook.Domain.Models.Departments;
 
 namespace BlastAsia.DigiBook.Domain.Departments
 {
     public interface IDepartmentService
     {
-        Department Save(Guid id, Department department);
+        Department Save(Guid departmentId, Department department);
     }
 }

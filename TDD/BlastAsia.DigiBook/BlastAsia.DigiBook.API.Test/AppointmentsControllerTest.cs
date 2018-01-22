@@ -16,9 +16,9 @@ namespace BlastAsia.DigiBook.API.Test
     {
         private Mock<IAppointmentService> mockAppointmentService;
         private Mock<IAppointmentRepository> mockAppointmentRepository;
-        Appointment appointment;
-        AppointmentsController sut;
-        JsonPatchDocument patchedAppointment;
+        private Appointment appointment;
+        private AppointmentsController sut;
+        private JsonPatchDocument patchedAppointment;
 
         [TestInitialize]
         public void Initialize()
@@ -217,7 +217,7 @@ namespace BlastAsia.DigiBook.API.Test
             var result = sut.PatchAppointment(patchedAppointment, appointment.AppointmentId);
 
             // Assert
-            mockAppointmentService.Verify(a => a.Save(appointment.AppointmentId, appointment), Times.Never);
+            mockAppointmentRepository.Verify(a => a.Retrieve(appointment.AppointmentId), Times.Never);
             mockAppointmentService.Verify(a => a.Save(appointment.AppointmentId, appointment), Times.Never);
             Assert.IsInstanceOfType(result, typeof(BadRequestResult));
         }

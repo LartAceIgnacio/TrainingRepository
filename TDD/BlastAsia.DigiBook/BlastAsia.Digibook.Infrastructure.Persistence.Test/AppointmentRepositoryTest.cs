@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BlastAsia.Digibook.Infrastructure.Persistence.Test
@@ -16,7 +17,9 @@ namespace BlastAsia.Digibook.Infrastructure.Persistence.Test
         private DbContextOptions<DigiBookDbContext> dbOptions = null;
         private DigiBookDbContext dbContext = null;
         private String connectionString = null;
-        AppointmentRepository sut;
+        private AppointmentRepository sut = null;
+        private ContactRepository sutContact = null;
+        private EmployeeRepository sutEmployee = null;
 
         private Guid existingGuesttId = Guid.NewGuid();
         private Guid existingHostId = Guid.NewGuid();
@@ -24,18 +27,6 @@ namespace BlastAsia.Digibook.Infrastructure.Persistence.Test
         [TestInitialize]
         public void Initialize()
         {
-            appointment = new Appointment
-            {
-                AppointmentDate = DateTime.Today,
-                GuestId = existingGuesttId,
-                HostId = existingHostId,
-                StartTime = DateTime.Now.TimeOfDay,
-                EndTime = DateTime.Now.TimeOfDay.Add(TimeSpan.Parse("01:00:00")),
-                IsCancelled = false,
-                IsDone = true,
-                Notes = "Ongoing"
-            };
-
             connectionString =
                 @"Server=.;Database=DigiBookDb;Integrated Security=true;";
             dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
@@ -46,6 +37,20 @@ namespace BlastAsia.Digibook.Infrastructure.Persistence.Test
             dbContext.Database.EnsureCreated();
 
             sut = new AppointmentRepository(dbContext);
+            sutContact = new ContactRepository(dbContext);
+            sutEmployee = new EmployeeRepository(dbContext);
+
+            appointment = new Appointment
+            {
+                AppointmentDate = DateTime.Today,
+                StartTime = DateTime.Now.TimeOfDay,
+                EndTime = DateTime.Now.TimeOfDay.Add(TimeSpan.Parse("01:00:00")),
+                IsCancelled = false,
+                IsDone = true,
+                Notes = "Ongoing",
+                GuestId = sutContact.Retrieve().FirstOrDefault().ContactId,
+                HostId = sutEmployee.Retrieve().FirstOrDefault().EmployeeId
+            };
         }
 
         [TestCleanup]
@@ -106,8 +111,8 @@ namespace BlastAsia.Digibook.Infrastructure.Persistence.Test
             // Arrange
             var newAppointment = sut.Create(appointment);
             var expectedAppointmentDate = DateTime.Today;
-            var expectedGuestId = existingGuesttId;
-            var expectedHostId = existingHostId;
+            var expectedGuestId = appointment.GuestId;
+            var expectedHostId = appointment.HostId;
             var expectedStartTime = DateTime.Now.TimeOfDay;
             var expectedEndTime = DateTime.Now.TimeOfDay.Add(TimeSpan.Parse("01:00:00"));
             var expectedIsCancelled = false;

@@ -11,9 +11,10 @@ using System;
 namespace BlastAsia.DigiBook.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(DigiBookDbContext))]
-    partial class DigiBookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180117091306_Added Reservation")]
+    partial class AddedReservation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,20 +79,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Migrations
                     b.HasKey("ContactId");
 
                     b.ToTable("Contact");
-                });
-
-            modelBuilder.Entity("BlastAsia.DigiBook.Domain.Models.Departments.Department", b =>
-                {
-                    b.Property<Guid>("DepartmentId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("DepartmentHeadId");
-
-                    b.Property<string>("DepartmentName");
-
-                    b.HasKey("DepartmentId");
-
-                    b.ToTable("Department");
                 });
 
             modelBuilder.Entity("BlastAsia.DigiBook.Domain.Models.Employees.Employee", b =>

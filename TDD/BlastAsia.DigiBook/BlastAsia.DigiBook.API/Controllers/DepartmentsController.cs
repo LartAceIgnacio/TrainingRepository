@@ -1,12 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BlastAsia.DigiBook.Domain.Departments;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using BlastAsia.DigiBook.Domain.Models.Departments;
 using BlastAsia.DigiBook.API.Utils;
+using BlastAsia.DigiBook.Domain.Departments;
+using BlastAsia.DigiBook.Domain.Models.Departments;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
@@ -14,27 +15,26 @@ namespace BlastAsia.DigiBook.API.Controllers
     [Route("api/Departments")]
     public class DepartmentsController : Controller
     {
-        private readonly IDepartmentService departmentService;
-        private readonly IDepartmentRepository departmentRepository;
+        private IDepartmentService departmentService;
+        private IDepartmentRepository departmentRepository;
 
-        public DepartmentsController(IDepartmentRepository departmentRepository, IDepartmentService departmentService)
+        public DepartmentsController(IDepartmentService departmentService, IDepartmentRepository departmentRepository)
         {
-            this.departmentRepository = departmentRepository;
             this.departmentService = departmentService;
+            this.departmentRepository = departmentRepository;
         }
 
         [HttpGet, ActionName("GetDepartments")]
         public IActionResult GetDepartments(Guid? id)
         {
             var result = new List<Department>();
-            if(id == null)
+            if (id == null)
             {
                 result.AddRange(this.departmentRepository.Retrieve());
             }
             else
             {
-                var department = this.departmentRepository.Retrieve(id.Value);
-                result.Add(department);
+                result.Add(this.departmentRepository.Retrieve(id.Value));
             }
             return Ok(result);
         }
@@ -49,12 +49,11 @@ namespace BlastAsia.DigiBook.API.Controllers
                     return BadRequest();
                 }
                 var result = this.departmentService.Save(Guid.Empty, department);
-
-                return CreatedAtAction("GetDepartments", new { id = department.DepartmentId}, department);
+                return CreatedAtAction("GetDepartments", new { id = department.DepartmentId }, department);
             }
-
             catch (Exception)
             {
+
                 return BadRequest();
             }
         }
@@ -72,21 +71,45 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPut]
-        public object UpdateDepartment(Department department, Guid id)
+        public IActionResult UpdateDepartment([FromBody]Department department, Guid id)
         {
             try
             {
-                var existingDepartment = departmentRepository.Retrieve(id);
-                
+                if (department == null)
+                {
+                    return BadRequest();
+                }
+                var existingDepartment = this.departmentRepository.Retrieve(id);
+                if (existingDepartment == null)
+                {
+                    return NotFound();
+                }
                 existingDepartment.ApplyChanges(department);
-                this.departmentService.Save(department.DepartmentId, department);
-
+                var result = this.departmentService.Save(id, existingDepartment);
                 return Ok(department);
             }
             catch (Exception)
             {
+
                 return BadRequest();
             }
+        }
+
+        [HttpPatch]
+        public IActionResult PatchDepartment([FromBody]JsonPatchDocument patchedDepartment, Guid id)
+        {
+            if (patchedDepartment == null)
+            {
+                return BadRequest();
+            }
+            var department = departmentRepository.Retrieve(id);
+            if (department == null)
+            {
+                return NotFound();
+            }
+            patchedDepartment.ApplyTo(department);
+            departmentService.Save(id, department);
+            return Ok(department);
         }
     }
 }

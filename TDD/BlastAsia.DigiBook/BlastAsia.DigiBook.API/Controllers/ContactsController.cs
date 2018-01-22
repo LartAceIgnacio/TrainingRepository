@@ -34,8 +34,6 @@ namespace BlastAsia.DigiBook.API.Controllers
         [Route("api/Contacts/{page}/{record}")]
         public IActionResult GetContactsWithPagination(int page, int record, string filter)
         {
-            //   var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
             var result = new PaginationResult<Contact>();
             try
             {

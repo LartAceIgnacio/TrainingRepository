@@ -19,7 +19,7 @@ namespace BlastAsia.DigiBook.API.Test
         private Mock<IEmployeeRepository> mockEmployeeRepository;
         private EmployeesController sut;
         private Employee employee;
-        JsonPatchDocument patchedEmployee;
+        private JsonPatchDocument patchedEmployee;
 
         [TestInitialize]
         public void Initialize()
@@ -116,12 +116,13 @@ namespace BlastAsia.DigiBook.API.Test
             // Act
             var result = sut.DeleteEmployee(employee.EmployeeId);
 
+            // Assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
             mockEmployeeRepository.Verify(e => e.Delete(employee.EmployeeId), Times.Once);
         }
 
         [TestMethod]
-        public void DeleteEmployee_WithoutEmployeeId_ReturnNoContentResult()
+        public void DeleteEmployee_WithoutEmployeeId_ReturnNotFoundResult()
         {
             // Arrange
             mockEmployeeRepository.
@@ -149,7 +150,7 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void UpdateEmployee_EmployeeWithoutValue_ReturnNotFoundResult()
+        public void UpdateEmployee_EmployeeWithoutValue_ReturnBadRequestResult()
         {
             // Arrange
             employee = null;
@@ -191,7 +192,7 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void PatchEmployee_WithoutExistingEmployeeDataAndId_ReturnOkObjectResult()
+        public void PatchEmployee_WithoutExistingEmployeeDataAndId_ReturnNotFoundResult()
         {
             // Arrange
             mockEmployeeRepository
@@ -202,7 +203,7 @@ namespace BlastAsia.DigiBook.API.Test
             var result = sut.PatchEmployee(patchedEmployee, employee.EmployeeId);
 
             // Assert
-            mockEmployeeService.Verify(e => e.Save(employee.EmployeeId, employee), Times.Never);
+            mockEmployeeRepository.Verify(e => e.Retrieve(employee.EmployeeId), Times.Once);
             mockEmployeeService.Verify(e => e.Save(employee.EmployeeId, employee), Times.Never);
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }

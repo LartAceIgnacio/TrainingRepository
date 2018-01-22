@@ -14,7 +14,6 @@ using BlastAsia.DigiBook.Infrastructure.Persistence.Repositories;
 using Swashbuckle.AspNetCore.Swagger;
 using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Appointments;
-using BlastAsia.DigiBook.Domain.Departments;
 using BlastAsia.DigiBook.Domain.Venues;
 using Microsoft.AspNetCore.Mvc.Cors;
 using Microsoft.AspNetCore.Identity;
@@ -23,8 +22,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using BlastAsia.DigiBook.Infrastructure.Security;
-
-
+using BlastAsia.DigiBook.Domain.Reservations;
+using BlastAsia.DigiBook.Domain.Departments;
 
 namespace BlastAsia.DigiBook.API
 {
@@ -149,11 +148,14 @@ namespace BlastAsia.DigiBook.API
             services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
-            services.AddTransient<IDepartmentService, DepartmentService>();
-            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-
             services.AddTransient<IVenueService, VenueService>();
             services.AddScoped<IVenueRepository, VenueRepository>();
+
+            services.AddTransient<IReservationService, ReservationService>();
+            services.AddScoped<IReservationRepository, ReservationRepository>();
+
+            services.AddTransient<IDepartmentService, DepartmentService>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

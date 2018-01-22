@@ -1,6 +1,4 @@
-﻿using System;
-using BlastAsia.DigiBook.Domain.Models.Departments;
-using System.Collections.Generic;
+﻿using BlastAsia.DigiBook.Domain.Models.Departments;
 
 namespace BlastAsia.DigiBook.Domain.Departments
 {
