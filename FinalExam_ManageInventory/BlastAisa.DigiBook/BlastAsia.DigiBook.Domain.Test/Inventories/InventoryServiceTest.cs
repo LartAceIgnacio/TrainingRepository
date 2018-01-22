@@ -14,6 +14,8 @@ namespace BlastAsia.DigiBook.Domain.Test.Inventories
     {
         private Mock<IInventoryRepository> mockInventoryRepository;
         private InventoryService sut;
+        private Guid existingId;
+        private Guid nonExistingId;
         private Inventory inventory;
 
         [TestInitialize]
@@ -21,6 +23,8 @@ namespace BlastAsia.DigiBook.Domain.Test.Inventories
         {
             mockInventoryRepository = new Mock<IInventoryRepository>();
             sut = new InventoryService(mockInventoryRepository.Object);
+            existingId = Guid.NewGuid();
+            nonExistingId = Guid.Empty;
             inventory = new Inventory
             {
                 ProductId = Guid.NewGuid(),
@@ -35,6 +39,14 @@ namespace BlastAsia.DigiBook.Domain.Test.Inventories
                 IsActive = true,
                 Bin = "01B1A"
             };
+
+            mockInventoryRepository
+                .Setup(i => i.Retrieve(nonExistingId))
+                .Returns<Inventory>(null);
+
+            mockInventoryRepository
+                .Setup(i => i.Retrieve(existingId))
+                .Returns(inventory);
         }
 
         [TestCleanup]
@@ -214,6 +226,20 @@ namespace BlastAsia.DigiBook.Domain.Test.Inventories
             //Assert
             Assert.ThrowsException<BinRequiresFiveCharException>(
                 () => sut.Save(inventory.ProductId, inventory));
+        }
+
+        [TestMethod]
+        public void Save_WithExistingProductId_ShouldCallRepositoryUpdate()
+        {
+            //Arrange
+            inventory.ProductId = existingId;
+            //Act
+            var result = sut.Save(inventory.ProductId, inventory);
+            //Assert
+            mockInventoryRepository
+                .Verify(i => i.Retrieve(existingId), Times.Once);
+            mockInventoryRepository
+                .Verify(i => i.Update(inventory.ProductId, inventory), Times.Once);
         }
     }
 }
