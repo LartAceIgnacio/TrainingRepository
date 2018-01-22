@@ -2,6 +2,7 @@
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Departments;
 using BlastAsia.DigiBook.Domain.Models.Employees;
+using BlastAsia.DigiBook.Domain.Models.Flights;
 using BlastAsia.DigiBook.Domain.Models.Reservations;
 using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Infrastructure.Security;
@@ -25,6 +26,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
         public DbSet<Venue> Venue { get; set; }
         public DbSet<Reservation> Reservation {get; set;}
         public DbSet<Department> Department { get; set; }
+        public DbSet<Flight> Flight { get; set; }
         public DbSet<Token> Tokens { get; set; }
 
         public DigiBookDbContext(
@@ -66,6 +68,10 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
             modelBuilder.Entity<Department>()
                 .ToTable("Department")
                 .HasKey(KeyExtensions => KeyExtensions.DepartmentId);
+
+            modelBuilder.Entity<Flight>()
+                .ToTable("Flight")
+                .HasKey(KeyExtensions => KeyExtensions.FlightId);
 
             #region Appointments
             modelBuilder.Entity<Appointment>().ToTable("Appointment");
