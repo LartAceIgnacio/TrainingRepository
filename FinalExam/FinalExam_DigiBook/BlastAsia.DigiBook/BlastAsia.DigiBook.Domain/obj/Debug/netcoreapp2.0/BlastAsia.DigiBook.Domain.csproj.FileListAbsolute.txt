@@ -1,0 +1,22 @@
+C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.deps.json
+C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
+C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
+C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.csprojResolveAssemblyReference.cache
+C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.csproj.CoreCompileInputs.cache
+C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.AssemblyInfoInputs.cache
+C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.AssemblyInfo.cs
+C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
+C:\Users\labille\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.deps.json
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.csprojResolveAssemblyReference.cache
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.csproj.CoreCompileInputs.cache
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.AssemblyInfoInputs.cache
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.AssemblyInfo.cs
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
+C:\Users\labille\Desktop\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
