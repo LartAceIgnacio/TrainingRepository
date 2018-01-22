@@ -1,0 +1,8 @@
+C:\Projects\TrainingRepository\FinalExam\BlastAsia.DigiBook\.vs\BlastAsia.DigiBook\lut\0\b\BlastAsia.DigiBook.Infrastructure\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.deps.json
+C:\Projects\TrainingRepository\FinalExam\BlastAsia.DigiBook\.vs\BlastAsia.DigiBook\lut\0\b\BlastAsia.DigiBook.Infrastructure\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
+C:\Projects\TrainingRepository\FinalExam\BlastAsia.DigiBook\.vs\BlastAsia.DigiBook\lut\0\b\BlastAsia.DigiBook.Infrastructure\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb
+C:\Projects\TrainingRepository\FinalExam\BlastAsia.DigiBook\.vs\BlastAsia.DigiBook\lut\0\i\BlastAsia.DigiBook.Infrastructure\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Projects\TrainingRepository\FinalExam\BlastAsia.DigiBook\.vs\BlastAsia.DigiBook\lut\0\i\BlastAsia.DigiBook.Infrastructure\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.AssemblyInfoInputs.cache
+C:\Projects\TrainingRepository\FinalExam\BlastAsia.DigiBook\.vs\BlastAsia.DigiBook\lut\0\i\BlastAsia.DigiBook.Infrastructure\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.AssemblyInfo.cs
+C:\Projects\TrainingRepository\FinalExam\BlastAsia.DigiBook\.vs\BlastAsia.DigiBook\lut\0\i\BlastAsia.DigiBook.Infrastructure\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
+C:\Projects\TrainingRepository\FinalExam\BlastAsia.DigiBook\.vs\BlastAsia.DigiBook\lut\0\i\BlastAsia.DigiBook.Infrastructure\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb

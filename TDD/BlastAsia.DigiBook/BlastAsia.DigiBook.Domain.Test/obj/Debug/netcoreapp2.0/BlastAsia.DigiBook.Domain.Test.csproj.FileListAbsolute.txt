@@ -16,3 +16,21 @@ C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastA
 C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.AssemblyInfo.cs
 C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.dll
 C:\Users\aolarte\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.pdb
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.deps.json
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.runtimeconfig.json
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.runtimeconfig.dev.json
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.dll
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.pdb
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.csprojResolveAssemblyReference.cache
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.csproj.CoreCompileInputs.cache
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.AssemblyInfoInputs.cache
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.AssemblyInfo.cs
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.dll
+C:\Projects\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.pdb
