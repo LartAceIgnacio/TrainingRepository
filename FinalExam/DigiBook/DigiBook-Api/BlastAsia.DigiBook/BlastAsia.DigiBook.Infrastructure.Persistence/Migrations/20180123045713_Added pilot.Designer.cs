@@ -11,9 +11,10 @@ using System;
 namespace BlastAsia.DigiBook.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(DigiBookDbContext))]
-    partial class DigiBookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180123045713_Added pilot")]
+    partial class Addedpilot
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using BlastAsia.DigiBook.Infrastructure.Security;
+using BlastAsia.DigiBook.Domain.Models.Pilots;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence
 {
@@ -28,6 +29,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
         public DbSet<Employee> Employees { get; set; }
 
         public DbSet<Venue> Venues { get; set; }
+        public DbSet<Pilot> Pilots { get; set; }
 
         public DbSet<Token> Tokens { get; set; }
 
@@ -94,6 +96,8 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
             #endregion
 
             modelBuilder.Entity<Venue>().ToTable("Venue");
+
+            modelBuilder.Entity<Pilot>().ToTable("Pilot");
         }
     }
 }
