@@ -134,7 +134,7 @@ export class EmployeesComponent implements OnInit {
         });
     } else {
       this.globalService.putSomething<Employee>('Employees', this.selectedEmployee.employeeId, this.selectedEmployee)
-        .then(contact => {
+        .then(employee => {
           tmpEmployeeList[this.employeeList.indexOf(this.cloneEmployee)] = this.selectedEmployee;
           this.employeeList = tmpEmployeeList;
           this.selectedEmployee = null;

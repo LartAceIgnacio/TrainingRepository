@@ -3745,11 +3745,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\ddeguzman\\Documents\\TrainingRepository\\FinalExam\\DigiBook\\DigiBookApi\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj",
       "projectName": "BlastAsia.DigiBook.Infrastructure",
-      "projectPath": "C:\\Users\\ddeguzman\\Documents\\TrainingRepository\\FinalExam\\DigiBook\\DigiBookApi\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj",
+      "projectPath": "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\ddeguzman\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ddeguzman\\Documents\\TrainingRepository\\FinalExam\\DigiBook\\DigiBookApi\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",

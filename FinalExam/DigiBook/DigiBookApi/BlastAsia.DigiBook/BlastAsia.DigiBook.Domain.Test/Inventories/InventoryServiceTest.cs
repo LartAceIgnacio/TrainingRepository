@@ -187,5 +187,19 @@ namespace BlastAsia.DigiBook.Domain.Test.Inventories
             Assert.ThrowsException<BinInvalidException>(
                 () => sut.Save(inventory.ProductId, inventory));
         }
+
+        [DataTestMethod]
+        [DataRow("A01B1")]
+        [DataRow("B1A01")]
+        [TestMethod]
+        public void Save_WithBinIncorrectFormat_ThrowsBinInvalidException(string Bin)
+        {
+            // Arrange
+            inventory.Bin = Bin;
+
+            // Assert
+            Assert.ThrowsException<BinInvalidException>(
+                () => sut.Save(inventory.ProductId, inventory));
+        }
     }
 }

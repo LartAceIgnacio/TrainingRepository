@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using BlastAsia.DigiBook.Domain.Models.Inventories;
 
 namespace BlastAsia.DigiBook.Domain.Inventories
@@ -6,10 +7,11 @@ namespace BlastAsia.DigiBook.Domain.Inventories
     public class InventoryService : IInventoryService
     {
         private readonly IInventoryRepository inventoryRepository;
-        private readonly int ProductCodeRequiredLength = 8;
-        private readonly int ProductNameMaxLength = 60;
-        private readonly int ProductDescriptionMaxLength = 250;
-        private readonly int BinRequiredLength = 5;
+        private readonly int productCodeRequiredLength = 8;
+        private readonly int productNameMaxLength = 60;
+        private readonly int productDescriptionMaxLength = 250;
+        private readonly int binRequiredLength = 5;
+        private readonly string binFormat = @"0[1-5][Bb][1-9][A-Za-z]{1}$";
         public InventoryService(IInventoryRepository inventoryRepository)
         {
             this.inventoryRepository = inventoryRepository;
@@ -17,7 +19,7 @@ namespace BlastAsia.DigiBook.Domain.Inventories
 
         public Inventory Save(Guid id, Inventory inventory)
         {
-            if (inventory.ProductCode.Length != ProductCodeRequiredLength)
+            if (inventory.ProductCode.Length != productCodeRequiredLength)
             {
                 throw new ProductCodeInvalidException("Product code invalid");
             }
@@ -25,7 +27,7 @@ namespace BlastAsia.DigiBook.Domain.Inventories
             {
                 throw new ProductNameRequiredException("Product name required");
             }
-            if (inventory.ProductName.Length > ProductNameMaxLength)
+            if (inventory.ProductName.Length > productNameMaxLength)
             {
                 throw new ProductNameTooLongException("Product name too long");
             }
@@ -33,7 +35,7 @@ namespace BlastAsia.DigiBook.Domain.Inventories
             {
                 throw new ProductDescriptionRequiredException("Product description required");
             }
-            if (inventory.ProductDescription.Length > ProductDescriptionMaxLength)
+            if (inventory.ProductDescription.Length > productDescriptionMaxLength)
             {
                 throw new ProductDescriptionTooLongException("Product description too long");
             }
@@ -49,9 +51,13 @@ namespace BlastAsia.DigiBook.Domain.Inventories
             {
                 throw new NegativeNumberInvalidException("QOO cannot be negative number");
             }
-            if (inventory.Bin.Length != BinRequiredLength)
+            if (inventory.Bin.Length != binRequiredLength)
             {
                 throw new BinInvalidException("Bin invalid");
+            }
+            if (!Regex.IsMatch(inventory.Bin, binFormat, RegexOptions.IgnoreCase))
+            {
+                throw new BinInvalidException("Bin invalid format");
             }
 
             Inventory result = null;

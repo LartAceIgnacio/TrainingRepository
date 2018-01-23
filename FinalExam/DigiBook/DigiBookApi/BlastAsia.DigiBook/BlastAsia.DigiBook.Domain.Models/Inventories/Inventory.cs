@@ -14,7 +14,7 @@ namespace BlastAsia.DigiBook.Domain.Models.Inventories
         public int QOR { get; set; }
         public int QOO { get; set; }
         public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
+        public DateTime? DateModified { get; set; }
         public bool IsActive { get; set; }
         public string Bin { get; set; }
     }

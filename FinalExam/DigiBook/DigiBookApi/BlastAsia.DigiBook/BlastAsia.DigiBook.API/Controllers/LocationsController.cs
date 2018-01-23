@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using BlastAsia.DigiBook.API.Utils;
 using BlastAsia.DigiBook.Domain.Locations;
 using BlastAsia.DigiBook.Domain.Models.Locations;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
+    [EnableCors("DayTwoApp")]
     [Produces("application/json")]
     [Route("api/Locations")]
     public class LocationsController : Controller
@@ -92,6 +94,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             return Ok(location);
         }
 
+        [HttpPatch]
         public IActionResult PatchLocation([FromBody]JsonPatchDocument patchedLocation, Guid id)
         {
             if (patchedLocation == null)

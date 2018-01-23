@@ -7,22 +7,106 @@
         <div class="header-left">
           <button pButton icon="fa fa-plus" (click)="showDialog()"></button> Products
           <div class="header-search">
-            <button type="button" pButton icon="fa-search"></button>
+            <button type="button" (click)="searchInventory()" pButton icon="fa-search"></button>
             <input #gb type="text" size="20" placeholder="Search">
           </div>
         </div>
       </p-header>
       <p-column styleClass="col-button">
         <ng-template let-Inventory="rowData" pTemplate="body">
-          <button type="button" pButton icon="fa-pencil"></button>
-          <button type="button" pButton icon="fa-trash"></button>
+          <button type="button" (click)="editInventory(Inventory)" pButton icon="fa-pencil"></button>
+          <button type="button" (click)="deleteInventory(Inventory)" pButton icon="fa-trash"></button>
         </ng-template>
       </p-column>
       <p-column field="productName" header="Product Name" [sortable]="true"></p-column>
       <p-column field="productDescription" header="Product Description" [sortable]="true"></p-column>
-      <p-column field="QOH" header="Quantity on Hand" [sortable]="true"></p-column>
-      <p-column field="QOR" header="Quantity Reserved" [sortable]="true"></p-column>
-      <p-column field="QOO" header="Quantity Ordered" [sortable]="true"></p-column>
+      <p-column field="qoh" header="Quantity on Hand" [sortable]="true"></p-column>
+      <p-column field="qor" header="Quantity Reserved" [sortable]="true"></p-column>
+      <p-column field="qoo" header="Quantity Ordered" [sortable]="true"></p-column>
     </p-dataTable>
   </div>
 </p-panel>
+
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+<form [formGroup]="userform">
+  <p-dialog header="Product Details" [(visible)]="display" modal="modal" width="1000" [responsive]="true">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedInventory">
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="productCode">Product Code: </label>
+        <input class="ui-g-12 ui-md-8" [disabled]="isDelete" id="productCode" formControlName="productCode" placeholder="Enter Product Code"
+          pInputText [(ngModel)]="selectedInventory.productCode">
+
+        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['productCode'].valid&&userform.controls['productCode'].dirty">
+          <i class="fa fa-close"></i> Product Code is required (8 characters)
+        </div>
+      </div>
+      
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="productName">Product Name: </label>
+        <input class="ui-g-12 ui-md-8" [disabled]="isDelete" id="productName" formControlName="productName" placeholder="Enter Product Name"
+          pInputText [(ngModel)]="selectedInventory.productName">
+
+        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['productName'].valid&&userform.controls['productName'].dirty">
+          <i class="fa fa-close"></i> Product Name is required
+        </div>
+      </div>
+
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-12" for="productDescription">Product Description: </label>
+        <input class="ui-g-12 ui-md-12" [disabled]="isDelete" id="productDescription" formControlName="productDescription" placeholder="Enter Product Description"
+          pInputText [(ngModel)]="selectedInventory.productDescription">
+
+        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['productDescription'].valid&&userform.controls['productDescription'].dirty">
+          <i class="fa fa-close"></i> Product Description is required
+        </div>
+      </div>
+
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="QOH">Quantity on Hand: </label>
+        <input class="ui-g-12 ui-md-8" [disabled]="isDelete" id="QOH" formControlName="QOH" placeholder="Enter QOH" pInputText [(ngModel)]="selectedInventory.qoh">
+      </div>
+
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="QOR">Quantity Reserved: </label>
+        <input class="ui-g-12 ui-md-8" [disabled]="isDelete" id="QOR" formControlName="QOR" placeholder="Enter QOR" pInputText [(ngModel)]="selectedInventory.qor">
+      </div>
+      
+      <div class="ui-g-6">
+        <label class="ui-g-12 ui-md-4" for="QOO">Quantity Ordered: </label>
+        <input class="ui-g-12 ui-md-8" [disabled]="isDelete" id="QOO" formControlName="QOO" placeholder="Enter QOO" pInputText [(ngModel)]="selectedInventory.qoo">
+      </div>
+    </div>
+
+    <div class="ui-g-12">
+      <label class="ui-g-12 ui-md-2" for="Bin">Bin: (LLBBR)</label>
+      <p-dropdown class="ui-g-12 ui-md-2" [options]="selectedFloor" [(ngModel)]="Floor" formControlName="Floor" placeholder="floor(01..05)"></p-dropdown>
+      <p-dropdown class="ui-g-12 ui-md-2" [options]="selectedBlock" [(ngModel)]="Block" formControlName="Block" placeholder="block(B1..B9)"></p-dropdown>
+      <p-dropdown class="ui-g-12 ui-md-2" [options]="selectedRack" [(ngModel)]="Rack" formControlName="Rack" placeholder="rack(A..Z)"></p-dropdown>
+
+      <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['Floor'].valid&&userform.controls['Floor'].dirty">
+        <i class="fa fa-close"></i> Bin is required
+      </div>
+      <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['Block'].valid&&userform.controls['Block'].dirty">
+        <i class="fa fa-close"></i> Bin is required
+      </div>
+      <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['Rack'].valid&&userform.controls['Rack'].dirty">
+        <i class="fa fa-close"></i> Bin is required
+      </div>
+    </div>
+
+    <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix" *ngIf="isDelete">
+        <button pButton type="button" style="float:left" label="Delete" (click)="confirmDelete()" icon="fa fa-trash" iconPos="left"></button>
+        <button pButton type="button" style="float:left" label="Cancel" (click)="cancelInventory()" icon="fa fa-ban" iconPos="left"></button>
+      </div>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix" *ngIf="!isDelete">
+        <button pButton type="button" style="float:left" label="Save & New" *ngIf="!isEdit" [disabled]="!userform.valid" (click)="newSaveInventory()"
+          icon="fa fa-save" iconPos="left"></button>
+        <button pButton type="button" style="float:left" label="Save" (click)="saveInventory()" [disabled]="!userform.valid" icon="fa fa-save"
+          iconPos="left"></button>
+        <button pButton type="button" style="float:left" label="Cancel" (click)="cancelInventory()" icon="fa fa-ban" iconPos="left"></button>
+      </div>
+    </p-footer>
+  </p-dialog>
+</form>

@@ -1,20 +1,22 @@
 ﻿using BlastAsia.DigiBook.API.Utils;
 using BlastAsia.DigiBook.Domain.Inventories;
+using BlastAsia.DigiBook.Domain.Models;
 using BlastAsia.DigiBook.Domain.Models.Inventories;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
     [EnableCors("DayTwoApp")]
     [Produces("application/json")]
-    [Route("api/Inventories")]
+    //[Route("api/Inventories")]
     public class InventoriesController : Controller
     {
-        public static List<Inventory> employee = new List<Inventory>();
+        public static List<Inventory> inventory = new List<Inventory>();
         private readonly IInventoryRepository inventoryRepository;
         private readonly IInventoryService inventoryService;
 
@@ -24,13 +26,31 @@ namespace BlastAsia.DigiBook.API.Controllers
             this.inventoryService = inventoryService;
         }
 
+        [HttpGet, ActionName("GetInventoriesWithPagination")]
+        [Route("api/Inventories/{page}/{record}")]
+        public IActionResult GetInventoriesWithPagination(int page, int record, string filter)
+        {
+            var result = new PaginationClass<Inventory>();
+            try
+            {
+                result = this.inventoryRepository.Retrieve(page, record, filter);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
         [HttpGet, ActionName("GetInventories")]
+        [Route("api/Inventories/{id?}")]
         public IActionResult GetInventories(Guid? id)
         {
             var result = new List<Inventory>();
             if (id == null)
             {
-                result.AddRange(this.inventoryRepository.Retrieve());
+                result.AddRange(this.inventoryRepository.Retrieve().Where(x => x.IsActive = true));
             }
             else
             {
@@ -42,6 +62,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPost]
+        [Route("api/Inventories")]
         public IActionResult PostInventory([FromBody] Inventory inventory)
         {
             try
@@ -53,7 +74,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
                 var result = this.inventoryService.Save(Guid.Empty, inventory);
 
-                return CreatedAtAction("GetLocations",
+                return CreatedAtAction("GetInventories",
                     new { id = inventory.ProductId }, result);
             }
 
@@ -64,6 +85,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpDelete]
+        [Route("api/Inventories/{id}")]
         public IActionResult DeleteInventory(Guid id)
         {
             var inventoryToDelete = this.inventoryRepository.Retrieve(id);
@@ -77,6 +99,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPut]
+        [Route("api/Inventories/{id}")]
         public IActionResult PutInventory([FromBody] Inventory inventory, Guid id)
         {
             if (inventory == null)
@@ -95,6 +118,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPatch]
+        [Route("api/Inventories/{id}")]
         public IActionResult PatchInventory([FromBody] JsonPatchDocument patchedInventory, Guid id)
         {
             if (patchedInventory == null)

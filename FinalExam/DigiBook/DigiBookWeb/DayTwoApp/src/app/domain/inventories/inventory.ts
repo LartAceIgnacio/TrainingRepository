@@ -3,9 +3,11 @@ export interface Inventory {
     productCode?;
     productName?;
     productDescription?;
-    QOH?;
-    QOR?;
-    QOO?;
+    qoh?;
+    qor?;
+    qoo?;
+    dateCreated?;
+    dateModified?;
     isActive?;
     bin?;
 }

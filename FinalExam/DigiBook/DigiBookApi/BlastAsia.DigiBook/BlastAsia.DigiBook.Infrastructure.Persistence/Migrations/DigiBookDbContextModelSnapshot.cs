@@ -113,7 +113,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Migrations
 
                     b.Property<DateTime>("DateCreated");
 
-                    b.Property<DateTime>("DateModified");
+                    b.Property<DateTime?>("DateModified");
 
                     b.Property<bool>("IsActive");
 
