@@ -11,6 +11,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using BlastAsia.DigiBook.Infrastructure.Security;
 using BlastAsia.DigiBook.Domain.Models.Departments;
+using BlastAsia.DigiBook.Domain.Models.Pilots;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence
 {
@@ -29,6 +30,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
         public DbSet<Appointment> Appointment { get; set; }
         public DbSet<Venue> Venue { get; set; }
         public DbSet<Department> Department { get; set; }
+        public DbSet<Pilot> Pilot { get; set; }
         public DbSet<Token> Tokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -90,6 +92,8 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
             //modelBuilder.Entity<Venue>().ToTable("Venue");
 
             //modelBuilder.Entity<Contact>().ToTable("Contact");
+
+            modelBuilder.Entity<Pilot>().ToTable("Pilot");
 
             modelBuilder.Entity<Employee>().Ignore(t => t.Photo);
 

@@ -128,6 +128,34 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Migrations
                     b.ToTable("Employee");
                 });
 
+            modelBuilder.Entity("BlastAsia.DigiBook.Domain.Models.Pilots.Pilot", b =>
+                {
+                    b.Property<Guid>("PilotId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime?>("DateActivated");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime>("DateModified");
+
+                    b.Property<DateTime?>("DateOfBirth");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("MiddleName");
+
+                    b.Property<string>("PilotCode");
+
+                    b.Property<int?>("YearsOfExperience");
+
+                    b.HasKey("PilotId");
+
+                    b.ToTable("Pilot");
+                });
+
             modelBuilder.Entity("BlastAsia.DigiBook.Domain.Models.Venues.Venue", b =>
                 {
                     b.Property<Guid>("VenueId")
