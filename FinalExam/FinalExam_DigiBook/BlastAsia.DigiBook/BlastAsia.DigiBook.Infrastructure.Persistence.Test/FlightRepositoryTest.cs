@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
@@ -17,6 +18,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         private String connectionString = null;
         private FlightRepository sut = null;
         private Flight flight = null;
+        private string uniqueFlightCode;
 
         [TestInitialize]
         public void InitializeTest()
@@ -33,10 +35,13 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 
             sut = new FlightRepository(dbContext);
 
+            uniqueFlightCode = sut.Retrieve().FirstOrDefault().FlightCode;
+
             flight = new Flight
             {
                 CityOfOrigin = "123",
                 CityOfDestination = "123",
+                FlightCode = uniqueFlightCode,
                 ExpectedTimeOfArrival = DateTime.Now.AddHours(1),
                 ExpectedTimeOfDeparture = DateTime.Now.AddHours(1)
             };

@@ -6,12 +6,13 @@ import { FlightClass } from '../domain/FlightClass';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Pagination } from '../domain/pagination';
 import { MaxLengthValidator } from '@angular/forms/src/directives/validators';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-flights',
   templateUrl: './flights.component.html',
   styleUrls: ['./flights.component.css'],
-  providers: [GlobalService, ConfirmationService]
+  providers: [GlobalService, ConfirmationService, DatePipe]
 })
 export class FlightsComponent implements OnInit {
   totalRecords: number = 0;
@@ -36,7 +37,7 @@ export class FlightsComponent implements OnInit {
   }
   constructor(private globalService: GlobalService,
     private confirmationService: ConfirmationService,
-  private fb: FormBuilder) { }
+  private fb: FormBuilder, private datePipe: DatePipe) { }
 
   @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
@@ -72,8 +73,13 @@ export class FlightsComponent implements OnInit {
       this.flightList = tmpFlightList;
       });
     } else {
-      this.globalService.updateSomething("Flights", this.selectedFlight.flightId , this.selectedFlight);
-      tmpFlightList[this.flightList.indexOf(this.selectedFlight)] = this.selectedFlight;
+      this.globalService.updateSomething<Flight>("Flights",this.selectedFlight.flightId,this.selectedFlight)
+      .then(flights =>{
+        this.selectedFlight.expectedTimeOfArrival = new Date(this.selectedFlight.expectedTimeOfArrival).toLocaleString();
+        this.selectedFlight.expectedTimeOfDeparture = new Date(this.selectedFlight.expectedTimeOfDeparture).toLocaleString();
+        tmpFlightList[this.flightList.indexOf(this.selectedFlight)] = this.selectedFlight;
+        this.flightList=tmpFlightList;
+      });
     }
     this.selectedFlight = null;
     this.isNewFlight = false;
@@ -90,8 +96,13 @@ export class FlightsComponent implements OnInit {
       this.flightList = tmpFlightList;
       });
     } else {
-      this.globalService.updateSomething("Flights", this.selectedFlight.flightId , this.selectedFlight);
-      tmpFlightList[this.flightList.indexOf(this.selectedFlight)] = this.selectedFlight;
+      this.globalService.updateSomething<Flight>("Flights",this.selectedFlight.flightId,this.selectedFlight)
+      .then(flights =>{
+        this.selectedFlight.expectedTimeOfArrival = new Date(this.selectedFlight.expectedTimeOfArrival).toLocaleString();
+        this.selectedFlight.expectedTimeOfDeparture = new Date(this.selectedFlight.expectedTimeOfDeparture).toLocaleString();
+        tmpFlightList[this.flightList.indexOf(this.selectedFlight)] = this.selectedFlight;
+        this.flightList=tmpFlightList;
+      });
     }
     this.selectedFlight = new FlightClass;
     this.userform.markAsPristine();
@@ -142,6 +153,12 @@ export class FlightsComponent implements OnInit {
         this.paginationResult = paginationResult;
         this.flightList = this.paginationResult.results;
         this.totalRecords = this.paginationResult.totalRecords;
+         for (let i = 0; i < this.flightList.length; i++){
+        //   this.flightList[i].expectedTimeOfArrival = new Date(this.flightList[i].expectedTimeOfArrival).toLocaleString();
+        //   this.flightList[i].expectedTimefDeparture = new Date(this.flightList[i].expectedTimeofDeparture).toLocaleString();
+        this.flightList[i].expectedTimeOfArrival = this.datePipe.transform(this.flightList[i].expectedTimeOfArrival, 'MM-dd-yyyy HH:mm:ss');
+        this.flightList[i].expectedTimeOfDeparture = this.datePipe.transform(this.flightList[i].expectedTimeOfDeparture, 'MM-dd-yyyy HH:mm:ss');
+         }
       });
   }
 

@@ -33,8 +33,7 @@ import {
   SidebarModule
 
 } from 'primeng/primeng';
-
-import { CommonModule } from '@angular/common';
+import { CommonModule , DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 

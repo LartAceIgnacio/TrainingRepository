@@ -4,5 +4,5 @@ export interface Flight{
     cityOfDestination?;
     flightCode?;
     expectedTimeOfArrival?;
-    expectedTimeofDeparture?;
+    expectedTimeOfDeparture?;
 }

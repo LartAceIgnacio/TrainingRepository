@@ -100,6 +100,40 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
             Assert.IsTrue(newFlight.FlightId != Guid.Empty);
         }
         [TestMethod]
+        public void Save_WithBlankCityOfOrigin_ThrowsRequiredFieldException()
+        {
+            // Arrange
+
+            flight.CityOfOrigin = "";
+
+            // Act
+
+            // Assert
+
+            mockFlightRepository
+                .Verify(c => c.Create(flight), Times.Never());
+            Assert.ThrowsException<RequiredFieldException>(
+                () => sut.Save(flight.FlightId, flight));
+
+        }
+        [TestMethod]
+        public void Save_WithBlankCityOfDestination_ThrowsRequiredFieldException()
+        {
+            // Arrange
+
+            flight.CityOfDestination = "";
+
+            // Act
+
+            // Assert
+
+            mockFlightRepository
+                .Verify(c => c.Create(flight), Times.Never());
+            Assert.ThrowsException<RequiredFieldException>(
+                () => sut.Save(flight.FlightId, flight));
+
+        }
+        [TestMethod]
         public void Save_WithCityOfOriginNotEqualToThree_ThrowsMaximumLengthException()
         {
             // Arrange
@@ -148,12 +182,60 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
                 () => sut.Save(flight.FlightId, flight));
 
         }
+        [TestMethod]
+        public void Save_WithBlankExpectedTimeOfArrival_ThrowsDateAndTimeException()
+        {
+            // Arrange
+
+            flight.ExpectedTimeOfArrival = null;
+
+            // Act
+
+            // Assert
+
+            mockFlightRepository
+                .Verify(c => c.Create(flight), Times.Never());
+            Assert.ThrowsException<DateAndTimeException>(
+                () => sut.Save(flight.FlightId, flight));
+        }
+        [TestMethod]
+        public void Save_WithBlankExpectedTimeOfDeparture_ThrowsDateAndTimeException()
+        {
+            // Arrange
+
+            flight.ExpectedTimeOfDeparture = null;
+
+            // Act
+
+            // Assert
+
+            mockFlightRepository
+                .Verify(c => c.Create(flight), Times.Never());
+            Assert.ThrowsException<DateAndTimeException>(
+                () => sut.Save(flight.FlightId, flight));
+        }
+        [TestMethod]
+        public void Save_WithExpectedTimeOfArrivalLessThanDateToday_ThrowsDateAndTimeException()
+        {
+            // Arrange
+
+            flight.ExpectedTimeOfArrival = DateTime.Now.AddHours(5);
+
+            // Act
+
+            // Assert
+
+            mockFlightRepository
+                .Verify(c => c.Create(flight), Times.Never());
+            Assert.ThrowsException<DateAndTimeException>(
+                () => sut.Save(flight.FlightId, flight));
+        }
         //[TestMethod]
-        //public void Save_WithBlankExpectedTimeOfArrival_ThrowsDateAndTimeException()
+        //public void Save_WithInvalidFlightCodeFormat_ThrowsFlightCodeException()
         //{
         //    // Arrange
 
-        //    flight.ExpectedTimeOfArrival = null;
+        //    flight.FlightCode = "OOODDDYYMMddNN";
 
         //    // Act
 
@@ -161,23 +243,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
 
         //    mockFlightRepository
         //        .Verify(c => c.Create(flight), Times.Never());
-        //    Assert.ThrowsException<DateAndTimeException>(
-        //        () => sut.Save(flight.FlightId, flight));
-        //}
-        //[TestMethod]
-        //public void Save_WithBlankExpectedTimeOfDeparture_ThrowsDateAndTimeException()
-        //{
-        //    // Arrange
-
-        //    flight.ExpectedTimeOfDeparture = null;
-
-        //    // Act
-
-        //    // Assert
-
-        //    mockFlightRepository
-        //        .Verify(c => c.Create(flight), Times.Never());
-        //    Assert.ThrowsException<DateAndTimeException>(
+        //    Assert.ThrowsException<FlightCodeException>(
         //        () => sut.Save(flight.FlightId, flight));
         //}
     }

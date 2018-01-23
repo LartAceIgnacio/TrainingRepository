@@ -17,7 +17,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
             Pagination<Flight> result = new Pagination<Flight>();
             if (string.IsNullOrEmpty(filterValue))
             {
-                result.Results = context.Set<Flight>().OrderBy(x => x.ExpectedTimeOfDeparture)
+                result.Results = context.Set<Flight>().OrderBy(x => x.FlightCode)
                     .Skip(pageNo).Take(numRec).ToList();
 
                 if (result.Results.Count > 0)
@@ -35,7 +35,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
                     .Where(x => x.CityOfOrigin.ToLower().Contains(filterValue.ToLower()) ||
                     x.CityOfDestination.ToLower().Contains(filterValue.ToLower()) ||
                     x.FlightCode.ToLower().Contains(filterValue.ToLower()))
-                    .OrderBy(x => x.ExpectedTimeOfDeparture)
+                    .OrderBy(x => x.FlightCode)
                     .Skip(pageNo).Take(numRec).ToList();
 
                 if (result.Results.Count > 0)
