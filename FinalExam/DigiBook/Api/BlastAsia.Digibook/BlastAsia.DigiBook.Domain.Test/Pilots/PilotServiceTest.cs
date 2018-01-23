@@ -48,10 +48,15 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
             var sut = new PilotService(mockRepo.Object);
 
             // act 
+            sut.Save(pilot.PilotId, pilot);
 
-            //sut.Save();
 
             // assert
+            mockRepo
+                .Verify(
+                    r => r.Create(pilot), Times.Once    
+                );
+
         }
 
     }
