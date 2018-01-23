@@ -46,7 +46,7 @@ namespace BlastAsia.DigiBook.Domain.Pilots
             DateTime? birthDate = pilot.DateOfBirth;
             DateTime dateToday = DateTime.Now;
             //var age = (birthDate.Value.Year - dateToday.Year);
-            if((dateToday.Year - birthDate.Value.Year) < ageRequirement)
+            if ((dateToday.Year - birthDate.Value.Year) < ageRequirement)
             {
                 throw new InvalidDateException("Age is not qualified!");
             }
@@ -61,21 +61,39 @@ namespace BlastAsia.DigiBook.Domain.Pilots
                 throw new InvalidYearsOfExperienceException("Years of experience is not enough!");
             }
 
-            if (pilot.DateActivated == null) {
+            if (pilot.DateActivated == null)
+            {
                 throw new InvalidDateException("Date Activated is required!");
             }
 
             var namePart = (pilot.FirstName.Substring(0, 2) + pilot.MiddleName.Substring(0, 2) + pilot.LastName.Substring(0, 4)).ToUpper();
             var datePart = pilot.DateActivated.Value.ToString("yy") + pilot.DateActivated.Value.Month.ToString().PadLeft(2, '0') + pilot.DateActivated.Value.Day.ToString().PadLeft(2, '0');
-
-            if (!(Regex.IsMatch(namePart + datePart, regex))) {
+            var PilotCode = namePart + datePart;
+            if (!(Regex.IsMatch(PilotCode, regex)))
+            {
                 throw new InvalidPilotCodeException("Invalid Pilot Code!");
             }
 
-            //var result = Regex.IsMatch(existingCode, regex);
-            //Assert.IsTrue(result);
+            var checkPilotCode = this.repo.Retrieve(PilotCode);
 
-            return repo.Create(pilot);
+            if (checkPilotCode != null)
+            {
+                throw new ExistingPilotCodeException("Code Already exist!");
+            }
+
+            var checkExistingPilot = this.repo.Retrieve(id);
+
+            Pilot result = null;
+
+            if (checkExistingPilot != null)
+            {
+                result = this.repo.Update(pilot);
+            } else
+            {
+                result = this.repo.Create(pilot);
+            }
+
+            return result;
         }
     }
 }
