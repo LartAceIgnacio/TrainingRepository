@@ -15,6 +15,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
         private Mock<IPilotRepository> mockPilotRepository;
         private PilotService sut;
         private Guid existingPilotId = Guid.NewGuid();
+        private string longName;
 
         [TestInitialize]
         public void Initialize()
@@ -39,6 +40,9 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
             mockPilotRepository
                 .Setup(pr => pr.Retrieve(existingPilotId))
                 .Returns(pilot);
+
+            longName = "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the wo ";
+
         }
 
         [TestMethod]
@@ -91,8 +95,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
         public void Save_WithFirstNameLengthGreaterThanMaximumLength_ThrowsFirstNameMaximumLenghtException()
         {
             //Arrange
-            pilot.FirstName = "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the wo ";
-            //Act 
+            pilot.FirstName = longName;
 
             //Assert
             Assert.ThrowsException<FirstNameMaximumLenghtException>(
@@ -101,6 +104,53 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
             mockPilotRepository
                 .Verify(c => c.Create(pilot), Times.Never());
         }
+
+
+        [TestMethod]
+        public void Save_WithMiddleNameLengthGreaterThanMaximumLength_ThrowsMiddleNameLengthException()
+        {
+            //Arrange
+            pilot.MiddleName = longName;
+            //Act 
+
+            //Assert
+            Assert.ThrowsException<MiddleNameLengthException>(
+              () => sut.Save(pilot.PilotId, pilot));
+
+            mockPilotRepository
+                .Verify(c => c.Create(pilot), Times.Never());
+        }
+
+        [TestMethod]
+        public void Save_WithEmptyLastName_ThrowsLastNameRequiredException()
+        {
+            //Arrange
+            pilot.LastName = "";
+            //Act 
+
+            //Assert
+            Assert.ThrowsException<LastNameRequiredException>(
+                () => sut.Save(pilot.PilotId, pilot));
+
+            mockPilotRepository
+                .Verify(c => c.Create(pilot), Times.Never());
+
+        }
+
+        [TestMethod]
+        public void Save_WithLastNameLengthGreaterThanMaximumLength_ThrowsLastNameMaximumLenghtException()
+        {
+            //Arrange
+            pilot.LastName = longName;
+
+            //Assert
+            Assert.ThrowsException<LastNameMaximumLenghtException>(
+              () => sut.Save(pilot.PilotId, pilot));
+
+            mockPilotRepository
+                .Verify(c => c.Create(pilot), Times.Never());
+        }
+
     }
 
 }
