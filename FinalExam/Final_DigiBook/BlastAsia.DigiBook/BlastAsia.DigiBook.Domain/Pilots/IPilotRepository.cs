@@ -5,10 +5,8 @@ using BlastAsia.DigiBook.Domain.Models.Pilots;
 namespace BlastAsia.DigiBook.Domain.Pilots
 {
     public interface IPilotRepository
+        : IRepository<Pilot>
     {
-        Pilot Create(Pilot pilot);
-        Pilot Update(Guid id, Pilot pilot);
-        Pilot Retrieve(Guid id);
         Pilot RetrievePilotCode(String pilotCode);
     }
 }

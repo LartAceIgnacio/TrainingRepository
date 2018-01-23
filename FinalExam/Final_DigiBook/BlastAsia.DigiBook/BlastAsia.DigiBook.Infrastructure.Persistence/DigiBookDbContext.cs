@@ -8,6 +8,7 @@ using System;
 using BlastAsia.DigiBook.Domain.Models.Security;
 using BlastAsia.DigiBook.Infrastructure.Security;
 using BlastAsia.DigiBook.Domain.Models.Departments;
+using BlastAsia.DigiBook.Domain.Models.Pilots;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence
 {
@@ -27,6 +28,8 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
         public DbSet<Venue> Venues { get; set; }
         public DbSet<Token> Tokens { get; set; }
         public DbSet<Department> Deparments { get; set; }
+        
+        public DbSet<Pilot> Pilots { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.
@@ -90,6 +93,11 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
                 .HasMany(c => c.Appointments)
                 .WithOne(c => c.Guest);
             #endregion
+
+            #region Pilots
+            modelBuilder.Entity<Contact>()
+              .ToTable("Pilot");
+            #endregion  
         }
     }
 }

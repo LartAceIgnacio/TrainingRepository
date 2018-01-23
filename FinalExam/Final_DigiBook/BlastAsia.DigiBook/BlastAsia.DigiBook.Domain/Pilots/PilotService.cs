@@ -12,7 +12,7 @@ namespace BlastAsia.DigiBook.Domain.Pilots
         const int minimumAge = 21;
         const int yearsOfExperienceRequirement = 10;
         DateTime now = DateTime.Today;
-        private string pilotCodePattern  = "[A-Za-z]{8}[0-9]{6}";
+        private string pilotCodePattern =  @"[A-Za-z]{8}[0-9]{6}$";
         public PilotService(IPilotRepository pilotRepository)
         {
             this.pilotRepository = pilotRepository;
@@ -60,6 +60,9 @@ namespace BlastAsia.DigiBook.Domain.Pilots
             {
                 throw new NonUniquePilotCodeException();
             }
+
+            pilot.DateCreated = DateTime.Now;
+            pilot.DateCreated = DateTime.Now;
            
             Pilot result;
 

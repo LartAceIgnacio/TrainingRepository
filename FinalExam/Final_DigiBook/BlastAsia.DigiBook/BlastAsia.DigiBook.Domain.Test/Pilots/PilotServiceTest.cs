@@ -16,6 +16,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
         private PilotService sut;
         private Guid existingPilotId = Guid.NewGuid();
         private string longName;
+        private string existingPilotCode;
 
         [TestInitialize]
         public void Initialize()
@@ -28,11 +29,10 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
                 BirthDate = DateTime.Now.AddYears(-25),
                 YearsOfExperience = 10,
                 DateActivated = DateTime.Today,
-                PilotCode = "FFMMLLLLYYmmdd",
-                DateCreated = DateTime.Now,
-                DateModified = new Nullable<DateTime>()
             };
 
+            existingPilotCode = "ChMaManu180123";
+            
             mockPilotRepository = new Mock<IPilotRepository>();
 
             sut = new PilotService(mockPilotRepository.Object);
@@ -205,10 +205,10 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
         public void Save_WithExistingPilotCode_ThrowsNonUniquePilotCodeException()
         {
             //Arrange
+
             mockPilotRepository
-             .Setup(pr => pr.RetrievePilotCode(pilot.PilotCode))
-             .Callback(() => pilot = new Pilot())
-             .Returns(pilot);
+                .Setup(pr => pr.RetrievePilotCode(existingPilotCode))
+                .Returns(pilot);
             //Act 
 
             //Assert
