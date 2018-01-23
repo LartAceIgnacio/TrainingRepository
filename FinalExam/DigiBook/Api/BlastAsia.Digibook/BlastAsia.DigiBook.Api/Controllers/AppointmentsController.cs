@@ -74,8 +74,8 @@ namespace BlastAsia.DigiBook.Api.Controllers
                 }
 
                 var result = appointmentService.Save(Guid.Empty, appointment);
-                return Ok(result);
-                //return CreatedAtAction("GetAppointments", new { id = appointment.AppointmentId }, result);
+                //return Ok(result);
+                return CreatedAtAction("GetAppointments", new { id = appointment.AppointmentId }, result);
             }
             catch (Exception)
             {

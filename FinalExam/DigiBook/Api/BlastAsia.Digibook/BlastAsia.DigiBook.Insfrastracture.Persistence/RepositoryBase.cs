@@ -19,6 +19,7 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence
 
         public TEntity Create(TEntity entity)
         {
+           
             this.context.Set<TEntity>().Add(entity);
             this.context.SaveChanges();
             return entity;

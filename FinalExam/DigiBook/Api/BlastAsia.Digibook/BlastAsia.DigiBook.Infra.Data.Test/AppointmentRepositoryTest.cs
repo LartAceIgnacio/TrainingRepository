@@ -1,4 +1,6 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Appointments;
+using BlastAsia.DigiBook.Domain.Models.Contacts;
+using BlastAsia.DigiBook.Domain.Models.Employees;
 using BlastAsia.DigiBook.Infrastracture.Persistence.Repositories;
 using BlastAsia.DigiBook.Insfrastracture.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +15,18 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
     public class AppointmentRepositoryTest
     {
         private Appointment appointment;
+        private Employee employee;
+        private Contact contact;
+
         private DbContextOptions<DigiBookDbContext> dbOptions;
         private DigiBookDbContext dbContext;
+
         private readonly string connectionString = @"Data Source=.; Database=DigiBookDb; Integrated Security=true;";
+
         private AppointmentRepository sut;
+
+        private EmployeeRepository sutEmployee;
+        private ContactRepository sutContact;
 
         private Guid existingGuestId = Guid.NewGuid();
         private Guid existingHostId = Guid.NewGuid();
@@ -24,6 +34,49 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
         [TestInitialize]
         public void Initialize()
         {
+            contact = new Contact
+            {
+                FirstName = "Emem",
+                LastName = "Magadia",
+                MobilePhone = "09751918607",
+                StreetAddress = "#245, Mayuro Rosario Batangas",
+                CityAddress = "Batangas City",
+                ZipCode = 4225,
+                Country = "Philippines",
+                EmailAddress = "emmanuelmagadia@outlook.com",
+                IsActive = true,
+                DateActivated = DateTime.Now
+            };
+
+            employee = new Employee
+            {
+                EmployeeId = new Guid(),
+                FirstName = "Emmanuel",
+                LastName = "Magadia",
+                MobilePhone = "09279528841",
+                EmailAddress = "emagadia@blastasia.com",
+                //Photo = new MemoryStream(),
+                OfficePhone = "123-123-123",
+                Extension = "asdasd"
+            };
+
+            dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
+                                   .UseSqlServer(connectionString)
+                                   .Options;
+
+            dbContext = new DigiBookDbContext(dbOptions); // ORM
+            dbContext.Database.EnsureCreated();
+
+            sut = new AppointmentRepository(dbContext); // System under test
+            sutEmployee = new EmployeeRepository(dbContext);
+            sutContact = new ContactRepository(dbContext);
+
+            var createdEmployee = sutEmployee.Create(employee);
+            var createdContact = sutContact.Create(contact);
+
+            existingGuestId = createdContact.ContactId;
+            existingHostId = createdEmployee.EmployeeId;
+
             appointment = new Appointment
             {
                 AppointmentId = new Guid(),
@@ -36,20 +89,14 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
                 IsDone = true,
                 Notes = "Sample Notes"
             };
-
-            dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
-                                   .UseSqlServer(connectionString)
-                                   .Options;
-
-            dbContext = new DigiBookDbContext(dbOptions); // ORM
-            dbContext.Database.EnsureCreated();
-            sut = new AppointmentRepository(dbContext); // System under test
-
         }
 
         [TestCleanup]
         public void Cleanup()
         {
+            sutEmployee.Delete(existingHostId);
+            sutContact.Delete(existingGuestId);
+
             dbContext.Dispose();
             dbContext = null;
         }
@@ -67,6 +114,7 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
 
             // Cleanup
             sut.Delete(newEmployee.AppointmentId);
+           
         }
 
         [TestMethod]

@@ -3745,11 +3745,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\emagadia\\Documents\\GitTraining\\TrainingRepository\\DigiBook\\DigiBookApi\\BlastAsia.Digibook\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\emagadia\\Documents\\GitTraining\\TrainingRepository\\FinalExam\\DigiBook\\Api\\BlastAsia.Digibook\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj",
       "projectName": "BlastAsia.DigiBook.Infrastructure",
-      "projectPath": "C:\\Users\\emagadia\\Documents\\GitTraining\\TrainingRepository\\DigiBook\\DigiBookApi\\BlastAsia.Digibook\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj",
+      "projectPath": "C:\\Users\\emagadia\\Documents\\GitTraining\\TrainingRepository\\FinalExam\\DigiBook\\Api\\BlastAsia.Digibook\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\emagadia\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\emagadia\\Documents\\GitTraining\\TrainingRepository\\DigiBook\\DigiBookApi\\BlastAsia.Digibook\\BlastAsia.DigiBook.Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\emagadia\\Documents\\GitTraining\\TrainingRepository\\FinalExam\\DigiBook\\Api\\BlastAsia.Digibook\\BlastAsia.DigiBook.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
