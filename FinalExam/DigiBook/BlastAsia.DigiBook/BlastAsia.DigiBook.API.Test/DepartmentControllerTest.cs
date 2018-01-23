@@ -47,6 +47,7 @@ namespace BlastAsia.DigiBook.API.Test
             mockDepartmentRepository
                 .Setup(d => d.Retrieve(department.DepartmentId))
                 .Returns(department);
+
             mockDepartmentRepository
                 .Setup(d => d.Retrieve(existingDepartmentId))
                 .Returns(department);

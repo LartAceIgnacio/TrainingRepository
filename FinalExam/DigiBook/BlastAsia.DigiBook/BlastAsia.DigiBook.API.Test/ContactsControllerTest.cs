@@ -121,21 +121,21 @@ namespace BlastAsia.DigiBook.API.Test
             Assert.IsInstanceOfType(result, typeof(CreatedAtActionResult));
         }
 
-        [TestMethod]
-        public void UpdateContact_WithValidContact_ReturnsObjectResult()
-        {
+            [TestMethod]
+            public void UpdateContact_WithValidContact_ReturnsObjectResult()
+            {
             
-            var result = sut.UpdateContact(contact, existingContactId);
-            // Assert
+                var result = sut.UpdateContact(contact, existingContactId);
+                // Assert
             
-            mockContactRepository
-                .Verify(c => c.Retrieve(existingContactId), Times.Once());
+                mockContactRepository
+                    .Verify(c => c.Retrieve(existingContactId), Times.Once());
 
-            mockContactService
-                .Verify(c => c.Save(existingContactId, contact), Times.Once());
+                mockContactService
+                    .Verify(c => c.Save(existingContactId, contact), Times.Once());
 
-            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
-        }
+                Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            }
 
         [TestMethod]
         public void UpdateContact_WithEmptyContact_ReturnsBadRequestResult()

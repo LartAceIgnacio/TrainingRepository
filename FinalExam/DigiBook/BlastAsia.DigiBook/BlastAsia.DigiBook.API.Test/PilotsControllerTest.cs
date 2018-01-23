@@ -15,20 +15,20 @@ namespace BlastAsia.DigiBook.API.Test
     public class PilotsControllerTest
     {
         private Pilot pilot;
-        private Mock<IPilotRepository> mockpilotRepository;
-        private Mock<IPilotService> mockpilotService;
+        private Mock<IPilotRepository> mockPilotRepository;
+        private Mock<IPilotService> mockPilotService;
         private JsonPatchDocument patchedpilot;
 
         private PilotsController sut;
 
-        private Guid existingpilotId = Guid.NewGuid();
-        private Guid nonExistingpilotId = Guid.Empty;
+        private Guid existingPilotId = Guid.NewGuid();
+        private Guid nonExistingPilotId = Guid.Empty;
 
         [TestInitialize]
         public void Initialize()
         {
-            mockpilotRepository = new Mock<IPilotRepository>();
-            mockpilotService = new Mock<IPilotService>();
+            mockPilotRepository = new Mock<IPilotRepository>();
+            mockPilotService = new Mock<IPilotService>();
             patchedpilot = new JsonPatchDocument();
 
             pilot = new Pilot
@@ -36,22 +36,102 @@ namespace BlastAsia.DigiBook.API.Test
                 PilotId = Guid.NewGuid()
             };
 
-            sut = new PilotsController(mockpilotService.Object,
-                mockpilotRepository.Object);
+            sut = new PilotsController(mockPilotService.Object,
+                mockPilotRepository.Object);
 
-            mockpilotRepository
+            mockPilotRepository
                 .Setup(d => d.Retrieve())
                 .Returns(() => new List<Pilot>{
                     new Pilot() });
 
-            mockpilotRepository
+            mockPilotRepository
                 .Setup(d => d.Retrieve(pilot.PilotId))
                 .Returns(pilot);
-            mockpilotRepository
-                .Setup(d => d.Retrieve(existingpilotId))
+            mockPilotRepository
+                .Setup(d => d.Retrieve(existingPilotId))
                 .Returns(pilot);
         }
+        [TestMethod]
+        public void GetPilots_WithEmptyPilotId_ReturnsOkObjectResult()
+        {
+            // Act
+            var result = sut.GetPilots(null);
 
-     
+            // Assert 
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+            mockPilotRepository
+                .Verify(d => d.Retrieve(), Times.Once());
+        }
+        [TestMethod]
+        public void GetPilot_WithPilotId_ReturnsOkObjectResult()
+        {
+            // Act
+            var result = sut.GetPilots(existingPilotId);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+            mockPilotRepository
+                .Verify(d => d.Retrieve(existingPilotId), Times.Once());
+        }
+        [TestMethod]
+        public void CreatePilot_WithEmptyPilot_ReturnsBadRequestResult()
+        {
+            // Act 
+            pilot = null;
+            var result = sut.CreatePilot(pilot);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+
+            mockPilotService
+                .Verify(d => d.Save(Guid.Empty, pilot), Times.Never);
+        }
+        [TestMethod]
+        public void CreatePilot_WithValidData_ReturnsCreatedAtActionResult()
+        {
+
+            // Act 
+            var result = sut.CreatePilot(pilot);
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(CreatedAtActionResult));
+
+            mockPilotService
+                .Verify(d => d.Save(Guid.Empty, pilot), Times.Once); 
+        }
+        [TestMethod]
+        public void UpdatePilot_WithValidPilot_ReturnsObjectResult()
+        {
+            var result = sut.UpdatePilot(pilot,existingPilotId );
+
+            // Assert
+
+            mockPilotRepository
+                .Verify(p => p.Retrieve(existingPilotId), Times.Once());
+
+            mockPilotService
+                .Verify(p => p.Save(existingPilotId, pilot), Times.Once());
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+        [TestMethod]
+        public void UpdatePilot_WithEmptyPilot_ReturnsBadRequestResult()
+        {
+            pilot = null;
+                
+            //Act 
+
+            var result = sut.UpdatePilot(pilot, existingPilotId);
+            //Assert
+
+            mockPilotService
+                .Verify(p => p.Save(existingPilotId, pilot), Times.Once());
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+        }
+
+
     }
 }
