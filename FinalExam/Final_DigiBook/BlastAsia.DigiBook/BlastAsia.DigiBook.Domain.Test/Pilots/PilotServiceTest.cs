@@ -1,4 +1,5 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Pilots;
+using BlastAsia.DigiBook.Domain.Pilots;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -27,7 +28,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
                 PilotCode = "FFMMLLLLYYmmdd",
                 DateCreated = DateTime.Now,
                 DateModified = new Nullable<DateTime>()
-            }
+            };
 
             var mockPilotRepository = new Mock<IPilotRepository>;
             var sut = new PilotService(mockPilotRepository.Object);
