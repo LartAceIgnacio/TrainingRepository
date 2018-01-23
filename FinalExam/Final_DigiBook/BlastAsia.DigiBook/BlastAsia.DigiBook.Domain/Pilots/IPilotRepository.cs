@@ -3,11 +3,10 @@ using BlastAsia.DigiBook.Domain.Models.Pilots;
 
 namespace BlastAsia.DigiBook.Domain.Pilots
 {
-    public class IPilotRepository
+    public interface IPilotRepository
     {
-        public void Create(Pilot pilot)
-        {
-            throw new NotImplementedException();
-        }
+        Pilot Create(Pilot pilot);
+        Pilot Update(Guid id, Pilot pilot);
+        Pilot Retrieve(Guid id);
     }
 }

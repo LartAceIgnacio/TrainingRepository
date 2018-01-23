@@ -11,14 +11,16 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
     [TestClass]
     public class PilotServiceTest
     {
+        private Pilot pilot;
+        private Mock<IPilotRepository> mockPilotRepository;
+        private PilotService sut;
+        private Guid existingPilotId = Guid.NewGuid();
 
-        [TestMethod]
-        public void Save_WithValidData_ShoulPilotRepositoryCreate()
+        [TestInitialize]
+        public void Initialize()
         {
-            //Arrange
-            var pilot = new Pilot
+            pilot = new Pilot
             {
-                PilotId = Guid.NewGuid(),
                 FirstName = "Christoper",
                 MiddleName = "Magdaleno",
                 LastName = "Manuel",
@@ -30,14 +32,41 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
                 DateModified = new Nullable<DateTime>()
             };
 
-            var mockPilotRepository = new Mock<IPilotRepository>();
-            var sut = new PilotService(mockPilotRepository.Object);
+            mockPilotRepository = new Mock<IPilotRepository>();
+
+            sut = new PilotService(mockPilotRepository.Object);
+
+            mockPilotRepository
+                .Setup(pr => pr.Retrieve(existingPilotId))
+                .Returns(pilot);
+        }
+
+        [TestMethod]
+        public void Save_WithValidData_ShoulPilotRepositoryCreate()
+        {
+            //Arrange
+             
             //Act 
             sut.Save(pilot.PilotId, pilot);
 
             //Assert
             mockPilotRepository
                 .Verify(c => c.Create(pilot), Times.Once());
+        }
+
+        [TestMethod]
+        public void Save_WithExistingPilot_CallsPilotRepositoryUpdate()
+        {
+            //Arrange
+            pilot.PilotId = existingPilotId;
+            //Act 
+            sut.Save(pilot.PilotId, pilot);
+
+            //Assert
+            mockPilotRepository
+                .Verify(c => c.Create(pilot), Times.Never());
+            mockPilotRepository
+               .Verify(c => c.Update(pilot.PilotId, pilot), Times.Once());
         }
     }
 
