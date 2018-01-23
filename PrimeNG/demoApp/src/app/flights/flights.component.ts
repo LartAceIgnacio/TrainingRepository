@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BreadcrumbModule, MenuItem, DataTable } from 'primeng/primeng';
+import { BreadcrumbModule, MenuItem, DataTable, ConfirmationService } from 'primeng/primeng';
 import { Flight } from "../domain/Flight";
 import { GlobalService } from "../services/globalservice";
 import { HttpClient } from "@angular/common/http";
@@ -11,7 +11,7 @@ import { FlightClass } from "../domain/FlightClass";
   selector: 'app-flights',
   templateUrl: './flights.component.html',
   styleUrls: ['./flights.component.css'],
-  providers: [GlobalService]
+  providers: [GlobalService, ConfirmationService]
 })
 export class FlightsComponent implements OnInit {
 
@@ -36,7 +36,8 @@ export class FlightsComponent implements OnInit {
   constructor(
     private globalservice: GlobalService,
     private http: HttpClient,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private confirmationService: ConfirmationService
   ) { 
   }
 
@@ -130,6 +131,51 @@ export class FlightsComponent implements OnInit {
       });
     }
     this.isNewFlight = false;
+  }
+
+  cloneRecord(r: Flight): Flight{
+    let flight = new FlightClass();
+    for(let prop in r){
+      flight[prop] = r[prop];
+    }
+    return flight;
+  }
+
+  editFlight(Flight: Flight){
+    this.flightForm.markAsPristine();
+    this.flightForm.enable();
+    this.isDelete = false;
+    this.selectedFlight=Flight;
+    //this.cloneFlight = this.cloneRecord(this.selectedFlight);
+    this.display=true;
+    this.isNewFlight = false;
+    this.selectedFlight.eta = new Date(this.selectedFlight.eta);
+    this.selectedFlight.etd = new Date(this.selectedFlight.etd);
+  }
+
+  findSelectedFlightIndex(): number{
+    return this.flightList.indexOf(this.selectedFlight);
+  }
+
+  cancelFlight(){
+    let index = this.findSelectedFlightIndex();
+    if (this.isNewFlight) {
+      this.selectedFlight = null;
+    }
+    else{
+      this.confirmationService.confirm({
+        message: 'Are you sure that you want discard changes?',
+        header: 'Confirmation',
+        icon: 'fa fa-question-circle',
+        accept: () => {
+          let tmpFlightList = [...this.flightList];
+          tmpFlightList[index] = this.cloneFlight;
+          this.flightList = tmpFlightList;
+          this.selectedFlight = Object.assign({}, this.cloneFlight);
+          this.display = false;
+        }
+      });
+    } 
   }
 
 }
