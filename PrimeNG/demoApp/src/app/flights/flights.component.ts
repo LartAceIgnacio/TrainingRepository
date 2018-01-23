@@ -178,4 +178,30 @@ export class FlightsComponent implements OnInit {
     } 
   }
 
+  confirmDelete(Flight: Flight){
+    this.flightForm.markAsPristine();
+    this.cloneFlight = this.cloneRecord(this.selectedFlight);
+    this.selectedFlight = Flight;
+    this.isDelete = true;
+    this.display = true;
+    this.flightForm.disable();
+    this.isNewFlight = false;
+    this.selectedFlight.eta = new Date(this.selectedFlight.eta);
+    this.selectedFlight.etd = new Date(this.selectedFlight.etd);
+  }
+
+  deleteFlight(){
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        let index = this.findSelectedFlightIndex();
+        this.flightList = this.flightList.filter((val,i) => i=index);
+        this.globalservice.deleteSomething<Flight>("Flights", this.selectedFlight.flightId);
+        this.selectedFlight = null;
+      }
+    });
+  }
+
 }
