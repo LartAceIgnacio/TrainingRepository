@@ -3,8 +3,8 @@ using BlastAsia.DigiBook.Domain.Models.Pilots;
 
 namespace BlastAsia.DigiBook.Domain.Pilots
 {
-    public interface IPilotRepository
+    public interface IPilotService
     {
-         Pilot Create(Pilot pilot);
+        Pilot Save(Guid id, Pilot pilot);
     }
 }

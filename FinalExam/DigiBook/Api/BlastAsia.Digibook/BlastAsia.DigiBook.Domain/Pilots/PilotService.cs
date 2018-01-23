@@ -3,18 +3,18 @@ using BlastAsia.DigiBook.Domain.Models.Pilots;
 
 namespace BlastAsia.DigiBook.Domain.Pilots
 {
-    public class PilotService
+    public class PilotService : IPilotService
     {
-        private IPilotRepository @object;
+        private IPilotRepository repo;
 
-        public PilotService(IPilotRepository @object)
+        public PilotService(IPilotRepository repo)
         {
-            this.@object = @object;
+            this.repo = repo;
         }
 
-        public void Save(Guid pilotId, Pilot pilot)
+        public Pilot Save(Guid id, Pilot pilot)
         {
-            throw new NotImplementedException();
+            return repo.Create(pilot);
         }
     }
 }
