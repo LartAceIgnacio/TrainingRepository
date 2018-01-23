@@ -1,0 +1,44 @@
+<p-dataTable [value]="pilots" selectionMode="single" [(selection)]="selectedPilot" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
+  <p-column field="firstname" header="firstname" [sortable]="true"></p-column>
+  <p-column field="middleName" header="middleName" [sortable]="true"></p-column>
+  <p-column field="lastName" header="lastName" [sortable]="true"></p-column>
+  <p-column field="dateOfBirth" header="dateOfBirth" [sortable]="true"></p-column>
+  <p-column field="yearsOfExperience" header="yearsOfExperience" [sortable]="true"></p-column>
+  <p-column field="dateActivated" header="dateActivated" [sortable]="true"></p-column>
+  <p-footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button></div></p-footer>
+</p-dataTable>
+
+<p-dialog header="Pilots Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
+  <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="pilot">
+      <div class="ui-grid-row">
+          <div class="ui-grid-col-4"><label for="firstname">firstname</label></div>
+          <div class="ui-grid-col-8"><input pInputText id="firstname" [(ngModel)]="pilot.firstname" /></div>
+      </div>
+      <div class="ui-grid-row">
+          <div class="ui-grid-col-4"><label for="middleName">middleName</label></div>
+          <div class="ui-grid-col-8"><input pInputText id="middleName" [(ngModel)]="pilot.middleName" /></div>
+      </div>
+      <div class="ui-grid-row">
+          <div class="ui-grid-col-4"><label for="lastName">Brand</label></div>
+          <div class="ui-grid-col-8"><input pInputText id="lastName" [(ngModel)]="pilot.lastName" /></div>
+      </div>
+      <div class="ui-grid-row">
+          <div class="ui-grid-col-4"><label for="dateOfBirth">dateOfBirth</label></div>
+          <div class="ui-grid-col-8"><input pInputText id="dateOfBirth" [(ngModel)]="pilot.dateOfBirth" /></div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-4"><label for="yearsOfExperience">yearsOfExperience</label></div>
+        <div class="ui-grid-col-8"><input pInputText id="yearsOfExperience" [(ngModel)]="pilot.yearsOfExperience" /></div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4"><label for="dateActivated">dateActivated</label></div>
+      <div class="ui-grid-col-8"><input pInputText id="dateActivated" [(ngModel)]="pilot.dateActivated" /></div>
+  </div>
+  </div>
+  <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
+          <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+      </div>
+  </p-footer>
+</p-dialog>

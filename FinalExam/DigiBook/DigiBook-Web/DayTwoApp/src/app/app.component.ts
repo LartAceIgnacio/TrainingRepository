@@ -24,6 +24,7 @@ export class AppComponent {
       {label: 'Contacts', icon: 'fa fa-user-o', routerLink: ['/contacts']},
       {label: 'Venues', icon: 'fa fa-map-marker', routerLink: ['/venues']},
       {label: 'Appointments', icon: 'fa fa-map-marker', routerLink: ['/appointments']},
+      {label: 'Pilots', icon: 'fa fa-plane', routerLink: ['/pilots']},
       { label: 'Login', icon: 'fa-lock', routerLink: ['/login'] },
     ];
 

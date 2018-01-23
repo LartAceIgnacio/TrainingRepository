@@ -27,6 +27,7 @@ import { RegisterComponent } from './register/register.component';
 
 import { AuthResponseInterceptor} from './services/auth-response-interceptor';
 import { StatisticComponent } from './statistic/statistic.component';
+import { PilotsComponent } from './pilots/pilots.component';
 
 
 
@@ -41,6 +42,7 @@ import { StatisticComponent } from './statistic/statistic.component';
     LoginComponent,
     RegisterComponent,
     StatisticComponent,
+    PilotsComponent,
   ],
   imports: [
     BrowserModule,

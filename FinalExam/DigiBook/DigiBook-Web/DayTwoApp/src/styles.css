@@ -4,7 +4,7 @@
 .main-header {
     top: 0;
     height: 10vh;
-    background-color: #f0f1f4;
+    background-color: #758aa0;
 }
 .main-header h2 {
     line-height: 10vh;
@@ -29,4 +29,6 @@
 .header-table-right {
     text-align: right;
 }
-
+.ui-datepicker td a{
+    color: white;
+}

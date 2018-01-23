@@ -18,12 +18,12 @@
           <button type="button" class="ui-button-danger" pButton (click)="delete(employee)" icon="fa-trash"></button>
         </ng-template>
       </p-column>
-      <p-column field="firstName" header="First Name" [sortable]="true"></p-column>
-      <p-column field="lastName" header="Last Name" [sortable]="true"></p-column>
-      <p-column field="mobilePhone" header="Mobile Phone" [sortable]="true"></p-column>
-      <p-column field="emailAddress" header="Email Address" [sortable]="true"></p-column>
-      <p-column field="officePhone" header="Office Phone" [sortable]="true"></p-column>
-      <p-column field="extension" header="Extension" [sortable]="true"></p-column>
+      <p-column field="firstName" header="First Name" [sortable]="false"></p-column>
+      <p-column field="lastName" header="Last Name" [sortable]="false"></p-column>
+      <p-column field="mobilePhone" header="Mobile Phone" [sortable]="false"></p-column>
+      <p-column field="emailAddress" header="Email Address" [sortable]="false"></p-column>
+      <p-column field="officePhone" header="Office Phone" [sortable]="false"></p-column>
+      <p-column field="extension" header="Extension" [sortable]="false"></p-column>
     </p-dataTable>
   </div>
 </p-panel>

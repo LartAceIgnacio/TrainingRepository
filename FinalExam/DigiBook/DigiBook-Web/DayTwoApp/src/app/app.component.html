@@ -7,6 +7,7 @@
         <a [routerLink]="['/login']">
           <span class='glyphicon glyphicon-log-in'></span> Login / Register
         </a>
+        <button pButton type="button" label="Login" class="ui-button-secondary"></button>
       </li>
       <li *ngIf="this.auth.isLoggedIn()">
         <a (click)="this.auth.logout()">

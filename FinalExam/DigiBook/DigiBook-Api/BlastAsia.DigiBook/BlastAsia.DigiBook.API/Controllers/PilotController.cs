@@ -22,7 +22,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             this.pilotRepository = pilotRepository;
         }
 
-        [HttpGet, ActionName("GetPilots")]
+        [HttpGet, ActionName("GetPilot")]
         public IActionResult GetPilot(Guid? id)
         {
             var result = new List<Pilot>();
