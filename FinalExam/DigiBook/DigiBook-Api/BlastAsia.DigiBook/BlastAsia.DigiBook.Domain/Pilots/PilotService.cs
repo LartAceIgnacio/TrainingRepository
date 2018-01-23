@@ -3,7 +3,7 @@ using BlastAsia.DigiBook.Domain.Models.Pilots;
 
 namespace BlastAsia.DigiBook.Domain.Pilots
 {
-    public class PilotService
+    public class PilotService : IPilotService
     {
         private IPilotRepository pilotRepository;
         private DateTime today = DateTime.Today;
