@@ -1,4 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+    padding: 0;
+    margin: 0;
+}
+
 body{
-    background-color: #DEE1F7;
+    background-color : #3baae3;
+}
+
+.header-menu{
+    padding: 0;
+    position: fixed;
+    width: 100%;
+    display: block; 
+}
+
+.aside-menu{
+    height: 100%;
+    padding: 0;
+    width: 230px;
+    margin-top: 88px;
+    margin-left: -10px;
+    position: fixed;
+    /* bottom: 0%; */
+}
+
+.aside-menu .ui-menuitem .ui-menuitem-link{
+    padding: 10px;
+    border-bottom: 0px solid #B0AEAE;
+}
+
+.aside-menu .content-margin{
+    margin-top:70px;
+}
+
+#page-section{
+    margin-top: 80px;
+    margin-left: 230px;
 }

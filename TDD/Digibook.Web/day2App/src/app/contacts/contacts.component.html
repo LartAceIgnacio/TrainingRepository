@@ -3,10 +3,12 @@
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <p-panel header="Contact List">
   <div class="ui-g">
-    <p-dataTable [value]="contactList"
+    <p-dataTable [value]="contactList" #dt
     [(selection)]="selectedContact"
-      [paginator]="true" rows="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]"
-      [responsive]="true" [globalFilter]="gb">
+      [paginator]="true" rows="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10]"
+      [loading]="loading" loadingIcon="fa-spinner"
+      (onLazyLoad)="retrieveRecord($event)" [lazy]="true" [totalRecords]="totalRecord"
+      [responsive]="true">
       <p-header>
           <div class="ui-helper-clearfix">
             <div class="ui-g">
@@ -16,8 +18,8 @@
                  <div class="ui-g-12 ui-md-7">
                  </div>
                 <div class="ui-g-12 ui-md-2 ui-inputgroup">
-                        <input type="text" #gb pInputText placeholder="Keyword">  
-                        <button pButton type="button" icon="fa fa-search"></button>       
+                        <input type="text" pInputText placeholder="Keyword" [(ngModel)]="searchFilter">  
+                        <button pButton type="button" icon="fa fa-search" (click)="search()"></button>       
                 </div>
             </div>
           </div>
@@ -151,8 +153,8 @@
     </div>
         <p-footer>
       <div align="center">
-        <button pButton type="button" *ngIf ="btnSaveNew" (click)="saveContact('new')" label="Save & New" icon="fa fa-floppy-o" class="ui-button-success"  [disabled]="!userform.valid"></button>
-        <button pButton type="button" *ngIf ="btnSave" (click)="saveContact()" label="Save" icon="fa fa-floppy-o" class="ui-button-success"  [disabled]="!userform.valid"></button>
+        <button pButton type="button" *ngIf ="btnSaveNew" (click)="saveContact(true)" label="Save & New" icon="fa fa-floppy-o" class="ui-button-success"  [disabled]="!userform.valid"></button>
+        <button pButton type="button" *ngIf ="btnSave" (click)="saveContact(false)" label="Save" icon="fa fa-floppy-o" class="ui-button-success"  [disabled]="!userform.valid"></button>
         <button pButton type="button" *ngIf ="btnDelete" (click)="deleteContactConfirmation()" label="Delete" icon="fa fa-trash-o" class="ui-button-danger"></button>
         <button pButton type="button" (click)="cancelContact()" label="Cancel" icon="fa fa-ban" class="ui-button-danger" ></button>
       </div>

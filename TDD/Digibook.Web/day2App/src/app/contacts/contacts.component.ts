@@ -1,19 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { ContactService } from '../services/contactservice'; 
 import { Contact } from '../domain/contact';
 import { ContactClass } from '../domain/contactclass';
-import { ConfirmationService, MenuItem } from 'primeng/primeng';
+import { ConfirmationService, MenuItem, DataTable } from 'primeng/primeng';
 import { Message, SelectItem } from 'primeng/components/common/api';
-import { Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
+import { Validators, FormControl, FormGroup, FormBuilder} from '@angular/forms';
 import { validateConfig } from '@angular/router/src/config';
 import { PatternValidator } from '@angular/forms/src/directives/validators';
 import { GenericService } from '../services/genericservice';
 
+import { ViewChild } from '@angular/core';
+import { Record } from '../domain/record';
+
+import { REGEXEMAIL } from '../services/constants';
 @Component({
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.css'],
-  providers: [ContactService, ConfirmationService]
+  providers: [ConfirmationService, GenericService]
 })
 
 export class ContactsComponent implements OnInit {
@@ -32,16 +35,22 @@ export class ContactsComponent implements OnInit {
   btnSaveNew : boolean = true;
   btnDelete : boolean = true;
 
+  //datatable components
+  searchFilter: string = "";
+  totalRecord: number = 0;
+  searchButtonClickCtr: number = 0;
+  retrieveRecordResult: Record<Contact>;
 
   msgs: Message[] = [];
-  constructor(private contactService: ContactService , private confirmationService: ConfirmationService, private fb: FormBuilder) { }
+
+  service: string = "Contacts";
+
+  constructor(private confirmationService: ConfirmationService, private fb: FormBuilder, private genericService: GenericService
+  ) { }
+
+  @ViewChild('dt') public dataTable: DataTable;
 
   ngOnInit() {
-    this.contactService.getContact(10, 5)
-    .then(contacts => this.contactList = contacts);
-    
-    console.log(this.contactList);
-    
     this.items = [
       {label: 'Dashboard', icon: 'fa fa-book fa-5x', routerLink: ['/dashboard']},
       {label: 'Contacts', icon: 'fa fa-book fa-5x', routerLink: ['/contacts']}
@@ -55,9 +64,18 @@ export class ContactsComponent implements OnInit {
       'cityAddress': new FormControl('', Validators.required),
       'zipCode' : new FormControl('', Validators.required),
       'country': new FormControl('', Validators.required),
-      'emailAddress': new FormControl('', Validators.compose([Validators.required, Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")])),
+      'emailAddress': new FormControl('', Validators.compose([Validators.required, Validators.pattern(REGEXEMAIL)])),
     });
     
+  }
+  
+  retrieveRecord(event){
+    this.genericService.getPaginatedRecord<Record<Contact>>(this.service, event.first, event.rows,
+      this.searchFilter.length == 1 ? "" : this.searchFilter).then( contactRecord => {
+          this.retrieveRecordResult = contactRecord;
+          this.contactList = this.retrieveRecordResult.result;
+          this.totalRecord = this.retrieveRecordResult.totalRecord;
+    });
   }
 
   addContact(){
@@ -71,40 +89,27 @@ export class ContactsComponent implements OnInit {
     this.display = true;
   }
 
-  saveContact(source: string){
+  saveContact(isSaveNew: boolean){
     let tmpContactList = [...this.contactList];
     if(this.isNewContact)
     {
-      this.contactService.postContact(this.selectedContact).then(contact =>{
+      this.genericService.insertRecord<Contact>(this.service, this.selectedContact).then(contact =>{
         this.contact = contact; 
         tmpContactList.push(this.contact);
-        this.contactList = tmpContactList;
-        });
-    }
+        this.contactList = tmpContactList;  
+        this.selectedContact = isSaveNew? new ContactClass(): null;
+        this.dataTable.reset();
+        }).then( () => this.msgs.push({severity:'success', summary:'Success Message', detail:'New Contact: '+ this.contact.lastName +' Added'}));;
+    } 
     else{
-      this.contactService.putContact(this.selectedContact.contactId, this.selectedContact).then(contact =>
+      this.genericService.updateRecord(this.service, this.selectedContact.contactId, this.selectedContact).then(contact =>
         {this.contact = contact; 
         tmpContactList[this.contactList.indexOf(this.selectedContact)] = contact;
         this.contactList = tmpContactList;
         });
     }
-    
-    if(source == "new")
-    {
-      this.selectedContact   = new ContactClass;
-      this.userform.markAsPristine();
-    }
-    else
-    {
-      this.selectedContact   = null;
-    }
     this.userform.markAsPristine();
   }
-
-    // onRowSelect(){
-    //   this.isNewContact = false;
-    //   this.cloneContact = this.cloneRecord(this.selectedContact);
-    // }
 
   cloneRecord(r: Contact): Contact{
     let contact = new ContactClass();
@@ -133,7 +138,7 @@ export class ContactsComponent implements OnInit {
       icon: 'fa fa-trash',
       accept: () => {
         let tmpContactList = [...this.contactList];
-        this.contactService.deleteContact(this.selectedContact.contactId);
+        this.genericService.deleteRecord(this.service, this.selectedContact.contactId);
         tmpContactList.splice(this.contactList.indexOf(this.selectedContact), 1);
     
         this.contactList = tmpContactList;
@@ -147,7 +152,7 @@ export class ContactsComponent implements OnInit {
     });
   }
 
-  cancelContact(source: string){
+  cancelContact(){
     if(this.isNewContact){
       this.selectedContact = null;
     }
@@ -190,5 +195,9 @@ export class ContactsComponent implements OnInit {
     this.isNewContact = false;
     this.selectedContact = contact;
     this.display = true;
+  }
+
+  search(){
+    this.dataTable.reset();
   }
 }

@@ -13361,11 +13361,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Api\\BlastAsia.DigiBook.Api.csproj",
+      "projectUniqueName": "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Api\\BlastAsia.DigiBook.Api.csproj",
       "projectName": "BlastAsia.DigiBook.Api",
-      "projectPath": "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Api\\BlastAsia.DigiBook.Api.csproj",
+      "projectPath": "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Api\\BlastAsia.DigiBook.Api.csproj",
       "packagesPath": "C:\\Users\\roribello\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Api\\obj\\",
+      "outputPath": "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13384,17 +13384,17 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj": {
-              "projectPath": "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj"
+            "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj": {
+              "projectPath": "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj"
             },
-            "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj": {
-              "projectPath": "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj"
+            "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj": {
+              "projectPath": "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj"
             },
-            "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj"
+            "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure\\BlastAsia.DigiBook.Infrastructure.csproj"
             },
-            "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj": {
-              "projectPath": "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj"
+            "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj": {
+              "projectPath": "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj"
             }
           }
         }

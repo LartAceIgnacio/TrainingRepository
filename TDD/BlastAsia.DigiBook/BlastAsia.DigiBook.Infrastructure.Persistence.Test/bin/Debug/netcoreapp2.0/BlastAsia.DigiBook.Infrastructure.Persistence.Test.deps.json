@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "3770d1b1f29430487e6a544fd854468ef4701671"
+    "signature": "1009be01cdbd2ec9e0d56fd8d6ba2b80c84da92c"
   },
   "compilationOptions": {},
   "targets": {
@@ -10,10 +10,11 @@
         "dependencies": {
           "BlastAsia.DigiBook.Domain.Models": "1.0.0",
           "BlastAsia.DigiBook.Infrastructure.Persistence": "1.0.0",
-          "MSTest.TestAdapter": "1.2.0",
-          "MSTest.TestFramework": "1.2.0",
+          "MSTest.TestAdapter": "1.3.0-beta2",
+          "MSTest.TestFramework": "1.3.0-beta2",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.1",
-          "Microsoft.NET.Test.Sdk": "15.6.0-preview-20180109-01"
+          "Microsoft.NET.Test.Sdk": "15.6.0-preview-20180109-01",
+          "Newtonsoft.Json": "11.0.1-beta3"
         },
         "runtime": {
           "BlastAsia.DigiBook.Infrastructure.Persistence.Test.dll": {}
@@ -284,7 +285,7 @@
       "Microsoft.Extensions.DependencyModel/1.0.3": {
         "dependencies": {
           "Microsoft.DotNet.PlatformAbstractions": "1.0.3",
-          "Newtonsoft.Json": "9.0.1",
+          "Newtonsoft.Json": "11.0.1-beta3",
           "System.Diagnostics.Debug": "4.3.0",
           "System.Dynamic.Runtime": "4.0.11",
           "System.Linq": "4.1.0"
@@ -496,7 +497,7 @@
         "dependencies": {
           "Microsoft.Extensions.DependencyModel": "1.0.3",
           "Microsoft.TestPlatform.ObjectModel": "15.6.0-preview-20180109-01",
-          "Newtonsoft.Json": "9.0.1"
+          "Newtonsoft.Json": "11.0.1-beta3"
         },
         "runtime": {
           "lib/netstandard1.5/Microsoft.TestPlatform.CommunicationUtilities.dll": {},
@@ -646,44 +647,20 @@
           }
         }
       },
-      "MSTest.TestAdapter/1.2.0": {
+      "MSTest.TestAdapter/1.3.0-beta2": {
         "dependencies": {
           "System.Diagnostics.TextWriterTraceListener": "4.3.0"
         }
       },
-      "MSTest.TestFramework/1.2.0": {
+      "MSTest.TestFramework/1.3.0-beta2": {
         "runtime": {
           "lib/netstandard1.0/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {},
           "lib/netstandard1.0/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {}
         }
       },
-      "Newtonsoft.Json/9.0.1": {
-        "dependencies": {
-          "Microsoft.CSharp": "4.4.0",
-          "System.Collections": "4.3.0",
-          "System.Diagnostics.Debug": "4.3.0",
-          "System.Dynamic.Runtime": "4.0.11",
-          "System.Globalization": "4.3.0",
-          "System.IO": "4.3.0",
-          "System.Linq": "4.1.0",
-          "System.Linq.Expressions": "4.1.0",
-          "System.ObjectModel": "4.0.12",
-          "System.Reflection": "4.3.0",
-          "System.Reflection.Extensions": "4.0.1",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.0",
-          "System.Runtime.Extensions": "4.3.0",
-          "System.Runtime.Serialization.Primitives": "4.1.1",
-          "System.Text.Encoding": "4.3.0",
-          "System.Text.Encoding.Extensions": "4.0.11",
-          "System.Text.RegularExpressions": "4.1.0",
-          "System.Threading": "4.3.0",
-          "System.Threading.Tasks": "4.3.0",
-          "System.Xml.ReaderWriter": "4.0.11",
-          "System.Xml.XDocument": "4.0.11"
-        },
+      "Newtonsoft.Json/11.0.1-beta3": {
         "runtime": {
-          "lib/netstandard1.0/Newtonsoft.Json.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
       "Remotion.Linq/2.1.1": {
@@ -902,12 +879,6 @@
           "System.Resources.ResourceManager": "4.3.0",
           "System.Runtime": "4.3.0",
           "System.Threading": "4.3.0"
-        }
-      },
-      "System.Diagnostics.Tools/4.0.1": {
-        "dependencies": {
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Runtime": "4.3.0"
         }
       },
       "System.Diagnostics.TraceSource/4.3.0": {
@@ -1359,22 +1330,6 @@
           "System.Threading.Tasks.Extensions": "4.0.0"
         }
       },
-      "System.Xml.XDocument/4.0.11": {
-        "dependencies": {
-          "System.Collections": "4.3.0",
-          "System.Diagnostics.Debug": "4.3.0",
-          "System.Diagnostics.Tools": "4.0.1",
-          "System.Globalization": "4.3.0",
-          "System.IO": "4.3.0",
-          "System.Reflection": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.0",
-          "System.Runtime.Extensions": "4.3.0",
-          "System.Text.Encoding": "4.3.0",
-          "System.Threading": "4.3.0",
-          "System.Xml.ReaderWriter": "4.0.11"
-        }
-      },
       "System.Xml.XmlDocument/4.0.1": {
         "dependencies": {
           "System.Collections": "4.3.0",
@@ -1809,26 +1764,26 @@
       "path": "microsoft.win32.registry/4.4.0",
       "hashPath": "microsoft.win32.registry.4.4.0.nupkg.sha512"
     },
-    "MSTest.TestAdapter/1.2.0": {
+    "MSTest.TestAdapter/1.3.0-beta2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-n0xgVkGNisHCHJNTfDBQBWsp3pdFMEkvex3ah7ybAa4NEIXc+rp1Kpa4tsScTNZKH0uzpR6BZ14sJvtwPm4VgQ==",
-      "path": "mstest.testadapter/1.2.0",
-      "hashPath": "mstest.testadapter.1.2.0.nupkg.sha512"
+      "sha512": "sha512-vbUAVeYu6ocZp1U69Eyb87dC7cuQfFt5krXUGM9zw7/7wgRVHHr/GmD+AZbOtl7wgauHf8k48KRO/88e8GVgQA==",
+      "path": "mstest.testadapter/1.3.0-beta2",
+      "hashPath": "mstest.testadapter.1.3.0-beta2.nupkg.sha512"
     },
-    "MSTest.TestFramework/1.2.0": {
+    "MSTest.TestFramework/1.3.0-beta2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-8MLtlVC0UrqrMeE7V4VmSEFiApgvtUHLizJv0W1DTCOrxyY4YPhlbcClUkLtw4I5sD5P/YWP2S+rL3/MW2pM3Q==",
-      "path": "mstest.testframework/1.2.0",
-      "hashPath": "mstest.testframework.1.2.0.nupkg.sha512"
+      "sha512": "sha512-/8dC/WBNrVH4IwCelQ39fdVhYXa+SajklYLKJs8tNOi0Qw26aR2yFrRcZyfyV0Ybuvlxl8HXfdywAN5mHAZ/fw==",
+      "path": "mstest.testframework/1.3.0-beta2",
+      "hashPath": "mstest.testframework.1.3.0-beta2.nupkg.sha512"
     },
-    "Newtonsoft.Json/9.0.1": {
+    "Newtonsoft.Json/11.0.1-beta3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-U82mHQSKaIk+lpSVCbWYKNavmNH1i5xrExDEquU1i6I5pV6UMOqRnJRSlKO3cMPfcpp0RgDY+8jUXHdQ4IfXvw==",
-      "path": "newtonsoft.json/9.0.1",
-      "hashPath": "newtonsoft.json.9.0.1.nupkg.sha512"
+      "sha512": "sha512-z9IZ3Ecun2TuF/vjYstOuAvk5lldAPrw0foD5pLJi2toown8KX69gExZwPP8oknynMieQ6lBFf+l/MVZ+/BFAw==",
+      "path": "newtonsoft.json/11.0.1-beta3",
+      "hashPath": "newtonsoft.json.11.0.1-beta3.nupkg.sha512"
     },
     "Remotion.Linq/2.1.1": {
       "type": "package",
@@ -1990,13 +1945,6 @@
       "sha512": "sha512-F11kHWeiwYjFWto+kr8tt9ULMH0k8MsT1XmdCGPTLYHhWgN+2g7JsIZiXDrxlFGccSNkbjfwQy4xIS38gzUiZA==",
       "path": "system.diagnostics.textwritertracelistener/4.3.0",
       "hashPath": "system.diagnostics.textwritertracelistener.4.3.0.nupkg.sha512"
-    },
-    "System.Diagnostics.Tools/4.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-xBfJ8pnd4C17dWaC9FM6aShzbJcRNMChUMD42I6772KGGrqaFdumwhn9OdM68erj1ueNo3xdQ1EwiFjK5k8p0g==",
-      "path": "system.diagnostics.tools/4.0.1",
-      "hashPath": "system.diagnostics.tools.4.0.1.nupkg.sha512"
     },
     "System.Diagnostics.TraceSource/4.3.0": {
       "type": "package",
@@ -2319,13 +2267,6 @@
       "sha512": "sha512-ZIiLPsf67YZ9zgr31vzrFaYQqxRPX9cVHjtPSnmx4eN6lbS/yEyYNr2vs1doGDEscF0tjCZFsk9yUg1sC9e8tg==",
       "path": "system.xml.readerwriter/4.0.11",
       "hashPath": "system.xml.readerwriter.4.0.11.nupkg.sha512"
-    },
-    "System.Xml.XDocument/4.0.11": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Mk2mKmPi0nWaoiYeotq1dgeNK1fqWh61+EK+w4Wu8SWuTYLzpUnschb59bJtGywaPq7SmTuPf44wrXRwbIrukg==",
-      "path": "system.xml.xdocument/4.0.11",
-      "hashPath": "system.xml.xdocument.4.0.11.nupkg.sha512"
     },
     "System.Xml.XmlDocument/4.0.1": {
       "type": "package",

@@ -13,14 +13,18 @@ import { EmployeeClass } from '../domain/employeeclass';
 import { EmployeeService } from '../services/employeeService';
 
 import { Message, SelectItem } from 'primeng/components/common/api';
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService, MenuItem, DataTable } from 'primeng/primeng';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { ViewChild } from '@angular/core';
+
+import { GenericService } from '../services/genericservice';
+import { Record } from '../domain/record';
 
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.css'],
-  providers: [ AppointmentService, ContactService, EmployeeService, ConfirmationService]
+  providers: [ AppointmentService, ContactService, EmployeeService, ConfirmationService, GenericService]
 })
 export class AppointmentsComponent implements OnInit {
   appointmentList: Appointment[];
@@ -28,6 +32,10 @@ export class AppointmentsComponent implements OnInit {
   isNewAppointment: boolean;
   cloneAppointment: Appointment;
   appointment: Appointment;
+  
+  display : boolean = false;
+
+  items : MenuItem[] = [];
 
   contactList: Contact[];
   selectedContact: Contact;
@@ -40,77 +48,71 @@ export class AppointmentsComponent implements OnInit {
   submitted: boolean;
   description: string;
 
+  searchFilter: string = "";
+  totalRecord: number = 0;
+  searchButtonClickCtr: number = 0;
+  retrieveRecordResult: Record<Appointment>;
+
+  service: string = "Appointments";
+
+  isEdit: boolean = false;
+
+  btnSave: boolean = true;
+  btnSaveNew: boolean = true;
+  btnDelete: boolean = false;
+
   constructor(private appointmentService: AppointmentService,
-              private contactService: ContactService, private employeeService: EmployeeService, private confirmationService: ConfirmationService) { }
+              private contactService: ContactService, private employeeService: EmployeeService, 
+              private genericService: GenericService,
+              private fb: FormBuilder,
+              private confirmationService: ConfirmationService) { }
+
+  @ViewChild('dt') public dataTable: DataTable;
 
   ngOnInit() {
-    this.contactService.getContact(10, 10).then(contact =>{
-      this.contactList = contact;
-        this.employeeService.getEmployees().then(employee =>{
-          this.employeeList = employee;
-            this.appointmentService.getAppointment().then(appointment => {
-              this.appointmentList = appointment;
-                for(let i = 0; this.appointmentList.length > i; i++){
-                  let tempEmployee;
-                  let tempContact;
-                  this.employeeList.forEach( x => {
-                      if(x.employeeId == this.appointmentList[i].hostId)
-                      {
-                        tempEmployee = x;
-                      }});
-                   this.contactList.forEach( x => {
-                      if(x.contactId == this.appointmentList[i].guestId)
-                      {
-                        tempContact= x;
-                      }});
-                  this.appointmentList[i].guestName = tempContact.firstName+' '+tempContact.lastName;
-                  this.appointmentList[i].hostName = tempEmployee.firstName+' '+tempEmployee.lastName;
 
-                  this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate).toLocaleDateString();
-                }
-            })
-          })
-        });
-  }
-
-  addAppointment(){
-    this.isNewAppointment = true;
-    this.selectedAppointment = new AppointmentClass();
-    this.selectedContact = new ContactClass();
-    this.selectedEmployee = new EmployeeClass();
-  }
-
-  saveAppointment(){
-    let tmpAppointmentList = [...this.appointmentList];
-    this.selectedAppointment.guestId = this.selectedContact.contactId;
-    this.selectedAppointment.hostId = this.selectedEmployee.employeeId;
-
-    if(this.isNewAppointment)
-    {
-      this.appointmentService.postAppointment(this.selectedAppointment).then(appointments => 
-        {this.appointment = appointments; 
-        this.appointment.guestName = this.contactList.find( id => id.contactId = appointments.guestId).firstName;
-        this.appointment.appointmentDate = new Date(this.appointment.appointmentDate).toLocaleDateString();
-        tmpAppointmentList.push(this.appointment);
-        this.appointmentList = tmpAppointmentList;
-      });
-    }
-    else{
-      this.appointmentService.putAppointment(this.selectedAppointment.appointmentId, this.selectedAppointment).then(appointment =>
-        {this.appointment = appointment; 
-        tmpAppointmentList[this.appointmentList.indexOf(this.selectedAppointment)] = appointment;
-        this.appointmentList = tmpAppointmentList;
-        });
-    }
-    this.selectedAppointment   = null;
-    this.isNewAppointment = false;  
+    this.items = [
+      {label: 'Dashboard', icon: 'fa fa-book fa-5x', routerLink: ['/dashboard']},
+      {label: 'Contacts', icon: 'fa fa-book fa-5x', routerLink: ['/contacts']}
+    ]
+    
+    this.userform = this.fb.group({
+      // 'firstName' : new FormControl('', Validators.required),
+      // 'lastName' : new FormControl('', Validators.required),
+      // 'mobilePhone': new FormControl('', Validators.compose([Validators.required, Validators.pattern('^\\d+$')])),
+      // 'streetAddress': new FormControl('', Validators.required),
+      // 'cityAddress': new FormControl('', Validators.required),
+      // 'zipCode' : new FormControl('', Validators.required),
+      // 'country': new FormControl('', Validators.required),
+      // 'emailAddress': new FormControl('', Validators.compose([Validators.required, Validators.pattern(REGEXEMAIL)])),
+    });
+    
   }
   
-  onRowSelect(){
-    this.isNewAppointment = false;
-    this.selectedEmployee = this.employeeList.find(x => x.employeeId == this.selectedAppointment.hostId);
-    this.selectedContact =  this.contactList.find(x => x.contactId == this.selectedAppointment.guestId);
-    this.cloneAppointment = this.cloneRecord(this.selectedAppointment);
+  retrieveRecord(event){
+    this.genericService.getRecord<Contact>("Contacts").then(contacts =>{
+      this.contactList = contacts;
+      this.genericService.getRecord<Employee>("Employees").then(employees =>{
+        this.employeeList = employees;
+        this.genericService.getPaginatedRecord<Record<Appointment>>(this.service, event.first, event.rows,
+          this.searchFilter.length == 1 ? "" : this.searchFilter).then(appointmentsRecord => { 
+          this.retrieveRecordResult = appointmentsRecord;
+          this.appointmentList = this.retrieveRecordResult.result;
+          this.totalRecord = this.retrieveRecordResult.totalRecord;
+          for(let i = 0; this.appointmentList.length > i; i++){
+            let tempEmployee = this.employeeList.find( id => id.employeeId == this.appointmentList[i].hostId);
+            let tempContact= this.contactList.find( id => id.contactId == this.appointmentList[i].guestId);
+            this.appointmentList[i].guestName = tempContact.firstName+' '+tempContact.lastName;
+            this.appointmentList[i].hostName = tempEmployee.firstName+' '+tempEmployee.lastName;
+            this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate).toLocaleDateString();
+          }
+        });
+      });
+    });
+  }
+
+  search(){
+    this.dataTable.reset();
   }
 
   cloneRecord(r: Appointment): Appointment{
@@ -121,7 +123,45 @@ export class AppointmentsComponent implements OnInit {
     return appointment;
   }
 
-  deleteAppointment(){
+  
+  addAppointment(){
+    this.isNewAppointment = true;
+    this.display = true;
+    this.selectedAppointment = new AppointmentClass();
+    this.selectedContact = new ContactClass();
+    this.selectedEmployee = new EmployeeClass();
+  }
+
+  saveAppointment(isNewSave: boolean){
+    let tmpAppointmentList = [...this.appointmentList];
+    this.selectedAppointment.guestId = this.selectedContact.contactId;
+    this.selectedAppointment.hostId = this.selectedEmployee.employeeId;  
+    let selectedDate = this.selectedAppointment.appointmentDate;
+    if(this.isNewAppointment)
+    {
+      this.genericService.insertRecord(this.service ,this.selectedAppointment).then(appointments => 
+        {this.appointment = appointments; 
+        this.appointment.guestName = this.contactList.find( x => x.contactId == appointments.guestId).firstName;
+        this.appointment.hostName = this.employeeList.find( x => x.employeeId == appointments.hostId).firstName;
+        this.appointment.appointmentDate = new Date(this.appointment.appointmentDate).toLocaleDateString();
+        tmpAppointmentList.push(this.appointment);
+        this.selectedAppointment = isNewSave? new AppointmentClass(): null;
+        this.appointmentList = tmpAppointmentList;
+        
+      });
+    }
+    else{
+      this.genericService.updateRecord(this.service, this.selectedAppointment.appointmentId, this.selectedAppointment).then(appointment =>
+        {this.appointment = appointment; 
+        tmpAppointmentList[this.appointmentList.indexOf(this.selectedAppointment)] = appointment;
+        this.appointmentList = tmpAppointmentList;
+        });
+    }
+    this.selectedAppointment   = null;
+    this.isNewAppointment = false;  
+  }
+
+  deleteAppointmentConfirmation(){
     if(this.selectedAppointment != null && !this.isNewAppointment){
       this.confirmationService.confirm({
         message: 'Do you want to delete this record?',
@@ -129,13 +169,15 @@ export class AppointmentsComponent implements OnInit {
         icon: 'fa fa-trash',
         accept: () => {
           let tmpAppointmentList = [...this.appointmentList];
-          this.appointmentService.deleteAppointment(this.selectedAppointment.appointmentId);
+          this.genericService.deleteRecord(this.service, this.selectedAppointment.appointmentId)
+          .then(() => this.msgs = [{severity:'info', summary:'Confirmed', detail:'Record deleted'}]
+          );
           tmpAppointmentList.splice(this.appointmentList.indexOf(this.selectedAppointment), 1);
 
           this.appointmentList = tmpAppointmentList;
           this.selectedAppointment   = null;
           this.isNewAppointment = false;  
-            this.msgs = [{severity:'info', summary:'Confirmed', detail:'Record deleted'}];
+            
         },
         reject: () => {
             this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
@@ -143,7 +185,21 @@ export class AppointmentsComponent implements OnInit {
       });
     } 
   }
-  
+
+  deleteAppointment(appointment: Appointment){
+    this.userform.markAsPristine();
+    this.isEdit = false;
+    this.userform.disable();
+    this.cloneAppointment = this.cloneRecord(appointment);
+    this.selectedAppointment = appointment;
+    this.display = true;
+    // hide the Saving button
+    this.btnSave = false; 
+    this.btnSaveNew = false;     
+    
+    this.btnDelete = true;
+  } 
+
   cancelAppointment(){
     if(this.isNewAppointment){
       this.selectedAppointment = null;
@@ -155,17 +211,20 @@ export class AppointmentsComponent implements OnInit {
       this.selectedAppointment = null;
     }
   }
-  // onRowSelect(){
-  //   this.isNewEmployee = false;
-  //   this.cloneEmployee = this.cloneRecord(this.selectedEmployee);
-  // }
 
-  // cloneRecord(r: Employee): Employee{
-  //   let employee = new EmployeeClass();
-  //   for(let prop in r){
-  //     employee[prop] = r[prop];
-  //   }
-  //   return employee;
-  // }
+  editAppointment(appointment: Appointment){
+    
+    // this.userform.enable();
+    // this.btnSave = true;
+    // this.btnDelete = false;
+    // this.btnSaveNew = false;
+    this.cloneAppointment =  Object.assign({}, appointment);
+    this.selectedContact = this.contactList.find( x => x.contactId == appointment.guestId);
+    this.selectedEmployee = this.employeeList.find( x => x.employeeId == appointment.hostId);
+    this.selectedAppointment = this.cloneAppointment;
+    
+    this.isNewAppointment = false;
+    this.display = true;
+  }
 }
 

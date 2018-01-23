@@ -6959,11 +6959,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Test\\BlastAsia.DigiBook.Domain.Test.csproj",
+      "projectUniqueName": "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Test\\BlastAsia.DigiBook.Domain.Test.csproj",
       "projectName": "BlastAsia.DigiBook.Domain.Test",
-      "projectPath": "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Test\\BlastAsia.DigiBook.Domain.Test.csproj",
+      "projectPath": "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Test\\BlastAsia.DigiBook.Domain.Test.csproj",
       "packagesPath": "C:\\Users\\roribello\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Test\\obj\\",
+      "outputPath": "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -6982,11 +6982,11 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj": {
-              "projectPath": "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj"
+            "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj": {
+              "projectPath": "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.csproj"
             },
-            "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj": {
-              "projectPath": "C:\\Users\\roribello\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj"
+            "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj": {
+              "projectPath": "C:\\Users\\roribello\\Documents\\TrainingRepository\\TDD\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj"
             }
           }
         }

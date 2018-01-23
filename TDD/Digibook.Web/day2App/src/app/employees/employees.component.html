@@ -1,9 +1,11 @@
 <p-growl [(value)]="msgs"></p-growl>
+<p-confirmDialog></p-confirmDialog>
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <p-panel header="Employee List">
     <div class="ui-g">
-    <p-dataTable #dt [value]="employeeList" [rows]="5" [paginator]="true" [pageLinks]="10" [responsive]="true" 
-            (onLazyLoad)="retrieveRecord($event)" [lazy]="true" [totalRecords]="totalRecord"  [(selection)]="selectedEmployee" [loading]="loading" loadingIcon="fa-spinner" [rowsPerPageOptions]="[5,10,20]">
+    <p-dataTable #dt [value]="employeeList" rows = "5" [paginator]="true" [pageLinks]="10" [responsive]="true" 
+            (onLazyLoad)="retrieveRecord($event)" [lazy]="true" [totalRecords]="totalRecord"  [(selection)]="selectedEmployee" 
+            [loading]="loading" loadingIcon="fa-spinner" [rowsPerPageOptions]="[5,10]">
         <p-header>
             <div class="ui-helper-clearfix">
                 <div class="ui-g">
@@ -14,7 +16,7 @@
                     </div>
                     <div class="ui-g-12 ui-md-2 ui-inputgroup">
                         <input type="text" #gb pInputText placeholder="Keyword" [(ngModel)]="searchFilter">  
-                        <button pButton type="button" icon="fa fa-search"></button>       
+                        <button pButton type="button" icon="fa fa-search" (click)="search()"></button>       
                     </div>
                   </div>
             </div>
@@ -25,18 +27,16 @@
                 <button pButton type="button" (click)="deleteEmployee(rowContact)" icon="fa fa-trash-o" class="ui-button-danger"></button>
             </ng-template>
         </p-column>
-        <p-column field="firstName" header="First Name" [sortable]="true"></p-column>
-        <p-column field="lastName" header="Last Name" [sortable]="true"></p-column>
+        <p-column field="firstName" header="Name" [sortable]="false">
+            <ng-template pTemplate type="body" let-Contact="rowData">
+                {{ Contact.firstName + " " + Contact.lastName }}
+            </ng-template>
+        </p-column>
         <p-column field="mobilePhone" header="Mobile Phone" [sortable]="true"></p-column>
         <p-column field="emailAddress" header="Email Address" [sortable]="true"></p-column>
         <p-column field="photo" header="Photo" [sortable]="false"></p-column>
         <p-column field="officePhone" header="Office Phone" [sortable]="true"></p-column>
         <p-column field="extension" header="Extension" [sortable]="true"></p-column>
-        <p-footer>
-          <div class="ui-g">
-          <button pButton icon="fa fa-trash-o" (click)="deleteEmployee()" label="Delete" style="float:left" *ngIf="selectedEmployee"></button>
-         </div>
-        </p-footer>
       </p-dataTable>
     </div>
   </p-panel>
@@ -47,7 +47,7 @@
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-12">
                         <span class="ui-float-label">
-                            <input pInputText type="text"  id="float-input" formControlName="firstName" [(ngModel)]="selectedEmployee.firstName"/> 
+                            <input pInputText type="text"   formControlName="firstName" [(ngModel)]="selectedEmployee.firstName"/> 
                             <label for="float-input">First Name</label>
                         </span>
                         <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['firstName'].valid&&userform.controls['firstName'].dirty">
@@ -59,7 +59,7 @@
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-12">
                         <span class="ui-float-label">
-                            <input pInputText type="text"  id="float-input" size="30" formControlName="lastName" [(ngModel)]="selectedEmployee.lastName"/> 
+                            <input pInputText type="text"   size="30" formControlName="lastName" [(ngModel)]="selectedEmployee.lastName"/> 
                             <label for="float-input">Last Name</label>
                         </span>
                         <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['lastName'].valid&&userform.controls['lastName'].dirty">
@@ -71,7 +71,7 @@
                          <div class="ui-grid-row">
                              <div class="ui-grid-col-12">
                                  <span class="ui-float-label">
-                                     <input pInputText type="text"  id="float-input" size="30" formControlName="mobilePhone" [(ngModel)]="selectedEmployee.mobilePhone"/> 
+                                     <input pInputText type="text"   size="30" formControlName="mobilePhone" [(ngModel)]="selectedEmployee.mobilePhone"/> 
                                      <label for="float-input">Mobile Phone</label>
                                  </span>
                                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['mobilePhone'].valid&&userform.controls['mobilePhone'].dirty">
@@ -84,7 +84,7 @@
                          <div class="ui-grid-row">
                              <div class="ui-grid-col-12">
                                  <span class="ui-float-label">
-                                     <input pInputText type="text"  id="float-input" size="30" formControlName="emailAddress" [(ngModel)]="selectedEmployee.EmailAddress"/> 
+                                     <input pInputText type="text"   size="30" formControlName="emailAddress" [(ngModel)]="selectedEmployee.emailAddress"/> 
                                      <label for="float-input">Email Address</label>
                                  </span>
                                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['emailAddress'].valid&&userform.controls['emailAddress'].dirty">
@@ -100,7 +100,7 @@
                             <!-- <div class="ui-grid-row">
                                 <div class="ui-grid-col-12">
                                     <span class="ui-float-label">
-                                        <input pInputText type="text"  id="float-input" size="30" formControlName="photo" [(ngModel)]="selectedContact.photo"/> 
+                                        <input pInputText type="text"   size="30" formControlName="photo" [(ngModel)]="selectedContact.photo"/> 
                                         <label for="float-input">City Address</label>
                                     </span>
                                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['photo'].valid&&userform.controls['photo'].dirty">
@@ -112,7 +112,7 @@
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-12">
                                     <span class="ui-float-label">
-                                        <input pInputText type="text"  id="float-input" size="30" formControlName="officePhone" [(ngModel)]="selectedEmployee.officePhone"/> 
+                                        <input pInputText type="text"   size="30" formControlName="officePhone" [(ngModel)]="selectedEmployee.officePhone"/> 
                                         <label for="float-input">Office Phone</label>
                                     </span>
                                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['officePhone'].valid&&userform.controls['officePhone'].dirty">
@@ -124,7 +124,7 @@
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-12">
                                     <span class="ui-float-label">
-                                        <input pInputText type="text"  id="float-input" size="30" formControlName="extension" [(ngModel)]="selectedEmployee.extension"/> 
+                                        <input pInputText type="text"   size="30" formControlName="extension" [(ngModel)]="selectedEmployee.extension"/> 
                                         <label for="float-input">Extension</label>
                                     </span>
                                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['extension'].valid&&userform.controls['extension'].dirty">
@@ -137,8 +137,8 @@
                     </div>
         <p-footer>
             <div align="center">
-                <button pButton type="button" *ngIf ="btnSaveNew" (click)="saveEmployee('new')" label="Save & New" icon="fa fa-floppy-o" class="ui-button-success"  [disabled]="!userform.valid"></button>
-                <button pButton type="button" *ngIf ="btnSave" (click)="saveEmployee()" label="Save" icon="fa fa-floppy-o" class="ui-button-success"  [disabled]="!userform.valid"></button>
+                <button pButton type="button" *ngIf ="btnSaveNew" (click)="saveEmployee(true)" label="Save & New" icon="fa fa-floppy-o" class="ui-button-success"  [disabled]="!userform.valid"></button>
+                <button pButton type="button" *ngIf ="btnSave" (click)="saveEmployee(false)" label="Save" icon="fa fa-floppy-o" class="ui-button-success"  [disabled]="!userform.valid"></button>
                 <button pButton type="button" *ngIf ="btnDelete" (click)="deleteEmployeeConfirmation()" label="Delete" icon="fa fa-trash-o" class="ui-button-danger"></button>
                 <button pButton type="button" (click)="cancelEmployee()" label="Cancel" icon="fa fa-ban" class="ui-button-danger" ></button>
             </div>

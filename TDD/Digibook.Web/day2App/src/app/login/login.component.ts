@@ -27,8 +27,10 @@ export class LoginComponent {
       this.form = this.fb.group({
           Username: ['', Validators.required],
           Password: ['', Validators.required]
-      });
+      }
+      );
     }
+
     onSubmit() {
       var url = this.baseUrl + "api/token/auth";
       var username = this.form.value.Username;

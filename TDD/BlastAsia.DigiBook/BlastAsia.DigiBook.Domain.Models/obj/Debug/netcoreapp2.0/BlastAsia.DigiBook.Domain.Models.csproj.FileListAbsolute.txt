@@ -11,3 +11,16 @@ C:\Users\roribello\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\Blas
 C:\Users\roribello\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\Newtonsoft.Json.dll
 C:\Users\roribello\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\Newtonsoft.Json.xml
 C:\Users\roribello\Documents\Visual Studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.csprojResolveAssemblyReference.cache
+C:\Users\roribello\Documents\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.deps.json
+C:\Users\roribello\Documents\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\roribello\Documents\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\roribello\Documents\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\roribello\Documents\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\Newtonsoft.Json.dll
+C:\Users\roribello\Documents\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\Microsoft.Extensions.Identity.Stores.xml
+C:\Users\roribello\Documents\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\Newtonsoft.Json.xml
+C:\Users\roribello\Documents\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.csprojResolveAssemblyReference.cache
+C:\Users\roribello\Documents\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.csproj.CoreCompileInputs.cache
+C:\Users\roribello\Documents\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.AssemblyInfoInputs.cache
+C:\Users\roribello\Documents\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.AssemblyInfo.cs
+C:\Users\roribello\Documents\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\roribello\Documents\TrainingRepository\TDD\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb

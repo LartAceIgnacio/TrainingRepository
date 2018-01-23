@@ -1,4 +1,4 @@
-<p-menubar [model]="items"> 
+<p-menubar  styleClass="header-menu" [model]="items"> 
     <div id="top-logo">
           <!-- <div class="ui-g">
             <div clas="ui-g-12 ui-md-2">
@@ -16,14 +16,12 @@
 </p-menubar>
 <div id="section-wrapper" class="ui-g" >
     <aside class="ui-g-12 ui-md-2">
-            <p-menu *ngIf="this.auth.isLoggedIn()" [model]="menuItems"></p-menu>
+            <p-menu styleClass="aside-menu" *ngIf="this.auth.isLoggedIn()" [model]="menuItems"></p-menu>
     </aside>
-    <div class="ui-g-12 ui-md-10">
+    <div id="page-section" class="ui-g-12 ui-md-10">
         <router-outlet></router-outlet>
     </div>
-<div id="page-section">
 </div>
-
 <p-dialog header="Login Details" [(visible)]="display" [responsive]="true" modal="true" [closable]="true">
     <login></login>
 </p-dialog>

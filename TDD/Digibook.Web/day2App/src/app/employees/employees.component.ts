@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GenericService } from '../services/genericService';
+import { GenericService } from '../services/genericservice';
 import { Employee } from '../domain/employee';
 import { EmployeeClass } from '../domain/employeeclass';
 
@@ -71,6 +71,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   addEmployee(){
+    this.userform.markAsPristine();
     this.btnSaveNew = true;
     this.btnSave = true;
     this.btnDelete = false;
@@ -79,7 +80,7 @@ export class EmployeesComponent implements OnInit {
     this.selectedEmployee = new EmployeeClass();
   }
 
-  saveEmployee(){
+  saveEmployee(saveNew: boolean){
     let tmtEmployeeList = [...this.employeeList];
     this.msgs = [];
     if(this.isNewEmployee)
@@ -89,16 +90,24 @@ export class EmployeesComponent implements OnInit {
         this.employee = employee; 
         tmtEmployeeList.push(this.employee);
         this.employeeList = tmtEmployeeList;
+        this.selectedEmployee = saveNew? new EmployeeClass(): null;
+        this.isNewEmployee = saveNew ? true : false;
+        this.dataTable.reset();
         })
-        .then( emp => this.msgs.push({severity:'success', summary:'Success Message', detail:'New Employee Detail Added'}));
+        .then( emp => this.msgs.push({severity:'success', summary:'Success Message', detail:'New Employee: '+ this.employee.lastName +' Added'}));
     }
     else{
-       tmtEmployeeList[this.employeeList.indexOf(this.selectedEmployee)] = this.selectedEmployee;
-       this.employeeList = tmtEmployeeList;
+      this.genericService.updateRecord(this.service, this.selectedEmployee.employeeId, this.selectedEmployee).then(employee =>
+        {this.employee = employee; 
+        tmtEmployeeList[this.employeeList.indexOf(this.selectedEmployee)] = employee;
+        this.employeeList = tmtEmployeeList;
+        });
     }
-   
-    this.selectedEmployee = null;
-    this.isNewEmployee = false;
+    this.userform.markAsPristine();
+  }
+
+  search(){
+    this.dataTable.reset();
   }
 
   cancelEmployee(){
@@ -147,26 +156,49 @@ export class EmployeesComponent implements OnInit {
     return employee;
   }
 
-  deleteEmployee(){
-    if(this.selectedEmployee.employeeId != null && !this.isNewEmployee){
-      this.confirmationService.confirm({
-        message: 'Do you want to delete this record?',
-        header: 'Delete Confirmation',
-        icon: 'fa fa-trash',
-        accept: () => {
-          let tmpEmployeeList = [...this.employeeList];
-          this.genericService.deleteRecord(this.service, this.selectedEmployee.employeeId);
-          tmpEmployeeList.splice(this.employeeList.indexOf(this.selectedEmployee), 1);
-      
-          this.employeeList = tmpEmployeeList;
-          this.selectedEmployee   = null;
-          this.isNewEmployee = false;  
-        },
-        reject: () => {
-            this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
-        }
-      });
+  deleteEmployee(employee: Employee){
+    this.userform.markAsPristine();
+    this.isEdit = false;
+    this.userform.disable();
+    this.cloneEmployee = this.cloneRecord(employee);
+    this.selectedEmployee = employee;
+    this.display = true;
+    // hide the Saving button
+    this.btnSave = false; 
+    this.btnSaveNew = false;     
+    
+    this.btnDelete = true;
+  } 
 
-    }
+  deleteEmployeeConfirmation(){
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this record?',
+      header: 'Discard Changes',
+      icon: 'fa fa-pencil',
+      accept: () => {
+        let tmpEmployeeList = [...this.employeeList];
+        this.genericService.deleteRecord(this.service, this.selectedEmployee.employeeId);
+        tmpEmployeeList.splice(this.employeeList.indexOf(this.selectedEmployee), 1);
+    
+        this.employeeList = tmpEmployeeList;
+        this.selectedEmployee   = null;
+        this.msgs = [{severity:'info', summary:'Confirmed', detail:'Record deleted'}];
+      },
+      reject: () => {
+      }
+    });
   }
+  
+  editEmployee(employee: Employee){
+    this.isEdit = true;
+    this.userform.enable();
+    this.btnSave = true;
+    this.btnDelete = false;
+    this.btnSaveNew = false;
+    this.cloneEmployee =  Object.assign({}, employee);
+    this.isNewEmployee = false;
+    this.selectedEmployee = employee;
+    this.display = true;
+  }
+ 
 }

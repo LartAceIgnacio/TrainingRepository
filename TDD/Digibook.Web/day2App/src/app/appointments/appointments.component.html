@@ -1,11 +1,13 @@
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <p-growl [value]="msgs" sticky="sticky"></p-growl>
 <p-confirmDialog></p-confirmDialog>
 <p-panel header="Appointment List">
   <div class="ui-g">
-    <p-dataTable [value]="appointmentList" selectionMode="single"
+    <p-dataTable #dt [value]="appointmentList" 
     [(selection)]="selectedAppointment"
-      (onRowSelect)="onRowSelect($event)"
-      [paginator]="true" rows="10" [responsive]="true">
+      [paginator]="true" rows="5" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10]"
+      [loading]="loading" loadingIcon="fa-spinner"
+      (onLazyLoad)="retrieveRecord($event)" [lazy]="true" [totalRecords]="totalRecord" [responsive]="true">
       <p-header>
         <div class="ui-helper-clearfix">
             <div class="ui-g">
@@ -15,16 +17,16 @@
                 <div class="ui-g-12 ui-md-7">
                 </div>
                 <div class="ui-g-12 ui-md-2 ui-inputgroup">
-                    <input type="text" #gb pInputText placeholder="Keyword">  
-                    <button pButton type="button" icon="fa fa-search"></button>       
+                    <input type="text" #gb pInputText placeholder="Keyword" [(ngModel)]="searchFilter">  
+                    <button pButton type="button" icon="fa fa-search" (click)="search()"></button>       
                 </div>
               </div>
         </div>
       </p-header>
       <p-column>
-        <ng-template let-rowContact="rowData" pTemplate="body">
-            <button pButton type="button" (click)="editAppointment(rowContact)" icon="fa fa-pencil" class="ui-button-success"></button>
-            <button pButton type="button" (click)="deleteAppointment(rowContact)" icon="fa fa-trash-o" class="ui-button-danger"></button>
+        <ng-template let-col let-data="rowData" pTemplate="body">
+            <button pButton type="button" (click)="editAppointment(data)" icon="fa fa-pencil" class="ui-button-success"></button>
+            <button pButton type="button" (click)="deleteAppointment(data)" icon="fa fa-trash-o" class="ui-button-danger"></button>
         </ng-template>
       </p-column>
       <p-column field="appointmentDate" header="Date Time" [sortable]="true"></p-column>
@@ -38,7 +40,7 @@
     </p-dataTable>
   </div>
 </p-panel>
-<p-panel header="Appointment Details" *ngIf="selectedAppointment">
+<p-dialog header="Appointment Details" [(visible)]="display" [responsive]="true" modal="true" *ngIf="selectedAppointment" class="ui-g" [closable]="false">
   <div class="ui-g">
     <div class="ui-g-12 ui-md-6">
           <div class="ui-g">
@@ -64,12 +66,12 @@
       </div>
     <div class="ui-g-12 ui-md-6">
         <div class="ui-g">
-            <label class="ui-g-12 ui-md-3" for="Appointment">isCancelled</label>
-            <p-inputSwitch onLabel="True" offLabel="False" [(ngModel)]="selectedAppointment.isCancelled" class="ui-g-12 ui-md-9"></p-inputSwitch>
+            <label class="ui-g-12 ui-md-7" for="Appointment">Is Cancelled</label>
+            <p-inputSwitch onLabel="True" offLabel="False" [(ngModel)]="selectedAppointment.isCancelled" class="ui-g-12 ui-md-5"></p-inputSwitch>
         </div>
         <div class="ui-g">
-            <label class="ui-g-12 ui-md-3" for="Appointment">isDone</label>
-            <p-inputSwitch onLabel="True" offLabel="False" [(ngModel)]="selectedAppointment.isDone" class="ui-g-12 ui-md-9"></p-inputSwitch>
+            <label class="ui-g-12 ui-md-7" for="Appointment">Is Done</label>
+            <p-inputSwitch onLabel="True" offLabel="False" [(ngModel)]="selectedAppointment.isDone" class="ui-g-12 ui-md-5"></p-inputSwitch>
         </div>
         <div class="ui-g">
           <label class="ui-g-12 ui-md-3" for="Appointment">Notes</label>
@@ -79,8 +81,10 @@
   </div>
   <p-footer>
     <div>
-      <button pButton type="button" (click)="saveAppointment()" label="Save" icon="fa fa-floppy-o" class="ui-button-success"></button>
-      <button pButton type="button" (click)="cancelAppointment()" label="Cancel" icon="fa fa-ban" class="ui-button-danger"></button>
+      <button pButton *ngIf ="btnSaveNew" (click)="saveAppointment(true)" label= "Save & New" icon="fa fa-floppy-o" class="ui-button-success"></button>
+      <button pButton *ngIf ="btnSave" (click)="saveAppointment(false)" label="Save" icon="fa fa-floppy-o" class="ui-button-success"></button>
+      <button pButton *ngIf ="btnDelete" (click)="deleteAppointmentConfirmation()" label="Delete" icon="fa fa-trash-o" class="ui-button-danger"></button>
+      <button pButton (click)="cancelAppointment()" label="Cancel" icon="fa fa-ban" class="ui-button-danger"></button>
     </div>
     </p-footer>
-</p-panel>
+</p-dialog>
