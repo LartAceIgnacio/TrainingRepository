@@ -5,7 +5,7 @@ using BlastAsia.DigiBook.Domain.Models.Pilots;
 
 namespace BlastAsia.DigiBook.Domain.Pilots
 {
-    public class PilotService
+    public class PilotService : IPilotService
     {
         private IPilotRepository pilotRepository;
         const int nameMaximumLength = 60;
@@ -55,7 +55,7 @@ namespace BlastAsia.DigiBook.Domain.Pilots
                 throw new InvalidPilotCodeException();
             }
 
-            var foundPilotCode = pilotRepository.RetrievePilotCode(pilot.PilotCode);
+            var foundPilotCode = pilotRepository.Retrieve().Where(p => p.PilotCode == pilot.PilotCode);
             if (foundPilotCode != null)
             {
                 throw new NonUniquePilotCodeException();

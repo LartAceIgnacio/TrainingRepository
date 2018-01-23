@@ -2,6 +2,7 @@
 using BlastAsia.DigiBook.Domain.Contacts;
 using BlastAsia.DigiBook.Domain.Employees;
 using BlastAsia.DigiBook.Domain.Models.Security;
+using BlastAsia.DigiBook.Domain.Pilots;
 using BlastAsia.DigiBook.Domain.Venues;
 using BlastAsia.DigiBook.Infrastructure.Persistence;
 using BlastAsia.DigiBook.Infrastructure.Persistence.Repositories;
@@ -121,15 +122,21 @@ namespace BlastAsia.DigiBook.Api
                 });
             });
             services.AddScoped<IDigiBookDbContext, DigiBookDbContext>();
+
             services.AddTransient<IContactService, ContactService>();
             services.AddScoped<IContactRepository, ContactRepository>();
+
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
             services.AddTransient<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+
             services.AddTransient<IVenueService, VenueService>();
             services.AddScoped<IVenueRepository, VenueRepository>();
 
+            services.AddTransient<IPilotService, PilotService>();
+            services.AddScoped<IPilotRepository, PilotRepository>();
             services.AddCors(config =>
             {
                 config.AddPolicy("DemoApp", policy =>

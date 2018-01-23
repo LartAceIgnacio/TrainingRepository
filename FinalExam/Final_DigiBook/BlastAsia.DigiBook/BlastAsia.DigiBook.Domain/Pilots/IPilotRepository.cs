@@ -7,6 +7,5 @@ namespace BlastAsia.DigiBook.Domain.Pilots
     public interface IPilotRepository
         : IRepository<Pilot>
     {
-        Pilot RetrievePilotCode(String pilotCode);
     }
 }
