@@ -25,7 +25,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
                 FirstName = "Christoper",
                 MiddleName = "Magdaleno",
                 LastName = "Manuel",
-                BirthDate = DateTime.Parse("Feb-01-1995"),
+                BirthDate = DateTime.Now.AddYears(-25),
                 YearsOfExperience = 10,
                 DateActivated = DateTime.Today,
                 PilotCode = "FFMMLLLLYYmmdd",
@@ -43,6 +43,9 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
 
             longName = "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the wo ";
 
+            mockPilotRepository
+                .Setup(pr => pr.RetrievePilotCode(pilot.PilotCode))
+                .Returns(pilot);
         }
 
         [TestMethod]
@@ -151,6 +154,69 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
                 .Verify(c => c.Create(pilot), Times.Never());
         }
 
-    }
 
+        [TestMethod]
+        public void Save_WithAgeLessThan21yrsOld_ThrowsAgeRequirementException()
+        {
+            //Arrange
+            pilot.BirthDate = DateTime.Today;
+
+            //Assert
+            Assert.ThrowsException<MinimumAgeRequirement>(
+              () => sut.Save(pilot.PilotId, pilot));
+
+            mockPilotRepository
+                .Verify(c => c.Create(pilot), Times.Never());
+        }
+
+
+        [TestMethod]
+        public void Save_WithYearsOfExperienceLessThan10YearsOfExperience_ThrowsYearsOfExperienceMinimumRequiredException()
+        {
+            //Arrange
+            pilot.YearsOfExperience = 5;
+            //Act 
+
+            //Assert
+            Assert.ThrowsException<YearsOfExperienceMinimumRequiredException>(
+                () => sut.Save(pilot.PilotId, pilot));
+
+            mockPilotRepository
+              .Verify(c => c.Create(pilot), Times.Never());
+        }
+
+
+        [TestMethod]
+        public void Save_WithInvalidPilotCode_ThrowsInvalidPilotCodeException()
+        {
+            //Arrange
+            pilot.FirstName = "!R5";
+            //Act 
+
+            //Assert
+            Assert.ThrowsException<InvalidPilotCodeException>(
+                () => sut.Save(pilot.PilotId, pilot));
+
+            mockPilotRepository
+              .Verify(c => c.Create(pilot), Times.Never());
+        }
+
+        [TestMethod]
+        public void Save_WithExistingPilotCode_ThrowsNonUniquePilotCodeException()
+        {
+            //Arrange
+            mockPilotRepository
+             .Setup(pr => pr.RetrievePilotCode(pilot.PilotCode))
+             .Callback(() => pilot = new Pilot())
+             .Returns(pilot);
+            //Act 
+
+            //Assert
+            Assert.ThrowsException<NonUniquePilotCodeException>(
+                () => sut.Save(pilot.PilotId, pilot));
+
+            mockPilotRepository
+              .Verify(c => c.Create(pilot), Times.Never());
+        }
+    }
 }

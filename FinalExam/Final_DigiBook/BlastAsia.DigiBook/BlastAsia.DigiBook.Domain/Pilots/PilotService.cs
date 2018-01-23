@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using BlastAsia.DigiBook.Domain.Models.Pilots;
 
 namespace BlastAsia.DigiBook.Domain.Pilots
@@ -7,6 +9,10 @@ namespace BlastAsia.DigiBook.Domain.Pilots
     {
         private IPilotRepository pilotRepository;
         const int nameMaximumLength = 60;
+        const int minimumAge = 21;
+        const int yearsOfExperienceRequirement = 10;
+        DateTime now = DateTime.Today;
+        private string pilotCodePattern  = "[A-Za-z]{8}[0-9]{6}";
         public PilotService(IPilotRepository pilotRepository)
         {
             this.pilotRepository = pilotRepository;
@@ -33,10 +39,31 @@ namespace BlastAsia.DigiBook.Domain.Pilots
             if (pilot.LastName.Length > nameMaximumLength)
             {
                 throw new LastNameMaximumLenghtException();
-            } 
-           Pilot result;
+            }
+            if (this.ComputeAge(pilot.BirthDate) <= minimumAge)
+            {
+                throw new MinimumAgeRequirement();
+            }
+            if (pilot.YearsOfExperience < yearsOfExperienceRequirement)
+            {
+                throw new YearsOfExperienceMinimumRequiredException();
+            }
+            pilot.PilotCode = PilotCodeGenerate(pilot);
 
-           var found = pilotRepository.Retrieve(pilotId);
+            if (!Regex.IsMatch(pilot.PilotCode, pilotCodePattern))
+            {
+                throw new InvalidPilotCodeException();
+            }
+
+            var foundPilotCode = pilotRepository.RetrievePilotCode(pilot.PilotCode);
+            if (foundPilotCode != null)
+            {
+                throw new NonUniquePilotCodeException();
+            }
+           
+            Pilot result;
+
+            var found = pilotRepository.Retrieve(pilotId);
             if (found == null)
             {
                 result = pilotRepository.Create(pilot);
@@ -46,6 +73,24 @@ namespace BlastAsia.DigiBook.Domain.Pilots
                 result = pilotRepository.Update(pilotId, pilot);
             }
                 
+            return result;
+        }
+        
+        public int ComputeAge(DateTime birthdate)
+        {
+            int result = now.Year - birthdate.Year ;
+            return result;
+        }
+
+        public string PilotCodeGenerate(Pilot pilot)
+        {
+            string result = "";
+            result = string.Concat(result, pilot.FirstName.Substring(0, 2));
+            result = string.Concat(result, pilot.MiddleName.Substring(0, 2));
+            result = string.Concat(result, pilot.LastName.Substring(0, 4));
+            result = string.Concat(result, pilot.DateActivated.ToString("yy"));
+            result = string.Concat(result, pilot.DateActivated.Month.ToString().PadLeft(2, '0'));
+            result = string.Concat(result, pilot.DateActivated.Day.ToString().PadLeft(2, '0'));
             return result;
         }
     }

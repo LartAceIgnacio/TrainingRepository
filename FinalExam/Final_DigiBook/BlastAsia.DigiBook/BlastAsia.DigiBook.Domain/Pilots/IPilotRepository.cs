@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BlastAsia.DigiBook.Domain.Models.Pilots;
 
 namespace BlastAsia.DigiBook.Domain.Pilots
@@ -8,5 +9,6 @@ namespace BlastAsia.DigiBook.Domain.Pilots
         Pilot Create(Pilot pilot);
         Pilot Update(Guid id, Pilot pilot);
         Pilot Retrieve(Guid id);
+        Pilot RetrievePilotCode(String pilotCode);
     }
 }
