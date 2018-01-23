@@ -1,0 +1,18 @@
+C:\Users\eravina\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.csproj.CoreCompileInputs.cache
+C:\Users\eravina\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.AssemblyInfoInputs.cache
+C:\Users\eravina\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.AssemblyInfo.cs
+C:\Users\eravina\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.deps.json
+C:\Users\eravina\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\eravina\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\eravina\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\eravina\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\eravina\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.csprojResolveAssemblyReference.cache
+C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.deps.json
+C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.csprojResolveAssemblyReference.cache
+C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.csproj.CoreCompileInputs.cache
+C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.AssemblyInfoInputs.cache
+C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.AssemblyInfo.cs
+C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Models\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
