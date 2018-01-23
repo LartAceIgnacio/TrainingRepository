@@ -30,7 +30,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
                 DateModified = new Nullable<DateTime>()
             };
 
-            var mockPilotRepository = new Mock<IPilotRepository>;
+            var mockPilotRepository = new Mock<IPilotRepository>();
             var sut = new PilotService(mockPilotRepository.Object);
             //Act 
             sut.Save(pilot.PilotId, pilot);

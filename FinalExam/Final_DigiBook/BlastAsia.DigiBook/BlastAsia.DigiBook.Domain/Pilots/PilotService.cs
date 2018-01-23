@@ -1,4 +1,7 @@
-﻿namespace BlastAsia.DigiBook.Domain.Pilots
+﻿using System;
+using BlastAsia.DigiBook.Domain.Models.Pilots;
+
+namespace BlastAsia.DigiBook.Domain.Pilots
 {
     public class PilotService
     {
@@ -7,6 +10,11 @@
         public PilotService(IPilotRepository @object)
         {
             this.@object = @object;
+        }
+
+        public void Save(Guid pilotId, Pilot pilot)
+        {
+            throw new NotImplementedException();
         }
     }
 }
