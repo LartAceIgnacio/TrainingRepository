@@ -1,4 +1,5 @@
-﻿using BlastAsia.DigiBook.Domain.Models.Pilots;
+﻿using System;
+using BlastAsia.DigiBook.Domain.Models.Pilots;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
 {
@@ -13,6 +14,24 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
         public Pilot Create(Pilot pilot)
         {
             context.Set<Pilot>().Add(pilot);
+            context.SaveChanges();
+            return pilot;
+        }
+
+        public void Delete(Guid pilotId)
+        {
+            var found = this.Retrieve(pilotId);
+            context.Set<Pilot>().Remove(found);
+            context.SaveChanges();
+        }
+
+        public Pilot Retrieve(Guid pilotId)
+        {
+            return context.Set<Pilot>().Find(pilotId);
+        }
+
+        public Pilot Update(Guid id, Pilot pilot)
+        {
             context.SaveChanges();
             return pilot;
         }
