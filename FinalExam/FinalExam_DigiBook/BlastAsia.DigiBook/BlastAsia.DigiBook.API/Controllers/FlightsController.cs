@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlastAsia.DigiBook.API.Utils;
 using BlastAsia.DigiBook.Domain.Flights;
+using BlastAsia.DigiBook.Domain.Models;
 using BlastAsia.DigiBook.Domain.Models.Flights;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.JsonPatch;
@@ -13,7 +14,6 @@ namespace BlastAsia.DigiBook.API.Controllers
 {
     [EnableCors("DemoApp")]
     [Produces("application/json")]
-    [Route("api/Flights")]
     public class FlightsController : Controller
     {
         private IFlightRepository flightRepository;
@@ -26,7 +26,24 @@ namespace BlastAsia.DigiBook.API.Controllers
             this.flightRepository = flightRepository;
             this.flightService = flightService;
         }
+        [HttpGet, ActionName("GetFlightsWithPagination")]
+        [Route("api/Flights/{page}/{record}")]
+        public IActionResult GetFlightWithPagination(int page, int record, string filter)
+        {
+            var result = new Pagination<Flight>();
+            try
+            {
+                result = this.flightRepository.Retrieve(page, record, filter);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
         [HttpGet, ActionName("GetFlights")]
+        [Route("api/Flights")]
         public IActionResult GetFlights(Guid? id)
         {
             var result = new List<Flight>();
@@ -42,6 +59,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             return Ok(result);
         }
         [HttpPost]
+        [Route("api/Flights")]
         public IActionResult CreateFlight([FromBody] Flight flight)
         {
             try
@@ -51,7 +69,6 @@ namespace BlastAsia.DigiBook.API.Controllers
                     return BadRequest();
                 }
                 var result = this.flightService.Save(Guid.Empty, flight);
-
                 return CreatedAtAction("GetFlights", new { id = flight.FlightId }, result);
             }
             catch (Exception)
@@ -60,6 +77,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             }
         }
         [HttpDelete]
+        [Route("api/Flights/{id}")]
         public IActionResult DeleteFlight(Guid id)
         {
             var deletedFlight = flightRepository.Retrieve(id);
@@ -72,6 +90,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             return Ok();
         }
         [HttpPut]
+        [Route("api/Flights/{id}")]
         public IActionResult UpdateFlight([FromBody] Flight modifiedFlight, Guid id)
         {
             var flight = flightRepository.Retrieve(id);
@@ -84,6 +103,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             return Ok();
         }
         [HttpPatch]
+        [Route("api/Flights")]
         public IActionResult PatchFlight(JsonPatchDocument patchedFlight, Guid id)
         {
             if(patchedFlight == null)

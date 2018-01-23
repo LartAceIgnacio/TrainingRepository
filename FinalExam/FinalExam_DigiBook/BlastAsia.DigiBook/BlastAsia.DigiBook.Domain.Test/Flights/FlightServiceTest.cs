@@ -26,12 +26,8 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
             {
                 CityOfOrigin = "123",
                 CityOfDestination = "123",
-                ExpectedTimeOfArrival = DateTime.Now.AddHours(5),
-                ExpectedTimeOfDeparture = DateTime.Now.AddHours(3),
-                FlightCode = "OOODDDYYMMddNN",
-                DateCreated = new Nullable<DateTime>(),
-                DateModified = new Nullable<DateTime>()
-
+                ExpectedTimeOfArrival = DateTime.Now.AddHours(2),
+                ExpectedTimeOfDeparture = DateTime.Now.AddHours(2)
             };
 
             mockFlightRepository = new Mock<IFlightRepository>();
@@ -136,11 +132,11 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
                 () => sut.Save(flight.FlightId, flight));
         }
         [TestMethod]
-        public void Save_WithETAGreaterThanETD_ThrowsDateAndTimeException()
+        public void Save_WithETALessThanOrEqualToETD_ThrowsDateAndTimeException()
         {
             // Arrange
 
-            flight.ExpectedTimeOfArrival = DateTime.Now.AddHours(1);
+            flight.ExpectedTimeOfArrival = DateTime.Now.AddHours(3);
 
             // Act
 
@@ -152,5 +148,37 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
                 () => sut.Save(flight.FlightId, flight));
 
         }
+        //[TestMethod]
+        //public void Save_WithBlankExpectedTimeOfArrival_ThrowsDateAndTimeException()
+        //{
+        //    // Arrange
+
+        //    flight.ExpectedTimeOfArrival = null;
+
+        //    // Act
+
+        //    // Assert
+
+        //    mockFlightRepository
+        //        .Verify(c => c.Create(flight), Times.Never());
+        //    Assert.ThrowsException<DateAndTimeException>(
+        //        () => sut.Save(flight.FlightId, flight));
+        //}
+        //[TestMethod]
+        //public void Save_WithBlankExpectedTimeOfDeparture_ThrowsDateAndTimeException()
+        //{
+        //    // Arrange
+
+        //    flight.ExpectedTimeOfDeparture = null;
+
+        //    // Act
+
+        //    // Assert
+
+        //    mockFlightRepository
+        //        .Verify(c => c.Create(flight), Times.Never());
+        //    Assert.ThrowsException<DateAndTimeException>(
+        //        () => sut.Save(flight.FlightId, flight));
+        //}
     }
 }

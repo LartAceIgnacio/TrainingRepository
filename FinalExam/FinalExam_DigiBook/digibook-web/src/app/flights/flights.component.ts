@@ -5,6 +5,7 @@ import { GlobalService } from '../services/globalservice';
 import { FlightClass } from '../domain/FlightClass';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Pagination } from '../domain/pagination';
+import { MaxLengthValidator } from '@angular/forms/src/directives/validators';
 
 @Component({
   selector: 'app-flights',
@@ -29,6 +30,7 @@ export class FlightsComponent implements OnInit {
   flightList: Flight[];
   display: boolean = false;
   userform: FormGroup;
+
   showDialog() {
     this.display = true;
   }
@@ -39,8 +41,8 @@ export class FlightsComponent implements OnInit {
   @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
     this.userform = this.fb.group({
-      'cityOfOrigin': new FormControl('', Validators.required),
-      'cityOfDestination': new FormControl('', Validators.required),
+      'cityOfOrigin': new FormControl('', Validators.compose([Validators.required, Validators.maxLength(3), Validators.minLength(3)])),
+      'cityOfDestination': new FormControl('', Validators.compose([Validators.required, Validators.maxLength(3), Validators.minLength(3)])),
       'expectedTimeOfArrival': new FormControl('', Validators.required),
       'expectedTimeOfDeparture': new FormControl('', Validators.required)
     });
@@ -64,13 +66,13 @@ export class FlightsComponent implements OnInit {
     this.userform.enable();
     let tmpFlightList = [...this.flightList];
     if(this.isNewFlight){
-      this.globalService.addSomething("flights" , this.selectedFlight).then(flights => {
+      this.globalService.addSomething("Flights" , this.selectedFlight).then(flights => {
       this.flight = flights;
       tmpFlightList.push(this.flight);
       this.flightList = tmpFlightList;
       });
     } else {
-      this.globalService.updateSomething("flights", this.selectedFlight.flightId , this.selectedFlight);
+      this.globalService.updateSomething("Flights", this.selectedFlight.flightId , this.selectedFlight);
       tmpFlightList[this.flightList.indexOf(this.selectedFlight)] = this.selectedFlight;
     }
     this.selectedFlight = null;
@@ -80,29 +82,28 @@ export class FlightsComponent implements OnInit {
 
   saveNewFlight(){
     this.userform.enable();
-    let tmpflightList = [...this.flightList];
+    let tmpFlightList = [...this.flightList];
     if(this.isNewFlight){
-      this.globalService.addSomething("flights" , this.selectedFlight).then(flights => {
+      this.globalService.addSomething("Flights" , this.selectedFlight).then(flights => {
       this.flight = flights;
-      tmpflightList.push(this.flight);
-      this.flightList = tmpflightList;
-      console.log(this.flight);
+      tmpFlightList.push(this.flight);
+      this.flightList = tmpFlightList;
       });
     } else {
-      this.globalService.updateSomething("flights", this.selectedFlight.flightId , this.selectedFlight);
-      tmpflightList[this.flightList.indexOf(this.selectedFlight)] = this.selectedFlight;
+      this.globalService.updateSomething("Flights", this.selectedFlight.flightId , this.selectedFlight);
+      tmpFlightList[this.flightList.indexOf(this.selectedFlight)] = this.selectedFlight;
     }
     this.selectedFlight = new FlightClass;
     this.userform.markAsPristine();
   }
 
-  deleteConfirmation(flight : Flight){
+  deleteConfirmation(Flight : Flight){
     this.userform.enable();
     this.btnSaveNew = false;
     this.btnDelete = true;
     this.btnSave = false;
     this.displayDialog = true;
-    this.selectedFlight = flight;
+    this.selectedFlight = Flight;
   }
 
   findselectedFlightIndex(): number {
@@ -111,8 +112,9 @@ export class FlightsComponent implements OnInit {
   deleteFlight(){
     let index = this.findselectedFlightIndex();
     this.flightList = this.flightList.filter((val, i) => i != index);
-    this.globalService.deleteSomething("flights", this.selectedFlight.flightId);
-
+    // this.globalService.deleteSomething("Flights", this.selectedFlight.flightId);
+    this.selectedFlight = null;
+    this.displayDialog = false;
   }
 
   cloneRecord(r: Flight): Flight {
@@ -123,15 +125,47 @@ export class FlightsComponent implements OnInit {
     return flight;
   }
 
-  editFlight(flight: Flight){
+  editFlight(Flight: Flight){
     this.userform.enable();
     this.btnSave = false;
     this.btnDelete = false;
     this.btnSave = true;
+    this.displayDialog = true;
     this.isNewFlight = false;
-    this.selectedFlight = flight;
+    this.selectedFlight = Flight;
     this.cloneFlight = this.cloneRecord(this.selectedFlight);
     this.userform.markAsPristine();
   }
+  paginate(event) {
+    this.globalService.getSomethingWithPagination<Pagination<Flight>>("Flights", event.first, event.rows,
+      this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
+        this.paginationResult = paginationResult;
+        this.flightList = this.paginationResult.results;
+        this.totalRecords = this.paginationResult.totalRecords;
+      });
+  }
 
+  searchFlight() {
+    if (this.searchFilter.length != 1) {
+      this.setCurrentPage(1);
+    }
+  }
+
+  setCurrentPage(n: number) {
+    this.dataTable.reset();
+    let paging = {
+      first: ((n - 1) * this.dataTable.rows),
+      rows: this.dataTable.rows
+    };
+    this.dataTable.paginate();
+  }
+  
+  cancelFlight(){
+    this.isNewFlight = false;
+    let tmpFlightList = [...this.flightList];
+    tmpFlightList[this.flightList.indexOf(this.selectedFlight)] = this.cloneFlight;
+    this.flightList = tmpFlightList;
+    this.selectedFlight = this.cloneFlight;
+    this.selectedFlight = null;
+  }
 }

@@ -32,6 +32,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
             {
                 throw new AppointmentDateRequiredException("Appointment Date is invalid");
             }
+            
 
             Appointment result = null;
             var GuestId = contactRepository.Retrieve(appointment.GuestId);

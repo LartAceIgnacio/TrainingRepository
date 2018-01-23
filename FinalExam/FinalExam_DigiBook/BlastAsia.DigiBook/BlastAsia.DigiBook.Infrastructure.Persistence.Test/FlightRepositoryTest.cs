@@ -38,10 +38,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
                 CityOfOrigin = "123",
                 CityOfDestination = "123",
                 ExpectedTimeOfArrival = DateTime.Now.AddHours(1),
-                ExpectedTimeOfDeparture = DateTime.Now.AddHours(1),
-                FlightCode = "OOODDDYYMMddNN",
-                DateCreated = new Nullable<DateTime>(),
-                DateModified = new Nullable<DateTime>()
+                ExpectedTimeOfDeparture = DateTime.Now.AddHours(1)
             };
         }
         [TestCleanup]

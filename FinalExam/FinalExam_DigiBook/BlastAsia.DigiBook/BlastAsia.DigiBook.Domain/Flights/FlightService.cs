@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using BlastAsia.DigiBook.Domain.Exceptions;
 using BlastAsia.DigiBook.Domain.Flights.Exceptions;
 using BlastAsia.DigiBook.Domain.Models.Flights;
@@ -8,6 +9,7 @@ namespace BlastAsia.DigiBook.Domain.Flights
     public class FlightService : IFlightService
     {
         private IFlightRepository flightRepository;
+        private int incNum;
 
         public FlightService(IFlightRepository flightRepository)
         {
@@ -24,21 +26,40 @@ namespace BlastAsia.DigiBook.Domain.Flights
             {
                 throw new MaximumLengthException("City of Destination should be equal to 3");
             }
-            if(flight.ExpectedTimeOfArrival <= flight.ExpectedTimeOfDeparture)
+            if(flight.ExpectedTimeOfArrival >= flight.ExpectedTimeOfDeparture)
             {
-                throw new DateAndTimeException("ETA should be greater than ETD");
+                throw new DateAndTimeException("ETA should be less than ETD");
             }
+            //if(flight.ExpectedTimeOfArrival == null)
+            //{
+            //    throw new DateAndTimeException("ETA is required");
+            //}
+            //if(flight.ExpectedTimeOfDeparture == null)
+            //{
+            //    throw new DateAndTimeException("ETD is required");
+            //}
 
             Flight result = null;
             var found = flightRepository
                 .Retrieve(flight.FlightId);
 
+            incNum = flightRepository.Retrieve().Count();
+
             if (found == null)
             {
+                flight.DateCreated = DateTime.Now;
+                incNum++;
+
+                flight.FlightCode = string.Concat(flight.CityOfOrigin , flight.CityOfDestination , flight.ExpectedTimeOfDeparture.ToString("yy")
+                    , flight.ExpectedTimeOfDeparture.ToString("MM") , flight.ExpectedTimeOfDeparture.ToString("dd")
+                    , incNum.ToString().PadLeft(2, '0'));
+
                 result = flightRepository.Create(flight);
             }
             else
             {
+                flight.DateModified = DateTime.Now;
+
                 result = flightRepository
                     .Update(flight.FlightId, flight);
             }
