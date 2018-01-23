@@ -2,7 +2,7 @@
 
 namespace BlastAsia.DigiBook.Domain
 {
-    public class UserNameRequiredException 
+    public class UserNameRequiredException
         : Exception
     {
 

@@ -22,7 +22,9 @@ export class AppComponent implements OnInit {
       { label: 'Contacts', icon: 'fa-address-card', routerLink: ['/contacts'] },
       { label: 'Employees', icon: 'fa-download', routerLink: ['/employees'] },
       { label: 'Venues', icon: 'fa fa-building', routerLink: ['/venues'] },
-      { label: 'Appointments', icon: 'fa fa-calendar', routerLink: ['/appointments'] }
+      { label: 'Appointments', icon: 'fa fa-calendar', routerLink: ['/appointments'] },
+      { label: 'Luigi', icon: 'fa-address-card', routerLink: ['/luigi']},
+      { label: 'Flight', icon: 'fa fa-calendar', routerLink: ['/flight']}
     ];
     this.items = [
       {

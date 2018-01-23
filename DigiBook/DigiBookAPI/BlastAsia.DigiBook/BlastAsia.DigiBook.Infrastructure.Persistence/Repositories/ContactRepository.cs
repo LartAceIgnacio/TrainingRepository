@@ -8,8 +8,8 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
     public class ContactRepository
          : RepositoryBase<Contact>, IContactRepository
     {
-        public ContactRepository(IDigiBookDbContext options)
-            : base(options)
+        public ContactRepository(IDigiBookDbContext context)
+            : base(context)
         {
 
         }

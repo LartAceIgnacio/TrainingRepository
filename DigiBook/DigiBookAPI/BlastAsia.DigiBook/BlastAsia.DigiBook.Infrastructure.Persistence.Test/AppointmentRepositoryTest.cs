@@ -3,6 +3,7 @@ using BlastAsia.DigiBook.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 {
@@ -14,22 +15,16 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         private DigiBookDbContext dbContext = null;
         private String connectionString = null;
         private AppointmentRepository sut = null;
+        public ContactRepository sutContact = null;
+        public EmployeeRepository sutEmployee = null;
+        private Guid exisitingHostId;
+        private Guid existingGuestId;
 
         [TestInitialize]
         public void InitializeTest()
         {
-            appointment = new Appointment
-            {
-                AppointmentDate = DateTime.Today,
-                StartTime = new DateTime().TimeOfDay,
-                EndTime = new DateTime().TimeOfDay.Add(TimeSpan.Parse("01:00:00")),
-                IsCancelled = false,
-                IsDone = true,
-                Notes = "6456"
-            };
-
             connectionString
-                = @"Data Source=.;Database=DigiBookDb;Integrated Security=true;";
+               = @"Data Source=.;Database=DigiBookDb;Integrated Security=true;";
 
             dbOptions = new DbContextOptionsBuilder<DigiBookDbContext>()
                 .UseSqlServer(connectionString)
@@ -39,6 +34,28 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             dbContext.Database.EnsureCreated();
 
             sut = new AppointmentRepository(dbContext);
+            sutEmployee = new EmployeeRepository(dbContext);
+            sutContact = new ContactRepository(dbContext);
+
+            //exisitingHostId = Guid.Parse("42874024-bd5b-4243-e7a2-08d55c87f4de");
+            //existingGuestId = Guid.Parse("c02f60f3-ddd9-4fc3-3c5e-08d55c87d4c1");
+
+            existingGuestId = sutContact.Retrieve().FirstOrDefault().ContactId;
+            exisitingHostId = sutEmployee.Retrieve().FirstOrDefault().EmployeeId;
+
+            appointment = new Appointment
+            {
+                GuestId = existingGuestId,
+                HostId = exisitingHostId,
+                AppointmentDate = DateTime.Today,
+                StartTime = new DateTime().TimeOfDay,
+                EndTime = new DateTime().TimeOfDay.Add(TimeSpan.Parse("01:00:00")),
+                IsCancelled = false,
+                IsDone = true,
+                Notes = "6456"
+            };
+
+           
         }
 
         [TestCleanup]

@@ -63,6 +63,8 @@ export class AppointmentsComponent implements OnInit {
     this.display = true;
   }
 
+  d: Date;
+
   constructor(private appointmentService: AppointmentService,
     private contactService: ContactService,
     private employeeService: EmployeeService,

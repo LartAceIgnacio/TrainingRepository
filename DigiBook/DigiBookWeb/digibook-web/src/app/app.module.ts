@@ -54,19 +54,8 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './user/register.component';
 import { StatisticComponent } from './statistic/statistic.component';
-
-const appRoutes: Routes = [
-  { path: "", redirectTo: "/dashboard", pathMatch: "full" },
-  { path: "dashboard", component: DashboardComponent },
-  { path: "register", component: RegisterComponent },
-  { path: "employees", component: EmployeesComponent },
-  { path: "contacts", component: ContactsComponent },
-  { path: "appointments", component: AppointmentsComponent },
-  { path: "venues", component: VenuesComponent },
-  { path: "login", component: LoginComponent },
-  { path: "statistic", component: StatisticComponent }
-
-];
+import { LuigiComponent } from './luigi/luigi.component';
+import { FlightsComponent } from './flights/flights.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +67,9 @@ const appRoutes: Routes = [
     DashboardComponent,
     LoginComponent,
     RegisterComponent,
-    StatisticComponent
+    StatisticComponent,
+    LuigiComponent,
+    FlightsComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +99,6 @@ const appRoutes: Routes = [
     SharedModule,
     HttpClientModule,
     ListboxModule,
-    RouterModule.forRoot(appRoutes),
     DropdownModule,
     InputSwitchModule,
     ReactiveFormsModule,

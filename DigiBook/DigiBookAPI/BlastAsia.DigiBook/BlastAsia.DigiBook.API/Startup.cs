@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using BlastAsia.DigiBook.Infrastructure.Security;
+using BlastAsia.DigiBook.Domain.Luigis;
+using BlastAsia.DigiBook.Domain.Flights;
 
 namespace BlastAsia.DigiBook.API
 {
@@ -39,12 +41,12 @@ namespace BlastAsia.DigiBook.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddEntityFrameworkSqlServer();
 
             services.AddDbContext<DigiBookDbContext>(
-                   options => options.UseSqlServer(Configuration
-                   .GetConnectionString("DefaultConnection"))
-                   );
+                options => options.UseSqlServer(Configuration
+                .GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IDigiBookDbContext, DigiBookDbContext>();
 
@@ -59,6 +61,13 @@ namespace BlastAsia.DigiBook.API
 
             services.AddTransient<IVenueService, VenueService>();
             services.AddScoped<IVenueRepository, VenueRepository>();
+
+            services.AddTransient<ILuigiService, LuigiService>();
+            services.AddScoped<ILuigiRepository, LuigiRepository>();
+
+            services.AddTransient<IFlightService, FlightService>();
+            services.AddScoped<IFlightRepository, FlightRepository>();
+
 
             services.AddSwaggerGen(c =>
             {

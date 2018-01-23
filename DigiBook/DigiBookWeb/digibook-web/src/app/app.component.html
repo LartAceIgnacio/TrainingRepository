@@ -13,7 +13,7 @@
     <button pButton label="Login" icon="fa-sign-out" style="top:25px;" [routerLinkActive]="['link-active']" *ngIf="!this.auth.isLoggedIn()"
         [routerLink]="['/login']"></button>
     <button pButton label="Logout" icon="fa-sign-out" style="top:25px;" [routerLinkActive]="['link-active']" *ngIf="this.auth.isLoggedIn()"
-        [routerLink]="['/register']" (click)="this.auth.logout()"></button>
+        [routerLink]="['/dashboard']" (click)="this.auth.logout()"></button>
     <button pButton label="Register" icon="fa-sign-out" style="top:25px;" [routerLinkActive]="['link-active']" *ngIf="!this.auth.isLoggedIn()"
         [routerLink]="['/register']"></button>
 </p-menubar>
