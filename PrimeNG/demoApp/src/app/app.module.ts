@@ -37,6 +37,7 @@ import { AuthResponseInterceptor } from "./services/auth-response-interceptor";
 import { AppRoutingModule } from "./app-routing.module";
 import { ReservationsComponent } from './reservations/reservations.component';
 import { DepartmentsComponent } from './departments/departments.component';
+import { FlightsComponent } from './flights/flights.component';
 
 // const appRoutes: Routes =[
 //   {path:"", redirectTo:"/dashboard", pathMatch:"full"},
@@ -63,6 +64,7 @@ import { DepartmentsComponent } from './departments/departments.component';
     RegisterComponent,
     ReservationsComponent,
     DepartmentsComponent,
+    FlightsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,95 @@
+<div class="content-margin">
+
+  <p-breadcrumb [model]="brFlight" [home]="home"></p-breadcrumb>
+
+  <div class="ui-g">
+    <p-dataTable #dt [value]="flightList" [rows]="5" [paginator]="true" [pageLinks]="5"
+      [responsive]="true" (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
+      <p-header>
+        <button type="button" pButton class="float-left" (click)="addFlight()" icon="fa-plus"></button>
+        Flights
+        <div class="float-right">
+          <!-- <input #gb type="text" pInputText size="25" placeholder="Search" [(ngModel)]="searchFilter"> -->
+          <!-- <button pButton type="button" icon="fa-search" (click)="searchFlight()"></button> -->
+        </div>
+      </p-header>
+      <p-column>
+        <ng-template let-Flight="rowData" pTemplate="body">
+          <button type="button" pButton (click)="editFlight(Flight)" icon="fa-pencil"></button>
+          <button class="ui-button-danger" type="button" pButton (click)="confirmDelete(Flight)" icon="fa-times"></button>
+        </ng-template>
+      </p-column>
+      <p-column field="flightCode" header="Flight Code" [sortable]="true"></p-column>
+      <p-column field="cityOfOrigin" header="City Of Origin" [sortable]="true"></p-column>
+      <p-column field="cityOfDestination" header="City of Destination" [sortable]="true"></p-column>
+      <p-column field="eta" header="Expected Time of Arrival" [sortable]="true"></p-column>
+      <p-column field="etd" header="Expected Time of Departure" [sortable]="true"></p-column>
+    </p-dataTable>
+  </div>
+
+  <form [formGroup] = "flightForm">
+    <p-dialog header="Flight Details" [(visible)]="display" [responsive]="true" showEffect="fade" modal="modal" *ngIf="selectedFlight">
+      <div class="ui-g">
+        <div class="ui-g-12 ui-md-7">
+          <label class="ui-g-12 ui-md-5" for="cityOfOrigin">City of Origin*: </label>
+          <input class="ui-g-12 ui-md-7" pInputText id="cityOfOrigin" formControlName="cityoforigin" placeholder="Enter City of Origin" [(ngModel)]="selectedFlight.cityoforigin">
+        </div>
+        <div class="ui-g-12 ui-md-5">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!flightForm.controls['cityoforigin'].valid&&flightForm.controls['cityoforigin'].dirty">
+            <i class="fa fa-close"></i>
+            City of Origin is required.
+          </div>
+        </div>
+      </div>
+      <div class="ui-g">
+        <div class="ui-g-12 ui-md-7">
+          <label class="ui-g-12 ui-md-5" for="cityofdestination">City of Destination*: </label>
+          <input class="ui-g-12 ui-md-7" pInputText id="cityOfDestination" formControlName="cityofdestination" placeholder="Enter City of Destination" [(ngModel)]="selectedFlight.cityofdestination">
+        </div>
+        <div class="ui-g-12 ui-md-5">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!flightForm.controls['cityofdestination'].valid&&flightForm.controls['cityofdestination'].dirty">
+            <i class="fa fa-close"></i>
+            City of Destination is required.
+          </div>
+        </div>
+      </div>
+      <div class="ui-g">
+        <div class="ui-g-12 ui-md-7">
+          <label class="ui-g-12 ui-md-5" for="eta">Expected Time of Arrival*: </label>
+          <p-calendar class="ui-g-12 ui-md-7" formControlName="eta" [minDate]="invalidDates" [showTime]="true" [(ngModel)]="selectedFlight.eta" [showIcon]="true"></p-calendar>
+        </div>
+        <div class="ui-g-12 ui-md-5">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!flightForm.controls['eta'].valid&&flightForm.controls['eta'].dirty">
+            <i class="fa fa-close"></i>
+           Expected Date And Time of Arrival is required.
+          </div>
+        </div>
+      </div>
+      <div class="ui-g">
+        <div class="ui-g-12 ui-md-7">
+          <label class="ui-g-12 ui-md-5" for="etd">Expected Time of Departure*: </label>
+          <p-calendar class="ui-g-12 ui-md-7" formControlName="etd" [minDate]="invalidDates" [showTime]="true" [(ngModel)]="selectedFlight.etd" [showIcon]="true"></p-calendar>
+        </div>
+        <div class="ui-g-12 ui-md-5">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!flightForm.controls['etd'].valid&&flightForm.controls['etd'].dirty">
+            <i class="fa fa-close"></i>
+           Expected Date And Time of Departure is required.
+          </div>
+        </div>
+      </div>
+      <div class="nav-button" *ngIf="isDelete == false&&isNewFlight==true">
+        <button class="nav-button" pButton icon="fa-check" type="button" (click)="saveAndNewFlight()" [disabled]="!flightForm.valid" label="Save and New"></button>
+        <button class="nav-button" pButton icon="fa-check" type="button" (click)="saveFlight()" [disabled]="!flightForm.valid" label="Save"></button>
+        <button class="ui-button-warning nav-button" pButton icon="fa-ban" type="button" (click)="cancelFlight()" label="Cancel" [disabled]="!flightForm.dirty"></button>
+      </div>
+      <div class="nav-button" *ngIf="isDelete == false&&isNewFlight==false">
+        <button class="nav-button" pButton icon="fa-check" type="button" (click)="saveFlight()" [disabled]="!flightForm.dirty" label="Save"></button>
+        <button class="ui-button-warning nav-button" pButton icon="fa-ban" type="button" (click)="cancelFlight()" label="Cancel" [disabled]="!flightForm.dirty" ></button>
+      </div>
+      <div class="nav-button" *ngIf="isDelete == true">
+        <button class="ui-button-danger" pButton icon="fa-ban" type="button" (click)="deleteFlight()" label="Delete"></button>
+      </div>
+    </p-dialog>
+  </form>
+
+</div>

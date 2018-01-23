@@ -63,7 +63,7 @@ namespace BlastAsia.DigiBook.Domain.Flights
                 incrementalNumber++;
                 flight.FlightCode = flight.CityOfOrigin + flight.CityOfDestination +flight.Etd.ToString("yy")
                     + flight.Etd.ToString("MM") + flight.Etd.ToString("dd") + incrementalNumber.ToString().PadLeft(2, '0');
-                
+
                 result = flightRepository.Create(flight);
             }
             else

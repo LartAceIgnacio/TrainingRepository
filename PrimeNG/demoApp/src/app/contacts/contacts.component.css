@@ -1,6 +1,6 @@
 .float-left{
     float: left;
-    margin-top: -0.61%;
+    margin-top: -0.40%;
     background-color: #f6a828;
     color: white;
     border-color: #e78f08;
@@ -8,7 +8,7 @@
 
 .float-right{
     float: right;
-    margin-top: -0.61%;
+    margin-top: -0.40%;
 }
 
 .content-margin{

@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from "./user/register.component";
 import { ReservationsComponent } from "./reservations/reservations.component";
 import { DepartmentsComponent } from "./departments/departments.component";
+import { FlightsComponent } from "./flights/flights.component";
 
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -21,7 +22,8 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent },
     { path: 'reservations', component: ReservationsComponent },
-    { path: 'departments', component: DepartmentsComponent }
+    { path: 'departments', component: DepartmentsComponent },
+    { path: 'flights', component: FlightsComponent}
   ];
  
 @NgModule({

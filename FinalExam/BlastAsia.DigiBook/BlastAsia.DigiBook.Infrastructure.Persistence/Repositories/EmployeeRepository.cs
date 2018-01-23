@@ -16,7 +16,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
 
         }
 
-        // Changes
         public PaginationResult<Employee> Retrieve(int pageNo, int numRec, string filterValue)
         {
             PaginationResult<Employee> result = new PaginationResult<Employee>();
@@ -52,6 +51,5 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
                 return result;
             }
         }
-        //-- End Changes
     }
 }
