@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using BlastAsia.DigiBook.Infrastructure.Security;
+using BlastAsia.DigiBook.Domain.Pilots;
 
 namespace BlastAsia.DigiBook.Api
 {
@@ -157,6 +158,9 @@ namespace BlastAsia.DigiBook.Api
             // venue
             services.AddTransient<IVenueService, VenueService>();
             services.AddScoped<IVenueRepository, VenueRepository>();
+            // pilot
+            services.AddTransient<IPilotService, PilotService>();
+            services.AddScoped<IPilotRepository, PilotRepository>();
             #endregion
 
 

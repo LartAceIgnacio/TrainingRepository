@@ -10,7 +10,7 @@ namespace BlastAsia.DigiBook.Domain
         TEntity Create(TEntity entitity);
         TEntity Retrieve(Guid id);
         IEnumerable<TEntity> Retrieve();
-        //IEnumerable<TEntity> Retrieve(string word);
+        //TEntity Retrieve(string code);
         //IEnumerable<TEntity> Retrieve(int pageNumber, int recordNumber);
         TEntity Update(Guid id, TEntity entity);
         void Delete(Guid id);

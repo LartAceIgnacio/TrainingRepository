@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using BlastAsia.DigiBook.Domain.Models.Pilots;
 
 namespace BlastAsia.DigiBook.Domain.Pilots
 {
     public interface IPilotRepository
+        : IRepository<Pilot>
     {
-        Pilot Create(Pilot pilot);
+        //Pilot Create(Pilot pilot);
         Pilot Retrieve(string code);
-        Pilot Retrieve(Guid id);
-        Pilot Update(Pilot pilot);
+        IEnumerable<Pilot> Search(string key);
+        //Pilot Retrieve(Guid id);
+        //Pilot Update(Pilot pilot);
     }
 }

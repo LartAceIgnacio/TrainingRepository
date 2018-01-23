@@ -81,13 +81,16 @@ namespace BlastAsia.DigiBook.Domain.Pilots
                 throw new ExistingPilotCodeException("Code Already exist!");
             }
 
+            pilot.PilotCode = PilotCode;
+
             var checkExistingPilot = this.repo.Retrieve(id);
 
             Pilot result = null;
 
             if (checkExistingPilot != null)
             {
-                result = this.repo.Update(pilot);
+                pilot.DateModified = DateTime.Now;
+                result = this.repo.Update(pilot.PilotId, pilot);
             } else
             {
                 result = this.repo.Create(pilot);

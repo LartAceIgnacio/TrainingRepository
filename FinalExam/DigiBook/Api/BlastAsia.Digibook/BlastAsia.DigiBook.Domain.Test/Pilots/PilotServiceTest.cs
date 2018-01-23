@@ -330,7 +330,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
                 );
             mockRepo
                 .Verify(
-                    r => r.Update(pilot), Times.Once
+                    r => r.Update(existingPilotId, pilot), Times.Once
                 );
         }
 

@@ -2,6 +2,7 @@
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Departments;
 using BlastAsia.DigiBook.Domain.Models.Employees;
+using BlastAsia.DigiBook.Domain.Models.Pilots;
 //using BlastAsia.DigiBook.Domain.Models.Security;
 using BlastAsia.DigiBook.Domain.Models.Venues;
 using BlastAsia.DigiBook.Infrastracture.Persistence;
@@ -27,6 +28,7 @@ namespace BlastAsia.DigiBook.Insfrastracture.Persistence
         public DbSet<Department> Departments { get; set; }
         public DbSet<Venue> Venues { get; set; }
         public DbSet<Token> Tokens { get; set; }
+        public DbSet<Pilot> Pilots { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -102,6 +104,8 @@ namespace BlastAsia.DigiBook.Insfrastracture.Persistence
             #endregion
 
             modelBuilder.Entity<Venue>().ToTable("Venues");
+            modelBuilder.Entity<Pilot>().ToTable("Pilots");
+
 
         }
     }
