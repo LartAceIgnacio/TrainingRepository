@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BlastAsia.DigiBook.Domain.Models.Pilots;
+using BlastAsia.DigiBook.Domain.Pilots;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,7 +29,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
         public void Save_WithValidData_ShouldCallRepositorySave()
         {
             // arrange
-            var Pilot = new Pilot()
+            var pilot = new Pilot()
             {
                 PilotId = Guid.NewGuid(),
                 FirstName = "Emmanuel",
@@ -40,11 +43,13 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
                 DateModified = DateTime.Now
             };
 
-            var mockRepo = new Mock<IPilotService>();
+            var mockRepo = new Mock<IPilotRepository>();
 
             var sut = new PilotService(mockRepo.Object);
 
             // act 
+
+            //sut.Save();
 
             // assert
         }
