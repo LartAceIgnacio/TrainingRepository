@@ -1,0 +1,67 @@
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<p-panel >
+  <div class="ui-g">
+    <p-dataTable #dt [value]="venues" [paginator]="true" rows="10" [responsive]="true" [pageLinks]="5" 
+    [loading]="loading" loadingIcon="fa-spinner" (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
+      <p-header>
+          <div class="header-table-left">
+              <button pButton icon="fa fa-plus" (click)="showDialogToAdd()"></button>&nbsp;Venues
+            </div>
+            <div class="header-table-right">
+                <input  pInputText [(ngModel)]="searchFilter" type="text" placeholder="Search">
+                <button type="button" pButton (click)="searchVenue()" icon="fa-search"></button>
+            </div>
+      </p-header>
+      <p-column styleClass="col-button">
+        <ng-template let-venue="rowData" pTemplate="body">
+          <button type="button" class="ui-button-warning" pButton (click)="edit(venue)" icon="fa-pencil"></button>
+          <button type="button" class="ui-button-danger" pButton (click)="delete(venue)" icon="fa-trash"></button>
+        </ng-template>
+      </p-column>
+      <p-column field="venueName" header="Venue Name" [sortable]="true"></p-column>
+      <p-column field="description" header="Description" [sortable]="true"></p-column>
+    </p-dataTable>
+  </div>
+</p-panel>
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+<form [formGroup]="userform">
+  <p-dialog header="Venue Details" [(visible)]="displayDialog" [responsive]="true" width="1000" showEffect="fade" [modal]="true">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="venue">
+
+      <div class="ui-g-12">
+        <label for="VenueName" class="ui-md-2 ui-g-12">Venue Name:</label>
+        <input class="ui-md-10 ui-g-12"  formControlName="venuename" id="VenueName" pInputText type="text" placeholder="Enter a Venue Name"
+          [(ngModel)]="venue.venueName">
+        <div class="ui-grid-col-12">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['venuename'].valid&&userform.controls['venuename'].dirty">
+            <i class="fa fa-close"></i>
+            venuename is required
+          </div>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <label for="Desciprtion" class="ui-md-2 ui-g-12">Description:</label>
+        <textarea class="ui-md-10 ui-g-12"  formControlName="description" id="Desciprtion" rows="6" cols="10"
+          pInputTextarea placeholder="Enter Description" [(ngModel)]="venue.description"> </textarea>
+        <div class="ui-grid-col-12">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['description'].valid&&userform.controls['description'].dirty">
+            <i class="fa fa-close"></i>
+            description max length is 100
+          </div>
+        </div>
+      </div>
+    </div>
+    <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix" *ngIf="!isDelete">
+        <button type="button" class="ui-button-warning" pButton icon="fa-close" (click)="cancel()" label="Cancel"></button>
+        <button type="button" pButton icon="fa-check" (click)="save(0)" [disabled]="!userform.valid" label="Save"></button>
+        <button type="button" pButton icon="fa-check" (click)="save(1)" [disabled]="!userform.valid" label="Save and New" *ngIf="isEdit"></button>
+    </div>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix" *ngIf="isDelete">
+        <button type="button" class="ui-button-warning" pButton icon="fa-close" (click)="cancel()" label="Cancel"></button>
+        <button type="button" class="ui-button-danger" pButton icon="fa-warning" (click)="deleteVenue()" label="Delete"></button>
+    </div>
+    </p-footer>
+  </p-dialog>
+</form>

@@ -1,0 +1,48 @@
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.deps.json
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.runtimeconfig.json
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.runtimeconfig.dev.json
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.dll
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.pdb
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.dll
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.dll
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.pdb
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.csprojResolveAssemblyReference.cache
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.csproj.CoreCompileInputs.cache
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.AssemblyInfoInputs.cache
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.AssemblyInfo.cs
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.dll
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.pdb
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
+C:\Users\acelis\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.deps.json
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.runtimeconfig.json
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.runtimeconfig.dev.json
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.dll
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.pdb
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.dll
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.dll
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.pdb
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.csprojResolveAssemblyReference.cache
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.csproj.CoreCompileInputs.cache
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.AssemblyInfoInputs.cache
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.AssemblyInfo.cs
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.dll
+C:\Users\acelis\Documents\TrainingRepository\FinalExam\DigiBook\DigiBook-Api\BlastAsia.DigiBook\BlastAsia.DigiBook.API.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.Test.pdb
