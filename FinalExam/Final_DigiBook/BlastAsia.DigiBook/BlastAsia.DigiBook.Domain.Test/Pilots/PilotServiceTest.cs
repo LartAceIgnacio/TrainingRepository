@@ -68,6 +68,23 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
             mockPilotRepository
                .Verify(c => c.Update(pilot.PilotId, pilot), Times.Once());
         }
+
+
+        [TestMethod]
+        public void Save_WithEmptyFirstName_ThrowsFirstNameRequiredException()
+        {
+            //Arrange
+            pilot.FirstName = "";
+            //Act 
+
+            //Assert
+            Assert.ThrowsException<FirstNameRequiredException>(
+                ()=> sut.Save(pilot.PilotId, pilot));
+
+            mockPilotRepository
+                .Verify(c => c.Create(pilot), Times.Never());
+
+        }
     }
 
 }
