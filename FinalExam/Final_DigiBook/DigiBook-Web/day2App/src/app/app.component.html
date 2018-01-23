@@ -1,0 +1,24 @@
+<div id="header">
+    <div id="top-logo">
+            <div class="ui-g">
+                <div clas="ui-g-12 ui-md-2">
+                    <i class="fa fa-book fa-5x" aria-hidden="true"></i>
+                    <h2>DigiBook</h2>
+                </div>
+            </div>
+    </div>
+    <div id="top-menu">
+        <button pButton *ngIf="this.auth.isLoggedIn()" label="Logout" icon="fa-sign-out" (click)="this.auth.logout()" ></button>
+        <button pButton *ngIf="!this.auth.isLoggedIn()" label="Login" icon="fa-sign-in"  [routerLinkActive]="['link-active']" [routerLink]="['/login']"></button>
+    </div> 
+</div>
+<div id="section-wrapper">
+    <div  class="ui-g">
+        <aside class="ui-g-12 ui-md-2">
+                <p-menu *ngIf="this.auth.isLoggedIn()" [model]="menuItems"></p-menu>
+        </aside>
+        <div id="page-section" class="ui-g-12 ui-md-10">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

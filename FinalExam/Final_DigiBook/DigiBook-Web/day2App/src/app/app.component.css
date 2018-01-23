@@ -1,0 +1,33 @@
+#header{
+    height: 100px;
+    width: 100%;
+    background-color: #deedf7;
+    position: fixed;
+    display: block;
+    margin: 0px;
+}
+
+#top-logo{
+    float: left;
+}
+
+#top-logo h2{
+    margin-top: 25px;
+    float: right;
+}
+
+#top-menu{
+    margin: 30px;
+    float: right;
+}
+
+#section-wrapper{
+    margin: 0px;
+}
+
+#page-section{
+    margin-top: 100px;
+    margin-left: 250px;
+}
+
+

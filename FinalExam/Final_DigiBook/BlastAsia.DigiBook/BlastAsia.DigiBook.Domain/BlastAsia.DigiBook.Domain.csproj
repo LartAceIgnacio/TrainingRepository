@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Appointments\IGuestRepository.cs" />
+    <Compile Remove="Appointments\IHostRepository.cs" />
+    <Compile Remove="Appointments\InclusiveTimeEndTimeLessThanStartTimeException.cs" />
+    <Compile Remove="Class1.cs" />
+    <Compile Remove="EmailInvalidFormatException.cs" />
+    <Compile Remove="Employees\EmployeeRequiredException.cs" />
+    <Compile Remove="IAccountRepository.cs" />
+    <Compile Remove="MinimumPasswordLengthException.cs" />
+    <Compile Remove="PasswordRequiredException.cs" />
+    <Compile Remove="RegistrationService.cs" />
+    <Compile Remove="StrongPasswordException.cs" />
+    <Compile Remove="UsernameRequiredException.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlastAsia.DigiBook.Domain.Models\BlastAsia.DigiBook.Domain.Models.csproj" />
+  </ItemGroup>
+
+</Project>

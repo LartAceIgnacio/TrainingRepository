@@ -1,0 +1,12 @@
+.icon {
+    font-size: 80px;
+    margin: 0px;
+    padding: 5px;
+    background: rgba(0,0,0,.1);
+}
+
+.ui-panel{
+    padding: 0%;
+    width: 500px;
+    vertical-align: 0%;
+}
