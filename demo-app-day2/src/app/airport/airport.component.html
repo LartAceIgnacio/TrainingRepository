@@ -1,7 +1,12 @@
 <p-panel header="Airports Information List">
   <div class="ui-g">
-      <p-dataTable [value]="airportInfoList" selectionMode="single" [paginator]="true" [rows]="10" [responsive]="true">
-          <p-header>Airport Information</p-header>
+      <p-dataTable id="dt" [value]="airportInfoList" selectionMode="single"
+      [globalFilter]="filter" [paginator]="true" [rows]="10" [responsive]="true">
+          <p-header>
+            <input #filter type="text" pInputText size="50" placeholder="Global Filter">
+            <!-- <input type="text" pInputText placeholder="Search" [[(ngModel)]]="filterText"/> -->
+            <!-- <button pButton type="button" icon="fa-search" (click)="searchAirport()"></button> -->
+          </p-header>
           <p-column field="code" header="Airport Code"></p-column>
           <p-column field="name" header="Airport Name"></p-column>
           <p-footer>

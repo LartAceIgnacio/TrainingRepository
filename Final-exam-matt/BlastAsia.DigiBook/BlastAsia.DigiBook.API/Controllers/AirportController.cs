@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using BlastAsia.DigiBook.Domain.Models.Airports;
 
 namespace BlastAsia.DigiBook.API.Controllers
 {
@@ -37,7 +38,9 @@ namespace BlastAsia.DigiBook.API.Controllers
         public async Task<IActionResult> GetCodesAsync(string code)
         {
             using (HttpClient client = new HttpClient())
-            using (HttpResponseMessage res = await client.GetAsync(string.Concat(baseUrl, "&code=", code)))
+            // iatacode code params
+            //using (HttpResponseMessage res = await client.GetAsync(string.Concat(baseUrl, "&code=", code)))
+            using (HttpResponseMessage res = await client.GetAsync(baseUrl))
             using (HttpContent content = res.Content)
             {
 
@@ -49,8 +52,13 @@ namespace BlastAsia.DigiBook.API.Controllers
                     JObject joResponse = JObject.Parse(data);
                     JArray arrResponse = (JArray)joResponse["response"];
 
-                    var a = arrResponse.ToObject<List<AirportResponse>>();
-                    listCodes.AddRange(a);
+                    var response = arrResponse.ToObject<List<AirportResponse>>();
+                    listCodes.AddRange(response);
+                    
+                }
+                else
+                {
+                    return NoContent();
                 }
 
             }
@@ -60,71 +68,72 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
 
-        [HttpGet]
-        [Route("codes")]
-        public async Task<JsonResult> GetCodes()
-        {
-            JsonResult result;
+        //[HttpGet]
+        //[Route("codes")]
+        // returns JsonResult
+        //public async Task<JsonResult> GetCodes()
+        //{
+        //    JsonResult result;
 
-            using (HttpClient client = new HttpClient())
-            using (HttpResponseMessage res = await client.GetAsync(baseUrl))
-            using (HttpContent content = res.Content)
-            {
+        //    using (HttpClient client = new HttpClient())
+        //    using (HttpResponseMessage res = await client.GetAsync(baseUrl))
+        //    using (HttpContent content = res.Content)
+        //    {
 
-                var data = await content.ReadAsStringAsync();
+        //        var data = await content.ReadAsStringAsync();
 
-                if (data != null)
-                {
-                    Console.WriteLine(data);
-
-
-                    JObject joResponse = JObject.Parse(data);
-                    //JObject ojObject = (JObject)joResponse["response"];
-                    JArray arrResponse = (JArray)joResponse["response"];
-
-                    var a = arrResponse.ToObject<List<AirportResponse>>();
-                    listCodes.AddRange(a);
-                    result = new JsonResult(listCodes);
-                }
-                else
-                {
-                    result = new JsonResult("No Content");
-                }
-            }
-            return result;
-        }
-
-        #region Object Airport Pagination API
-        [Route("paginate"), ActionName("PagingAirport")]
-        public object Get(int page = 0)
-        {
-
-            var baseQuery = listCodes.OrderBy(o => o.Name);
-
-            var PAGE_COUNT = baseQuery.Count();
-
-            var TOTAL_PAGES = Math.Ceiling((double)PAGE_COUNT / PAGE_SIZE);
-
-            var helper = this.urlHelperFactory.GetUrlHelper(this.actionAccessor.ActionContext);
-
-            //var urlHelper = this.HttpContext.RequestServices.GetRequiredService<IUrlHelper>();
-
-            var prevUrl = page > 0 ? helper.Action("PagingAirport", "Airport", new { page = page - 1 }) : "";
-            var nextUrl = page < TOTAL_PAGES - 1 ? helper.Action("PagingAirport", "Airport", new { page = page + 1 }) : "";
+        //        if (data != null)
+        //        {
+        //            Console.WriteLine(data);
 
 
-            var results = baseQuery.Skip(PAGE_SIZE * page)
-                                   .Take(PAGE_SIZE)
-                                   .ToList();
-            return new
-            {
-                TotalCount = PAGE_COUNT,
-                TotalPage = TOTAL_PAGES,
-                PrevPageUrl = prevUrl,
-                NextPageUrl = nextUrl,
-                Results = results
-            };
-        }
+        //            JObject joResponse = JObject.Parse(data);
+        //            //JObject ojObject = (JObject)joResponse["response"];
+        //            JArray arrResponse = (JArray)joResponse["response"];
+
+        //            var a = arrResponse.ToObject<List<AirportResponse>>();
+        //            listCodes.AddRange(a);
+        //            result = new JsonResult(listCodes);
+        //        }
+        //        else
+        //        {
+        //            result = new JsonResult("No Content");
+        //        }
+        //    }
+        //    return result;
+        //}
+
+        #region Object Airport Pagination API for testing in different route
+        //[Route("paginate"), ActionName("PagingAirport")]
+        //public object Get(int page = 0)
+        //{
+
+        //    var baseQuery = listCodes.OrderBy(o => o.Name);
+
+        //    var PAGE_COUNT = baseQuery.Count();
+
+        //    var TOTAL_PAGES = Math.Ceiling((double)PAGE_COUNT / PAGE_SIZE);
+
+        //    var helper = this.urlHelperFactory.GetUrlHelper(this.actionAccessor.ActionContext);
+
+        //    //var urlHelper = this.HttpContext.RequestServices.GetRequiredService<IUrlHelper>();
+
+        //    var prevUrl = page > 0 ? helper.Action("PagingAirport", "Airport", new { page = page - 1 }) : "";
+        //    var nextUrl = page < TOTAL_PAGES - 1 ? helper.Action("PagingAirport", "Airport", new { page = page + 1 }) : "";
+
+
+        //    var results = baseQuery.Skip(PAGE_SIZE * page)
+        //                           .Take(PAGE_SIZE)
+        //                           .ToList();
+        //    return new
+        //    {
+        //        TotalCount = PAGE_COUNT,
+        //        TotalPage = TOTAL_PAGES,
+        //        PrevPageUrl = prevUrl,
+        //        NextPageUrl = nextUrl,
+        //        Results = results
+        //    };
+        //}
         #endregion
 
 
@@ -132,15 +141,4 @@ namespace BlastAsia.DigiBook.API.Controllers
 
 
 
-
-    class Airport
-    {
-        public AirportResponse[] Response { get; set; }
-    }
-
-    class AirportResponse
-    {
-        public string Name { get; set; }
-        public string Code { get; set; }
-    }
 }
