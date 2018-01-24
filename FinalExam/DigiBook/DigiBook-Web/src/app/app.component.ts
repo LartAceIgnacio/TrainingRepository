@@ -25,7 +25,8 @@ export class AppComponent  {
         {label: 'Employees', icon: 'fa-users', routerLink:['/employees']},
         {label: 'Contacts', icon: 'fa-phone', routerLink:['/contacts']},
         {label: 'Appointments', icon: 'fa-address-book', routerLink:['/appointments']},
-        {label: 'Venues', icon: 'fa-address-book', routerLink:['/venues']}
+        {label: 'Venues', icon: 'fa-address-book', routerLink:['/venues']},
+        {label: 'Pilot', icon: 'fa-address-book', routerLink:['/pilot']}
         // {label: 'Google', icon: 'fa-google' , url:"https://www.google.com"}
     ];
     this.header = [

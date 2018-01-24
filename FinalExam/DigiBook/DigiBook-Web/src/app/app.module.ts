@@ -28,20 +28,8 @@ import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { RegisterComponent } from './register/register.component';
 import { StatisticsComponent } from './statistics/statistics.component';
-
-const appRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent},
-  { path: 'employees', component: EmployeesComponent},
-  { path: 'contacts', component: ContacsComponent},
-  { path: 'appointments', component: AppointmentsComponent},
-  { path: 'venues', component: VenuesComponent},
-  { path: 'treeview', component: TreeviewComponent},
-  { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent },
-  { path: 'user', component: UserComponent },
-  { path: '', redirectTo: '/dashboard', pathMatch:'full'},
-  { path: '**', redirectTo: '/dashboard', pathMatch:'full'}
-]
+import { PilotsComponent } from './pilots/pilots.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -55,7 +43,8 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     UserComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    PilotsComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,9 +73,9 @@ const appRoutes: Routes = [
     ChartModule,
     PaginatorModule,
     CheckboxModule,
+    AppRoutingModule,
     
-    NgbModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    NgbModule.forRoot()
   ],
   providers: [
     AuthService,
