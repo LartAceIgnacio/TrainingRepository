@@ -17,6 +17,7 @@ export class AirportComponent implements OnInit {
   //url 
   service: string = 'airport';
   serviceUrl: string = `${API_URL}/${this.service}/`;
+  apiUrl: string = 'https://iatacodes.org/api/v6/airports?api_key=dd6a69c4-9ebb-4df8-a0b3-dc00ad3e3ec1';
   //search
   searchFilter: string = "";
   //loading
@@ -26,7 +27,7 @@ export class AirportComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;    
-    this.globalService.retrieve(this.serviceUrl).then(airport => { 
+    this.globalService.retrieveForAirport(this.serviceUrl, this.apiUrl).then(airport => { 
       this.airportList = airport;
       this.loading = false;
     });

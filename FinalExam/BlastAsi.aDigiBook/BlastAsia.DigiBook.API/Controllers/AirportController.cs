@@ -16,25 +16,22 @@ namespace BlastAsia.DigiBook.API.Controllers
     public class AirportController : Controller
     {
         [HttpGet, ActionName("GetAirports")]
-        public async Task<IActionResult> GetAirports()
+        public IActionResult GetAirports(string url)
         {
             HttpClient http = new HttpClient();
-            string url = "https://iatacodes.org/api/v6/airports?api_key=dd6a69c4-9ebb-4df8-a0b3-dc00ad3e3ec1";
 
             List<Airport> list = new List<Airport>();
 
             try
             {
-                var stringTask = await http.GetStringAsync(url);
-
-                if (stringTask != null)
+                if (!string.IsNullOrEmpty(url))
                 {
-                    var stringResult = JObject.Parse(stringTask);
+                    var stringTask = http.GetStringAsync(url);
+                    var stringResult = JObject.Parse(stringTask.Result);
                     JArray arrResponse = (JArray)stringResult["response"];
                     list = arrResponse.ToObject<List<Airport>>();
                     return Ok(list);
                 }
-
                 return NoContent();
             }
             catch

@@ -1,11 +1,11 @@
 <p-panel header="Airport List">
-  <div class="ui-g">
-      <p-dataTable #dt [value]="airportList" [paginator]="true" [rows]="10" [responsive]="true" 
-      [loading]="loading" loadingIcon="fa-spinner" [globalFilter]="gb">
+  <div class="ui-g">      
+      <p-dataTable [value]="airportList" [paginator]="true" [rows]="10" [responsive]="true" 
+      [loading]="loading" loadingIcon="fa-spinner" [globalFilter]="searchFilter">
       <p-header>      
         <div class="searchHeader" style="text-align:left">
           <i class="fa fa-search"></i>
-          <input #gb type="text" pInputText size="50" placeholder="Search Airport">
+          <input #searchFilter type="text" pInputText size="50" placeholder="Search Airport">
         </div>
       </p-header>
 

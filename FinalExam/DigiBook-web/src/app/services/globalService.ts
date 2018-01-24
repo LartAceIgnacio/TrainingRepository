@@ -19,6 +19,12 @@ export class GlobalService {
             .then(data => { return data as T; });
     }
 
+    retrieveForAirport<T> (path: string, url: string) {
+        return this.http.get( path + '?url=' + url)
+            .toPromise()
+            .then(data => { return data as T[]; });
+    }
+
     add<T>(path: string, entity: any){
         return this.http.post(path,entity)
         .toPromise()
