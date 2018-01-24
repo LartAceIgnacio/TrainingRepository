@@ -1,0 +1,41 @@
+<p-panel  class="ui-g-4" id="panelForm" header="Log In">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+      <div *ngIf="form.errors?.auth" class="error-panel help-block"> {{form.errors.auth}} </div>
+
+      <div id="login-inputs">
+        <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Username') }">
+          <br />
+          <label>Username: </label> <br />
+          <input id="user" type="text" required formControlName="Username" class="form-control"/> <br/> 
+          
+          <span *ngIf="hasError('Username')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+          <div class="ui-message ui-messages-error ui-g-12" *ngIf="hasError('Username')"> 
+            Insert a valid username or e-mail address. 
+          </div>
+        </div> <br/><br/>
+
+        <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Password') }">
+          <label>Password: </label> 
+          <input id="pw" type="password" required formControlName="Password" class="form-control"/> <br/> 
+
+          <span *ngIf="hasError('Password')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>              
+          <div class="ui-message ui-messages-error ui-g-12" *ngIf="hasError('Password')"> 
+           Insert a valid password.
+          </div>
+        </div>       
+
+        <div class="checkbox">
+            <label><input type="checkbox" name="remember" value="remember" />Remember me</label>
+        </div>
+      </div>
+
+      <button id="login-button" type="submit"  class="btn btn-md btn-success btn-block btn-signin">Sign in</button> <br />
+      <br/> <br/>
+      <div class="login-link">
+        <a [routerLink]="['/register']">
+            Don't have an account? Click here to create one!
+        </a>
+      </div>
+
+    </form>
+</p-panel>

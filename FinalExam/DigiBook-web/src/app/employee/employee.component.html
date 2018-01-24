@@ -1,0 +1,164 @@
+<p-panel header="Employee List">
+  <div class="ui-g">
+      <p-dataTable #dt [value]="employeeList" [rows]="5" [paginator]="true" [pageLinks]="5" [responsive]="true" 
+      (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
+    <!-- <p-dataTable [value]="employeeList" selectionMode="single" [(selection)]="selectedEmployee" [paginator]="true" [rows]="10" [responsive]="true"> -->
+      <p-header>
+        <div class="addHeader" style="float:left">
+          <button pButton icon="fa fa-plus" (click)="addEmployee()" ></button>    
+        </div>      
+        <div class="searchHeader" style="text-align:right">      
+          <input type="text" pInputText placeholder="Search Employee" [(ngModel)]="searchFilter" />
+          <button pButton  type="button" icon="fa-search" (click)="searchEmployee()"></button>
+        </div>
+      </p-header>
+
+      <p-column [style]="{'width':'85px'}" styleClass="col-button" item-width="10px">
+          <ng-template let-employee="rowData" pTemplate="body">                        
+              <button pButton icon="fa fa-pencil" style="float:left" (click)="editEmployee(employee)"></button>             
+              <button pButton icon="fa fa-trash" style="float:left" (click)="deleteEmployee(employee,true)"></button>
+          </ng-template>
+      </p-column>
+      <p-column field="firstName" header="First Name" [sortable]="true"></p-column>
+      <p-column field="lastName" header="Last Name" [sortable]="true"></p-column>
+      <p-column field="mobilePhone" header="Phone" [sortable]="true"></p-column>
+      <p-column field="emailAddress" header="Email Address" [sortable]="true"></p-column>
+      <p-column field="extension" header="Extension" [sortable]="true"></p-column>
+      <p-column field="officePhone" header="Office Phone" [sortable]="true"></p-column>
+      
+    </p-dataTable>
+  </div>
+</p-panel> <br>
+
+<form [formGroup]="employeeForm" ngSubmit="onSubmit(employeeForm.value)"> 
+  <p-dialog [(header)]="dialogTitle" width="1000" [(visible)]="displayInputBox" modal="modal" *ngIf="selectedEmployee"
+    [closable]="onAdd === false && onDelete === false ? true : false"> 
+    <div class="ui-g-12">
+      <!-- INPUT FirstName, LastName -->
+      <div class="ui-g-12 ui-md-12">
+        <div class="ui-g-12 ui-md-2">
+          <i class="fa fa-user"></i> &nbsp;
+          <label for="firstName">First Name</label>
+        </div>
+        <input class="ui-g-12 ui-md-4" id="firstName" formControlName="firstName" type="text" pInputText [(ngModel)]="selectedEmployee.firstName">
+
+        <div class="ui-g-12 ui-md-2">
+          <i class="fa fa-user"></i> &nbsp;
+          <label for="lastName">Last Name</label>
+        </div>
+        <input class="ui-g-12 ui-md-4" id="lastName" formControlName="lastName" type="text" pInputText [(ngModel)]="selectedEmployee.lastName">
+      </div>
+
+      <!-- ERROR FirstName, LastName -->
+      <div class="ui-g-2"> </div>
+      <div class="ui-g-12 ui-md-4">
+        <div class="ui-message ui-messages-error " *ngIf="!employeeForm.controls['firstName'].valid && employeeForm.controls['firstName'].dirty">
+          <i class="fa fa-close"></i> First name is required.
+        </div>
+      </div>
+
+      <div class="ui-g-2"> </div>
+      <div class="ui-g-12 ui-md-4">
+        <div class="ui-message ui-messages-error " *ngIf="!employeeForm.controls['lastName'].valid && employeeForm.controls['lastName'].dirty">
+          <i class="fa fa-close"></i> Last name is required.
+        </div>
+      </div>
+
+      <!-- INPUT MobilePhone, EmailAddress -->
+      <div class="ui-g-12 ui-md-12">
+        <div class="ui-g-12 ui-md-2">
+          <i class="fa fa-mobile"></i> &nbsp;
+          <label for="mobilePhone">Phone</label>
+        </div>
+        <input class="ui-g-12 ui-md-4" id="mobilePhone" formControlName="mobilePhone" type="text" pInputText [(ngModel)]="selectedEmployee.mobilePhone">
+
+        <div class="ui-g-12 ui-md-2">
+          <i class="fa fa-envelope "></i> &nbsp;
+          <label for="emailAddress">Email</label>
+        </div>
+        <input class="ui-g-12 ui-md-4" id="emailAddress" formControlName="emailAddress" type="text" pInputText [(ngModel)]="selectedEmployee.emailAddress">
+      </div>
+
+      <!-- ERROR MobilePhone, EmailAddress -->
+      <div class="ui-g-2"> </div>
+      <div class="ui-g-12 ui-md-4">
+        <div class="ui-message ui-messages-error " *ngIf="!employeeForm.controls['mobilePhone'].valid && employeeForm.controls['mobilePhone'].dirty">
+          <i class="fa fa-close"></i>
+          <span *ngIf="employeeForm.controls['mobilePhone'].errors['required']">Phone phone is required.</span>
+          <span *ngIf="employeeForm.controls['mobilePhone'].errors['pattern']">Phone phone must be number.</span>
+        </div>
+      </div>
+
+      <div class="ui-g-2"> </div>
+      <div class="ui-g-12 ui-md-4">
+        <div class="ui-message ui-messages-error " *ngIf="!employeeForm.controls['emailAddress'].valid && employeeForm.controls['emailAddress'].dirty">
+          <i class="fa fa-close"></i>
+          <span *ngIf="employeeForm.controls['emailAddress'].errors['required']">Email address is required.</span>
+          <span *ngIf="employeeForm.controls['emailAddress'].errors['pattern']">Email address must be valid.</span>
+        </div>
+      </div>
+
+      <!-- INPUT Extension, OfficePhone -->
+      <div class="ui-g-12 ui-md-12">
+        <div class="ui-g-12 ui-md-2">
+          <i class="fa fa-phone-square"></i> &nbsp;
+          <label for="extension">Extension</label>
+        </div>
+        <input class="ui-g-12 ui-md-4" id="extension" formControlName="extension" type="text" pInputText [(ngModel)]="selectedEmployee.extension">
+
+        <div class="ui-g-12 ui-md-2">
+          <i class="fa fa-phone-square"></i> &nbsp;
+          <label for="officePhone">Office Phone</label>
+        </div>
+        <input class="ui-g-12 ui-md-4" id="officePhone" formControlName="officePhone" type="text" pInputText [(ngModel)]="selectedEmployee.officePhone">
+
+      </div>
+
+      <!-- ERROR Extension, OfficePhone -->
+      <div class="ui-g-2"> </div>
+      <div class="ui-g-12 ui-md-4">
+        <div class="ui-message ui-messages-error " *ngIf="!employeeForm.controls['extension'].valid && employeeForm.controls['extension'].dirty">
+          <i class="fa fa-close"></i> 
+          <span *ngIf="employeeForm.controls['extension'].errors['required']">Extension is required.</span>
+          <span *ngIf="employeeForm.controls['extension'].errors['pattern']">Extension must be number.</span>
+        </div>
+      </div>
+
+      <div class="ui-g-2"> </div>
+      <div class="ui-g-12 ui-md-4">
+        <div class="ui-message ui-messages-error " *ngIf="!employeeForm.controls['officePhone'].valid && employeeForm.controls['officePhone'].dirty">
+          <i class="fa fa-close"></i>
+          <span *ngIf="employeeForm.controls['officePhone'].errors['required']">Office phone is required.</span>
+          <span *ngIf="employeeForm.controls['officePhone'].errors['pattern']">Office phone must be number.</span>
+        </div>
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="ui-g-12">    
+          <button pButton icon="fa fa-user-plus" *ngIf="onAdd" [disabled]="!employeeForm.valid"  (click)="saveEmployee(true)" 
+            label="Save And New" class="ui-button-success"></button>   
+          <button pButton icon="fa fa-floppy-o" *ngIf="!onDelete" [disabled]="!employeeForm.valid" (click)="saveEmployee(false)" 
+            label="Save" class="ui-button-success"></button>
+          <button pButton icon="fa fa-trash" *ngIf="onDelete" (click)="deleteEmployee(employee,false)" 
+            label="Delete" class="ui-button-danger"></button>  
+          <button pButton icon="fa fa-ban" (click)="cancelEmployee()" label="Cancel"></button>
+      </div>
+    </div>
+  </p-dialog>
+</form>
+
+<p-dialog width="500" showClose ="false" [(visible)]="confirmEditCancel" modal="modal" [closable]="false">
+  <div class="ui-g-12" >
+    <p>Are you sure you want to discard changes?</p>
+    <button pButton style="float:right" (click)="toCancel(false)" label="No"></button>
+    <button pButton style="float:right" (click)="toCancel(true)" label="Yes"></button>
+  </div>
+</p-dialog>
+  
+<p-dialog width="500" showClose ="false" [(visible)]="confirmDeleteRecord" modal="modal" [closable]="false">
+  <div class="ui-g-12" >
+    <p>Are you sure you want to delete record?</p>
+    <button pButton style="float:right" (click)="toDelete(false)" label="No"></button>
+    <button pButton style="float:right" (click)="toDelete(true)" label="Yes"></button>
+  </div>
+</p-dialog>

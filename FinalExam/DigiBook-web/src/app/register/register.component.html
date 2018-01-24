@@ -1,0 +1,55 @@
+<p-panel header="Registration">
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="register-form">
+
+    <!-- <div class="ui-g">
+      <label for="firstName" class="ui-g-12 ui-md-2">First Name:</label>
+      <input id="firstName" class="ui-g-12 ui-md-10" placeholder="Enter first name" type="text" />
+    </div>
+
+    <div class="ui-g">
+      <label for="lastName" class="ui-g-12 ui-md-2">Last Name:</label>
+      <input id="lastName" class="ui-g-12 ui-md-10" placeholder="Enter last name" type="text" />
+    </div> -->
+
+    <div class="ui-g">
+      <label for="userName" class="ui-g-12 ui-md-2">User Name:</label>
+      <input id="userName"  class="ui-g-12 ui-md-6" formControlName="Username" class="ui-g-12 ui-md-10" placeholder="Enter user name" type="text" />
+    </div>
+    <div class="ui-g">
+      <div class="ui-message ui-messages-error " *ngIf="!form.controls['Username'].valid && form.controls['Username'].dirty">
+          <i class="fa fa-close"></i> User name is required.
+      </div>
+    </div> <br/>
+    
+    <div class="ui-g">
+      <label for="email" class="ui-g-12 ui-md-2">Email:</label>
+      <input id="email" class="ui-g-12 ui-md-6" formControlName="Email" class="ui-g-12 ui-md-10" placeholder="Enter email"/>
+    </div>
+    <div class="ui-message ui-messages-error " *ngIf="!form.controls['Email'].valid && form.controls['Email'].dirty">
+        <i class="fa fa-close"></i> 
+        <span *ngIf="form.controls['Email'].errors['required']">Email is required.</span>
+        <span *ngIf="form.controls['Email'].errors['email']">Email must be valid</span>
+    </div> <br/>
+
+    <div class="ui-g">
+      <label for="password" class="ui-g-12 ui-md-2">Password:</label>
+      <input id="password" formControlName="Password" class="ui-g-12 ui-md-10" placeholder="Enter password" type="password" />
+    </div>
+    <div class="ui-g">
+      <div class="ui-message ui-messages-error " *ngIf="!form.controls['Password'].valid && form.controls['Password'].dirty">
+          <i class="fa fa-close"></i> Password is required.
+      </div>
+    </div> <br/>
+
+    <div class="ui-g">
+        <label for="confirmPassword" class="ui-g-12 ui-md-2">Confirm Password:</label>
+        <input id="confirmPassword" formControlName="PasswordConfirm" class="ui-g-12 ui-md-10" placeholder="Confirm password" type="password" />
+    </div>
+    <div class="ui-message ui-messages-error" *ngIf="!form.controls['PasswordConfirm'].valid && form.controls['PasswordConfirm'].dirty">
+            <i class="fa fa-close"></i>
+            <span *ngIf="form.controls['PasswordConfirm'].errors['PasswordMismatch']">Password Mismatch</span>
+    </div> <br/> <br/>
+    <button id="register-button" type="submit"  class="btn btn-md btn-success btn-block btn-signin">Register</button> <br />
+  </form>
+</p-panel>
