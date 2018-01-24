@@ -28,7 +28,7 @@
   </div>
 
   <form [formGroup] = "flightForm">
-    <p-dialog header="Flight Details" [(visible)]="display" [responsive]="true" showEffect="fade" modal="modal" *ngIf="selectedFlight">
+    <p-dialog header="Flight Details" [(visible)]="display" resizable="true" [responsive]="true" [width]="700" showEffect="fade" modal="modal" *ngIf="selectedFlight">
       <div class="ui-g">
         <div class="ui-g-12 ui-md-7">
           <label class="ui-g-12 ui-md-5" for="cityOfOrigin">City of Origin*: </label>
@@ -78,15 +78,18 @@
         </div>
       </div>
       <div class="nav-button" *ngIf="isDelete == false&&isNewFlight==true">
+          <br><br><br><br><br><br><br>
         <button class="nav-button" pButton icon="fa-check" type="button" (click)="saveAndNewFlight()" [disabled]="!flightForm.valid" label="Save and New"></button>
         <button class="nav-button" pButton icon="fa-check" type="button" (click)="saveFlight()" [disabled]="!flightForm.valid" label="Save"></button>
         <button class="ui-button-warning nav-button" pButton icon="fa-ban" type="button" (click)="cancelFlight()" label="Cancel" [disabled]="!flightForm.dirty"></button>
       </div>
       <div class="nav-button" *ngIf="isDelete == false&&isNewFlight==false">
+          <br><br><br><br><br><br>
         <button class="nav-button" pButton icon="fa-check" type="button" (click)="saveFlight()" [disabled]="!flightForm.dirty" label="Save"></button>
         <button class="ui-button-warning nav-button" pButton icon="fa-ban" type="button" (click)="cancelFlight()" label="Cancel" [disabled]="!flightForm.dirty" ></button>
       </div>
       <div class="nav-button" *ngIf="isDelete == true">
+          <br><br><br><br><br><br>
         <button class="ui-button-danger" pButton icon="fa-ban" type="button" (click)="deleteFlight()" label="Delete"></button>
       </div>
     </p-dialog>

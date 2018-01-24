@@ -187,7 +187,6 @@ export class EmployeesComponent implements OnInit {
     this.isNewEmployee = false;
   }
 
-  // Pagination
   paginate(event) {
     this.globalService.getSomethingWithPagination<PaginationResult<Employee>>("Employees", event.first, event.rows,
       this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
@@ -196,6 +195,6 @@ export class EmployeesComponent implements OnInit {
           this.totalRecords = this.paginationResult.totalRecords;
         });
   }
-  // end pagination
+
 
 }

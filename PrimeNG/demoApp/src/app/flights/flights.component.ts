@@ -146,7 +146,7 @@ export class FlightsComponent implements OnInit {
     this.flightForm.enable();
     this.isDelete = false;
     this.selectedFlight=Flight;
-    //this.cloneFlight = this.cloneRecord(this.selectedFlight);
+    this.cloneFlight = this.cloneRecord(this.selectedFlight);
     this.display=true;
     this.isNewFlight = false;
     this.selectedFlight.eta = new Date(this.selectedFlight.eta);
@@ -181,9 +181,9 @@ export class FlightsComponent implements OnInit {
   confirmDelete(Flight: Flight){
     this.flightForm.markAsPristine();
     this.cloneFlight = this.cloneRecord(this.selectedFlight);
-    this.selectedFlight = Flight;
+    this.selectedFlight=Flight;
     this.isDelete = true;
-    this.display = true;
+    this.display=true;
     this.flightForm.disable();
     this.isNewFlight = false;
     this.selectedFlight.eta = new Date(this.selectedFlight.eta);
@@ -196,8 +196,9 @@ export class FlightsComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
+        let tmpFlightList = [...this.flightList];
         let index = this.findSelectedFlightIndex();
-        this.flightList = this.flightList.filter((val,i) => i=index);
+        this.flightList = this.flightList.filter((val,i) => i!=index);
         this.globalservice.deleteSomething<Flight>("Flights", this.selectedFlight.flightId);
         this.selectedFlight = null;
       }
