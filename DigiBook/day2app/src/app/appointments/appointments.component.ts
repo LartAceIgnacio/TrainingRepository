@@ -154,12 +154,8 @@ export class AppointmentsComponent implements OnInit {
 
     this.items = [
       { label: 'Dashboard', routerLink: ['/dashboard'] },
-      { label: 'Employee', routerLink: ['/employees'] },
-      { label: 'Contact', routerLink: ['/contacts'] },
-      { label: 'Venue', routerLink: ['/venues'] },
       { label: 'Appointment', routerLink: ['/appointments'] }
     ];
-
     this.home = { icon: 'fa fa-home' };
   }
 

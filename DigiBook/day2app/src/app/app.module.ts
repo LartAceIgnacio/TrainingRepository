@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule} from '@angular/forms';
 import {BreadcrumbModule} from 'primeng/primeng';
 
-import { AppRoutingModule } from './app-routing-module';
+import { AppRoutingModule } from './app-routing.module';
 import 'rxjs/add/operator/toPromise';
 
 import { AppComponent } from './app.component';
@@ -31,6 +31,7 @@ import { AuthResponseInterceptor} from './services/auth-response-interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterComponent } from './user/register.component';
 import { StatisticComponent } from './statistics/statistics.component';
+import { InventoryComponent } from './inventory/inventory.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { StatisticComponent } from './statistics/statistics.component';
     AppointmentsComponent,
     LoginComponent,
     RegisterComponent,
-    StatisticComponent
+    StatisticComponent,
+    InventoryComponent
   ],
   imports: [
     BrowserModule,

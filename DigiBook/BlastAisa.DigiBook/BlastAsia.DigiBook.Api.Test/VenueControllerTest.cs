@@ -137,7 +137,7 @@ namespace BlastAsia.DigiBook.Api.Test
         }
 
         [TestMethod]
-        public void UpdateVenue_WithEmptyVenue_ReturnsBadRequest()
+        public void UpdateVenue_WithEmptyVenue_ReturnsNotFound()
         {
             //Arrange
             venue = null;
@@ -150,7 +150,7 @@ namespace BlastAsia.DigiBook.Api.Test
                 .Verify(v => v.Save(nonExisting, venue), Times.Never);
 
             mockVenueService
-                .Verify(v => v.Save(venue.VenueId, venue), Times.Never);
+                .Verify(v => v.Save(nonExisting, venue), Times.Never);
         }
 
         [TestMethod]

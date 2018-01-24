@@ -86,9 +86,6 @@ export class EmployeeComponent implements OnInit {
     this.msgs.push({ severity: 'success', summary: 'Employee Saved!' });
   }
   ngOnInit() {
-    this.globalService.getSomething<Employee>("employees")
-      .then(employees => this.employeeList = employees);
-    // this.selectedEmployee = this.employeeList[0];
     this.userform = this.fb.group({
       'firstname': new FormControl('', Validators.required),
       'lastname': new FormControl('', Validators.required),
@@ -100,10 +97,7 @@ export class EmployeeComponent implements OnInit {
 
     this.items = [
       { label: 'Dashboard', routerLink: ['/dashboard'] },
-      { label: 'Employee', routerLink: ['/employees'] },
-      { label: 'Contact', routerLink: ['/contacts'] },
-      { label: 'Venue', routerLink: ['/venues'] },
-      { label: 'Appointment', routerLink: ['/appointments'] }
+      { label: 'Employee', routerLink: ['/employees'] }
     ];
 
     this.home = { icon: 'fa fa-home' };

@@ -8,7 +8,7 @@ namespace BlastAsia.DigiBook.Domain
         where TEntity: class
     {
         TEntity Create(TEntity entity);
-        TEntity Retrieve(Guid contactId);
+        TEntity Retrieve(Guid id);
         TEntity Update(Guid id, TEntity entity);
         IEnumerable<TEntity> Retreive();
         void Delete(Guid id);

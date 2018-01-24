@@ -109,12 +109,8 @@ export class ContactsComponent implements OnInit {
 
     this.items = [
       { label: 'Dashboard', routerLink: ['/dashboard'] },
-      { label: 'Employee', routerLink: ['/employees'] },
-      { label: 'Contact', routerLink: ['/contacts'] },
-      { label: 'Venue', routerLink: ['/venues'] },
-      { label: 'Appointment', routerLink: ['/appointments'] }
+      { label: 'Contact', routerLink: ['/contacts'] }
     ];
-
     this.home = { icon: 'fa fa-home' };
 
   }

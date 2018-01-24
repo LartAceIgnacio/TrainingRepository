@@ -3,6 +3,9 @@ using BlastAsia.DigiBook.Domain.Models;
 using BlastAsia.DigiBook.Domain.Models.Appointments;
 using BlastAsia.DigiBook.Domain.Models.Contacts;
 using BlastAsia.DigiBook.Domain.Models.Employees;
+using BlastAsia.DigiBook.Domain.Models.Inventories;
+using BlastAsia.DigiBook.Domain.Models.Locations;
+using BlastAsia.DigiBook.Domain.Models.Names;
 using BlastAsia.DigiBook.Infrastructure.Security;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +28,9 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Venue> Venues { get; set; }
-
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Name> Names { get; set; }
+        public DbSet<Inventory> Inventories { get; set; }
         public DbSet<Token> Tokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -89,8 +94,9 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
             #endregion
 
             modelBuilder.Entity<Venue>().ToTable("Venue");
-
-
+            modelBuilder.Entity<Location>().ToTable("Locations");
+            modelBuilder.Entity<Name>().ToTable("Names");
+            modelBuilder.Entity<Inventory>().ToTable("Inventories");
         }
     }
 }

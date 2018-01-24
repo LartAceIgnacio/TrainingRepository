@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
@@ -16,6 +17,8 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         private DigiBookDbContext dbContext = null;
         private String connectionString = null;
         private AppointmentRepository sut;
+        public ContactRepository sutContact = null;
+        public EmployeeRepository sutEmployee = null;
 
         private Guid existingContactId = Guid.NewGuid();
         private Guid existingEmployeeId = Guid.NewGuid();
@@ -23,18 +26,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         [TestInitialize]
         public void TestInitialize()
         {
-            appointment = new Appointment
-            {
-                AppointmentDate = DateTime.Today,
-                GuestId = existingContactId,
-                HostId = existingEmployeeId,
-                StartTime = DateTime.Now.TimeOfDay,
-                EndTime = DateTime.Now.TimeOfDay.Add(TimeSpan.Parse("01:00:00")),
-                IsCancelled = false,
-                IsDone = true,
-                Notes = "Sucess"
-            };
-
+            
             connectionString =
                 @"Data Source=.;Database=DigiBookDb;Integrated Security=true;";
 
@@ -47,6 +39,23 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             dbContext.Database.EnsureCreated();
 
             sut = new AppointmentRepository(dbContext);
+            sutEmployee = new EmployeeRepository(dbContext);
+            sutContact = new ContactRepository(dbContext);
+
+            existingContactId = sutContact.Retrieve(0,10,"").Result.FirstOrDefault().ContactId;
+            existingEmployeeId = sutEmployee.Retrieve(0, 10, "").Result.FirstOrDefault().EmployeeId;
+
+            appointment = new Appointment
+            {
+                AppointmentDate = DateTime.Today,
+                GuestId = existingContactId,
+                HostId = existingEmployeeId,
+                StartTime = DateTime.Now.TimeOfDay,
+                EndTime = DateTime.Now.TimeOfDay.Add(TimeSpan.Parse("01:00:00")),
+                IsCancelled = false,
+                IsDone = true,
+                Notes = "Sucess"
+            };
         }
 
         [TestCleanup]

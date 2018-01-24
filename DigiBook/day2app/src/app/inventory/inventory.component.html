@@ -1,0 +1,187 @@
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<p-growl [value]="msgs"></p-growl>
+
+<p-panel>
+    <p-header>
+        <button pButton icon="fa fa-plus" *ngIf="this.auth.isLoggedIn()" (click)="newInventory()"></button> Inventory List
+        <input id="right" type="text" pInputText placeholder="Search" [(ngModel)]="searchQuery" />
+        <button id="right" pButton type="button" icon="fa-search" (click)="search()"></button>
+    </p-header>
+    <div class="ui-g">
+        <p-dataTable #dt [value]="inventoryList" [rows]="5" [paginator]="true" [pageLinks]="5" [responsive]="true" (onLazyLoad)="paginate($event)"
+            [lazy]="true" [totalRecords]="totalRecord">
+
+
+            <p-column styleClass="col-button">
+                <ng-template let-inventory="rowData" pTemplate="body">
+                    <button type="button" *ngIf="this.auth.isLoggedIn()" pButton (click)="editInventory(inventory)" icon="fa fa-pencil"></button>
+                    <button type="button" *ngIf="this.auth.isLoggedIn()" pButton (click)="deleteInventory(inventory)" icon="fa fa-trash-o"></button>
+                </ng-template>
+            </p-column>
+            <p-column field="productName" header="Prodcut Name" [sortable]="true"></p-column>
+            <p-column field="productDescription" header="Prodcut Description" [sortable]="true"></p-column>
+            <p-column field="qonHand" header="Quantity on Hand" [sortable]="true"></p-column>
+            <p-column field="qonReserved" header="Quantity on Reserved" [sortable]="true"></p-column>
+            <p-column field="qonOrdered" header="Quantity on Ordered" [sortable]="true"></p-column>
+        </p-dataTable>
+    </div>
+</p-panel>
+
+<form [formGroup]="userform">
+
+    <p-dialog header="Product" [(visible)]="display" [responsive]="true" showEffect="fade" [modal]="true">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedInventory">
+            <div class="ui-g">
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Product Code (must be 8 characters)</label>
+                    <input class="ui-g-12 ui-md-12" formControlName="productCode" placeholder="Enter Product Code" [(ngModel)]="selectedInventory.productCode"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['productCode'].valid&&userform.controls['productCode'].dirty">
+                            <i class="fa fa-close"></i> Product Code is Required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Product Name</label>
+                    <input class="ui-g-12 ui-md-12" formControlName="productName" placeholder="Enter Product Name" [(ngModel)]="selectedInventory.productName"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['productName'].valid&&userform.controls['productName'].dirty">
+                            <i class="fa fa-close"></i> Product Name is Required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Product Description</label>
+                    <input class="ui-g-12 ui-md-12" formControlName="productDescription" placeholder="Enter Product Description" [(ngModel)]="selectedInventory.productDescription"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['productDescription'].valid&&userform.controls['productDescription'].dirty">
+                            <i class="fa fa-close"></i> Product Description is Required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Quantity on Hand</label>
+                    <input class="ui-g-12 ui-md-12" formControlName="qonHand" placeholder="Enter Quantity on Hand" [(ngModel)]="selectedInventory.qonHand"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['qonHand'].valid&&userform.controls['qonHand'].dirty">
+                            <i class="fa fa-close"></i> Quantity on Hand is Required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Quantity on Reserved</label>
+                    <input class="ui-g-12 ui-md-12" formControlName="qonReserved" placeholder="Enter Quantity on Reserved" [(ngModel)]="selectedInventory.qonReserved"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['qonReserved'].valid&&userform.controls['qonReserved'].dirty">
+                            <i class="fa fa-close"></i> Quantity on Reserved is Required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Quantity on Ordered</label>
+                    <input class="ui-g-12 ui-md-12" formControlName="qonOrdered" placeholder="Quantity on Ordered" [(ngModel)]="selectedInventory.qonOrdered"
+                    />
+                    <div>
+                        <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['qonOrdered'].valid&&userform.controls['qonOrdered'].dirty">
+                            <i class="fa fa-close"></i> Quantity on Ordered is Required
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-g-6 ui-md-6">
+                    <label class="ui-g-12 ui-md-12">Product Bin (LLBBR)</label>
+                    <p-dropdown [options]="LL" [(ngModel)]="selectedInventory.ll" formControlName="binLL"></p-dropdown>
+                    <p-dropdown [options]="BB" [(ngModel)]="selectedInventory.bb" formControlName="binBB"></p-dropdown>
+                    <p-dropdown [options]="RR" [(ngModel)]="selectedInventory.rr" formControlName="binRR"></p-dropdown>
+                </div>
+            </div>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" pButton icon="fa-close" (click)="cancelInventory()" label="Cancel"></button>
+                <button type="button" pButton icon="fa-check" (click)="saveInventory()" [disabled]="!userform.valid" label="Save"></button>
+                <button type="button" pButton (click)="saveAndNewInventory()" icon="fa fa-pencil" *ngIf="isNewInventory==true" [disabled]="!userform.valid"
+                    label="Save and New"></button>
+            </div>
+        </p-footer>
+    </p-dialog>
+</form>
+
+<form [formGroup]="userform">
+    
+        <p-dialog header="Product" [(visible)]="edit" [responsive]="true" showEffect="fade" [modal]="true">
+            <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedInventory">
+                <div class="ui-g">
+                    <div class="ui-g-6 ui-md-6">
+                        <label class="ui-g-12 ui-md-12">Product Name</label>
+                        <input class="ui-g-12 ui-md-12" formControlName="productName" placeholder="Enter Product Name" [(ngModel)]="selectedInventory.productName"
+                        />
+                        <div>
+                            <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['productName'].valid&&userform.controls['productName'].dirty">
+                                <i class="fa fa-close"></i> Product Name is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-6 ui-md-6">
+                        <label class="ui-g-12 ui-md-12">Product Description</label>
+                        <input class="ui-g-12 ui-md-12" formControlName="productDescription" placeholder="Enter Product Description" [(ngModel)]="selectedInventory.productDescription"
+                        />
+                        <div>
+                            <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['productDescription'].valid&&userform.controls['productDescription'].dirty">
+                                <i class="fa fa-close"></i> Product Description is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-6 ui-md-6">
+                        <label class="ui-g-12 ui-md-12">Quantity on Hand</label>
+                        <input class="ui-g-12 ui-md-12" formControlName="qonHand" placeholder="Enter Quantity on Hand" [(ngModel)]="selectedInventory.qonHand"
+                        />
+                        <div>
+                            <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['qonHand'].valid&&userform.controls['qonHand'].dirty">
+                                <i class="fa fa-close"></i> Quantity on Hand is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-6 ui-md-6">
+                        <label class="ui-g-12 ui-md-12">Quantity on Reserved</label>
+                        <input class="ui-g-12 ui-md-12" formControlName="qonReserved" placeholder="Enter Quantity on Reserved" [(ngModel)]="selectedInventory.qonReserved"
+                        />
+                        <div>
+                            <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['qonReserved'].valid&&userform.controls['qonReserved'].dirty">
+                                <i class="fa fa-close"></i> Quantity on Reserved is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-6 ui-md-6">
+                        <label class="ui-g-12 ui-md-12">Quantity on Ordered</label>
+                        <input class="ui-g-12 ui-md-12" formControlName="qonOrdered" placeholder="Quantity on Ordered" [(ngModel)]="selectedInventory.qonOrdered"
+                        />
+                        <div>
+                            <div class="ui-message ui-messages-error ui-corner-all ui-grid-col-12" *ngIf="!userform.controls['qonOrdered'].valid&&userform.controls['qonOrdered'].dirty">
+                                <i class="fa fa-close"></i> Quantity on Ordered is Required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-6 ui-md-6">
+                        <label class="ui-g-12 ui-md-12">Product Bin (LLBBR)</label>
+                        <p-dropdown [options]="LL" [(ngModel)]="selectedInventory.ll" formControlName="binLL"></p-dropdown>
+                        <p-dropdown [options]="BB" [(ngModel)]="selectedInventory.bb" formControlName="binBB"></p-dropdown>
+                        <p-dropdown [options]="RR" [(ngModel)]="selectedInventory.rr" formControlName="binRR"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <p-footer>
+                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                    <button type="button" pButton icon="fa-close" (click)="cancelInventory()" label="Cancel"></button>
+                    <button type="button" pButton icon="fa-check" (click)="saveInventory()" [disabled]="!userform.valid" label="Save"></button>
+                    <button type="button" pButton (click)="saveAndNewInventory()" icon="fa fa-pencil" *ngIf="isNewInventory==true" [disabled]="!userform.valid"
+                        label="Save and New"></button>
+                </div>
+            </p-footer>
+        </p-dialog>
+    </form>
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>

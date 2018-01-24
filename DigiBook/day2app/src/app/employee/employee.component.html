@@ -17,7 +17,6 @@
                     <button type="button" *ngIf="this.auth.isLoggedIn()" pButton (click)="deleteEmp(employee)" icon="fa fa-trash-o"></button>
                 </ng-template>
             </p-column>
-            <p-column field="employeeId" header="Employee ID" [sortable]="true"></p-column>
             <p-column field="firstName" header="Employee First Name" [sortable]="true"></p-column>
             <p-column field="lastName" header="Employee Last Name" [sortable]="true"></p-column>
             <p-column field="mobilePhone" header="Employee Phone" [sortable]="true"></p-column>

@@ -18,7 +18,6 @@
                     <button type="button" *ngIf="this.auth.isLoggedIn()" pButton (click)="deleteAppoint(appointment)" icon="fa fa-trash-o"></button>
                 </ng-template>
             </p-column>
-            <p-column field="appointmentId" header="Appointment ID" [sortable]="true"></p-column>
             <p-column field="appointmentDate" header="Appointment Date" [sortable]="true"></p-column>
             <p-column field="guestName" header="Guest Name" [sortable]="true"></p-column>
             <p-column field="hostName" header="Host Name" [sortable]="true"></p-column>

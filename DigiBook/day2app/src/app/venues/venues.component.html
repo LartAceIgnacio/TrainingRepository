@@ -1,7 +1,7 @@
 <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <p-growl [value]="msgs"></p-growl>
 
-<form [formGroup]="userform">
+
     <p-panel header="Venue List">
 
 
@@ -28,7 +28,7 @@
         </div>
     </p-panel>
 
-
+    <form [formGroup]="userform">
 
     <p-dialog header="Venue" [(visible)]="display" [responsive]="true" showEffect="fade" [modal]="true">
         <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedVenue">

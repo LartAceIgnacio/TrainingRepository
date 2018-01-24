@@ -23,6 +23,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using BlastAsia.DigiBook.Infrastructure.Security;
+using BlastAsia.DigiBook.Domain.Locations;
+using BlastAsia.DigiBook.Domain.Test.Inventories.Inventories;
+using BlastAsia.DigiBook.Domain.Inventories;
 
 namespace BlastAsia.DigiBook.Api
 {
@@ -125,6 +128,12 @@ namespace BlastAsia.DigiBook.Api
 
             services.AddTransient<IVenueService, VenueService>();
             services.AddScoped<IVenueRepository, VenueRepository>();
+
+            services.AddTransient<ILocationService, LocationService>();
+            services.AddScoped<ILocationRepository, LocationRepository>();
+
+            services.AddTransient<IInventoryService, InventoryService>();
+            services.AddTransient<IInventoryRepository, InventoryRepository>();
 
             #endregion
 

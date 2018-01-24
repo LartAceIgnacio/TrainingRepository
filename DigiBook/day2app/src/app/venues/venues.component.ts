@@ -97,10 +97,7 @@ export class VenuesComponent implements OnInit {
 
     this.items = [
       { label: 'Dashboard', routerLink: ['/dashboard'] },
-      { label: 'Employee', routerLink: ['/employees'] },
-      { label: 'Contact', routerLink: ['/contacts'] },
-      { label: 'Venue', routerLink: ['/venues'] },
-      { label: 'Appointment', routerLink: ['/appointments'] }
+      { label: 'Venue', routerLink: ['/venues'] }
     ];
 
     this.home = { icon: 'fa fa-home' };

@@ -210,6 +210,70 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Migrations
                     b.ToTable("Employee");
                 });
 
+            modelBuilder.Entity("BlastAsia.DigiBook.Domain.Models.Inventories.Inventory", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("BB");
+
+                    b.Property<string>("Bin");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime?>("DateModified");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("LL");
+
+                    b.Property<string>("ProductCode");
+
+                    b.Property<string>("ProductDescription");
+
+                    b.Property<string>("ProductName");
+
+                    b.Property<int>("QonHand");
+
+                    b.Property<int>("QonOrdered");
+
+                    b.Property<int>("QonReserved");
+
+                    b.Property<string>("RR");
+
+                    b.HasKey("ProductId");
+
+                    b.ToTable("Inventories");
+                });
+
+            modelBuilder.Entity("BlastAsia.DigiBook.Domain.Models.Locations.Location", b =>
+                {
+                    b.Property<Guid>("LocationId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("LocationMark");
+
+                    b.Property<string>("LocationName");
+
+                    b.HasKey("LocationId");
+
+                    b.ToTable("Locations");
+                });
+
+            modelBuilder.Entity("BlastAsia.DigiBook.Domain.Models.Names.Name", b =>
+                {
+                    b.Property<Guid>("NameId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("NameFirst");
+
+                    b.Property<string>("NameLast");
+
+                    b.HasKey("NameId");
+
+                    b.ToTable("Names");
+                });
+
             modelBuilder.Entity("BlastAsia.DigiBook.Domain.Models.Venue", b =>
                 {
                     b.Property<Guid>("VenueId")
