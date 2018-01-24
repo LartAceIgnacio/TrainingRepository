@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
@@ -19,24 +20,24 @@ namespace BlastAsia.DigiBook.API.Controllers
         public IActionResult GetAirports(string url)
         {
             HttpClient http = new HttpClient();
-
-            List<Airport> list = new List<Airport>();
+            List<Airport> result = new List<Airport>();
 
             try
             {
-                if (!string.IsNullOrEmpty(url))
+                if (string.IsNullOrEmpty(url))
                 {
-                    var stringTask = http.GetStringAsync(url);
-                    var stringResult = JObject.Parse(stringTask.Result);
-                    JArray arrResponse = (JArray)stringResult["response"];
-                    list = arrResponse.ToObject<List<Airport>>();
-                    return Ok(list);
+                    return BadRequest();
                 }
-                return NoContent();
+
+                var stringTask = http.GetStringAsync(url);
+                var stringResult = JObject.Parse(stringTask.Result);
+                JArray arrResponse = (JArray)stringResult["response"];
+                result = arrResponse.ToObject<List<Airport>>();
+                return Ok(result);
             }
-            catch
+            catch(Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
     }

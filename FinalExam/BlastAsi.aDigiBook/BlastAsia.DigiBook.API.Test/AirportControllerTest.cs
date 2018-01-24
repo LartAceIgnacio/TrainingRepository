@@ -41,7 +41,7 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void GetAirports_WithBlankUrl_ShouldReturnNoContentResult()
+        public void GetAirports_WithBlankUrl_ShouldReturnBadRequestResult()
         {
             // Arrange
             url = null;
@@ -50,11 +50,11 @@ namespace BlastAsia.DigiBook.API.Test
             var result = sut.GetAirports(url);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(NoContentResult));
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
         }
 
         [TestMethod]
-        public void GetAirports_WithInValidUrl_ShouldReturnBadRequestResult()
+        public void GetAirports_WithInValidUrl_ShouldReturnBadRequestObjectResult()
         {
             // Arrange
             url = "https://iatacodes.org/api/v6/airports?api_key=dd6a69c4-9ebb-4df8-a0b3-dc00ad3e3ec";
@@ -63,7 +63,7 @@ namespace BlastAsia.DigiBook.API.Test
             var result = sut.GetAirports(url);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
         }
     }
 }
