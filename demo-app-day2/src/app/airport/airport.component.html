@@ -1,0 +1,11 @@
+<p-panel header="Airports Information List">
+  <div class="ui-g">
+      <p-dataTable [value]="airportInfoList" selectionMode="single" [paginator]="true" [rows]="10" [responsive]="true">
+          <p-header>Airport Information</p-header>
+          <p-column field="code" header="Airport Code"></p-column>
+          <p-column field="name" header="Airport Name"></p-column>
+          <p-footer>
+          </p-footer>
+      </p-dataTable>
+  </div>
+</p-panel>
