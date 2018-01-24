@@ -31,7 +31,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
                 DateActivated = DateTime.Today,
             };
 
-            existingPilotCode = "ChMaManu180123";
+            existingPilotCode = "ChMaManu180124";
             
             mockPilotRepository = new Mock<IPilotRepository>();
 
@@ -44,12 +44,12 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
             longName = "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the wo ";
 
             mockPilotRepository
-                .Setup(pr => pr.Retrieve())
+                .Setup(pr => pr.Retrieve());
                 //.Returns();
         }
-
+        
         [TestMethod]
-        public void Save_WithValidData_ShoulPilotRepositoryCreate()
+        public void Save_WithValidData_ShouldCallPilotRepositoryCreate()
         {
             //Arrange
              
@@ -207,7 +207,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
             //Arrange
 
             mockPilotRepository
-                .Setup(pr => pr.RetrievePilotCode(existingPilotCode))
+                .Setup(pr => pr.Retrieve(existingPilotCode))
                 .Returns(pilot);
             //Act 
 

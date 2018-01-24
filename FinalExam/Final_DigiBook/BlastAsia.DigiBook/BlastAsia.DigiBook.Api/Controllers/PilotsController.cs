@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using BlastAsia.DigiBook.Domain.Models.Pilots;
+using BlastAsia.DigiBook.Domain.Models.Records;
 using BlastAsia.DigiBook.Domain.Pilots;
-using BlastAsia.DigiBook.Infrastructure.Persistence.Repositories;
-using Microsoft.AspNetCore.Http;
+using BlastAsia.DigiBook.Api.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlastAsia.DigiBook.Api.Controllers
@@ -22,14 +20,19 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
         // GET: api/Pilots
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetPilotsWithPagination(int page, int record, string filter)
         {
+            var result = new Record<Pilot>();
+            try
+            {
+                result = this.pilotRepository.Fetch(page, record, filter);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
 
-            var result = new List<Pilot>();
-            result.AddRange(this.pilotRepository.Retrieve());
             return Ok(result);
         }
-
-      
     }
 }

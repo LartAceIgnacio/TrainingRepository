@@ -61,8 +61,8 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             Assert.IsTrue(newPilot.PilotId != Guid.Empty);
 
             //CleanUp
-   
 
+            sut.Delete(newPilot.PilotId);
         }
 
         [TestMethod]
@@ -76,7 +76,9 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             result = sut.Retrieve(newPilot.PilotId);
             Assert.IsNull(result);
         }
+
         [TestMethod]
+        [TestProperty("TestType", "Integration")]
         public void Retrieve_WithExistingPilotId_ShouldRetrieveInDatabase()
         {
             //Arrange
@@ -94,6 +96,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 
 
         [TestMethod]
+        [TestProperty("TestType", "Integration")]
         public void Update_WithValidData_SaveUpdateInDb()
         {
             //Arrange
@@ -115,6 +118,21 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             Assert.AreEqual(expectedLastName, updatedPilot.LastName);
             //CleanUp
 
+        }
+
+
+        [TestMethod]
+        [TestProperty("TestType", "Integration")]
+        public void Fetch_WithValidPageAndRecord_ShouldRetrieveInDatabase()
+        {
+            int pageNo = 1;
+            int numRec = 10;
+            string filterValue = "";
+            //Arrange
+            sut.Fetch(pageNo, numRec, filterValue);
+            //Act 
+
+            //Assert
         }
     }
     

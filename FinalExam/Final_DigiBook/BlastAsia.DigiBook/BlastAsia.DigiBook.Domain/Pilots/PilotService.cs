@@ -55,7 +55,7 @@ namespace BlastAsia.DigiBook.Domain.Pilots
                 throw new InvalidPilotCodeException();
             }
 
-            var foundPilotCode = pilotRepository.Retrieve().Where(p => p.PilotCode == pilot.PilotCode);
+            var foundPilotCode = pilotRepository.Retrieve(pilot.PilotCode);
             if (foundPilotCode != null)
             {
                 throw new NonUniquePilotCodeException();

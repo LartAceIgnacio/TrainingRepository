@@ -49,9 +49,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
             var result = new List<Appointment>();
             if (id == null)
             {
-
                 result.AddRange(this.appointmentRepository.Retrieve());
-       
             }
             else
             {
