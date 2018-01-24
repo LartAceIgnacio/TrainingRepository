@@ -1,5 +1,6 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Pilots;
 using BlastAsia.DigiBook.Domain.Pilots;
+using BlastAsia.DigiBook.Domain.Pilots.Pilots;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -55,6 +56,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
             //Assert
             mockPilotRepository
                 .Verify(p => p.Create(pilot), Times.Once());
+
             mockPilotRepository
                 .Verify(p => p.Retrieve(pilot.PilotId), Times.Never());
         }
@@ -169,8 +171,18 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
             Assert.ThrowsException<DateRequiredException>(
                () => sut.Save(pilot.PilotId, pilot));
         }
+        [TestMethod]
+        public void Save_WithBlankPilotCode_ThrowsPilotCodeRequiredException()
+        {
+            // Arrange
+            pilot.PilotCode = "";
 
-        
+            // Assert
+            Assert.ThrowsException<PilotCodeRequiredException>(
+               () => sut.Save(pilot.PilotId, pilot));
+        }
+
+
 
 
     }

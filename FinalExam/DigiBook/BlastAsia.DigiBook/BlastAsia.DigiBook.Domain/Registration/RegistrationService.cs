@@ -30,7 +30,7 @@ namespace BlastAsia.DigiBook.Domain
                 throw new UsernameValidEmailRequired();
             }
             if (string.IsNullOrEmpty(password))
-            {
+            {  
                 throw new PasswordRequiredException();
             }
 

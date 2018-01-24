@@ -20,7 +20,6 @@ namespace BlastAsia.DigiBook.API.Controllers
     
     public class ContactsController : Controller
     {
-        //private static List<Contact> contacts = new List<Contact>();
         private readonly IContactService contactService;
         private readonly IContactRepository contactRepository;
 

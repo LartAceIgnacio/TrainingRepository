@@ -1,5 +1,7 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Pilots;
+using BlastAsia.DigiBook.Domain.Pilots.Pilots;
 using System;
+using System.Text.RegularExpressions;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace BlastAsia.DigiBook.Domain.Pilots
@@ -10,6 +12,12 @@ namespace BlastAsia.DigiBook.Domain.Pilots
         private readonly int NameMaximumLength = 60;
         private readonly int YearsOfExperience = 10;
         private int RequiredDateOfBirth = 21;
+
+        private int startIndex = 0;
+        private int length = 2;
+        private int lNameLength = 4;
+        private readonly string PilotCodePattern = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" + @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+         @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
 
         public PilotService(IPilotRepository pilotRepository)
         {
@@ -56,12 +64,24 @@ namespace BlastAsia.DigiBook.Domain.Pilots
             {
                 throw new DateRequiredException("EmploymentDate is required");
             }
+            //if (!Regex.IsMatch(pilot.PilotCode, PilotCodePattern, RegexOptions.IgnoreCase))
+            //{
+            //    throw new PilotCodeRequiredException("Pilot Code is Required");
+            //}
 
             Pilot result = null;
 
             var found = pilotRepository.Retrieve(pilot.PilotId);
             if(found == null)
-            {
+            {   
+
+                pilot.PilotCode = pilot.FirstName.Substring(startIndex, length)
+                    + pilot.MiddleName.Substring(startIndex, length)
+                    + pilot.LastName.Substring(startIndex, lNameLength)
+                    + pilot.DateActivated.Value.ToString("yy")
+                    + pilot.DateActivated.Value.ToString("mm").PadLeft(2,'0')
+                    + pilot.DateActivated.Value.ToString("dd").PadLeft(2,'0');
+
                 result = pilotRepository.Create(pilot);
 
             }
@@ -69,7 +89,8 @@ namespace BlastAsia.DigiBook.Domain.Pilots
             {
                 result = pilotRepository.Update(pilot.PilotId, pilot);
             }
-          
+  
+
             return result;
         }
     }

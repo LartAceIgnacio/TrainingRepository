@@ -17,7 +17,7 @@ namespace BlastAsia.DigiBook.API.Test
         private Pilot pilot;
         private Mock<IPilotRepository> mockPilotRepository;
         private Mock<IPilotService> mockPilotService;
-        private JsonPatchDocument patchedpilot;
+        private JsonPatchDocument patchedPilot;
 
         private PilotsController sut;
 
@@ -29,7 +29,7 @@ namespace BlastAsia.DigiBook.API.Test
         {
             mockPilotRepository = new Mock<IPilotRepository>();
             mockPilotService = new Mock<IPilotService>();
-            patchedpilot = new JsonPatchDocument();
+            patchedPilot = new JsonPatchDocument();
 
             pilot = new Pilot
             {
@@ -100,6 +100,7 @@ namespace BlastAsia.DigiBook.API.Test
             mockPilotService
                 .Verify(d => d.Save(Guid.Empty, pilot), Times.Once); 
         }
+
         [TestMethod]
         public void UpdatePilot_WithValidPilot_ReturnsObjectResult()
         {
@@ -127,9 +128,92 @@ namespace BlastAsia.DigiBook.API.Test
             //Assert
 
             mockPilotService
-                .Verify(p => p.Save(existingPilotId, pilot), Times.Once());
+                .Verify(p => p.Save(existingPilotId, pilot), Times.Never());
+
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+        }
+
+        [TestMethod]
+        public void UpdatePilot_WithEmptyPilotId_ReturnsNotFoundResult()
+        {
+            var result = sut.UpdatePilot(pilot, nonExistingPilotId);
+
+            // Assert
+            mockPilotRepository
+                .Verify(c => c.Update(nonExistingPilotId, pilot), Times.Never());
+
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+        }
+        [TestMethod]
+        public void DeletePilot_WithPilotId_ReturnsNoContentResult()
+        {
+            // Act
+            var result = sut.DeletePilot(existingPilotId);
+
+            //Assert          
+            mockPilotRepository
+                .Verify(c => c.Delete(existingPilotId), Times.Once());
+
+            Assert.IsInstanceOfType(result, typeof(NoContentResult));
+        }
+
+        [TestMethod]
+        public void DeletePilot_WithEmptyPilotId_ReturnsNotFound()
+        {
+            //Act
+            var result = sut.DeletePilot(nonExistingPilotId);
+
+            // Assert 
+            mockPilotRepository
+                .Verify(c => c.Delete(nonExistingPilotId),
+                Times.Never());
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+        }
+        [TestMethod]
+        public void PatchPilot_WithValidPatchedPilot_ReturnsObjectResult()
+        {
+            var result = sut.PatchPilot(patchedPilot, existingPilotId);
+            // Assert
+
+            mockPilotRepository
+                .Verify(c => c.Retrieve(existingPilotId), Times.Once());
+
+            mockPilotService
+                .Verify(c => c.Save(existingPilotId, pilot), Times.Once());
 
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+        [TestMethod]
+        public void PatchPilot_WithEmptyPatchedPilot_ReturnsBadRequestResult()
+        {
+            patchedPilot = null;
+            // Act
+            var result = sut.PatchPilot(patchedPilot, existingPilotId);
+
+            // Assert
+            mockPilotRepository
+               .Verify(c => c.Retrieve(nonExistingPilotId), Times.Never());
+
+            mockPilotService
+                .Verify(c => c.Save(nonExistingPilotId, pilot), Times.Never());
+
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+        }
+
+        [TestMethod]
+        public void PatchPilot_WithInvalidPilotId_ReturnsNotFound()
+        {
+            var result = sut.PatchPilot(patchedPilot, nonExistingPilotId);
+
+            //Assert
+            mockPilotRepository
+                .Verify(c => c.Retrieve(nonExistingPilotId), Times.Once());
+
+            mockPilotService
+                 .Verify(c => c.Save(nonExistingPilotId, pilot), Times.Never());
+
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
 
 

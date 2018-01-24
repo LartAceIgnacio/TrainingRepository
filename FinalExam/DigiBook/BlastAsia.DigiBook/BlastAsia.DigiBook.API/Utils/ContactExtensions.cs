@@ -18,7 +18,7 @@ namespace BlastAsia.DigiBook.API.Utils
                     contact.MobilePhone = from.MobilePhone;
                     contact.ZipCode = from.ZipCode;
                     contact.FirstName = from.FirstName;
-                    contact.LastName = from.LastName;
+                    contact.LastName = from.LastName;       
 
                     return contact;
              }

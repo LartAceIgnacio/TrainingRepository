@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using BlastAsia.DigiBook.API.Utils;
+using BlastAsia.DigiBook.Domain.Models;
 using BlastAsia.DigiBook.Domain.Models.Pilots;
 using BlastAsia.DigiBook.Domain.Pilots;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +24,25 @@ namespace BlastAsia.DigiBook.API.Controllers
             this.pilotRepository = pilotRepository;
         }
 
+        [HttpGet, ActionName("GetPilotsWithPagination")]
+        [Route("api/Pilots/{page}/{record}")]
+        public IActionResult GetPilotsWithPagination(int page, int record, string filter)
+        {
+            var result = new Pagination<Pilot>();
+            try
+            {
+                result = this.pilotRepository.Retrieve(page, record, filter);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
         [HttpGet, ActionName("GetPilot")]
+        [Route("api/Pilot/{id?}")]
         public object GetPilots(Guid? id)
         {
             var result = new List<Pilot>();
@@ -40,7 +60,8 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Route("api/Pilot")]
+        //[Authorize]
         public IActionResult CreatePilot(
             [FromBody] Pilot pilot)
         {
@@ -63,7 +84,8 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
+        [Route("api/Pilot/{id}")]
+        //[Authorize]
         public IActionResult DeletePilot(Guid id)
         {
             var pilotToDelete = this.pilotRepository.Retrieve(id);
@@ -77,7 +99,8 @@ namespace BlastAsia.DigiBook.API.Controllers
 
 
         [HttpPut]
-        [Authorize]
+        [Route("api/Pilot/{id}")]
+        //[Authorize]
         public IActionResult UpdatePilot(
             [FromBody] Pilot pilot, Guid id)
         {
@@ -106,7 +129,8 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPatch]
-        [Authorize]
+        [Route("api/Pilot/{id}")]
+        //[Authorize]
         public IActionResult PatchPilot(
             [FromBody]JsonPatchDocument patchedPilot, Guid id)
         {
@@ -133,5 +157,6 @@ namespace BlastAsia.DigiBook.API.Controllers
                 return BadRequest();
             }
         }
+       
     }
 }
