@@ -4,6 +4,8 @@ export interface Pilot {
     middleName?;
     lastName?;
     dateOfBirth?;
+    dateCreated?;
     yearsOfExperience?;
     dateActivated?;
+    pilotCode?;
 }

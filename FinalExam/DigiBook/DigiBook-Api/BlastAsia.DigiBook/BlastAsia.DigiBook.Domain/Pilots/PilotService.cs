@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using BlastAsia.DigiBook.Domain.Models.Pilots;
 
 namespace BlastAsia.DigiBook.Domain.Pilots
@@ -9,7 +11,7 @@ namespace BlastAsia.DigiBook.Domain.Pilots
         private DateTime today = DateTime.Today;
         private int ageRequirement = 21;
         private int expRequired = 10;
-        private int pilotCodeLength = 14;
+        private string regex = @"[A-Za-z]{6,8}[0-9]{6}";
         public PilotService(IPilotRepository pilotRepository)
         {
             this.pilotRepository = pilotRepository;
@@ -61,9 +63,16 @@ namespace BlastAsia.DigiBook.Domain.Pilots
             {
                 throw new DateActivatedRequiredException("Date activated is required");
             }
-            if (pilot.PilotCode.Length != pilotCodeLength)
+            if (!Regex.IsMatch(pilot.PilotCode, regex, RegexOptions.IgnoreCase))
             {
-                throw new PilotCodeMustBe12CharactersRequiredException("Pilot code lenght must be equal to 12");
+                throw new ValidPilotCodeRequiredException("Pilot code is not Valid");
+            }
+
+            var findAll = pilotRepository.Retrieve().ToList();
+
+            if (findAll.Where(x => x.PilotCode.Equals(pilot.PilotCode)).Any())
+            {
+                throw new UniquePilotCodeRequiredException("Pilot code must be unique");
             }
 
             var found = pilotRepository.Retrieve(pilot.PilotId);

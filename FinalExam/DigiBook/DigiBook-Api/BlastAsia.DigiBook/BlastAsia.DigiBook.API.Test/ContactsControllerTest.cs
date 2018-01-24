@@ -28,7 +28,16 @@ namespace BlastAsia.DigiBook.API.Test
         {
             contact = new Contact
             {
-
+                FirstName = "Gelo",
+                LastName = "Celis",
+                MobilePhone = "09266026333",
+                StreetAddress = "1325 San Diego St. Sampaloc Manila",
+                CityAddress = "Manila City",
+                ZipCode = 1800,
+                Country = "Philippines",
+                EmailAddress = "anjacelis@outlook.com",
+                IsActive = false,
+                DateActivated = new Nullable<DateTime>()
             };
 
             mockContactService = new Mock<IContactService>();

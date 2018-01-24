@@ -30,7 +30,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
                 DateOfBirth = new DateTime(1994, 10, 24),
                 YearsOfExperience = 10,
                 DateActivated = DateTime.Today,
-                PilotCode = "FFMMLLLLYYmmdd",
+                PilotCode = "FFMMLLLL123456",
                 DateCreated = DateTime.Today,
                 DateModified = new DateTime()
 
@@ -41,7 +41,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
             existingId = Guid.NewGuid();
             nonExistingId = Guid.Empty;
 
-            
+
         }
 
         [TestMethod]
@@ -164,16 +164,19 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
                 );
         }
 
-        [TestMethod]
-        public void Save_WithPilotCodeNotEqualTo12_ThrowsPilotCodeMustBe12CharactersRequiredException()
+        [DataTestMethod]
+        [DataRow("FFFF112322")]
+        [DataRow("MFFFFFF112ab2")]
+
+        public void Save_WithNotValidPilotCode_ThrowsValidPilotCodeRequiredException(string message)
         {
             //Arrange
-            pilot.PilotCode = "1123";
+            pilot.PilotCode = message;
 
             //Act
 
             //Assert
-            Assert.ThrowsException<PilotCodeMustBe12CharactersRequiredException>(
+            Assert.ThrowsException<ValidPilotCodeRequiredException>(
                 () => sut.Save(pilot.PilotId, pilot)
                 );
         }
@@ -231,6 +234,43 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
             mockPilotRepository
                 .Verify(c => c.Update(pilot.PilotId, pilot), Times.Once());
 
+
+        }
+
+        [TestMethod]
+        public void Save_WithSamePilotCode_ThrowsUniquePilotCodeRequiredException()
+        {
+            //Arrange
+            pilot.PilotCode = "ANACCELI180121";
+
+            mockPilotRepository
+                .Setup(pr => pr.Retrieve())
+                .Returns(() => new List<Pilot>
+                {
+                    new Pilot
+                    {
+                        PilotId = Guid.NewGuid(),
+                        FirstName = "Angelou",
+                        MiddleName = "Acosta",
+                        LastName = "Celis",
+                        DateOfBirth = new DateTime(1994, 10, 24),
+                        YearsOfExperience = 10,
+                        DateActivated = DateTime.Today,
+                        PilotCode = "ANACCELI180121",
+                        DateCreated = DateTime.Today,
+                        DateModified = new DateTime()
+
+                    }
+                }
+
+                );
+
+            //Act
+
+            //Assert
+            Assert.ThrowsException<UniquePilotCodeRequiredException>(
+                () => sut.Save(nonExistingId, pilot)
+                );
 
         }
 

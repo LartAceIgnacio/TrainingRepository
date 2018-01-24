@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BlastAsia.DigiBook.API.Utils;
+using BlastAsia.DigiBook.Domain.Models;
 using BlastAsia.DigiBook.Domain.Models.Pilots;
 using BlastAsia.DigiBook.Domain.Pilots;
 using Microsoft.AspNetCore.Cors;
@@ -10,11 +11,13 @@ namespace BlastAsia.DigiBook.API.Controllers
 {
     [EnableCors("DayTwoApp")]
     [Produces("application/json")]
-    [Route("api/Pilots")]
+    // [Route("api/Pilots")]
     public class PilotController : Controller
     {
         private IPilotService pilotService;
         private IPilotRepository pilotRepository;
+        private string pilotCodeName;
+        private string pilotCodeYear;
 
         public PilotController(IPilotService pilotService, IPilotRepository pilotRepository)
         {
@@ -22,7 +25,27 @@ namespace BlastAsia.DigiBook.API.Controllers
             this.pilotRepository = pilotRepository;
         }
 
+        [HttpGet, ActionName("GetPilotsWithPagination")]
+        [Route("api/Pilots/{page}/{record}")]
+        public IActionResult GetPilotsWithPagination(int page, int record, string filter)
+        {
+            //   var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var result = new PaginationResult<Pilot>();
+            try
+            {
+                result = this.pilotRepository.Retrieve(page, record, filter);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
         [HttpGet, ActionName("GetPilot")]
+        [Route("api/Pilots/{id?}")]
         public IActionResult GetPilot(Guid? id)
         {
             var result = new List<Pilot>();
@@ -39,6 +62,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPost]
+        [Route("api/Pilots")]
         public IActionResult CreatePilot([FromBody] Pilot pilot)
         {
             try
@@ -47,6 +71,35 @@ namespace BlastAsia.DigiBook.API.Controllers
                 {
                     return BadRequest();
                 }
+                else
+                {
+                    if (string.IsNullOrWhiteSpace(pilot.MiddleName))
+                    {
+                        pilotCodeName = pilot.FirstName.Substring(0, 2).ToUpper() + pilot.LastName.Substring(0, 4).ToUpper();
+                        pilotCodeYear = pilot.DateActivated.Value.ToString("yy") +
+                            pilot.DateActivated.Value.Month.ToString().PadLeft(2, '0') +
+                            pilot.DateActivated.Value.Day.ToString().PadLeft(2, '0');
+
+                        pilot.PilotCode = pilotCodeName + pilotCodeYear;
+                    }
+                    else
+                    {
+                        pilotCodeName = pilot.FirstName.Substring(0, 2).ToUpper() +
+                            pilot.MiddleName.Substring(0, 2).ToUpper() +
+                            pilot.LastName.Substring(0, 4).ToUpper();
+                        pilotCodeYear = pilot.DateActivated.Value.ToString("yy") +
+                            pilot.DateActivated.Value.Month.ToString().PadLeft(2, '0') +
+                            pilot.DateActivated.Value.Day.ToString().PadLeft(2, '0');
+
+                        pilot.PilotCode = pilotCodeName + pilotCodeYear;
+
+                    }
+
+                    pilot.DateCreated = DateTime.Now;
+                }
+
+                
+
 
                 var result = this.pilotService.Save(Guid.Empty, pilot);
 
@@ -62,6 +115,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpDelete]
+        [Route("api/Pilots/{id}")]
         public object DeletePilot(Guid id)
         {
             var found = pilotRepository.Retrieve(id);
@@ -77,6 +131,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPut]
+        [Route("api/Pilots/{id}")]
         public object UpdatePilot([FromBody] Pilot pilot, Guid id)
         {
             if (pilot == null)

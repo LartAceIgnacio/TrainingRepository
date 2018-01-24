@@ -17,7 +17,7 @@ namespace BlastAsia.DigiBook.API.Utils
             pilot.YearsOfExperience = from.YearsOfExperience;
             pilot.DateActivated = from.DateActivated;
             pilot.PilotCode = from.PilotCode;
-            pilot.DateModified = DateTime.Today;
+            pilot.DateModified = DateTime.Now;
 
             return pilot;
         }

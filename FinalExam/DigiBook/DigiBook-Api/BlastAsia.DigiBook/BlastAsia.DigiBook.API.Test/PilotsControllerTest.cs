@@ -25,7 +25,16 @@ namespace BlastAsia.DigiBook.API.Test
         {
             pilot = new Pilot
             {
-
+                PilotId = Guid.NewGuid(),
+                FirstName = "Angelou",
+                MiddleName = "Acosta",
+                LastName = "Celis",
+                DateOfBirth = new DateTime(1994, 10, 24),
+                YearsOfExperience = 10,
+                DateActivated = DateTime.Today,
+                PilotCode = "FFMMLLLL123456",
+                DateCreated = DateTime.Today,
+                DateModified = new DateTime()
             };
 
             mockPilotService = new Mock<IPilotService>();

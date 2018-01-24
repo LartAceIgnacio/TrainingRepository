@@ -1,44 +1,125 @@
-<p-dataTable [value]="pilots" selectionMode="single" [(selection)]="selectedPilot" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
-  <p-column field="firstname" header="firstname" [sortable]="true"></p-column>
-  <p-column field="middleName" header="middleName" [sortable]="true"></p-column>
-  <p-column field="lastName" header="lastName" [sortable]="true"></p-column>
-  <p-column field="dateOfBirth" header="dateOfBirth" [sortable]="true"></p-column>
-  <p-column field="yearsOfExperience" header="yearsOfExperience" [sortable]="true"></p-column>
-  <p-column field="dateActivated" header="dateActivated" [sortable]="true"></p-column>
-  <p-footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button></div></p-footer>
-</p-dataTable>
-
-<p-dialog header="Pilots Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
-  <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="pilot">
-      <div class="ui-grid-row">
-          <div class="ui-grid-col-4"><label for="firstname">firstname</label></div>
-          <div class="ui-grid-col-8"><input pInputText id="firstname" [(ngModel)]="pilot.firstname" /></div>
-      </div>
-      <div class="ui-grid-row">
-          <div class="ui-grid-col-4"><label for="middleName">middleName</label></div>
-          <div class="ui-grid-col-8"><input pInputText id="middleName" [(ngModel)]="pilot.middleName" /></div>
-      </div>
-      <div class="ui-grid-row">
-          <div class="ui-grid-col-4"><label for="lastName">Brand</label></div>
-          <div class="ui-grid-col-8"><input pInputText id="lastName" [(ngModel)]="pilot.lastName" /></div>
-      </div>
-      <div class="ui-grid-row">
-          <div class="ui-grid-col-4"><label for="dateOfBirth">dateOfBirth</label></div>
-          <div class="ui-grid-col-8"><input pInputText id="dateOfBirth" [(ngModel)]="pilot.dateOfBirth" /></div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-4"><label for="yearsOfExperience">yearsOfExperience</label></div>
-        <div class="ui-grid-col-8"><input pInputText id="yearsOfExperience" [(ngModel)]="pilot.yearsOfExperience" /></div>
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+<p-panel>
+    <div class="ui-g">
+        <p-dataTable #dt [value]="pilots" [paginator]="true" rows="5" [responsive]="true" [pageLinks]="5" [loading]="loading" loadingIcon="fa-spinner"
+            (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
+            <p-header>
+                <div class="header-table-left">
+                    <button pButton icon="fa fa-plus" (click)="showDialogToAdd()"></button>&nbsp;Pilots
+                </div>
+                <div class="header-table-right">
+                    <input pInputText [(ngModel)]="searchFilter" type="text" placeholder="Search">
+                    <button type="button" pButton (click)="searchPilot()" icon="fa-search"></button>
+                </div>
+            </p-header>
+            <p-column styleClass="col-button">
+                <ng-template let-pilot="rowData" pTemplate="body">
+                    <button type="button" class="ui-button-warning" pButton (click)="edit(pilot)" icon="fa-pencil"></button>
+                    <button type="button" class="ui-button-danger" pButton (click)="delete(pilot)" icon="fa-trash"></button>
+                </ng-template>
+            </p-column>
+            <p-column field="firstName" header="First Name"></p-column>
+            <p-column field="middleName" header="Middle Name"></p-column>
+            <p-column field="lastName" header="Last Name"></p-column>
+            <p-column field="pilotCode" header="Pilot Code"></p-column>
+            <p-column field="dateOfBirth" header="Date Of Birth">
+                <!-- <ng-template let-file="rowData" pTemplate type="body" let-i="rowIndex">
+                    <span>{{pilots[i].dateOfBirth | date: 'dd/MM/yyyy'}}</span>
+                </ng-template> -->
+            </p-column>
+            <p-column field="yearsOfExperience" header="Years Of Experience"></p-column>          
+            <p-column field="dateActivated" header="dateActivated">
+                <!-- <ng-template let-file="rowData" pTemplate type="body" let-i="rowIndex">
+                    <span>{{pilots[i].dateActivated | date: 'dd/MM/yyyy'}}</span>
+                </ng-template> -->
+            </p-column>
+        </p-dataTable>
     </div>
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-4"><label for="dateActivated">dateActivated</label></div>
-      <div class="ui-grid-col-8"><input pInputText id="dateActivated" [(ngModel)]="pilot.dateActivated" /></div>
-  </div>
-  </div>
-  <p-footer>
-      <div class="ui-dialog-buttonpane ui-helper-clearfix">
-          <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
-          <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
-      </div>
-  </p-footer>
-</p-dialog>
+</p-panel>
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+<form [formGroup]="userform">
+    <p-dialog header="Pilot Details" [(visible)]="displayDialog" [responsive]="true" width="1000" showEffect="fade" [modal]="true">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="pilot">
+            <div class="ui-g-6">
+                <label for="firstName" class="ui-md-4 ui-g-12">First Name:</label>
+                <input class="ui-md-8 ui-g-12" formControlName="firstname" id="firstName" pInputText type="text" placeholder="Enter First Name"
+                    [(ngModel)]="pilot.firstName">
+                <div class="ui-grid-col-12">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty">
+                        <i class="fa fa-close"></i>
+                        Firstname is required with max length of 60
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui-g-6">
+                <label for="middleName" class="ui-md-4 ui-g-12">Middle Name:</label>
+                <input class="ui-md-8 ui-g-12" formControlName="middlename" id="middleName" pInputText type="text" placeholder="Enter Middle Name"
+                    [(ngModel)]="pilot.middleName">
+            </div>
+
+            <div class="ui-g-6">
+                <label for="lastName" class="ui-md-4 ui-g-12">Last Name:</label>
+                <input class="ui-md-8 ui-g-12" formControlName="lastname" id="lastName" pInputText type="text" placeholder="Enter Last Name"
+                    [(ngModel)]="pilot.lastName">
+                <div class="ui-grid-col-12">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty">
+                        <i class="fa fa-close"></i>
+                        lastname is required with max length of 60
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui-g-6">
+                <label for="dateOfBirth" class="ui-md-4 ui-g-12">Date Of Birth:</label>
+                <p-calendar [showIcon]="true" class="ui-md-8 ui-g-12" formControlName="dateofbirth" id="dateOfBirth" pInputText type="text"
+                    placeholder="Enter a Date Activated" [(ngModel)]="pilot.dateOfBirth">
+                </p-calendar>
+                <div class="ui-grid-col-12">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['dateofbirth'].valid&&userform.controls['dateofbirth'].dirty">
+                        <i class="fa fa-close"></i>
+                        Date of birth is required
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui-g-6">
+                <label for="yearsOfExperience" class="ui-md-4 ui-g-12">Years Of Exp.:</label>
+                <input class="ui-md-8 ui-g-12" formControlName="yearsofexperience" id="yearsOfExperience" pInputText type="text" placeholder="Enter Years Of Experience"
+                    [(ngModel)]="pilot.yearsOfExperience">
+                <div class="ui-grid-col-12">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['yearsofexperience'].valid&&userform.controls['yearsofexperience'].dirty">
+                        <i class="fa fa-close"></i>
+                        Years of experience is required with min of 10 years
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui-g-6">
+                <label for="dateActivated" class="ui-md-4 ui-g-12">Date Activated:</label>
+                <p-calendar [showIcon]="true" class="ui-md-8 ui-g-12" formControlName="dateactivated" id="dateActivated" pInputText type="text"
+                    placeholder="Enter Date Activated" [(ngModel)]="pilot.dateActivated">
+                </p-calendar>
+                <div class="ui-grid-col-12">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['dateactivated'].valid&&userform.controls['dateactivated'].dirty">
+                        <i class="fa fa-close"></i>
+                        Date activated is required
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix" *ngIf="!isDelete">
+                <button type="button" class="ui-button-warning" pButton icon="fa-close" (click)="cancel()" label="Cancel"></button>
+                <button type="button" pButton icon="fa-check" (click)="save(0)" [disabled]="!userform.valid" label="Save"></button>
+                <button type="button" pButton icon="fa-check" (click)="save(1)" [disabled]="!userform.valid" label="Save and New" *ngIf="isEdit"></button>
+            </div>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix" *ngIf="isDelete">
+                <button type="button" class="ui-button-warning" pButton icon="fa-close" (click)="cancel()" label="Cancel"></button>
+                <button type="button" class="ui-button-danger" pButton icon="fa-warning" (click)="deletePilot()" label="Delete"></button>
+            </div>
+        </p-footer>
+    </p-dialog>
+</form>

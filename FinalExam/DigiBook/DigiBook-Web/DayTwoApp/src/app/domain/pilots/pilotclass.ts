@@ -7,7 +7,9 @@ export class PilotClass implements Pilot {
         public middleName?,
         public lastName?,
         public dateOfBirth?,
+        public dateCreated?,
         public yearsOfExperience?,
         public dateActivated?,
+        public pilotCode?,
         ) {}
 }
