@@ -21,6 +21,7 @@ namespace BlastAsia.DigiBook.Api.Test
         private Guid existingAppointmentId;
         private Guid nonExistingAppointmentId;
 
+
         [TestInitialize]
         public void Initialize()
         {

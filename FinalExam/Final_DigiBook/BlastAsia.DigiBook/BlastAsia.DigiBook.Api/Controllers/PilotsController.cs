@@ -34,5 +34,20 @@ namespace BlastAsia.DigiBook.Api.Controllers
 
             return Ok(result);
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult DeletePilot(Guid id)
+        {
+            var deletedPilot = pilotRepository.Retrieve(id);
+            if (deletedPilot == null)
+            {
+                return NotFound();
+            }
+
+            this.pilotRepository.Delete(id);
+
+            return Ok();
+        }
     }
 }
