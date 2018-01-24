@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { PanelModule, MenuModule, DataTableModule,
-  SharedModule, InputTextModule, ButtonModule, ToggleButtonModule,
+  SharedModule, InputTextModule, ButtonModule, ToggleButtonModule, ChartModule,
    CalendarModule, BreadcrumbModule, DialogModule, ConfirmDialogModule
 } from 'primeng/primeng';
 
@@ -53,7 +53,7 @@ import { StatisticComponent } from './statistic/statistic.component';
     MenuModule,
     CommonModule,
     DataTableModule,SharedModule,
-    InputTextModule, ButtonModule, ConfirmDialogModule,
+    InputTextModule, ButtonModule, ConfirmDialogModule, ChartModule,
     ToggleButtonModule, CalendarModule,BreadcrumbModule,DialogModule,
     AppRoutingModule,
     HttpModule,

@@ -7,7 +7,7 @@
                 <ng-template pTemplate type="body" let-Employee="rowData">
                     <span>
                         <button pButton type="button" icon="fa-pencil" (click)="onRowSelect(Employee)"></button>
-                        <button pButton type="button" icon="fa-trash" (click)="deleteEmployee(Employee)"></button>
+                        <button pButton class="ui-button-warning" type="button" icon="fa-trash" (click)="deleteEmployee(Employee)"></button>
                     </span>
                 </ng-template>
             </p-column>

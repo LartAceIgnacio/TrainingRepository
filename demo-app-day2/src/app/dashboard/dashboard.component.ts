@@ -38,15 +38,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     return customColours;
   }
 
-  hoursByProjectChartData = {
-    labels:['Payroll App', 'Agile Times App', 'Point ofSales App'],
-    datasets: [
-      {
-        data: this.pieData,
-        backgroundColor:this.pieColors
-      }
-    ]
-  }; 
+
+
+  hoursByProjectChartData : any;
 
   hoursByTeamChartData = {
     labels: ['Jan','Feb','Mar','Apr','May','Jun'],
@@ -100,7 +94,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-
+    this.hoursByProjectChartData = {
+      labels:['Payroll App', 'Agile Times App', 'Point ofSales App'],
+      datasets: [
+        {
+          data: this.pieData,
+          backgroundColor:this.pieColors
+        }
+      ]
+    };
   }
 
   ngAfterViewInit(): void {
