@@ -24,7 +24,7 @@
             <p-column field="expectedTimeOfDeparture" header="Expected Time Of Departure" [sortable]="true"></p-column>
         </p-dataTable>
     </p-panel>
-    <p-dialog header="Flight Details" [(visible)]="display" *ngIf="selectedFlight" modal="modal" width="500" height="870" [responsive]="true">
+    <p-dialog header="Flight Details" [(visible)]="display" *ngIf="selectedFlight" modal="modal" width="500" height="700" [responsive]="true">
         <div class="ui-g">
             <label class="ui-g-12 ui-md-4" for="City of Origin">City of Origin: </label>
             <input class="ui-g-12 ui-md-8" type="text" formControlName="cityOfOrigin" placeholder="Enter City of Origin" [(ngModel)]="selectedFlight.cityOfOrigin">
@@ -52,7 +52,7 @@
         <!-- <label>Date Format: 1/20/2018, 12:55:51 AM</label><br/> -->
         <div class="ui-g">
             <label class="ui-g-12 ui-md-4" for="Expected Time of Arrival">Expected Date of Arrival: </label>
-            <p-calendar class="ui-g-12 ui-md-8" [showTime]="true" formControlName="expectedTimeOfArrival" [minDate] ="today" [(ngModel)]="selectedFlight.expectedTimeOfArrival"></p-calendar>
+            <p-calendar class="ui-g-12 ui-md-8" [showTime]="true" formControlName="expectedTimeOfArrival" [minDate]="today" [(ngModel)]="selectedFlight.expectedTimeOfArrival"></p-calendar>
             <!-- <input class="ui-g-12 ui-md-8" type="text" formControlName="expectedTimeOfArrival" placeholder="Expected Time of Arrival" [(ngModel)]="selectedFlight.expectedTimeOfArrival"> -->
             <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['expectedTimeOfArrival'].valid&&userform.controls['expectedTimeOfArrival'].dirty">
                 <i class="fa fa-close"></i>
@@ -62,13 +62,17 @@
         <br/>
         <div class="ui-g">
             <label class="ui-g-12 ui-md-4" for="Expected Time of Departure">Expected Date of Departure: </label>
-            <p-calendar class="ui-g-12 ui-md-8" [showTime]="true" formControlName="expectedTimeOfDeparture" [minDate] ="today" [(ngModel)]="selectedFlight.expectedTimeOfDeparture"></p-calendar>
+            <p-calendar class="ui-g-12 ui-md-8" [showTime]="true" formControlName="expectedTimeOfDeparture" [minDate]="today" [(ngModel)]="selectedFlight.expectedTimeOfDeparture"></p-calendar>
             <!-- <input class="ui-g-12 ui-md-8" type="text" formControlName="expectedTimeOfDeparture" placeholder="Expected Time of Departure" [(ngModel)]="selectedFlight.expectedTimeOfDeparture"> -->
             <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['expectedTimeOfDeparture'].valid&&userform.controls['expectedTimeOfDeparture'].dirty">
                 <i class="fa fa-close"></i>
                 <span *ngIf="userform.controls['expectedTimeOfDeparture'].errors['required']">Expected Time of Departure is required</span>
             </div>
         </div>
+        <br/><br/><br/><br/>
+        <br/><br/><br/><br/>
+        <br/><br/><br/><br/>
+        <br/><br/><br/><br/>
         <p-footer>
             <div>
                 <button pButton icon="fa fa-plus-square" (click)="saveNewFlight()" label="Save & New" [disabled]="!userform.valid" *ngIf="btnSaveNew"></button>
