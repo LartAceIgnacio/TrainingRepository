@@ -16,7 +16,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
         {
             this.context = context;
         }
-
+        
         public Pagination<Appointment> Retrieve(int pageNumber, int recordNumber, DateTime? date)
         {
             Pagination<Appointment> result = new Pagination<Appointment>

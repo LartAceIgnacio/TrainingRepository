@@ -20,9 +20,17 @@ export class GlobalService {
             .catch(this.handleError);
     }
 
-    getSomething<T> (serviceName: string) {
+    getSomething<T> (serviceName?: string) {
         console.log(`${API_URL}/${serviceName}`);
         return this.http.get(`${API_URL}/${serviceName}`)
+            .toPromise()
+            .then(data => { return data as T[]; })
+            .catch(this.handleError);
+    }
+    
+    getAirport<T> (serviceName: string,search: string) {
+        console.log(`${API_URL}/${serviceName}`);
+        return this.http.get(`${API_URL}/${serviceName}?search=${search}`)
             .toPromise()
             .then(data => { return data as T[]; })
             .catch(this.handleError);

@@ -1,0 +1,19 @@
+<p-panel>
+  <div class="ui-g">
+    <div class="ui-g-12 ui-md-12">
+      <p-dataTable [value]="airportList" selectionMode="single" [paginator]="true" [rows]="10" [responsive]="true">
+        <p-header>
+          <div class="ui-inputgroup ui-search-bar">
+            <input type="text" pInputText placeholder="Search Airport" [(ngModel)]="searchFilter" />
+            <button pButton type="button" icon="fa-search" (click)="searchAirport()"></button>
+          </div>
+          <div class="header-left">
+            Airport List
+          </div>
+        </p-header>
+        <p-column field="code" header="Airport Code" [sortable]="true"></p-column>
+        <p-column field="name" header="Airport Name" [sortable]="true"></p-column>
+      </p-dataTable>
+    </div>
+  </div>
+</p-panel>

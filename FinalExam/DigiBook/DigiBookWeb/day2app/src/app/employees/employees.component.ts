@@ -200,7 +200,7 @@ export class EmployeesComponent implements OnInit {
     return employee;
   }
 
-}
+} 
 class PaginationResultClass implements PaginationResult<Employee>{
   constructor(public results, public pageNo, public recordPage, public totalCount) {
 

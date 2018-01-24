@@ -8,6 +8,7 @@ import { VenuesComponent } from './venues/venues.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './registers/register.component';
+import { AirportsComponent } from './airports/airports.component';
  
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -18,6 +19,7 @@ const routes: Routes = [
     { path: 'venues', component: VenuesComponent },
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent },
+    { path: 'airports', component: AirportsComponent }
   ];
  
 @NgModule({

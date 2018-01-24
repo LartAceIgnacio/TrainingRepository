@@ -13716,11 +13716,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\rnebran\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infras.Persistence.Test\\BlastAsia.DigiBook.Infrastructure.Persistence.Test.csproj",
+      "projectUniqueName": "C:\\Users\\rnebran\\Documents\\TrainingRepository\\FinalExam\\DigiBook\\DigiBookApi\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infras.Persistence.Test\\BlastAsia.DigiBook.Infrastructure.Persistence.Test.csproj",
       "projectName": "BlastAsia.DigiBook.Infrastructure.Persistence.Test",
-      "projectPath": "C:\\Users\\rnebran\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infras.Persistence.Test\\BlastAsia.DigiBook.Infrastructure.Persistence.Test.csproj",
+      "projectPath": "C:\\Users\\rnebran\\Documents\\TrainingRepository\\FinalExam\\DigiBook\\DigiBookApi\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infras.Persistence.Test\\BlastAsia.DigiBook.Infrastructure.Persistence.Test.csproj",
       "packagesPath": "C:\\Users\\rnebran\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rnebran\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infras.Persistence.Test\\obj\\",
+      "outputPath": "C:\\Users\\rnebran\\Documents\\TrainingRepository\\FinalExam\\DigiBook\\DigiBookApi\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infras.Persistence.Test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
@@ -13741,11 +13741,11 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\rnebran\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj": {
-              "projectPath": "C:\\Users\\rnebran\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj"
+            "C:\\Users\\rnebran\\Documents\\TrainingRepository\\FinalExam\\DigiBook\\DigiBookApi\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj": {
+              "projectPath": "C:\\Users\\rnebran\\Documents\\TrainingRepository\\FinalExam\\DigiBook\\DigiBookApi\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj"
             },
-            "C:\\Users\\rnebran\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj": {
-              "projectPath": "C:\\Users\\rnebran\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj"
+            "C:\\Users\\rnebran\\Documents\\TrainingRepository\\FinalExam\\DigiBook\\DigiBookApi\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj": {
+              "projectPath": "C:\\Users\\rnebran\\Documents\\TrainingRepository\\FinalExam\\DigiBook\\DigiBookApi\\BlastAsia.DigiBook.Domain\\BlastAsia.DigiBook.Infrastructure.Persistence\\BlastAsia.DigiBook.Infrastructure.Persistence.csproj"
             }
           }
         }

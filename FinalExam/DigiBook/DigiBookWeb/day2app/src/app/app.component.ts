@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
       , { label: 'Contacts', icon: 'fa-address-book', routerLink: '/contacts' }
      // , { label: 'Venues', icon: 'fa-map-marker', routerLink: '/venues' }
       , { label: 'Appointments', icon: 'fa-calendar', routerLink: '/appointments' }
+      , { label: 'Airports', icon: 'fa-calendar', routerLink: '/airports' }
      // , { label: 'Login', icon: 'fa-lock', routerLink:['/login'] }
     ];
   

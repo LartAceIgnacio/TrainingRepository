@@ -31,6 +31,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterComponent } from './registers/register.component';
 
 import { StatisticComponent } from './statistic/statistic.component';
+import { AirportsComponent } from './airports/airports.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { StatisticComponent } from './statistic/statistic.component';
     AppointmentsComponent,
     LoginComponent,
     RegisterComponent,
-    StatisticComponent
+    StatisticComponent,
+    AirportsComponent
   ],
   imports: [
     BrowserModule,
