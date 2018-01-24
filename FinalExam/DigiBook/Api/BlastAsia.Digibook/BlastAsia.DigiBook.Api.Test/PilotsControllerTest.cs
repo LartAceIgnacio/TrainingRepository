@@ -125,7 +125,113 @@ namespace BlastAsia.DigiBook.Api.Test
 
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
         }
-        
+        [TestMethod]
+        public void GetPilot_WithPaginationWithValidData_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = 1;
+            var recordNumber = 3;
+            var keyWord = "em";
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord)
+                )
+                .Returns(new Pagination<Pilot>());
+
+            // act 
+            var result = sut.GetPilot(pageNumber, recordNumber, keyWord);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
+        [TestMethod]
+        public void GetPilot_WithPaginationWithInvalidPageNumber_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = -1;
+            var recordNumber = 3;
+            var keyWord = "em";
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord)
+                )
+                .Returns(new Pagination<Pilot>());
+
+            // act 
+            var result = sut.GetPilot(pageNumber, recordNumber, keyWord);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
+        [TestMethod]
+        public void GetPilot_WithPaginationWIthInvalidRecordNumber_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = 1;
+            var recordNumber = -3;
+            var keyWord = "em";
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord)
+                )
+                .Returns(new Pagination<Pilot>());
+
+            // act 
+            var result = sut.GetPilot(pageNumber, recordNumber, keyWord);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
+
+        [TestMethod]
+        public void GetPilot_WithPaginationWithInvalidKeyWord_ShouldReturnOkObjectValue()
+        {
+            // arrange
+            var pageNumber = 1;
+            var recordNumber = 3;
+            var keyWord = "";
+
+            mockRepo
+                .Setup(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord)
+                )
+                .Returns(new Pagination<Pilot>());
+
+            // act 
+            var result = sut.GetPilot(pageNumber, recordNumber, keyWord);
+
+            // assert
+            mockRepo
+                .Verify(
+                    r => r.Retrieve(pageNumber, recordNumber, keyWord), Times.Once
+                );
+
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+        }
         // Post
         [TestMethod]
         public void CreatePilot_WithNullPilot_ShouldReturnBadRequest()
@@ -364,6 +470,21 @@ namespace BlastAsia.DigiBook.Api.Test
 
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
 
+        }
+
+        [TestMethod]
+        public void SearchPilot_WithValidData_ShouldReturnOkResult()
+        {
+            // arrange
+            var key = "em";
+            // act 
+            var result = sut.GetPilot(1,2,key);
+            // assert
+            mockRepo
+              .Verify(
+                  r => r.Retrieve(1,2,key), Times.Once()
+            );
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
         }
     }
 }

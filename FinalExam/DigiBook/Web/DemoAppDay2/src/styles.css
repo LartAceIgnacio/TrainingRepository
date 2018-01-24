@@ -9,3 +9,6 @@ body {
     padding: .25em;
     position: relative;
 }
+.ui-growl-item {
+    z-index: 9999;
+}

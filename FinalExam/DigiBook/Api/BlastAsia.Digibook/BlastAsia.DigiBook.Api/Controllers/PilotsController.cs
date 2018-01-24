@@ -46,7 +46,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         [Route("api/Pilot")]
         public IActionResult CreatePilot([FromBody] Pilot pilot)
         {
@@ -67,18 +67,23 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpGet]
-        [Route("api/Pilot/{searchKey}")]
-        public IActionResult SearchPilot(string searchKey)
+        [Route("api/Pilot/{pageNumber}/{recordNumber}/")]
+        public IActionResult GetPilot(int pageNumber, int recordNumber, string query)
         {
-            var result = new List<Pilot>();
-
-            result.AddRange(this.pilotRepository.Search(searchKey));
-
-            return Ok(result);
+            try
+            {
+                var result = new Pagination<Pilot>();
+                result = this.pilotRepository.Retrieve(pageNumber, recordNumber, query);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete]
-        //[Authorize]
+        [Authorize]
         [Route("api/Pilot")]
         public IActionResult DeletePilot(Guid id)
         {
@@ -94,7 +99,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
         }
 
         [HttpPut]
-        //[Authorize]
+        [Authorize]
         [Route("api/Pilot")]
         public IActionResult UpdatePilot(
             [FromBody]
@@ -130,7 +135,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
 
 
         [HttpPatch]
-        //[Authorize]
+        [Authorize]
         [Route("api/Pilot")]
         public IActionResult PatchPilot([FromBody]JsonPatchDocument patchedPilot, Guid id)
         {

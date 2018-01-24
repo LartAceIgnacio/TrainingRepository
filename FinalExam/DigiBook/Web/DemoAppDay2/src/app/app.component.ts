@@ -23,7 +23,7 @@ export class AppComponent {
       {label: 'Employee', icon: 'fa-user-circle', routerLink: ['/employee']},
       {label: 'Contact', icon: 'fa-user-plus', routerLink: ['/contact']},
       {label: 'Appointment', icon: 'fa-handshake-o ', routerLink: ['/appointment']},
-      
+      {label: 'Pilot', icon: 'fa-handshake-o ', routerLink: ['/pilot']},
   ];
   };
 

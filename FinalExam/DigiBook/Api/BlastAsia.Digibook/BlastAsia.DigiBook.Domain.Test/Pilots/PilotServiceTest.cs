@@ -35,9 +35,9 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
                 LastName = "Magadia",
                 DateOfBirth = DateTime.Now,
                 YearsOfExperience = 12,
-                DateActivated = DateTime.Now,
+                DateActivated = DateTime.Parse("2018-01-23T07:34:42-5:00"),
                 PilotCode = "",
-                DateCreated = DateTime.Now,
+                DateCreated = DateTime.Parse("2018-01-23T07:34:42-5:00"),
                 DateModified = DateTime.Now
             };
 
@@ -77,7 +77,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
         public void Save_WithValidData_ShouldCallRepositorySave()
         {
             // arrange
-
+            pilot.MiddleName = "";
             // act 
             sut.Save(pilot.PilotId, pilot);
 
@@ -266,7 +266,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
         public void Save_WithExistingPilotCode_ShouldThrowExistingPilotCodeException()
         {
             // arrange
-
+            pilot.PilotId = Guid.Empty;
             pilot.FirstName = "Try";
             pilot.MiddleName = "Try";
 
@@ -299,6 +299,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
         public void Save_WithNoneExistingPilotCode_ShouldCallRepositoryCreate()
         {
             // act 
+            pilot.PilotId = Guid.Empty;
             sut.Save(pilot.PilotId, pilot);
 
             // assert
@@ -354,6 +355,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
                 .Verify(
                     r => r.Retrieve(noneExistingPilotId), Times.Once
                 );
+
             mockRepo
                 .Verify(
                     r => r.Create(pilot), Times.Once

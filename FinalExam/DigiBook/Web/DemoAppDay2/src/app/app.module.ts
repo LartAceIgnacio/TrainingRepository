@@ -42,6 +42,7 @@ import { CommonModule } from '@angular/common';
 import { ChartModule } from 'primeng/components/chart/chart';
 import { AuthResponseInterceptor } from './services/common/Authentication/auth-response-interceptor';
 import { AboutComponent } from './about/about.component';
+import { PilotComponent } from './pilot/pilot.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { AboutComponent } from './about/about.component';
     LoginComponent,
     StatisticComponent,
     RegisterComponent,
-    AboutComponent
+    AboutComponent,
+    PilotComponent
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ import { SampleValidationComponent } from './sample-validation/sample-validation
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AboutComponent } from './about/about.component';
+import { PilotComponent } from './pilot/pilot.component';
 
 //Routes Settings
 const routes: Routes = [
@@ -25,7 +26,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component:  RegisterComponent},
   { path: 'about', component:  AboutComponent},
-  
+  { path: 'pilot', component: PilotComponent }
   
 ];
      

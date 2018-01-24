@@ -1,0 +1,160 @@
+<div>
+  <p-panel>
+    <p-header>
+      <div class="ui-g">
+        <div class="ui-g-2">
+          <button pButton type="button" icon="fa-plus" (click)="add()" *ngIf="this.authService.isLoggedIn()"></button>
+          <span> Pilot </span>
+        </div>
+        <div class="ui-g-10">
+          <div class="ui-inputgroup" style="float:right;">
+            <input type="text" pInputText placeholder="Search" [(ngModel)]="searchQuery" (ngModelChange)="checkIfEmpty($event)">
+            <button pButton type="button" icon="fa-search" (click)="search()"></button>
+          </div>
+        </div>
+      </div>
+    </p-header>
+    <div class="ui-g">
+
+      <p-dataTable #dt [value]="pilotList" [rows]="5" [paginator]="true" [pageLinks]="5" [responsive]="true" (onLazyLoad)="paginate($event)"
+        [lazy]="true" [totalRecords]="totalRecords">
+
+        <p-column field="firstName" header="Controls" *ngIf="this.authService.isLoggedIn()">
+          <ng-template let-row="rowData" pTemplate type="body" let-i="rowIndex">
+            <div style="text-align:center;">
+              <button pButton type="button" icon="fa-pencil" (click)="edit(row)"></button>
+              <button pButton type="button" icon="fa-times" (click)="setdeletion(row)"></button>
+            </div>
+          </ng-template>
+        </p-column>
+
+        <p-column field="firstName" header="First name" [sortable]="true"></p-column>
+        <p-column field="middleName" header="Middle Name" [sortable]="true"></p-column>
+        <p-column field="lastName" header="Last name" [sortable]="true"></p-column>
+        <p-column field="pilotCode" header="Pilot Code" [sortable]="true"></p-column>
+        <p-column field="dateActivated" header="DateActivated" [sortable]="true"></p-column>
+      </p-dataTable>
+
+    </div>
+  </p-panel>
+
+  <p-dialog header="" [(visible)]="displayModal" [width]="800" [height]="520" [modal]="true">
+    <p-header>
+      Add Pilot
+    </p-header>
+    <div>
+      <form [formGroup]="userform" (ngSubmit)="savePilot()" *ngIf="clonedSelectedPilot">
+        <p-panel header="Pilot Details">
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                First Name *:
+              </div>
+              <div class="ui-grid-col-6">
+                <input pInputText type="text" formControlName="firstName" placeholder="Required" [(ngModel)]="clonedSelectedPilot.firstName"
+                />
+
+              </div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['firstName'].valid&&userform.controls['firstName'].dirty">
+                  <i class="fa fa-close"></i>
+                  First name is required
+                </div>
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Last Name *:
+              </div>
+              <div class="ui-grid-col-6">
+                <input pInputText type="text" formControlName="lastName" placeholder="Required" [(ngModel)]="clonedSelectedPilot.lastName"
+                />
+              </div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['lastName'].valid&&userform.controls['lastName'].dirty">
+                  <i class="fa fa-close"></i>
+                  Last name is required
+                </div>
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Middle Name:
+              </div>
+              <div class="ui-grid-col-6">
+                <input pInputText type="text" formControlName="middleName" placeholder="Required" [(ngModel)]="clonedSelectedPilot.middleName"
+                />
+              </div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['middleName'].valid&&userform.controls['middleName'].dirty">
+                  <i class="fa fa-close"></i>
+                  <span *ngIf="userform.controls['middleName'].errors['required']">Mobile number is required</span>
+                  <span *ngIf="userform.controls['middleName'].errors['minlength']">Must be longer than 11 characters</span>
+                </div>
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Birth Date *:
+              </div>
+              <div class="ui-grid-col-6">
+                <p-calendar formControlName="dateOfBirth" [(ngModel)]="clonedSelectedPilot.dateOfBirth" [showIcon]="true"></p-calendar>
+              </div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['dateOfBirth'].valid&&userform.controls['dateOfBirth'].dirty">
+                  <i class="fa fa-close"></i>
+                  BirthDate is required
+                </div>
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Years Of Experience *:
+              </div>
+              <div class="ui-grid-col-6">
+                <input pInputText type="number" formControlName="yearsOfExperience" placeholder="Required" [(ngModel)]="clonedSelectedPilot.yearsOfExperience"
+                />
+
+              </div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['yearsOfExperience'].valid&&userform.controls['yearsOfExperience'].dirty">
+                  <i class="fa fa-close"></i>
+                  Years of Experience is required!
+                </div>
+              </div>
+            </div>
+
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Date Activated *:
+              </div>
+              <div class="ui-grid-col-6">
+                <p-calendar formControlName="dateActivated" [(ngModel)]="clonedSelectedPilot.dateActivated" [showIcon]="true"></p-calendar>
+              </div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['dateActivated'].valid&&userform.controls['dateActivated'].dirty">
+                  <i class="fa fa-close"></i>
+                  Date Activated is required
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align:center;margin-top:20px" *ngIf="submitted">
+            </div>
+          </div>
+        </p-panel>
+      </form>
+    </div>
+    <p-footer>
+      <button pButton type="button" icon="fa fa-floppy-o" label="Save and New" [disabled]="!userform.valid" class="ui-button-success"
+        (click)="save('SaveAndNew')" *ngIf="showAddAndNew"></button>
+
+      <button pButton type="button" icon="fa fa-floppy-o" label="Save" [disabled]="!userform.valid" class="ui-button-success" (click)="save('Save')"
+        *ngIf="showAdd"></button>
+
+      <button pButton type="button" icon="fa fa-times" label="Delete" class="ui-button-success" (click)="delete()" *ngIf="showDelete"></button>
+      <button pButton type="button" icon="fa fa-window-close" label="Cancel" class="ui-button-danger" (click)="cancel('Add')"></button>
+    </p-footer>
+  </p-dialog>
+  <p-growl [value]="msgs" life="2000" ></p-growl>
+</div>
