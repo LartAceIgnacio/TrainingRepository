@@ -60,7 +60,23 @@ export class FlightsComponent implements OnInit {
 
     this.cities = [
       {label: 'AAV - Surallah', value: 'AAV'},
-      {label: 'CBO - Cotabato', value: 'CBO'}
+      {label: 'CBO - Cotabato', value: 'CBO'},
+      {label: 'BCD - Bacolod', value: 'BCD'},
+      {label: 'BNQ - Baganga', value: 'BNQ'},
+      {label: 'BQA - Baler', value: 'BQA'},
+      {label: 'BSO - Basco', value: 'BSO'},
+      {label: 'BPH - Bislig', value: 'BPH'},
+      {label: 'BXU - Butuan', value: 'BXU'},
+      {label: 'CGY - Cagayan De Oro', value: 'CGY'},
+      {label: 'CDY - Cagayan De Sulu', value: 'CDY'},
+      {label: 'CYP - Calbayog', value: 'CYP'},
+      {label: 'CYZ - Cauayan', value: 'CYZ'},
+      {label: 'RZP - Taytay Sandoval', value: 'RZP'},
+      {label: 'XCN - Coron', value: 'XCN'},
+      {label: 'NCP - Luzon Is', value: 'NCP'},
+      {label: 'CUJ - Culion', value: 'CUJ'},
+      {label: 'CYU - Cuyo', value: 'CYU'},
+      {label: 'MNL - Manila', value: 'MNL'}
     ];
     
   }
