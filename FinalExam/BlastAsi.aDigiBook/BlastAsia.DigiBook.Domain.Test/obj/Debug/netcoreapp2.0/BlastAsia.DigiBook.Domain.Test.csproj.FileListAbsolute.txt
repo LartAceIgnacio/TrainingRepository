@@ -1,0 +1,44 @@
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.deps.json
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.runtimeconfig.json
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.runtimeconfig.dev.json
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.dll
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.pdb
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.csprojResolveAssemblyReference.cache
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.csproj.CoreCompileInputs.cache
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.AssemblyInfoInputs.cache
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.AssemblyInfo.cs
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.dll
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.pdb
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.dll
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\jmagdaleno\Documents\visual studio 2017\Projects\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.deps.json
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.runtimeconfig.json
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.runtimeconfig.dev.json
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.dll
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.pdb
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.dll
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.dll
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Models.pdb
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.csprojResolveAssemblyReference.cache
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.csproj.CoreCompileInputs.cache
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.AssemblyInfoInputs.cache
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.AssemblyInfo.cs
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.dll
+C:\Users\jmagdaleno\Documents\BackUp\BlastAsi.aDigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.pdb
