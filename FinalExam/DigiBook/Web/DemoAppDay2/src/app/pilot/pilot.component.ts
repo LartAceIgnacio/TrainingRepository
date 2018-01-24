@@ -263,6 +263,7 @@ export class PilotComponent implements OnInit {
         for (var i = 0; i < result.result.length; i++) {
           result.result[i].dateOfBirth = new Date(result.result[i].dateOfBirth).toLocaleDateString();
           result.result[i].dateActivated = new Date(result.result[i].dateActivated).toLocaleDateString();
+          result.result[i]["middleInitial"] = result.result[i].middleName.substring(0,1).toUpperCase();
         }
 
         this.pilotList = result.result;
