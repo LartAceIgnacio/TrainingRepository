@@ -27,15 +27,15 @@ namespace BlastAsia.DigiBook.API.Controllers
         private IActionContextAccessor actionAccessor;
 
 
-        public AirportController(IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionAccessor)
+        public AirportController(/*IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionAccessor*/)
         {
-            this.urlHelperFactory = urlHelperFactory;
-            this.actionAccessor = actionAccessor;
+            /*this.urlHelperFactory = urlHelperFactory;
+            this.actionAccessor = actionAccessor;*/
         }
 
         // GET: api/Airport
         [HttpGet]
-        public async Task<IActionResult> GetCodesAsync(string code)
+        public async Task<IActionResult> GetCodesAsync()
         {
             using (HttpClient client = new HttpClient())
             // iatacode code params
