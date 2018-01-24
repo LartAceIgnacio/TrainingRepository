@@ -7,5 +7,7 @@ namespace BlastAsia.DigiBook.Domain.Inventories
     public interface IInventoryRepository : IRepository<Inventory>
     {
         PaginationClass<Inventory> Retrieve(int pageNo, int numRec, string filterValue);
+
+        Inventory CheckProductCode(string code);
     }
 }

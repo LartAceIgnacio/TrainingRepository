@@ -6,14 +6,19 @@ using System.Linq;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
 {
-    public class InventoryRepository 
+    public class InventoryRepository
         : RepositoryBase<Inventory>, IInventoryRepository
     {
         private DigiBookDbContext dbContext;
 
         public InventoryRepository(IDigiBookDbContext context)
-            :base(context)
+            : base(context)
         {
+        }
+
+        public Inventory CheckProductCode(string code)
+        {
+            return this.context.Set<Inventory>().FirstOrDefault(x => x.ProductCode == code);
         }
 
         public PaginationClass<Inventory> Retrieve(int pageNo, int numRec, string filterValue)
@@ -21,12 +26,13 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
             PaginationClass<Inventory> result = new PaginationClass<Inventory>();
             if (string.IsNullOrEmpty(filterValue))
             {
-                result.Results = context.Set<Inventory>().OrderBy(x => x.ProductName).ThenBy(x => x.ProductDescription)
+                result.Results = context.Set<Inventory>().Where(x => x.IsActive == true)
+                    .OrderBy(x => x.ProductName).ThenBy(x => x.ProductDescription)
                     .Skip(pageNo).Take(numRec).ToList();
 
                 if (result.Results.Count > 0)
                 {
-                    result.TotalRecords = context.Set<Inventory>().Count();
+                    result.TotalRecords = context.Set<Inventory>().Where(x => x.IsActive == true).Count();
                     result.PageNo = pageNo;
                     result.RecordPage = numRec;
                 }
@@ -36,14 +42,14 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
             else
             {
                 result.Results = context.Set<Inventory>().Where(x => x.ProductName.ToLower().Contains(filterValue.ToLower()) ||
-                    x.ProductDescription.ToLower().Contains(filterValue.ToLower()))
+                    x.ProductDescription.ToLower().Contains(filterValue.ToLower())).Where(x => x.IsActive == true)
                     .OrderBy(x => x.ProductName).ThenBy(x => x.ProductDescription)
                     .Skip(pageNo).Take(numRec).ToList();
 
                 if (result.Results.Count > 0)
                 {
                     result.TotalRecords = context.Set<Inventory>().Where(x => x.ProductName.ToLower().Contains(filterValue.ToLower()) ||
-                        x.ProductDescription.ToLower().Contains(filterValue.ToLower())).Count();
+                    x.ProductDescription.ToLower().Contains(filterValue.ToLower())).Where(x => x.IsActive == true).Count();
                     result.PageNo = pageNo;
                     result.RecordPage = numRec;
                 }

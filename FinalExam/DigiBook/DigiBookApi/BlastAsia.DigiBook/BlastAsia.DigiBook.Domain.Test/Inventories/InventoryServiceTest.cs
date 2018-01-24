@@ -74,6 +74,22 @@ namespace BlastAsia.DigiBook.Domain.Test.Inventories
         }
 
         [TestMethod]
+        public void Save_WithExisitingProductCode_ThrowsProductCodeAlreadyExistException()
+        {
+            // Arrange
+            var existingProductCode = inventory.ProductCode;
+            
+            mockInventoryRepository
+                .Setup(ir => ir.CheckProductCode(existingProductCode))
+                .Returns(inventory);
+
+            // Assert
+            Assert.ThrowsException<ProductCodeAlreadyExistException>(
+                () => sut.Save(inventory.ProductId, inventory));
+
+        }
+
+        [TestMethod]
         public void Save_WithValidData_ReturnNewInventoryWithProductId()
         {
             // Arrange

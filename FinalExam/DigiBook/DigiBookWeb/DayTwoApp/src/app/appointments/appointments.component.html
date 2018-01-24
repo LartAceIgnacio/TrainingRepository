@@ -8,7 +8,7 @@
           <button pButton icon="fa fa-plus" (click)="showDialog()"></button> Appointments
           <div class="header-search">
             <button type="button" pButton (click)="searchAppointment()" icon="fa-search"></button>
-            <input #gb type="text" size="20" placeholder="Search">
+            <input [(ngModel)]="searchFilter" type="text" size="20" placeholder="Search">
           </div>
         </div>
       </p-header>

@@ -60,8 +60,16 @@ namespace BlastAsia.DigiBook.Domain.Inventories
                 throw new BinInvalidException("Bin invalid format");
             }
 
-            Inventory result = null;
             var found = inventoryRepository.Retrieve(id);
+            var foundCode = this.inventoryRepository.CheckProductCode(inventory.ProductCode);
+
+            if (foundCode != null && found == null)
+            {
+                throw new ProductCodeAlreadyExistException("Product Code already exist");
+            }
+
+            Inventory result = null;
+            
             if (found == null)
             {
                 result = inventoryRepository.Create(inventory);

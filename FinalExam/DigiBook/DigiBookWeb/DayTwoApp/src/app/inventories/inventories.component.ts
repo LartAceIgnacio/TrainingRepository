@@ -23,8 +23,10 @@ export class InventoriesComponent implements OnInit {
   cloneInventory: Inventory;
   display: boolean;
   userform: FormGroup;
+  userformEdit: FormGroup;
   isDelete: boolean;
   isEdit: boolean;
+  edit: boolean;
   paginationResult: PaginationResult<Inventory>;
   // tslint:disable-next-line:no-inferrable-types
   searchFilter: string = '';
@@ -113,6 +115,18 @@ export class InventoriesComponent implements OnInit {
       'Block': new FormControl('', Validators.required),
       'Rack': new FormControl('', Validators.required)
     });
+
+    this.userformEdit = this.fb.group({
+      'productCode': new FormControl('', Validators.compose([Validators.required, Validators.maxLength(8), Validators.minLength(8)])),
+      'productName': new FormControl('', Validators.compose([Validators.required, Validators.maxLength(60)])),
+      'productDescription': new FormControl('', Validators.compose([Validators.required, Validators.maxLength(250)])),
+      'QOH': new FormControl(''),
+      'QOR': new FormControl(''),
+      'QOO': new FormControl(''),
+      'Floor': new FormControl('', Validators.required),
+      'Block': new FormControl('', Validators.required),
+      'Rack': new FormControl('', Validators.required)
+    });
   }
 
 
@@ -122,6 +136,9 @@ export class InventoriesComponent implements OnInit {
     this.userform.enable();
     this.userform.markAsPristine();
     this.isNewInventory = true;
+    this.Floor = null;
+    this.Block = null;
+    this.Rack = null;
     this.selectedInventory = new InventoryClass();
     this.display = true;
   }
@@ -142,17 +159,24 @@ export class InventoriesComponent implements OnInit {
         this.paginationResult = paginationResult;
         this.inventoryList = this.paginationResult.results;
         this.totalRecords = this.paginationResult.totalRecords;
+        for (let i = 0; i < this.inventoryList.length; i++) {
+          this.inventoryList[i].dateCreated = this.inventoryList[i].dateCreated == null ? null :
+            new Date(this.inventoryList[i].dateCreated).toLocaleDateString();
+        }
       });
   }
 
   editInventory(inventoryToEdit: Inventory) {
     this.isEdit = true;
     this.isDelete = false;
-    this.userform.enable();
+    this.userformEdit.enable();
     this.isNewInventory = false;
+    this.Floor = inventoryToEdit.bin.substring(0, 2);
+    this.Block = inventoryToEdit.bin.substring(2, 4);
+    this.Rack = inventoryToEdit.bin.substring(4);
     this.selectedInventory = this.cloneRecord(inventoryToEdit);
     this.cloneInventory = inventoryToEdit;
-    this.display = true;
+    this.edit = true;
   }
 
   deleteInventory(inventoryToDelete: Inventory) {
@@ -160,6 +184,9 @@ export class InventoriesComponent implements OnInit {
     this.userform.disable();
     this.display = true;
     this.isNewInventory = false;
+    this.Floor = inventoryToDelete.bin.substring(0, 2);
+    this.Block = inventoryToDelete.bin.substring(2, 4);
+    this.Rack = inventoryToDelete.bin.substring(4);
     this.selectedInventory = this.cloneRecord(inventoryToDelete);
     this.cloneInventory = inventoryToDelete;
     this.userform.markAsPristine();
@@ -182,9 +209,9 @@ export class InventoriesComponent implements OnInit {
 
   saveInventory() {
     const tmpInventoryList = [...this.inventoryList];
+    this.selectedInventory.isActive = true;
     this.selectedInventory.bin = this.Floor + this.Block + this.Rack;
     if (this.isNewInventory) {
-      this.selectedInventory.dateCreated = new Date();
       this.globalService.postSomething<Inventory>('Inventories', this.selectedInventory)
         .then(inventory => {
           tmpInventoryList.push(inventory);
@@ -193,7 +220,6 @@ export class InventoriesComponent implements OnInit {
           this.display = false;
         });
     } else {
-      this.selectedInventory.dateModified = new Date();
       this.globalService.putSomething<Inventory>('Inventories', this.selectedInventory.productId, this.selectedInventory)
         .then(inventory => {
           tmpInventoryList[this.inventoryList.indexOf(this.cloneInventory)] = this.selectedInventory;
@@ -208,6 +234,9 @@ export class InventoriesComponent implements OnInit {
   newSaveInventory() {
     this.userform.markAsPristine();
     const tmpInventoryList = [...this.inventoryList];
+    this.selectedInventory.isActive = true;
+    this.selectedInventory.bin = this.Floor + this.Block + this.Rack;
+    this.selectedInventory.dateCreated = new Date();
     this.globalService.postSomething<Inventory>('Inventories', this.selectedInventory)
       .then(inventory => {
         tmpInventoryList.push(inventory);
@@ -225,11 +254,13 @@ export class InventoriesComponent implements OnInit {
     this.selectedInventory = Object.assign({}, this.cloneInventory);
     this.selectedInventory = new InventoryClass();
     this.display = false;
+    this.edit = false;
+    this.userformEdit.markAsPristine();
     this.userform.markAsPristine();
   }
 
   cancelInventory() {
-    if (this.userform.dirty) {
+    if (this.userform.dirty || this.userformEdit.dirty) {
       this.confirmationService.confirm({
         message: 'Are you sure that you want to discard changes?',
         accept: () => {
@@ -238,13 +269,14 @@ export class InventoriesComponent implements OnInit {
       });
     } else {
       this.display = false;
+      this.edit = false;
     }
   }
 
-  onRowSelect() {
-    this.isNewInventory = false;
-    this.cloneInventory = this.cloneRecord(this.selectedInventory);
-  }
+  // onRowSelect() {
+  //   this.isNewInventory = false;
+  //   this.cloneInventory = this.cloneRecord(this.selectedInventory);
+  // }
 
   cloneRecord(r: Inventory): Inventory {
     // tslint:disable-next-line:prefer-const

@@ -112,15 +112,15 @@ namespace BlastAsia.DigiBook.API.Test
         }
 
         [TestMethod]
-        public void DeleteInventory_WithExistingProductId_ReturnsNoContent()
+        public void DeleteInventory_WithExistingProductId_ReturnsOkObjectResult()
         {
             // Act
             var result = sut.DeleteInventory(existingProductId);
 
             // Assert
             mockInventoryRepository
-                .Verify(ir => ir.Delete(existingProductId), Times.Once);
-            Assert.IsInstanceOfType(result, typeof(NoContentResult));
+                .Verify(ir => ir.Update(existingProductId, inventory), Times.Once);
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
         }
 
         [TestMethod]

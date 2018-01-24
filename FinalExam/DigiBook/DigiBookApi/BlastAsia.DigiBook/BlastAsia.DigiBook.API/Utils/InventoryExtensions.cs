@@ -17,7 +17,7 @@ namespace BlastAsia.DigiBook.API.Utils
             inventory.QOH = from.QOH;
             inventory.QOR = from.QOR;
             inventory.QOO = from.QOO;
-            inventory.DateModified = DateTime.Today;
+            inventory.DateModified = DateTime.Now;
             inventory.Bin = from.Bin;
 
             return inventory;

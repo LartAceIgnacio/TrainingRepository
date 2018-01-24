@@ -4894,11 +4894,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj",
+      "projectUniqueName": "C:\\Users\\ddeguzman\\Documents\\TrainingRepository\\FinalExam\\DigiBook\\DigiBookApi\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj",
       "projectName": "BlastAsia.DigiBook.Domain.Models",
-      "projectPath": "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj",
+      "projectPath": "C:\\Users\\ddeguzman\\Documents\\TrainingRepository\\FinalExam\\DigiBook\\DigiBookApi\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\BlastAsia.DigiBook.Domain.Models.csproj",
       "packagesPath": "C:\\Users\\ddeguzman\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ddeguzman\\Documents\\Visual Studio 2017\\Projects\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\obj\\",
+      "outputPath": "C:\\Users\\ddeguzman\\Documents\\TrainingRepository\\FinalExam\\DigiBook\\DigiBookApi\\BlastAsia.DigiBook\\BlastAsia.DigiBook.Domain.Models\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",

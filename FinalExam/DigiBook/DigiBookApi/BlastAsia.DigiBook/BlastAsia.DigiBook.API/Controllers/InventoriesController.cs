@@ -50,7 +50,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             var result = new List<Inventory>();
             if (id == null)
             {
-                result.AddRange(this.inventoryRepository.Retrieve().Where(x => x.IsActive = true));
+                result.AddRange(this.inventoryRepository.Retrieve());
             }
             else
             {
@@ -72,8 +72,8 @@ namespace BlastAsia.DigiBook.API.Controllers
                     return BadRequest();
                 }
 
+                inventory.DateCreated = DateTime.Now;
                 var result = this.inventoryService.Save(Guid.Empty, inventory);
-
                 return CreatedAtAction("GetInventories",
                     new { id = inventory.ProductId }, result);
             }
@@ -94,8 +94,10 @@ namespace BlastAsia.DigiBook.API.Controllers
                 return NotFound();
             }
 
-            inventoryRepository.Delete(id);
-            return NoContent();
+            inventoryToDelete.IsActive = false;
+            this.inventoryRepository.Update(id, inventoryToDelete);
+            return Ok(inventory);
+
         }
 
         [HttpPut]
@@ -112,6 +114,7 @@ namespace BlastAsia.DigiBook.API.Controllers
             {
                 return NotFound();
             }
+
             inventoryToUpdate.ApplyChanges(inventory);
             this.inventoryRepository.Update(id, inventoryToUpdate);
             return Ok(inventory);

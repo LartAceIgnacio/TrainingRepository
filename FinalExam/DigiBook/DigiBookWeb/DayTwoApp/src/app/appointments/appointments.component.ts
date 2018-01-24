@@ -197,6 +197,8 @@ export class AppointmentsComponent implements OnInit {
 
   newSaveAppointment() {
     const tmpAppointmentList = [...this.appointmentList];
+    this.selectedAppointment.guestId = this.selectedContact.contactId;
+    this.selectedAppointment.hostId = this.selectedEmployee.employeeId;
     this.globalService.postSomething<Appointment>('Appointments', this.selectedAppointment)
       .then(appointment => {
         this.selectedAppointment = appointment;
