@@ -7,6 +7,7 @@ import { ContactsComponent }      from './contacts/contacts.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './user/register.component';
+import { AirportComponent } from './airport/airport.component';
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'appointments', component: AppointmentsComponent },
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent }
+  { path: 'airport', component: AirportComponent }
 
 ];
 

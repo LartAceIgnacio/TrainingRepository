@@ -27,6 +27,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './user/register.component';
 import { StatisticComponent } from './statistic/statistic.component';
+import { AirportComponent } from './airport/airport.component';
 
 
 // const appRoutes: Routes = [
@@ -44,7 +45,8 @@ import { StatisticComponent } from './statistic/statistic.component';
     AppointmentsComponent,
     LoginComponent,
     RegisterComponent,
-    StatisticComponent
+    StatisticComponent,
+    AirportComponent
   ],
   imports: [
     BrowserModule,
