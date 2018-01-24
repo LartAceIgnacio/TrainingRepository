@@ -30,7 +30,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
                 OfficePhone = "758-5224",
                 Extension = "02",
                 PhotoByte = new byte[16]
-        };
+            };
 
             connectionString =
                 @"Data Source=.;Database=DigiBookDb;Integrated Security=true;";

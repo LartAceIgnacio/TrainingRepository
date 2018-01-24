@@ -31,6 +31,7 @@ import { AuthService } from './services/authservice';
 import { AuthInterceptor } from './services/auth-interceptor';
 import { AuthResponseInterceptor } from './services/auth-response-interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AirportComponent } from './airport/airport.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     LoginComponent,
     StatisticComponent,
     RegisterComponent,
-    TallyComponent
+    TallyComponent,
+    AirportComponent
   ],
   imports: [
     BrowserModule,

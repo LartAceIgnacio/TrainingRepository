@@ -22,6 +22,13 @@ export class GlobalService {
             .catch(this.handleError);
     }
     
+    getSomethingWithUrl<T> (serviceName: string, baseUrl: string) {
+        return this.http.get(`${API_URL}/${serviceName}?baseUrl=${baseUrl}`)
+            .toPromise()
+            .then(data => { return data as T[]; })
+            .catch(this.handleError);
+    }
+    
     addSomething<T>(serviceName: string, objEntity: T) {
         return this.http.post(`${API_URL}/${serviceName}`, objEntity)
             .toPromise()

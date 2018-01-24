@@ -20,6 +20,7 @@ export class AppComponent {
       { label: 'Contacts', icon: 'fa-id-card', routerLink:['/contacts'] },
       { label: 'Employees', icon: 'fa-users', routerLink:['/employees'] },
       { label: 'Venues', icon: 'fa-map-marker', routerLink:['/venues'] },
+      { label: 'Airports', icon: 'fa-plane', routerLink:['/airports'] },
       { label: 'Google', icon: 'fa-refresh', url: "https://www.google.com" }
     ];
   }

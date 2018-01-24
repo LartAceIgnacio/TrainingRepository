@@ -1,0 +1,19 @@
+<p-panel>
+  <div class="ui-g">
+    <p-dataTable #dt [value]="airportList" [rows]="10" [paginator]="true" [pageLinks]="5" 
+      [responsive]="true" [loading]="loading" loadingIcon="fa-spinner" [globalFilter]="gb">
+      <p-header>
+        <div class="addHeader">
+          <button type="button" pButton icon="fa-plus" (click)="addAirport()"></button>
+          &nbsp;Airports
+        </div>
+        <div style="text-align: right">        
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input #gb type="text" pInputText size="50" placeholder="Search Airport" style="width:auto">
+        </div>
+      </p-header>
+      <p-column field="code" header="Airport Code"></p-column>
+      <p-column field="name" header="Airport Name"></p-column>
+    </p-dataTable>
+  </div>
+</p-panel>

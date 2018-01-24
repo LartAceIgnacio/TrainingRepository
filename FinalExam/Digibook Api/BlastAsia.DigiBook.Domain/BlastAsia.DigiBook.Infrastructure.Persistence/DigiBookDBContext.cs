@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using BlastAsia.DigiBook.Infrastructure.Security;
+using BlastAsia.DigiBook.Domain.Models.Inventories;
 
 namespace BlastAsia.DigiBook.Infrastructure.Persistence
 {
@@ -26,6 +27,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Venue> Venues { get; set; }
+        public DbSet<Inventory> Inventories { get; set; }
 
         public DbSet<Token> Tokens { get; set; }
 
@@ -85,6 +87,10 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence
             #endregion
 
             modelBuilder.Entity<Venue>().ToTable("Venue");
+
+            modelBuilder.Entity<Inventory>().ToTable("Inventory")
+                .Property(a => a.ProductId)
+                .ValueGeneratedOnAdd();
         }
     }
 }

@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using BlastAsia.DigiBook.Domain.Models;
-using BlastAsia.DigiBook.Infrastructure.Persistence;
+﻿using BlastAsia.DigiBook.Infrastructure.Persistence;
 using BlastAsia.DigiBook.Infrastructure.Persistence.Seeders;
 using BlastAsia.DigiBook.Infrastructure.Security;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using System;
+using System.Net.Http;
 
 namespace BlastAsia.DigiBook.API
 {
     public class Program
     {
+        private static readonly HttpClient client = new HttpClient();
+
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
@@ -37,7 +33,7 @@ namespace BlastAsia.DigiBook.API
 
                 Seeder.Seed(dbContext, userManager, roleManager);
             }
-        }
+        } 
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)

@@ -154,7 +154,7 @@ export class AppointmentsComponent implements OnInit {
     this.selectedAppointment.isDone = this.selectedDone == 'true' ? true : false;
     this.selectedAppointment.guestId = this.selectedContact.contactId;
     this.selectedAppointment.hostId = this.selectedEmployee.employeeId;
-    this.selectedAppointment.appointmentDate = this.datePipe.transform(this.dateActivated, 'yyyy-MM-dd');;
+    this.selectedAppointment.appointmentDate = this.datePipe.transform(this.dateActivated, 'yyyy-MM-dd');
     if (this.isNewAppointment) {
       this.globalService.addSomething<Appointment>("Appointments", this.selectedAppointment).then(appointments => {
         tmpAppointmentList.push(appointments);
