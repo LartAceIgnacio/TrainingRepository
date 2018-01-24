@@ -243,7 +243,7 @@ export class AppointmentsComponent implements OnInit {
     this.cloneAppointment = this.cloneRecord(this.selectedAppointment);
     this.display=true;
     this.isNewAppointment = false;
-    this.selectedAppointment.appointmentDate = new Date(this.selectedAppointment.appointmentDate)
+    this.selectedAppointment.appointmentDate = new Date(this.selectedAppointment.appointmentDate);
     this.selectedGuest = this.guestList.find(x => x.contactId == this.selectedAppointment.guestId);
     this.selectedHost = this.hostList.find(x => x.employeeId == this.selectedAppointment.hostId);
   }

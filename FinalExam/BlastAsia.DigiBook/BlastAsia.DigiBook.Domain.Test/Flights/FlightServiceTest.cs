@@ -14,6 +14,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
         private Flight flight;
         private Mock<IFlightRepository> mockFlightRepository;
         private FlightService sut;
+        private string existingCode;
 
         [TestInitialize]
         public void Initialize()
@@ -27,6 +28,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
             };
             mockFlightRepository = new Mock<IFlightRepository>();
             sut = new FlightService(mockFlightRepository.Object);
+            existingCode = "MNLLGN18012401";
         }
 
         [TestCleanup]
@@ -70,6 +72,19 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
             // Assert
             Assert.IsTrue(flight.FlightCode != null);
             mockFlightRepository.Verify(f => f.Create(flight), Times.Once);
+        }
+
+        [TestMethod]
+        public void Save_FlightCodeNotUnique_ShouldReturnUniqueFlightCodeRequiredException()
+        {
+            // Arrange
+            mockFlightRepository
+                .Setup(f => f.Retrieve(existingCode))
+                .Returns(flight);
+
+            // Assert
+            Assert.ThrowsException<UniqueFlightCodeRequiredException>(
+                () => sut.Save(flight.FlightId,flight));
         }
 
         [TestMethod]

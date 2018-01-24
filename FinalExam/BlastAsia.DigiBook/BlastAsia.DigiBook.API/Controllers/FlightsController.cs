@@ -42,6 +42,23 @@ namespace BlastAsia.DigiBook.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet, ActionName("GetFlightsWithFlightCode")]
+        [Route("api/Flights/{code}")]
+        public IActionResult GetFlightsWithFlightCode(string code)
+        {
+            var result = new Flight();
+            try
+            {
+                result = this.flightRepository.Retrieve(code);
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+            return Ok(result);
+        }
+
         [HttpGet, ActionName("GetFlights")]
         [Route("api/Flights")]
         public IActionResult GetFlights(Guid? id)

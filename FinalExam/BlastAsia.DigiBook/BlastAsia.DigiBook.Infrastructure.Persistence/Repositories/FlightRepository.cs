@@ -52,5 +52,10 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
                 return result;
             }
         }
+
+        public Flight Retrieve(string code)
+        {
+            return context.Set<Flight>().FirstOrDefault(r => r.FlightCode == code);
+        }
     }
 }

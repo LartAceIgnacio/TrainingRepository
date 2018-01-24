@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BreadcrumbModule, MenuItem, DataTable, ConfirmationService } from 'primeng/primeng';
+import { BreadcrumbModule, MenuItem, DataTable, ConfirmationService, SelectItem } from 'primeng/primeng';
 import { Flight } from "../domain/Flight";
 import { GlobalService } from "../services/globalservice";
 import { HttpClient } from "@angular/common/http";
@@ -32,6 +32,7 @@ export class FlightsComponent implements OnInit {
   totalRecords: number = 0;
 
   invalidDates: Date;
+  cities: SelectItem[];
 
   constructor(
     private globalservice: GlobalService,
@@ -56,6 +57,12 @@ export class FlightsComponent implements OnInit {
     this.invalidDates = new Date();
     let yesterday = new Date();
     this.invalidDates.setDate(yesterday.getDate());
+
+    this.cities = [
+      {label: 'AAV - Surallah', value: 'AAV'},
+      {label: 'CBO - Cotabato', value: 'CBO'}
+    ];
+    
   }
 
   paginate(event){

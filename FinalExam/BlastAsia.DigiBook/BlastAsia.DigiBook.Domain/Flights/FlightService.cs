@@ -64,6 +64,13 @@ namespace BlastAsia.DigiBook.Domain.Flights
                 flight.FlightCode = flight.CityOfOrigin + flight.CityOfDestination +flight.Etd.ToString("yy")
                     + flight.Etd.ToString("MM") + flight.Etd.ToString("dd") + incrementalNumber.ToString().PadLeft(2, '0');
 
+                var unique = flightRepository.Retrieve(flight.FlightCode);
+
+                if (unique != null)
+                {
+                    throw new UniqueFlightCodeRequiredException("Flight code is not unique");
+                }
+
                 result = flightRepository.Create(flight);
             }
             else

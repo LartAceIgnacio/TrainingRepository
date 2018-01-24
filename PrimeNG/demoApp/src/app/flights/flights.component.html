@@ -32,7 +32,8 @@
       <div class="ui-g">
         <div class="ui-g-12 ui-md-7">
           <label class="ui-g-12 ui-md-5" for="cityOfOrigin">City of Origin*: </label>
-          <input class="ui-g-12 ui-md-7" pInputText id="cityOfOrigin" formControlName="cityoforigin" placeholder="Enter City of Origin" [(ngModel)]="selectedFlight.cityOfOrigin">
+          <!-- <input class="ui-g-12 ui-md-7" pInputText id="cityOfOrigin" formControlName="cityoforigin" placeholder="Enter City of Origin" [(ngModel)]="selectedFlight.cityOfOrigin"> -->
+          <p-dropdown [options]="cities" [(ngModel)]="selectedFlight.cityOfOrigin" formControlName="cityoforigin" placeholder="Select a City" optionLabel="label"></p-dropdown>
         </div>
         <div class="ui-g-12 ui-md-5">
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!flightForm.controls['cityoforigin'].valid&&flightForm.controls['cityoforigin'].dirty">
