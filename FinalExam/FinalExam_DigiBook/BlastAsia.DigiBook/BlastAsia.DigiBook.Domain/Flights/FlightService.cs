@@ -11,7 +11,9 @@ namespace BlastAsia.DigiBook.Domain.Flights
     {
         private IFlightRepository flightRepository;
         private int incNum;
-        private string strRejex = @"^([A-Z]{3})([A-Z]{3})(\d{2})(\d{2})(\d{2})(\d{2})$";
+        //private string flightCodeRejex = @"^([A-Z]{3})([A-Z]{3})(\d{2})(\d{2})(\d{2})(\d{2})$";
+        private string LetterRejex = @"^([A-Z]{3})$";
+        private string NumberRejex = @"^(\d{2})$";
 
         public FlightService(IFlightRepository flightRepository)
         {
@@ -52,17 +54,14 @@ namespace BlastAsia.DigiBook.Domain.Flights
             {
                 throw new DateAndTimeException("ETA should be greater than date today");
             }
-            //if (!Regex.IsMatch(flight.FlightCode, strRejex))
-            //{
-            //    throw new FlightCodeException("Invalid Flight Code Format");
-            //}
-
-            //var foundFlightCode = flightRepository
-            //    .Retrieve().Where(c => c.FlightCode == flight.FlightCode);
-            //if (foundFlightCode != null)
-            //{
-            //    throw new FlightCodeException("Flight Code is not uniqure");
-            //}
+            if (!Regex.IsMatch(flight.CityOfOrigin, LetterRejex))
+            {
+                throw new FlightCodeException("Invalid Flight Code Format");
+            }
+            if (!Regex.IsMatch(flight.CityOfDestination, LetterRejex))
+            {
+                throw new FlightCodeException("Invalid Flight Code Format");
+            }
 
             Flight result = null;
 
@@ -72,14 +71,15 @@ namespace BlastAsia.DigiBook.Domain.Flights
 
             var found = flightRepository
                 .Retrieve(flight.FlightId);
-
+            
             if (found == null)
             {
                 flight.DateCreated = DateTime.Now;
+
                 incNum++;
 
-                flight.FlightCode = string.Concat(flight.CityOfOrigin , flight.CityOfDestination , etd.ToString("yy")
-                    , etd.ToString("MM") , etd.ToString("dd")
+                flight.FlightCode = string.Concat(flight.CityOfOrigin, flight.CityOfDestination, etd.ToString("yy")
+                    , etd.ToString("MM"), etd.ToString("dd")
                     , incNum.ToString().PadLeft(2, '0'));
 
                 result = flightRepository.Create(flight);
@@ -88,9 +88,9 @@ namespace BlastAsia.DigiBook.Domain.Flights
             {
                 flight.DateModified = DateTime.Now;
 
-                flight.FlightCode = string.Concat(flight.CityOfOrigin, flight.CityOfDestination, etd.ToString("yy")
-                    , etd.ToString("MM"), etd.ToString("dd")
-                    , incNum.ToString().PadLeft(2, '0'));
+                //flight.FlightCode = string.Concat(flight.CityOfOrigin, flight.CityOfDestination, etd.ToString("yy")
+                //    , etd.ToString("MM"), etd.ToString("dd")
+                //    , incNum.ToString().PadLeft(2, '0'));
 
                 result = flightRepository
                     .Update(flight.FlightId, flight);

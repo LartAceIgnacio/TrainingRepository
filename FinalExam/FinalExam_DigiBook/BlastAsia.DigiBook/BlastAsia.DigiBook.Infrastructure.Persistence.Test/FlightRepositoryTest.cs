@@ -18,7 +18,6 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         private String connectionString = null;
         private FlightRepository sut = null;
         private Flight flight = null;
-        private string uniqueFlightCode;
 
         [TestInitialize]
         public void InitializeTest()
@@ -35,13 +34,10 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
 
             sut = new FlightRepository(dbContext);
 
-            uniqueFlightCode = sut.Retrieve().FirstOrDefault().FlightCode;
-
             flight = new Flight
             {
-                CityOfOrigin = "123",
-                CityOfDestination = "123",
-                FlightCode = uniqueFlightCode,
+                CityOfOrigin = "PHL",
+                CityOfDestination = "MNL",
                 ExpectedTimeOfArrival = DateTime.Now.AddHours(1),
                 ExpectedTimeOfDeparture = DateTime.Now.AddHours(1)
             };
@@ -117,8 +113,8 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             // Arrange
 
             var newFlight = sut.Create(flight);
-            var expectedCityOfOrigin = "321";
-            var expectedCityOfDestination = "321";
+            var expectedCityOfOrigin = "PHL";
+            var expectedCityOfDestination = "MNL";
             var expectedETA = DateTime.Now.AddHours(2);
             var expectedETD = DateTime.Now.AddHours(2);
             var expectedDateModified = DateTime.Now;

@@ -24,11 +24,11 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
         {
             flight = new Flight
             {
-                CityOfOrigin = "123",
-                CityOfDestination = "123",
+                CityOfOrigin = "PHL",
+                CityOfDestination = "MNL",
                 ExpectedTimeOfArrival = DateTime.Now.AddHours(2),
-                ExpectedTimeOfDeparture = DateTime.Now.AddHours(2)
-            };
+                ExpectedTimeOfDeparture = DateTime.Now.AddHours(2),
+        };
 
             mockFlightRepository = new Mock<IFlightRepository>();
 
@@ -230,21 +230,61 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
             Assert.ThrowsException<DateAndTimeException>(
                 () => sut.Save(flight.FlightId, flight));
         }
+        [TestMethod]
+        public void Save_WithInvalidCityOfOriginFormat_ThrowsFlightCodeException()
+        {
+            // Arrange
+
+            flight.CityOfOrigin = "PH!";
+
+            // Act
+
+            // Assert
+
+            mockFlightRepository
+                .Verify(c => c.Create(flight), Times.Never());
+            Assert.ThrowsException<FlightCodeException>(
+                () => sut.Save(flight.FlightId, flight));
+        }
+        [TestMethod]
+        public void Save_WithInvalidCityOfDestinationFormat_ThrowsFlightCodeException()
+        {
+            // Arrange
+
+            flight.CityOfDestination = "PH!";
+
+            // Act
+
+            // Assert
+
+            mockFlightRepository
+                .Verify(c => c.Create(flight), Times.Never());
+            Assert.ThrowsException<FlightCodeException>(
+                () => sut.Save(flight.FlightId, flight));
+        }
         //[TestMethod]
-        //public void Save_WithInvalidFlightCodeFormat_ThrowsFlightCodeException()
+        //public void Save_WithExistingFlightCode_ThrowsFlightCodeException()
         //{
         //    // Arrange
 
-        //    flight.FlightCode = "OOODDDYYMMddNN";
+        //    string existingFlightCode = "PHLMNL01010101";
+
+        //    mockFlightRepository
+        //       .Setup(c => c.Retrieve());
+
+        //    mockFlightRepository
+        //        .Setup(c => c.Retrieve(existingFlightCode))
+        //        .Returns(flight);
 
         //    // Act
 
         //    // Assert
 
         //    mockFlightRepository
-        //        .Verify(c => c.Create(flight), Times.Never());
+        //       .Verify(c => c.Create(flight), Times.Never());
         //    Assert.ThrowsException<FlightCodeException>(
         //        () => sut.Save(flight.FlightId, flight));
+
         //}
     }
 }

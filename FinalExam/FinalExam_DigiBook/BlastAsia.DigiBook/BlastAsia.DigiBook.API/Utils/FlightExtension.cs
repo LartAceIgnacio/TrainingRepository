@@ -16,7 +16,6 @@ namespace BlastAsia.DigiBook.API.Utils
             flight.CityOfDestination = form.CityOfDestination;
             flight.ExpectedTimeOfArrival = form.ExpectedTimeOfArrival;
             flight.ExpectedTimeOfDeparture = form.ExpectedTimeOfDeparture;
-            flight.DateModified = DateTime.Now;
 
             return flight;
         }

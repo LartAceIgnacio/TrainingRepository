@@ -71,9 +71,9 @@ namespace BlastAsia.DigiBook.API.Controllers
                 var result = this.flightService.Save(Guid.Empty, flight);
                 return CreatedAtAction("GetFlights", new { id = flight.FlightId }, result);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e);
             }
         }
         [HttpDelete]
