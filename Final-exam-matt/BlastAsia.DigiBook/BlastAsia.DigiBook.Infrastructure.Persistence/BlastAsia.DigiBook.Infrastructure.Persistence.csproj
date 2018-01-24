@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20180110075314_Initial Migration.cs" />
+    <Compile Remove="Migrations\20180110092019_Initial Migration.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlastAsia.DigiBook.Domain\BlastAsia.DigiBook.Domain.csproj" />
+    <ProjectReference Include="..\BlastAsia.DigiBook.Infrastructure\BlastAsia.DigiBook.Infrastructure.csproj" />
+    <ProjectReference Include="..\BlastsAsia.DigiBook.Domain.Models\BlastAsia.DigiBook.Domain.Models.csproj" />
+  </ItemGroup>
+
+</Project>
