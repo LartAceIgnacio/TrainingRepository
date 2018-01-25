@@ -1,6 +1,6 @@
-<p-breadcrumb [model]="flightItems"></p-breadcrumb>
+<p-breadcrumb *ngIf="this.auth.isLoggedIn()" [model]="flightItems"></p-breadcrumb>
 <p-growl [value]="msgs" sticky="sticky"></p-growl>
-<form [formGroup]="userform">
+<form [formGroup]="userform" *ngIf="this.auth.isLoggedIn()">
     <p-panel header="Flight List">
         <button pButton icon="fa fa-plus" (click)="addFlight(); showDialog();" label="Flight"></button>
         <div class="searchHeader" style="float:right">
@@ -8,9 +8,9 @@
             />
             <button pButton type="button" icon="fa-search" (click)="searchFlight()"></button>
         </div>
-        <p-dataTable #dt [value]="flightList" selectionMode="single" [pageLinks]="5" [(selection)]="selectedFlight" [totalRecords]="totalRecords"
-            (onLazyLoad)="paginate($event)" [lazy]="true" [paginator]="true" rows="10" [responsive]="true" [globalFilter]="gb">
-            <p-column styleClass="col-button">
+        <p-dataTable #dt [value]="flightList" [pageLinks]="5" [(selection)]="selectedFlight" [totalRecords]="totalRecords"
+            (onLazyLoad)="paginate($event)" [lazy]="true" [paginator]="true" rows="10" [responsive]="true" [globalFilter]="gb" [loading]="loading">
+            <p-column styleClass="col-button" header="Action" >
                 <ng-template let-Flight="rowData" pTemplate="body">
                     <button type="button" pButton class="ui-button-success" (click)="editFlight(Flight); showDialog();" icon="fa-pencil"></button>
                     <button type="button" pButton class="ui-button-danger" (click)="deleteConfirmation(Flight); showDialog();" icon="fa-trash-o">
@@ -24,13 +24,14 @@
             <p-column field="expectedTimeOfDeparture" header="Expected Time Of Departure" [sortable]="true"></p-column>
         </p-dataTable>
     </p-panel>
-    <p-dialog header="Flight Details" [(visible)]="display" *ngIf="selectedFlight" modal="modal" width="500" [responsive]="true">
+    <p-dialog header="Flight Details" [(visible)]="display" *ngIf="selectedFlight" modal="modal" width="500" height="700" [responsive]="true">
         <div class="ui-g">
             <label class="ui-g-12 ui-md-4" for="City of Origin">City of Origin: </label>
             <input class="ui-g-12 ui-md-8" type="text" formControlName="cityOfOrigin" placeholder="Enter City of Origin" [(ngModel)]="selectedFlight.cityOfOrigin">
             <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['cityOfOrigin'].valid&&userform.controls['cityOfOrigin'].dirty">
                 <i class="fa fa-close"></i>
                 <span *ngIf="userform.controls['cityOfOrigin'].errors['required']">City of Origin is required</span>
+                <span *ngIf="userform.controls['cityOfOrigin'].errors['pattern']">Must have all capital letters</span>
                 <span *ngIf="userform.controls['cityOfOrigin'].errors['maxlength']">Must have 3 characters</span>
                 <span *ngIf="userform.controls['cityOfOrigin'].errors['minlength']">Must have 3 characters</span>
             </div>
@@ -42,18 +43,17 @@
             <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['cityOfDestination'].valid&&userform.controls['cityOfDestination'].dirty">
                 <i class="fa fa-close"></i>
                 <span *ngIf="userform.controls['cityOfDestination'].errors['required']">City of Destination is required</span>
+                <span *ngIf="userform.controls['cityOfDestination'].errors['pattern']">Must have all capital letters</span>
                 <span *ngIf="userform.controls['cityOfDestination'].errors['maxlength']">Must be have 3 characters</span>
                 <span *ngIf="userform.controls['cityOfDestination'].errors['minlength']">Must have 3 characters</span>
             </div>
         </div>
         <br/>
-        <label>Format: 1/20/2018, 12:55:51 AM</label><br/>
+        <!-- <label>Date Format: 1/20/2018, 12:55:51 AM</label><br/> -->
         <div class="ui-g">
             <label class="ui-g-12 ui-md-4" for="Expected Time of Arrival">Expected Date of Arrival: </label>
-            <!-- <p-calendar formControlName="expectedTimeOfArrival" placeholder="Expected Date of Arrival" [(ngModel)]="selectedFlight.expectedTimeOfArrival"></p-calendar>
-            <label class="ui-g-12 ui-md-4" for="Expected Time of Arrival">Expected Time of Arrival: </label>
-            <p-calendar [(ngModel)]="date8" [timeOnly]="true" formControlName="expectedTimeOfArrival" placeholder="Expected Time of Arrival" [(ngModel)]="selectedFlight.expectedTimeOfArrival"></p-calendar> -->
-            <input class="ui-g-12 ui-md-8" type="text" formControlName="expectedTimeOfArrival" placeholder="Expected Time of Arrival" [(ngModel)]="selectedFlight.expectedTimeOfArrival">
+            <p-calendar class="ui-g-12 ui-md-8" [showTime]="true" formControlName="expectedTimeOfArrival" [minDate]="today" [(ngModel)]="selectedFlight.expectedTimeOfArrival" [showIcon]="true"></p-calendar>
+            <!-- <input class="ui-g-12 ui-md-8" type="text" formControlName="expectedTimeOfArrival" placeholder="Expected Time of Arrival" [(ngModel)]="selectedFlight.expectedTimeOfArrival"> -->
             <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['expectedTimeOfArrival'].valid&&userform.controls['expectedTimeOfArrival'].dirty">
                 <i class="fa fa-close"></i>
                 <span *ngIf="userform.controls['expectedTimeOfArrival'].errors['required']">Expected Time of Arrival is required</span>
@@ -62,24 +62,26 @@
         <br/>
         <div class="ui-g">
             <label class="ui-g-12 ui-md-4" for="Expected Time of Departure">Expected Date of Departure: </label>
-            <!-- <p-calendar formControlName="expectedTimeOfDeparture" placeholder="Expected Date of Departure" [(ngModel)]="selectedFlight.expectedTimeOfDeparture"></p-calendar>
-            <label class="ui-g-12 ui-md-4" for="Expected Time of Departure">Expected Time of Departure: </label>
-            <p-calendar [(ngModel)]="date8" [timeOnly]="true" formControlName="expectedTimeOfDeparture" placeholder="Expected Time of Departure" [(ngModel)]="selectedFlight.expectedTimeOfDeparture"></p-calendar> -->
-            <input class="ui-g-12 ui-md-8" type="text" formControlName="expectedTimeOfDeparture" placeholder="Expected Time of Departure" [(ngModel)]="selectedFlight.expectedTimeOfDeparture">
+            <p-calendar class="ui-g-12 ui-md-8" [showTime]="true" formControlName="expectedTimeOfDeparture" [minDate]="today" [(ngModel)]="selectedFlight.expectedTimeOfDeparture" [showIcon]="true"></p-calendar>
+            <!-- <input class="ui-g-12 ui-md-8" type="text" formControlName="expectedTimeOfDeparture" placeholder="Expected Time of Departure" [(ngModel)]="selectedFlight.expectedTimeOfDeparture"> -->
             <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['expectedTimeOfDeparture'].valid&&userform.controls['expectedTimeOfDeparture'].dirty">
                 <i class="fa fa-close"></i>
                 <span *ngIf="userform.controls['expectedTimeOfDeparture'].errors['required']">Expected Time of Departure is required</span>
             </div>
         </div>
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
         <p-footer>
             <div>
                 <button pButton icon="fa fa-plus-square" (click)="saveNewFlight()" label="Save & New" [disabled]="!userform.valid" *ngIf="btnSaveNew"></button>
-
-
                 <button pButton icon="fa fa-floppy-o" (click)="saveFlight()" label="Save" [disabled]="!userform.valid" *ngIf="btnSave"></button>
-
                 <button pButton icon="fa fa-floppy-o" (click)="deleteFlight()" label="Delete" *ngIf="btnDelete"></button>
-
                 <button pButton icon="fa fa-ban" (click)="cancelFlight()" label="Cancel"></button>
             </div>
         </p-footer>

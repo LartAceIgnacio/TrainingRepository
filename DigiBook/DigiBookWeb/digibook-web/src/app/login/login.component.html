@@ -8,6 +8,7 @@
             </div>
             <div class="form-group" [ngClass]="{ 'has-error has-feedback' :
               hasError('Username') }">
+              <label>Username:</label>
                 <input type="text" required formControlName="Username" class="form-control" placeholder="Username or Email address" />
                 <span *ngIf="hasError('Username')" class="glyphicon glyphicon-remove form-control-
                    feedback" aria-hidden="true"></span>
@@ -17,6 +18,7 @@
             </div>
             <div class="form-group" [ngClass]="{ 'has-error has-feedback' :
                   hasError('Password') }">
+                  <label>Password:</label>
                 <input type="password" required formControlName="Password" class="form-control" placeholder="Password" />
                 <span *ngIf="hasError('Password')" class="glyphicon glyphicon-remove form-control-
                                feedback" aria-hidden="true"></span>
