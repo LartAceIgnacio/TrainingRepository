@@ -44,6 +44,7 @@ import { ChartModule, InputMaskModule } from 'primeng/primeng';
 import { TabViewModule, PaginatorModule } from 'primeng/primeng';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthResponseInterceptor } from './services/auth-response-interceptor';
+import { PilotsComponent } from './pilots/pilots.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { AuthResponseInterceptor } from './services/auth-response-interceptor';
     LoginComponent,
     StatisticComponent,
     RegisterComponent,
-    StatisticComponent
+    StatisticComponent,
+    PilotsComponent
   ],
   imports: [
     BrowserModule,

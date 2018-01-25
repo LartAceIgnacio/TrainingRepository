@@ -19,7 +19,8 @@ namespace BlastAsia.DigiBook.Api.Controllers
             this.pilotService = pilotService;
         }
         // GET: api/Pilots
-        [HttpGet]
+        [HttpGet, ActionName("GetPilotsWithPagination")]
+        [Route("{page}/{record}")]
         public IActionResult GetPilotsWithPagination(int page, int record, string filter)
         {
             var result = new Record<Pilot>();
@@ -33,6 +34,25 @@ namespace BlastAsia.DigiBook.Api.Controllers
             }
 
             return Ok(result);
+        }
+        // POST: api/Pilots
+        [HttpPost]
+        public IActionResult CreatePilot([FromBody] Pilot pilot)
+        {
+            try
+            {
+                if (pilot == null)
+                {
+                    return BadRequest();
+                }
+                var result = this.pilotService.Save(Guid.Empty, pilot);
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
         }
 
         [HttpDelete]
@@ -48,6 +68,21 @@ namespace BlastAsia.DigiBook.Api.Controllers
             this.pilotRepository.Delete(id);
 
             return Ok();
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult UpdatePilot([FromBody] Pilot modifiedPilot, Guid id)
+        {
+
+            var pilot = pilotRepository.Retrieve(id);
+            if (pilot == null)
+            {
+                return BadRequest();
+            }
+            pilot.ApplyChanges(modifiedPilot);
+            pilotService.Save(id, pilot);
+            return Ok(pilot);
         }
     }
 }

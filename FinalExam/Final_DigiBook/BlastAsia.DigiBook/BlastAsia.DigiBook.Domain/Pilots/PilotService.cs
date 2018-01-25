@@ -48,21 +48,30 @@ namespace BlastAsia.DigiBook.Domain.Pilots
             {
                 throw new YearsOfExperienceMinimumRequiredException();
             }
-            pilot.PilotCode = PilotCodeGenerate(pilot);
-
-            if (!Regex.IsMatch(pilot.PilotCode, pilotCodePattern))
+  
+            if (pilot.PilotId == Guid.Empty)
             {
-                throw new InvalidPilotCodeException();
+                
+                pilot.PilotCode = this.PilotCodeGenerate(pilot);
+
+                if (!Regex.IsMatch(pilot.PilotCode, pilotCodePattern))
+                {
+                    throw new InvalidPilotCodeException();
+                }
+
+                var foundPilotCode = pilotRepository.Retrieve(pilot.PilotCode);
+
+                if (foundPilotCode != null)
+                {
+                    throw new NonUniquePilotCodeException();
+                }
+
+                pilot.DateCreated = DateTime.Now;
             }
 
-            var foundPilotCode = pilotRepository.Retrieve(pilot.PilotCode);
-            if (foundPilotCode != null)
-            {
-                throw new NonUniquePilotCodeException();
-            }
 
-            pilot.DateCreated = DateTime.Now;
-            pilot.DateCreated = DateTime.Now;
+            pilot.DateModified = DateTime.Now;
+            
            
             Pilot result;
 
@@ -88,9 +97,9 @@ namespace BlastAsia.DigiBook.Domain.Pilots
         public string PilotCodeGenerate(Pilot pilot)
         {
             string result = "";
-            result = string.Concat(result, pilot.FirstName.Substring(0, 2));
-            result = string.Concat(result, pilot.MiddleName.Substring(0, 2));
-            result = string.Concat(result, pilot.LastName.Substring(0, 4));
+            result = string.Concat(result, pilot.FirstName.ToUpper().Substring(0, 2));
+            result = string.Concat(result, pilot.MiddleName.ToUpper().Substring(0, 2));
+            result = string.Concat(result, pilot.LastName.ToUpper().Substring(0, 4));
             result = string.Concat(result, pilot.DateActivated.ToString("yy"));
             result = string.Concat(result, pilot.DateActivated.Month.ToString().PadLeft(2, '0'));
             result = string.Concat(result, pilot.DateActivated.Day.ToString().PadLeft(2, '0'));

@@ -31,7 +31,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
                 DateActivated = DateTime.Today,
             };
 
-            existingPilotCode = "ChMaManu180124";
+            existingPilotCode = "CHMAMANU180125";
             
             mockPilotRepository = new Mock<IPilotRepository>();
 

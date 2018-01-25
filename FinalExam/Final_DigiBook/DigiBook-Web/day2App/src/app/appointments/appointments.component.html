@@ -1,5 +1,6 @@
 <p-growl [value]="msgs" sticky="sticky"></p-growl>
 <p-confirmDialog></p-confirmDialog>
+<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
 <p-panel header="Appointment List">
   <div class="ui-g">
     <p-dataTable #dt [value]="appointmentList" 

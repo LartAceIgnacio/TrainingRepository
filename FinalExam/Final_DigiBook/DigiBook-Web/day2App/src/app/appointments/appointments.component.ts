@@ -13,7 +13,7 @@ import { EmployeeClass } from '../domain/employeeclass';
 import { EmployeeService } from '../services/employeeService';
 
 import { Message, SelectItem } from 'primeng/components/common/api';
-import { ConfirmationService, DataTable } from 'primeng/primeng';
+import { ConfirmationService, MenuItem, DataTable } from 'primeng/primeng';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 
@@ -27,6 +27,7 @@ import { Record } from '../domain/record';
   providers: [ AppointmentService, ContactService, EmployeeService, ConfirmationService, GenericService]
 })
 export class AppointmentsComponent implements OnInit {
+  items : MenuItem[] = [];
   appointmentList: Appointment[];
   selectedAppointment: Appointment;
   isNewAppointment: boolean;
@@ -61,10 +62,10 @@ export class AppointmentsComponent implements OnInit {
   @ViewChild('dt') public dataTable: DataTable;
 
   ngOnInit() {
-    // this.items = [
-    //   {label: 'Dashboard', icon: 'fa fa-book fa-5x', routerLink: ['/dashboard']},
-    //   {label: 'Contacts', icon: 'fa fa-book fa-5x', routerLink: ['/contacts']}
-    // ]
+    this.items = [
+      {label: 'Dashboard', icon: 'fa fa-book fa-5x', routerLink: ['/dashboard']},
+      {label: 'Appointments', icon: 'fa fa-book fa-5x', routerLink: ['/appointments']}
+    ]
     
     // this.userform = this.fb.group({
     //   'firstName' : new FormControl('', Validators.required),

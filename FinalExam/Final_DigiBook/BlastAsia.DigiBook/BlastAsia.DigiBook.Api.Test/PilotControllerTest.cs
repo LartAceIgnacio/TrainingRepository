@@ -93,5 +93,16 @@ namespace BlastAsia.DigiBook.Api.Test
 
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
+
+
+        [TestMethod]
+        public void MyTestMethod()
+        {
+            //Arrange
+            //var result = sut.UpdatePilot(existingPilotId, pilot);
+            //Act 
+
+            //Assert
+        }
     }
 }

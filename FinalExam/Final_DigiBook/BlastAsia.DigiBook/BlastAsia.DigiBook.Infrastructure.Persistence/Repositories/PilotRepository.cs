@@ -53,7 +53,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
 
         public Pilot Retrieve(string pilotCode)
         {
-            return context.Set<Pilot>().FirstOrDefault(x => x.PilotCode.ToLower().Contains(pilotCode));
+            return context.Set<Pilot>().FirstOrDefault(x => x.PilotCode.ToUpper().Contains(pilotCode.ToUpper()));
         }
 
         //public Pilot Create(Pilot pilot)
