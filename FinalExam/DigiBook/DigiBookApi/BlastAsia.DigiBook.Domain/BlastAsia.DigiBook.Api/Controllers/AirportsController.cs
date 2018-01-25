@@ -19,9 +19,8 @@ namespace BlastAsia.DigiBook.Api.Controllers
     [Produces("application/json")]
     public class AirportsController : Controller
     {
-        string url = "https://iatacodes.org/api/v6/airports?api_key=dd6a69c4-9ebb-4df8-a0b3-dc00ad3e3ec1";
+    
 
-        List<Airport> response = new List<Airport>();
 
         //[HttpGet]
         //[Route("api/Airports/")]
@@ -57,9 +56,13 @@ namespace BlastAsia.DigiBook.Api.Controllers
 
         [HttpGet]
         [Route("api/Airports/")]
-        public async Task<IActionResult> GetAirports(string search)
+        public async Task<IActionResult> GetAirports(string search,string url)
         {
-
+            if (string.IsNullOrEmpty(url))
+            {
+                return BadRequest();
+            }
+            List<Airport> response = new List<Airport>();
             JsonResult result;
             HttpClient client = new HttpClient();
             HttpResponseMessage res = await client.GetAsync(url);

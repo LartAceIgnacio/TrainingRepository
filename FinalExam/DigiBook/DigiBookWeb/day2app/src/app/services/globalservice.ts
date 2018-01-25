@@ -7,7 +7,6 @@ import { API_URL} from './constants';
 export class GlobalService {
 
 
-
     constructor(private http: HttpClient) {}
 
     getSomethingWithPagination<T> (serviceName: string, page: number, 
@@ -28,9 +27,9 @@ export class GlobalService {
             .catch(this.handleError);
     }
     
-    getAirport<T> (serviceName: string,search: string) {
+    getAirport<T> (serviceName: string,search: string,url?: string) {
         console.log(`${API_URL}/${serviceName}`);
-        return this.http.get(`${API_URL}/${serviceName}?search=${search}`)
+        return this.http.get(`${API_URL}/${serviceName}/?search=${search}&url=${url}`)
             .toPromise()
             .then(data => { return data as T[]; })
             .catch(this.handleError);
