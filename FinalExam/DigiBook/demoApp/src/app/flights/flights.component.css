@@ -1,0 +1,15 @@
+.content-margin{
+    margin-top: 80px;
+}
+.float-left{
+    float: left;
+    background-color: #f6a828;
+    color: white;
+    border-color: #e78f08;
+}
+.nav-button{
+    float: right;
+}
+.float-right{
+    float: right;
+}

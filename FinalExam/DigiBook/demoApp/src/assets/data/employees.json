@@ -1,0 +1,10 @@
+{
+    "data":[
+        {"name": "Angela Blanche V. Olarte", "address":"Caloocan City", "phone":"09981642039", "rating":"85"},
+        {"name": "Yui Hirasawa", "address":"Tokyo", "phone":"11225358", "rating":"75"},
+        {"name": "Ritsu Tainaka", "address":"Tokyo", "phone":"111-8989-56", "rating":"90"},
+        {"name": "Mio Akiyama", "address":"Tokyo", "phone":"15454", "rating":"95"},
+        {"name": "Tsumugi Kotobuki", "address":"Tokyo", "phone":"445-9989", "rating":"95"},
+        {"name": "Azusa Nakano", "address":"Tokyo", "phone":"4545-5952", "rating":"95"}
+    ]
+}
