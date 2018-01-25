@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { DataTable } from 'primeng/primeng';
+import { LazyLoadEvent } from 'primeng/components/common/api';
 
 @Component({
   selector: 'app-airport',
@@ -18,10 +19,11 @@ export class AirportComponent implements OnInit {
 
   airportInfoList: IAirports[];
   filterText: string;
+  totalNumberOfRecords: number;
+  loading: boolean;
+  
 
   constructor(private _httpClient: HttpClient, private aiportService: AirportService) { }
-  
-  @ViewChild('dt') public dataTable: DataTable;
 
   ngOnInit() {
     this.getAiportsInfo();
@@ -29,22 +31,10 @@ export class AirportComponent implements OnInit {
 
   getAiportsInfo() {
     this.aiportService._getAirportsInfo()
-      .then(info => this.airportInfoList = info);
-  }
-
-  filterAirports(params) {
-    var item = this.airportInfoList.find(params);
-  }
-
-
-  setCurrentPage(n : number){
-    this.dataTable.reset();
-  }
-
-  searchAirport(){
-    if(this.filterText.length != 1){
-      this.setCurrentPage(1);
-    }
+      .then(info => {
+        this.airportInfoList = info;
+        this.totalNumberOfRecords = this.airportInfoList.length;
+      });
   }
 
 }

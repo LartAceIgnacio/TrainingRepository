@@ -21,7 +21,7 @@ namespace BlastAsia.DigiBook.API.Controllers
     {
         private List<AirportResponse> listCodes = new List<AirportResponse>();
         private int PAGE_SIZE = 10;
-        private string baseUrl = "http://iatacodes.org/api/v6/airports?api_key=dd6a69c4-9ebb-4df8-a0b3-dc00ad3e3ec1";
+        private string baseUrl = "https://iatacodes.org/api/v6/airports?api_key=dd6a69c4-9ebb-4df8-a0b3-dc00ad3e3ec1";
 
         private IUrlHelperFactory urlHelperFactory;
         private IActionContextAccessor actionAccessor;
@@ -35,32 +35,40 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         // GET: api/Airport
         [HttpGet]
-        public async Task<IActionResult> GetCodesAsync()
+        public async Task<IActionResult> GetCodesAsync(string url)
         {
-            using (HttpClient client = new HttpClient())
-            // iatacode code params
-            //using (HttpResponseMessage res = await client.GetAsync(string.Concat(baseUrl, "&code=", code)))
-            using (HttpResponseMessage res = await client.GetAsync(baseUrl))
-            using (HttpContent content = res.Content)
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                // iatacode code params
+                //using (HttpResponseMessage res = await client.GetAsync(string.Concat(baseUrl, "&code=", code)))
+                using (HttpResponseMessage res = await client.GetAsync(url))
+                using (HttpContent content = res.Content)
+                {
+
+                    var data = await content.ReadAsStringAsync();
+
+                    if (data != null)
+                    {
+
+                        JObject joResponse = JObject.Parse(data);
+                        JArray arrResponse = (JArray)joResponse["response"];
+
+                        var response = arrResponse.ToObject<List<AirportResponse>>();
+                        listCodes.AddRange(response);
+
+                    }
+                    else
+                    {
+                        return NoContent();
+                    }
+
+                }
+            }
+            catch (Exception)
             {
 
-                var data = await content.ReadAsStringAsync();
-
-                if (data != null)
-                {
-
-                    JObject joResponse = JObject.Parse(data);
-                    JArray arrResponse = (JArray)joResponse["response"];
-
-                    var response = arrResponse.ToObject<List<AirportResponse>>();
-                    listCodes.AddRange(response);
-                    
-                }
-                else
-                {
-                    return NoContent();
-                }
-
+                return BadRequest();
             }
 
 
