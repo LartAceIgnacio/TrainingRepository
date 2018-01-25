@@ -27,7 +27,9 @@ export class PilotsComponent implements OnInit {
   delete:boolean ;
   submitted: boolean;
 
-  serviceName: string = "Pilots";
+  serviceName: string = "Pilot";
+  selectedDateOfBirth: Date;
+  selectedDateActivated: Date;
 
   countryList: SelectItem[];
   clonedSelectedPilot: Pilot;
@@ -55,9 +57,7 @@ export class PilotsComponent implements OnInit {
       'lastName': new FormControl('', Validators.required),
       'dateOfBirth': new FormControl('', Validators.required),
       'yearsOfExperience': new FormControl('', Validators.required),
-      'dateActivated': new FormControl('', Validators.required),
-      'dateCreated': new FormControl('', Validators.required),
-      'dateModified': new FormControl('', Validators.required),
+      'dateActivated': new FormControl('', Validators.required)
     });
 
     this.breadcrumb = [
@@ -70,11 +70,17 @@ export class PilotsComponent implements OnInit {
     //event.rows = Number of rows to display in new page
     //event.page = Index of the new page
     //event.pageCount = Total number of pages
-    this.globalService.getPagination<Pagination<Pilot>>(this.serviceName, event.first, event.rows,
+    this.globalService.getPagination<Pagination<Pilot>>("Pilots", event.first, event.rows,
       this.searchFilter.length == 1 ? "" : this.searchFilter).then(pagination => {
         this.pagination = pagination;
         this.pilotList = this.pagination.results;
         this.totalRecords = this.pagination.totalRecords;
+        for(let i=0;i < this.pilotList.length;i++){
+        this.pilotList[i].dateOfBirth = new Date(this.pilotList[i].dateOfBirth).toLocaleDateString();
+        this.pilotList[i].dateActivated = new Date(this.pilotList[i].dateActivated).toLocaleDateString();
+        this.pilotList[i].dateCreated = new Date(this.pilotList[i].dateCreated).toLocaleDateString();
+        this.pilotList[i].dateModified = new Date(this.pilotList[i].dateModified).toLocaleDateString();
+        }
         // for (var i = 0; i < this.pilotList.length; i++) {
         //   this.pilotList[i].dateActivated = this.pilotList[i].dateActivated == null ? null :
         //     new Date(this.pilotList[i].dateActivated).toLocaleDateString();
@@ -103,6 +109,91 @@ export class PilotsComponent implements OnInit {
     //this.clonePilot = this.cloneRecord(this.selectedPilot);
     this.displayDialog = true;
   }
+  savePilot() {
+    let tmpPilotList = [...this.pilotList];
+    this.selectedPilot.dateOfBirth = this.selectedDateOfBirth;
+    this.selectedPilot.dateActivated  = this.selectedDateActivated;
+
+    if(this.isNewPilot){
+        this.globalService.addData<Pilot>(this.serviceName,this.selectedPilot).then(pilots => {
+          tmpPilotList.push(pilots);
+          this.pilotList = tmpPilotList;
+          this.selectedPilot=null;
+        });
+        this.submitted = true;
+        this.msgs = [];
+        this.msgs.push({severity:'info', summary:'Success', detail:'Added Pilot Details'});
+        this.dataTable.reset();
+    }else{
+        this.globalService.updateData<Pilot>(this.serviceName,this.selectedPilot.pilotId, this.selectedPilot).then(pilots =>{
+        tmpPilotList[this.pilotList.indexOf(this.selectedPilot)] = this.selectedPilot;
+          this.pilotList=tmpPilotList;
+          this.selectedPilot=null;
+        });
+        this.submitted = true;
+        this.msgs = [];
+        this.msgs.push({severity:'warn', summary:'Modified', detail:'Modified Pilot Details'});
+
+    }
+    this.pilotForm.markAsPristine();
+    this.pilotList = tmpPilotList;
+    this.selectedPilot = null;
+    this.displayDialog = false;
+
+  }
+  saveAndNewPilot(){
+    this.pilotForm.markAsPristine();
+    let tmpPilotList = [...this.pilotList];
+    tmpPilotList.push(this.selectedPilot);
+
+    if(this.isNewPilot){
+      this.globalService.addData<Pilot>(this.serviceName,this.selectedPilot);
+      this.pilotList=tmpPilotList;
+      this.isNewPilot = true;
+      this.selectedPilot = new Pilotclass();
+      this.msgs = [];
+      this.msgs.push({severity:'info', summary:'Success', detail:'Added Pilot'});
+    }
+  }
+  deletePilot(pilots : Pilot){
+    this.pilotForm.disable();
+    this.selectedPilot = pilots;
+    this.displayDialog = true;
+    this.delete = true;
+ }
+
+ delPilot(){
+   this.confirmationService.confirm({
+     message: 'Do you want to delete this record?',
+     accept: () => {
+     let index = this.findSelectedPilotIndex();
+     this.pilotList = this.pilotList.filter((val,i) => i!=index);
+     this.globalService.deleteData<Pilot>(this.serviceName,this.selectedPilot.pilotId);
+     this.submitted = true;
+     this.msgs = [];
+     this.msgs.push({severity:'error', summary:'Deleted', detail:'Deleted Pilot Details'});
+     this.selectedPilot = null;
+     this.displayDialog = false;
+     }
+   });
+ }
+ 
+ cancelPilot(){
+  if(this.pilotForm.dirty){
+    this.confirmationService.confirm({
+      message: 'Do you want to Discard this changes?',
+      accept: () => {
+        this.isNewPilot = false;
+        let tmpPilotList = [...this.pilotList];
+        tmpPilotList[this.pilotList.indexOf(this.selectedPilot)] = this.clonePilot;
+        this.pilotList = tmpPilotList;
+        this.selectedPilot = this.clonePilot;
+        this.selectedPilot = null;
+
+      }
+    });
+  }
+}
   findSelectedPilotIndex(): number {
     return this.pilotList.indexOf(this.selectedPilot);
 }

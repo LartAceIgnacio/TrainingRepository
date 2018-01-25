@@ -43,6 +43,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpGet, ActionName("GetPilot")]
         [Route("api/Pilot/{id?}")]
+        
         public object GetPilots(Guid? id)
         {
             var result = new List<Pilot>();
@@ -61,7 +62,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpPost]
         [Route("api/Pilot")]
-        //[Authorize]
+        [Authorize]
         public IActionResult CreatePilot(
             [FromBody] Pilot pilot)
         {
@@ -85,7 +86,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpDelete]
         [Route("api/Pilot/{id}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult DeletePilot(Guid id)
         {
             var pilotToDelete = this.pilotRepository.Retrieve(id);
@@ -100,7 +101,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpPut]
         [Route("api/Pilot/{id}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult UpdatePilot(
             [FromBody] Pilot pilot, Guid id)
         {
@@ -130,7 +131,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpPatch]
         [Route("api/Pilot/{id}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult PatchPilot(
             [FromBody]JsonPatchDocument patchedPilot, Guid id)
         {

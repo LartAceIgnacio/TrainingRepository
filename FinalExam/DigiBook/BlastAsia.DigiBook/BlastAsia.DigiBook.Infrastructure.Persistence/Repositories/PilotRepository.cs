@@ -31,20 +31,29 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
             }
             else
             {
-                result.Results = context.Set<Pilot>().Where(x => x.LastName.ToLower().Contains(filterValue.ToLower()))
+                result.Results = context.Set<Pilot>()
+                    .Where(x => x.LastName.ToLower().Contains(filterValue.ToLower())
+                    || x.FirstName.ToLower().Contains(filterValue.ToLower())
+                    || x.MiddleName.ToLower().Contains(filterValue.ToLower())
+                    || x.PilotCode.ToLower().Contains(filterValue.ToLower()))
                     .OrderBy(x => x.LastName)
                     .Skip(pageNo).Take(numRec).ToList();
 
-                if (result.Results.Count > 0)
-                {
-                    result.TotalRecords = context.Set<Pilot>().Where(x => x.LastName.ToLower().Contains(filterValue.ToLower()))
-                        .OrderBy(x => x.LastName).Count();
-                    result.PageNo = pageNo;
-                    result.RecordPage = numRec;
-                }
+                    if (result.Results.Count > 0)
+                    {
+                        result.TotalRecords = context.Set<Pilot>().Where(x => x.LastName.ToLower().Contains(filterValue.ToLower()))
+                            .OrderBy(x => x.LastName).Count();
+                        result.PageNo = pageNo;
+                        result.RecordPage = numRec;
+                    }
 
-                return result;
+                    return result;
             }
+        }
+
+        public Pilot Retrieve(string p)
+        {
+            return context.Set<Pilot>().FirstOrDefault(x => x.PilotCode.ToLower().Contains(p.ToLower()));
         }
     }
 }

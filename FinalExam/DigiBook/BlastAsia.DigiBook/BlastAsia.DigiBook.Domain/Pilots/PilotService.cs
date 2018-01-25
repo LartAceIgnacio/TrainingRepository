@@ -1,5 +1,5 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Pilots;
-using BlastAsia.DigiBook.Domain.Pilots.Pilots;
+using BlastAsia.DigiBook.Domain.Pilots;
 using System;
 using System.Text.RegularExpressions;
 using static System.Net.Mime.MediaTypeNames;
@@ -16,14 +16,13 @@ namespace BlastAsia.DigiBook.Domain.Pilots
         private int startIndex = 0;
         private int length = 2;
         private int lNameLength = 4;
-        private readonly string PilotCodePattern = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" + @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
-         @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+        private readonly string PilotCodePattern = @"[A-Z]{2}[A-Z]{0,2}[A-Z]{4}[0-9]{2}[0-9]{2}[0-9]{2}";
 
         public PilotService(IPilotRepository pilotRepository)
         {
             this.pilotRepository = pilotRepository;
         }
-        public Pilot Save(Guid id,Pilot pilot)
+        public Pilot Save(Guid id, Pilot pilot)
         {
             if (string.IsNullOrEmpty(pilot.FirstName))
             {
@@ -64,23 +63,38 @@ namespace BlastAsia.DigiBook.Domain.Pilots
             {
                 throw new DateRequiredException("EmploymentDate is required");
             }
-            //if (!Regex.IsMatch(pilot.PilotCode, PilotCodePattern, RegexOptions.IgnoreCase))
-            //{
-            //    throw new PilotCodeRequiredException("Pilot Code is Required");
-            //}
+
+           
+            
+            if (pilot.PilotId == Guid.Empty)
+            {
+
+                pilot.PilotCode = GetPilotCode(pilot);
+                pilot.DateCreated = DateTime.Now;
+
+                if (!Regex.IsMatch(pilot.PilotCode, PilotCodePattern, RegexOptions.IgnoreCase))
+                {
+                    throw new InvalidFormatException("Invalid Format Pilot Code Required");
+                }
+
+                var foundPilotCode = pilotRepository.Retrieve(pilot.PilotCode);
+
+                if (foundPilotCode != null)
+                    {
+                    throw new PilotCodeRequiredException("Unique Pilot Code Required");
+                    }
+            }
+            else
+            {
+                pilot.DateModified = DateTime.Now;
+            }
+         
 
             Pilot result = null;
 
             var found = pilotRepository.Retrieve(pilot.PilotId);
-            if(found == null)
-            {   
-
-                pilot.PilotCode = pilot.FirstName.Substring(startIndex, length)
-                    + pilot.MiddleName.Substring(startIndex, length)
-                    + pilot.LastName.Substring(startIndex, lNameLength)
-                    + pilot.DateActivated.Value.ToString("yy")
-                    + pilot.DateActivated.Value.ToString("mm").PadLeft(2,'0')
-                    + pilot.DateActivated.Value.ToString("dd").PadLeft(2,'0');
+            if (found == null)
+            {
 
                 result = pilotRepository.Create(pilot);
 
@@ -89,9 +103,19 @@ namespace BlastAsia.DigiBook.Domain.Pilots
             {
                 result = pilotRepository.Update(pilot.PilotId, pilot);
             }
-  
 
             return result;
+        }
+        public string GetPilotCode(Pilot pilot)
+        {
+            var pilotCode = pilot.FirstName.Substring(startIndex, length)
+                   + pilot.MiddleName.Substring(startIndex, length)
+                   + pilot.LastName.Substring(startIndex, lNameLength)
+                   + pilot.DateActivated.Value.ToString("yy")
+                   + pilot.DateActivated.Value.ToString("MM").PadLeft(2, '0')
+                   + pilot.DateActivated.Value.ToString("dd").PadLeft(2, '0');
+
+            return pilotCode;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Pilots;
 using BlastAsia.DigiBook.Domain.Pilots;
-using BlastAsia.DigiBook.Domain.Pilots.Pilots;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -15,8 +14,11 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
         private Pilot pilot;
         private Mock<IPilotRepository> mockPilotRepository;
         private PilotService sut;
+
         private Guid existingPilotId = Guid.NewGuid();
         private Guid nonExistingPilotId = Guid.Empty;
+
+        private string existingPilotCode = "EuMaRavi180125"; 
 
         [TestInitialize]
         public void Initialize()
@@ -171,16 +173,51 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
             Assert.ThrowsException<DateRequiredException>(
                () => sut.Save(pilot.PilotId, pilot));
         }
+        //[TestMethod]
+        //public void Save_WithBlankPilotCode_ThrowsPilotCodeRequiredException()
+        //{
+        //    // Arrange
+        //    pilot.PilotCode = "";
+
+        //    // Assert
+        //    Assert.ThrowsException<PilotCodeRequiredException>(
+        //       () => sut.Save(pilot.PilotId, pilot));
+        //}
         [TestMethod]
-        public void Save_WithBlankPilotCode_ThrowsPilotCodeRequiredException()
+        public void Save_WithExistingPilotCode_ThrowsPilotCodeUniqueRequiredException()
         {
-            // Arrange
-            pilot.PilotCode = "";
 
             // Assert
+
+            mockPilotRepository
+                .Setup(p => p.Retrieve(existingPilotCode))
+                .Returns(pilot);
+
             Assert.ThrowsException<PilotCodeRequiredException>(
-               () => sut.Save(pilot.PilotId, pilot));
+                () => sut.Save(pilot.PilotId, pilot));
+
+            mockPilotRepository
+                .Verify(p => p.Retrieve(existingPilotCode), Times.Once());
+
+            mockPilotRepository
+                .Verify(p => p.Create(pilot), Times.Never);
+
+
         }
+        [TestMethod]
+        public void Save_WithInvalidFormat_ThrowsInvalidFormatException()
+        {
+            //Arrange
+            pilot.FirstName = "1T";
+            pilot.MiddleName = "2A";
+            pilot.LastName = "3R34";
+
+            // Assert
+
+            Assert.ThrowsException<InvalidFormatException>(
+                () => sut.Save(pilot.PilotId, pilot));
+        }
+        
 
 
 

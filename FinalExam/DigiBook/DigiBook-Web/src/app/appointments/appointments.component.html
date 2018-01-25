@@ -72,7 +72,7 @@
                 <div class="ui-grid-col-8">
                     <input  pInputText id="endTime" formControlName="endTime" [(ngModel)]="selectedAppointment.endTime" />
                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!appointmentForm.controls['endTime'].valid&&appointmentForm.controls['endTime'].dirty">
-                            <i class="fa fa-close"></i>
+                            <i class="fa fa-close"></i>date
                             End Time is required
                     </div>
                 </div>
@@ -110,7 +110,7 @@
             <div class="ui-grid-row">
                     <div class="ui-grid-col-4"><label for="appointmentDate">Date</label></div>
                     <div class="ui-grid-col-8">
-                            <p-calendar [(ngModel)]="selectedDate" formControlName="appointmentDate" [showIcon]="true" [disabledDates]="invalidDates"></p-calendar>
+                            <p-calendar [(ngModel)]="selectedDateOfBirth" formControlName="appointmentDate" [showIcon]="true" [disabledDates]="invalidDates"></p-calendar>
                         <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!appointmentForm.controls['appointmentDate'].valid&&appointmentForm.controls['appointmentDate'].dirty">
                             <i class="fa fa-close"></i>
                             Appointment Date is required

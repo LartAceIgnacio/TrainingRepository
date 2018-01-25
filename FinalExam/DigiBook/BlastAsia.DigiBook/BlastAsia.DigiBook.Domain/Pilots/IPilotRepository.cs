@@ -7,5 +7,7 @@ namespace BlastAsia.DigiBook.Domain.Pilots
         : IRepository<Pilot>
     {
         Pagination<Pilot> Retrieve(int pageNo, int numRec, string filterValue);
+
+        Pilot Retrieve(string p);
     }
 }

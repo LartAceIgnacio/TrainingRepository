@@ -24,7 +24,7 @@
      </p-column>
       <p-column field="firstName" header="First Name" [editable]="true"[sortable]="true"></p-column>
       <p-column field="middleName" header="Middle Name" [sortable]="true"></p-column>
-      <p-column field="lastName" header="Mobilephone" [sortable]="true"></p-column>
+      <p-column field="lastName" header="Ravina" [sortable]="true"></p-column>
       <p-column field="dateOfBirth" header="Date Of Birth" [sortable]="true"></p-column>
       <p-column field="yearsOfExperience" header="Years Of Experience" [sortable]="true"></p-column>
       <p-column field="dateActivated" header="Date Activated" [sortable]="true"></p-column>
@@ -70,7 +70,8 @@
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4">  <label  for="dateOfBirth">Date Of Birth</label></div>
                 <div class="ui-grid-col-8">
-                    <input pInputText id="dateOfBirth" formControlName="dateOfBirth" [(ngModel)]="selectedPilot.dateOfBirth" />
+                    <p-calendar [(ngModel)]="selectedDateOfBirth" formControlName="dateOfBirth" [showIcon]="true" [disabledDates]="invalidDates"></p-calendar>
+                    <!-- <input pInputText id="dateOfBirth" formControlName="dateOfBirth" [(ngModel)]="selectedPilot.dateOfBirth" /> -->
                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!pilotForm.controls['dateOfBirth'].valid&&pilotForm.controls['dateOfBirth'].dirty">
                             <i class="fa fa-close"></i>
                             Date Of Birth is required
@@ -80,43 +81,25 @@
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label for="yearsOfExperience">Years Of Experience</label></div>
                 <div class="ui-grid-col-8">
-                    <input  pInputText id="yearsOfExperience" formControlName="yearsOfExperience" [(ngModel)]="selectedPilot.cityAddress" />
+                    <input  pInputText id="yearsOfExperience" formControlName="yearsOfExperience" [(ngModel)]="selectedPilot.yearsOfExperience" />
                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!pilotForm.controls['yearsOfExperience'].valid&&pilotForm.controls['yearsOfExperience'].dirty">
                             <i class="fa fa-close"></i>
-                            Years Of Experience is required
+                            Years Of Experience is required 
                     </div>
                 </div>
             </div>
             <div class="ui-grid-row">
                     <div class="ui-grid-col-4"><label for="zipCode">Date Activated</label></div>
                     <div class="ui-grid-col-8">
-                        <input pInputText id="dateActivated" formControlName="dateActivated" [(ngModel)]="selectedPilot.zipCode" />
+                        <p-calendar [(ngModel)]="selectedDateActivated" formControlName="dateActivated" [showIcon]="true" [disabledDates]="invalidDates"></p-calendar>
+                        <!-- <input pInputText id="dateActivated" formControlName="dateActivated" [(ngModel)]="selectedPilot.zipCode" /> -->
                         <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!pilotForm.controls['dateActivated'].valid&&pilotForm.controls['dateActivated'].dirty">
                                 <i class="fa fa-close"></i>
                                 Date Activated is required
                         </div>
                     </div>
                 </div>
-                <div class="ui-grid-row">
-                        <div class="ui-grid-col-4"><label for="dateCreated">Date Created</label></div>
-                        <div class="ui-grid-col-8">
-                            <input pInputText id="dateCreated" formControlName="dateCreated" [(ngModel)]="selectedPilot.dateCreated" />
-                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!pilotForm.controls['dateCreated'].valid&&pilotForm.controls['dateCreated'].dirty">
-                                    <i class="fa fa-close"></i>
-                                    Date Created is required
-                            </div>
-                        </div>
-                    </div>
-            <div class="ui-grid-row">
-                    <div class="ui-grid-col-4"> <label for="dateModified">Date Modified</label></div>
-                    <div class="ui-grid-col-8">
-                        <input  pInputText id="dateModified" formControlName="dateModified" [(ngModel)]="selectedPilot.dateModified" />
-                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!pilotForm.controls['dateModified'].valid&&pilotForm.controls['dateModified'].dirty">
-                                <i class="fa fa-close"></i>
-                                Date Modified is required
-                        </div>
-                    </div>
-            </div> 
+
         </div>
     <footer>
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"> 
