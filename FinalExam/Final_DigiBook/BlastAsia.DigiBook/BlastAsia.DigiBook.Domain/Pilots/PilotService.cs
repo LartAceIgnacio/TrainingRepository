@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using BlastAsia.DigiBook.Domain.Models.Pilots;
+using BlastAsia.DigiBook.Domain.Pilots;
 
 namespace BlastAsia.DigiBook.Domain.Pilots
 {
@@ -12,7 +13,7 @@ namespace BlastAsia.DigiBook.Domain.Pilots
         const int minimumAge = 21;
         const int yearsOfExperienceRequirement = 10;
         DateTime now = DateTime.Today;
-        private string pilotCodePattern =  @"[A-Za-z]{8}[0-9]{6}$";
+        private string pilotCodePattern =  @"^[A-Z]{6,8}[0-9]{6}$";
         public PilotService(IPilotRepository pilotRepository)
         {
             this.pilotRepository = pilotRepository;
@@ -28,9 +29,12 @@ namespace BlastAsia.DigiBook.Domain.Pilots
             {
                 throw new FirstNameMaximumLenghtException();
             }
-            if (pilot.MiddleName.Length > nameMaximumLength)
+            if(!string.IsNullOrEmpty(pilot.MiddleName))
             {
-                throw new MiddleNameLengthException();
+                if (pilot.MiddleName.Length > nameMaximumLength)
+                {
+                    throw new MiddleNameLengthException();
+                }
             }
             if (string.IsNullOrEmpty(pilot.LastName))
             {
@@ -40,7 +44,7 @@ namespace BlastAsia.DigiBook.Domain.Pilots
             {
                 throw new LastNameMaximumLenghtException();
             }
-            if (this.ComputeAge(pilot.BirthDate) <= minimumAge)
+            if (this.ComputeAge(pilot.BirthDate) < minimumAge)
             {
                 throw new MinimumAgeRequirement();
             }
@@ -51,8 +55,8 @@ namespace BlastAsia.DigiBook.Domain.Pilots
   
             if (pilot.PilotId == Guid.Empty)
             {
-                
-                pilot.PilotCode = this.PilotCodeGenerate(pilot);
+                var generator = new PilotCodeGenerator();
+                pilot.PilotCode = generator.PilotCodeGenerate(pilot);
 
                 if (!Regex.IsMatch(pilot.PilotCode, pilotCodePattern))
                 {
@@ -68,10 +72,10 @@ namespace BlastAsia.DigiBook.Domain.Pilots
 
                 pilot.DateCreated = DateTime.Now;
             }
-
-
-            pilot.DateModified = DateTime.Now;
-            
+            else
+            {
+                pilot.DateModified = DateTime.Now;
+            }
            
             Pilot result;
 
@@ -94,16 +98,6 @@ namespace BlastAsia.DigiBook.Domain.Pilots
             return result;
         }
 
-        public string PilotCodeGenerate(Pilot pilot)
-        {
-            string result = "";
-            result = string.Concat(result, pilot.FirstName.ToUpper().Substring(0, 2));
-            result = string.Concat(result, pilot.MiddleName.ToUpper().Substring(0, 2));
-            result = string.Concat(result, pilot.LastName.ToUpper().Substring(0, 4));
-            result = string.Concat(result, pilot.DateActivated.ToString("yy"));
-            result = string.Concat(result, pilot.DateActivated.Month.ToString().PadLeft(2, '0'));
-            result = string.Concat(result, pilot.DateActivated.Day.ToString().PadLeft(2, '0'));
-            return result;
-        }
+      
     }
 }

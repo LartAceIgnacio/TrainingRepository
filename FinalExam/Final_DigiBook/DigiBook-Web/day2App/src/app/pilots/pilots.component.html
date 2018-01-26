@@ -10,7 +10,7 @@
             <div class="ui-helper-clearfix">
                 <div class="ui-g">
                     <div class="ui-g-12 ui-md-2">
-                        <button pButton icon="fa fa-plus" label="Pilot" style="float:left" (click)="addPilot()"></button>
+                        <button pButton icon="fa fa-plus" label="Pilot" style="float:left" (click)="addPilot()" *ngIf="this.auth.isLoggedIn()" ></button>
                     </div>
                     <div class="ui-g-12 ui-md-7">
                     </div>
@@ -21,10 +21,10 @@
                   </div>
             </div>
         </p-header>
-        <p-column>
+        <p-column *ngIf="this.auth.isLoggedIn()">
             <ng-template let-rowPilot="rowData" pTemplate="body">
-                <button pButton type="button" (click)="editPilot(rowPilot)" icon="fa fa-pencil" class="ui-button-success"></button>
-                <button pButton type="button" (click)="deletePilot(rowPilot)" icon="fa fa-trash-o" class="ui-button-danger"></button>
+                <button pButton type="button" (click)="editPilot(rowPilot)" icon="fa fa-pencil" class="ui-button-success" *ngIf="this.auth.isLoggedIn()"></button>
+                <button pButton type="button" (click)="deletePilot(rowPilot)" icon="fa fa-trash-o" class="ui-button-danger" *ngIf="this.auth.isLoggedIn()"></button>
             </ng-template>
         </p-column>
         <p-column field="firstName" header="Name" [sortable]="false">
@@ -39,7 +39,7 @@
     </div>
   </p-panel>
 <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
-    <p-dialog header="Pilot Details" [(visible)]="display" [responsive]="true" modal="true" *ngIf="selectedPilot" [closable]="false">
+    <p-dialog header="Pilot Details" [(visible)]="display" [responsive]="true" modal="true" *ngIf="selectedPilot" [closable]="false" height="250px">
         <div class="ui-g">
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
                 <div class="ui-grid-row">
@@ -54,6 +54,8 @@
                         </div>
                     </div>
                 </div>
+                <br>
+                <br>
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-12">
                         <span class="ui-float-label">
@@ -61,7 +63,9 @@
                              <label for="float-input">Middle Name</label>
                         </span>
                     </div>
-                </div>      
+                </div>     
+                <br> 
+                <br>
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-12">
                         <span class="ui-float-label">
@@ -74,28 +78,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="ui-grid-row">
-                        <div class="ui-grid-col-12">
-                            <span class="ui-float-label">
-                                <p-calendar [showIcon]="true" formControlName="birthDate" dateFormat="mm/dd/yy" [monthNavigator]="true" [yearNavigator]="true"  yearRange="1900:2030" [(ngModel)]="selectedPilot.birthDate" placeholder="BirthDate"></p-calendar>
-                            </span>
-                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['birthDate'].valid&&userform.controls['birthDate'].dirty">
-                            <i class="fa fa-close"></i>
-                            BirthDate is required
-                            </div>
-                        </div>
-                </div>
-                <div class="ui-grid-row">
-                        <div class="ui-grid-col-12">
-                            <span class="ui-float-label">
-                                <p-calendar [showIcon]="true" formControlName="dateActivated" dateFormat="mm/dd/yy" [monthNavigator]="true" [yearNavigator]="true"  yearRange="1900:2030" [(ngModel)]="selectedPilot.dateActivated" placeholder="Date Activated"></p-calendar>
-                            </span>
-                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['dateActivated'].valid&&userform.controls['dateActivated'].dirty">
-                            <i class="fa fa-close"></i>
-                            Date Activated is required
-                            </div>
-                        </div>
-                </div>
+                <br>
+                <br>
                 <div class="ui-grid-row">
                         <div class="ui-grid-col-12">
                             <span class="ui-float-label">
@@ -109,6 +93,39 @@
                             </div>
                         </div>
                 </div>
+                <br>
+                <br>
+                <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6">
+                                <div class="ui-grid-row">
+                                        <div class="ui-grid-col-12">
+                                            <span class="ui-float-label">
+                                                <p-calendar [showIcon]="true" formControlName="birthDate" dateFormat="mm/dd/yy" [monthNavigator]="true" [yearNavigator]="true"  yearRange="1900:2030" [(ngModel)]="selectedPilot.birthDate" placeholder="BirthDate"></p-calendar>
+                                            </span>
+                                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['birthDate'].valid&&userform.controls['birthDate'].dirty">
+                                            <i class="fa fa-close"></i>
+                                            BirthDate is required
+                                            </div>
+                                        </div>
+                                </div>       
+                        </div>
+                        <br>
+                        <div class="ui-g-12 ui-md-6">
+                                <div class="ui-grid-row">
+                                        <div class="ui-grid-col-12">
+                                            <span class="ui-float-label">
+                                                <p-calendar [showIcon]="true" formControlName="dateActivated" dateFormat="mm/dd/yy" [monthNavigator]="true" [yearNavigator]="true"  yearRange="1900:2030" [(ngModel)]="selectedPilot.dateActivated" placeholder="Date Activated"></p-calendar>
+                                            </span>
+                                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['dateActivated'].valid&&userform.controls['dateActivated'].dirty">
+                                            <i class="fa fa-close"></i>
+                                            Date Activated is required
+                                            </div>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                <br>
+               
             </div>
         </div>
         <p-footer>

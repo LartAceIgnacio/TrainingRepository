@@ -8,11 +8,12 @@
 }
 
 #top-logo{
+    margin-top: 25px;
+    margin-left: 45px;
     float: left;
 }
 
 #top-logo h2{
-    margin-top: 25px;
     float: right;
 }
 

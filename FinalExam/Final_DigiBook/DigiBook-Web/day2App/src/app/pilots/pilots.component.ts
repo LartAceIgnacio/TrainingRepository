@@ -9,6 +9,7 @@ import { Record } from '../domain/record';
 import { Pilot } from '../domain/pilot';
 import { PilotClass } from '../domain/pilotclass';
 
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-pilots',
@@ -42,7 +43,10 @@ export class PilotsComponent implements OnInit {
   retrieveRecordResult: Record<Pilot>;
  
   service: string = "Pilots";
-  constructor(private genericService: GenericService, private confirmationService: ConfirmationService, private fb: FormBuilder) { }
+  constructor(private genericService: GenericService,
+     private confirmationService: ConfirmationService, 
+     private fb: FormBuilder,
+    public auth: AuthService) { }
 
   @ViewChild('dt') public dataTable: DataTable;
 
@@ -71,7 +75,7 @@ export class PilotsComponent implements OnInit {
           this.totalRecord = this.retrieveRecordResult.totalRecord;
           for(var i = 0; i < this.pilotList.length; i++)
           {
-            this.pilotList[i].middleInitial = this.pilotList[i].middleName.slice(0, 1);
+            this.pilotList[i].middleInitial = this.pilotList[i].middleName? this.pilotList[i].middleName.slice(0, 1) : '' ;
             this.pilotList[i].birthDate = new Date(this.pilotList[i].birthDate).toLocaleDateString();
             this.pilotList[i].dateActivated = new Date(this.pilotList[i].birthDate).toLocaleDateString();
           }

@@ -5,7 +5,7 @@
     <div class="ui-g">
     <p-dataTable #dt [value]="employeeList" rows = "5" [paginator]="true" [pageLinks]="10" [responsive]="true" 
             (onLazyLoad)="retrieveRecord($event)" [lazy]="true" [totalRecords]="totalRecord"  [(selection)]="selectedEmployee" 
-            [loading]="loading" loadingIcon="fa-spinner" [rowsPerPageOptions]="[5,10]">
+            [loading]="loading" loadingIcon="fa-spinner" [rowsPerPageOptions]="[5,10]" *ngIf="this.auth.isLoggedIn()">
         <p-header>
             <div class="ui-helper-clearfix">
                 <div class="ui-g">
@@ -23,8 +23,8 @@
         </p-header>
         <p-column>
             <ng-template let-rowContact="rowData" pTemplate="body">
-                <button pButton type="button" (click)="editEmployee(rowContact)" icon="fa fa-pencil" class="ui-button-success"></button>
-                <button pButton type="button" (click)="deleteEmployee(rowContact)" icon="fa fa-trash-o" class="ui-button-danger"></button>
+                <button pButton type="button" (click)="editEmployee(rowContact)" icon="fa fa-pencil" class="ui-button-success" ></button>
+                <button pButton type="button" (click)="deleteEmployee(rowContact)" icon="fa fa-trash-o" class="ui-button-danger" ></button>
             </ng-template>
         </p-column>
         <p-column field="firstName" header="Name" [sortable]="false">

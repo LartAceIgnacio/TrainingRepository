@@ -1,4 +1,5 @@
 ﻿using BlastAsia.DigiBook.Domain.Models.Pilots;
+using BlastAsia.DigiBook.Domain.Pilots;
 using BlastAsia.DigiBook.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,7 +13,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         private string connectionString;
         private DbContextOptions<DigiBookDbContext> dbOptions;
         private DigiBookDbContext dbContext;
-        private Pilot pilot;
+        private Pilot pilot, createdPilot;
         private PilotRepository sut;
         private Pilot result;
  
@@ -45,8 +46,13 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         [TestCleanup()]
         public void CleanUp()
         {
-
+            if(result != null)
+            {
+              sut.Delete(result.PilotId);
+            }
+           
         }
+
         [TestMethod]
         [TestProperty("TestType", "Integration")]
         public void Create_WithValidData_SaveRecordInTheDatabase()
@@ -54,26 +60,26 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             //Arrange
 
             //Act
-            var newPilot = sut.Create(pilot);
+            result = sut.Create(pilot);
 
             //Assert
             Assert.IsNotNull(pilot);
-            Assert.IsTrue(newPilot.PilotId != Guid.Empty);
+            Assert.IsTrue(result.PilotId != Guid.Empty);
 
             //CleanUp
 
-            sut.Delete(newPilot.PilotId);
+            
         }
 
         [TestMethod]
         [TestProperty("TestType", "Integration")]
         public void Delete_WithAnExistingPilot_RemovesRecordFromDatabase()
         {
-            var newPilot = sut.Create(pilot);
+            createdPilot = sut.Create(pilot);
             //Act
-            sut.Delete(newPilot.PilotId);
+            sut.Delete(createdPilot.PilotId);
 
-            result = sut.Retrieve(newPilot.PilotId);
+            result = sut.Retrieve(createdPilot.PilotId);
             Assert.IsNull(result);
         }
 
@@ -84,11 +90,11 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             //Arrange
 
             //Act 
-            result = sut.Create(pilot);
-            var retrievedPilot = sut.Retrieve(result.PilotId);
+            createdPilot = sut.Create(pilot);
+            result = sut.Retrieve(createdPilot.PilotId);
 
             //Assert
-            Assert.IsNotNull(retrievedPilot);
+            Assert.IsNotNull(result);
 
             //Cleanup
 
@@ -100,22 +106,22 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
         public void Update_WithValidData_SaveUpdateInDb()
         {
             //Arrange
-            result = sut.Create(pilot);
+            var createdPilot = sut.Create(pilot);
             var expectedFirstName = "Ryan Karl";
             var expectedMiddleName = "Renosa";
             var expectedLastName = "Oribello";
   
 
             //Act 
-            var newPilot = sut.Retrieve(result.PilotId);
+            var newPilot = sut.Retrieve(createdPilot.PilotId);
             newPilot.FirstName = expectedFirstName;
             newPilot.MiddleName = expectedMiddleName;
             newPilot.LastName = expectedLastName;
             //Assert
-            var updatedPilot = sut.Update(newPilot.PilotId, newPilot);
-            Assert.AreEqual(expectedFirstName, updatedPilot.FirstName);
-            Assert.AreEqual(expectedMiddleName, updatedPilot.MiddleName);
-            Assert.AreEqual(expectedLastName, updatedPilot.LastName);
+            result = sut.Update(newPilot.PilotId, newPilot);
+            Assert.AreEqual(expectedFirstName, result.FirstName);
+            Assert.AreEqual(expectedMiddleName, result.MiddleName);
+            Assert.AreEqual(expectedLastName, result.LastName);
             //CleanUp
 
         }
@@ -128,11 +134,28 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Test
             int pageNo = 1;
             int numRec = 10;
             string filterValue = "";
-            //Arrange
-            sut.Fetch(pageNo, numRec, filterValue);
-            //Act 
 
+            //Arrange
+
+            //Act 
+            var record = sut.Fetch(pageNo, numRec, filterValue);
             //Assert
+
+            Assert.IsNotNull(record);
+        }
+
+
+        [TestMethod]
+        public void Retrive_WithValidPilotCode_ShouldRetrivePilotIntheDatabase()
+        {
+            //Arrange  
+            var generator = new PilotCodeGenerator();
+            pilot.PilotCode = generator.PilotCodeGenerate(pilot);
+            var createdPilot = sut.Create(pilot);
+            //Act 
+            result = sut.Retrieve(createdPilot.PilotCode);
+            //Assert
+            Assert.IsNotNull(result);
         }
     }
     

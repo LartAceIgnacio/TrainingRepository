@@ -19,6 +19,7 @@ import { ViewChild } from '@angular/core';
 
 import { GenericService } from '../services/genericservice';
 import { Record } from '../domain/record';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-appointments',
@@ -52,12 +53,18 @@ export class AppointmentsComponent implements OnInit {
   searchButtonClickCtr: number = 0;
   retrieveRecordResult: Record<Appointment>;
 
+  btnSave: boolean;
+  btnSaveNew: boolean;
+  btnDelete: boolean;
+
   service: string = "Appointments";
 
-  constructor(private appointmentService: AppointmentService,
-              private contactService: ContactService, private employeeService: EmployeeService, 
+  constructor(
               private genericService: GenericService,
-              private confirmationService: ConfirmationService) { }
+              private confirmationService: ConfirmationService,
+              private fb: FormBuilder,
+              public auth: AuthService
+            ) { }
 
   @ViewChild('dt') public dataTable: DataTable;
 
@@ -67,16 +74,14 @@ export class AppointmentsComponent implements OnInit {
       {label: 'Appointments', icon: 'fa fa-book fa-5x', routerLink: ['/appointments']}
     ]
     
-    // this.userform = this.fb.group({
-    //   'firstName' : new FormControl('', Validators.required),
-    //   'lastName' : new FormControl('', Validators.required),
-    //   'mobilePhone': new FormControl('', Validators.compose([Validators.required, Validators.pattern('^\\d+$')])),
-    //   'streetAddress': new FormControl('', Validators.required),
-    //   'cityAddress': new FormControl('', Validators.required),
-    //   'zipCode' : new FormControl('', Validators.required),
-    //   'country': new FormControl('', Validators.required),
-    //   'emailAddress': new FormControl('', Validators.compose([Validators.required, Validators.pattern(REGEXEMAIL)])),
-    // });
+    this.userform = this.fb.group({
+      "appointmentDate" : new FormControl('', Validators.required),
+      "guestName": new FormControl('', Validators.required),
+      "hostName": new FormControl('', Validators.required),
+      "startTime": new FormControl('', Validators.required),
+      "endTime": new FormControl('', Validators.required),
+      "notes": new FormControl('')
+    });
   }
   
   retrieveRecord(event){
@@ -129,26 +134,27 @@ export class AppointmentsComponent implements OnInit {
     let selectedDate = this.selectedAppointment.appointmentDate;
     if(this.isNewAppointment)
     {
-      this.genericService.updateRecord(this.service, this.selectedAppointment.appointmentId, this.selectedAppointment).then(appointments => 
+      this.genericService.insertRecord(this.service, this.selectedAppointment).then(appointments => 
         {this.appointment = appointments; 
         this.appointment.guestName = this.contactList.find( x => x.contactId == appointments.guestId).firstName;
         this.appointment.hostName = this.employeeList.find( x => x.employeeId == appointments.hostId).firstName;
         this.appointment.appointmentDate = new Date(this.appointment.appointmentDate).toLocaleDateString();
         tmpAppointmentList.push(this.appointment);
         this.selectedAppointment = isNewSave? new AppointmentClass(): null;
+        this.selectedContact = isNewSave? new ContactClass(): null;
+        this.selectedEmployee = isNewSave? new EmployeeClass(): null;
         this.appointmentList = tmpAppointmentList;
         
       });
     }
     else{
-      this.appointmentService.putAppointment(this.selectedAppointment.appointmentId, this.selectedAppointment).then(appointment =>
+      this.genericService.updateRecord(this.service, this.selectedAppointment.appointmentId, this.selectedAppointment).then(appointment =>
         {this.appointment = appointment; 
         tmpAppointmentList[this.appointmentList.indexOf(this.selectedAppointment)] = appointment;
         this.appointmentList = tmpAppointmentList;
         });
     }
-    this.selectedAppointment   = null;
-    this.isNewAppointment = false;  
+    this.userform.markAsPristine(); 
   }
 
   deleteAppointment(){
@@ -159,7 +165,7 @@ export class AppointmentsComponent implements OnInit {
         icon: 'fa fa-trash',
         accept: () => {
           let tmpAppointmentList = [...this.appointmentList];
-          this.appointmentService.deleteAppointment(this.selectedAppointment.appointmentId);
+          this.genericService.deleteRecord(this.service, this.selectedAppointment.appointmentId);
           tmpAppointmentList.splice(this.appointmentList.indexOf(this.selectedAppointment), 1);
 
           this.appointmentList = tmpAppointmentList;
@@ -188,10 +194,10 @@ export class AppointmentsComponent implements OnInit {
 
   editAppointment(appointment: Appointment){
     
-    // this.userform.enable();
-    // this.btnSave = true;
-    // this.btnDelete = false;
-    // this.btnSaveNew = false;
+    this.userform.enable();
+    this.btnSave = true;
+    this.btnDelete = false;
+    this.btnSaveNew = false;
     this.cloneAppointment =  Object.assign({}, appointment);
     this.selectedContact = this.contactList.find( x => x.contactId == appointment.guestId);
     this.selectedEmployee = this.employeeList.find( x => x.employeeId == appointment.hostId);

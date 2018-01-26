@@ -9,7 +9,7 @@ import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms'
 
 import { ViewChild } from '@angular/core';
 import { Record } from '../domain/record';
-
+import { AuthService } from '../services/auth.service'; 
 
 @Component({
   selector: 'app-employees',
@@ -41,7 +41,10 @@ export class EmployeesComponent implements OnInit {
 
   service : string = "Employees";
   userform : FormGroup;
-  constructor(private genericService: GenericService, private confirmationService: ConfirmationService, private fb: FormBuilder) { }
+  constructor(private genericService: GenericService,
+              public auth: AuthService,
+              private confirmationService: ConfirmationService,
+              private fb: FormBuilder) { }
 
   @ViewChild('dt') public dataTable: DataTable;
 
@@ -92,7 +95,7 @@ export class EmployeesComponent implements OnInit {
         this.employeeList = tmtEmployeeList;
         this.selectedEmployee = saveNew? new EmployeeClass(): null;
         this.isNewEmployee = saveNew ? true : false;
-        this.setCurrentPage(1);
+        this.dataTable.reset();
         })
         .then( emp => this.msgs.push({severity:'success', summary:'Success Message', detail:'New Employee: '+ this.employee.lastName +' Added'}));
     }
@@ -101,18 +104,15 @@ export class EmployeesComponent implements OnInit {
         {this.employee = employee; 
         tmtEmployeeList[this.employeeList.indexOf(this.selectedEmployee)] = employee;
         this.employeeList = tmtEmployeeList;
-        });
+        this.display = false;
+        })
+        .then( emp => this.msgs.push({severity:'success', summary:'Success Message', detail:' Edited Employee: '+ this.employee.lastName +'Succesfully Edited'}));;
     }
-   
     
     this.userform.markAsPristine();
   }
 
   search(){
-      this.setCurrentPage(1);
-  }
-
-  setCurrentPage(n: number) {
     this.dataTable.reset();
   }
 

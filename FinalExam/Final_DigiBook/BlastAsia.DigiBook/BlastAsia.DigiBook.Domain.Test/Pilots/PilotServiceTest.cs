@@ -205,12 +205,15 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
         public void Save_WithExistingPilotCode_ThrowsNonUniquePilotCodeException()
         {
             //Arrange
+            var generator = new PilotCodeGenerator();
+            
 
             mockPilotRepository
-                .Setup(pr => pr.Retrieve(existingPilotCode))
+                .Setup(pr => pr.Retrieve(generator.PilotCodeGenerate(pilot)))
                 .Returns(pilot);
             //Act 
 
+            pilot.LastName = "Lucy";
             //Assert
             Assert.ThrowsException<NonUniquePilotCodeException>(
                 () => sut.Save(pilot.PilotId, pilot));
