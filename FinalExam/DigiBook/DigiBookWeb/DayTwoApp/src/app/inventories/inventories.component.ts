@@ -225,7 +225,7 @@ export class InventoriesComponent implements OnInit {
           tmpInventoryList[this.inventoryList.indexOf(this.cloneInventory)] = this.selectedInventory;
           this.inventoryList = tmpInventoryList;
           this.selectedInventory = null;
-          this.display = false;
+          this.edit = false;
         });
     }
     this.isNewInventory = false;
