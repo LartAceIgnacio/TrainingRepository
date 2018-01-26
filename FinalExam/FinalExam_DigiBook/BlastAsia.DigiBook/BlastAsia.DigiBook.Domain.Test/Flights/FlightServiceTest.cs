@@ -27,7 +27,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
                 CityOfOrigin = "PHL",
                 CityOfDestination = "MNL",
                 ExpectedTimeOfArrival = DateTime.Now.AddHours(2),
-                ExpectedTimeOfDeparture = DateTime.Now.AddHours(2),
+                ExpectedTimeOfDeparture = DateTime.Now.AddHours(3),
         };
 
             mockFlightRepository = new Mock<IFlightRepository>();
@@ -230,6 +230,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
             Assert.ThrowsException<DateAndTimeException>(
                 () => sut.Save(flight.FlightId, flight));
         }
+
         [TestMethod]
         public void Save_WithInvalidCityOfOriginFormat_ThrowsFlightCodeException()
         {
@@ -245,6 +246,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
                 .Verify(c => c.Create(flight), Times.Never());
             Assert.ThrowsException<FlightCodeException>(
                 () => sut.Save(flight.FlightId, flight));
+
         }
         [TestMethod]
         public void Save_WithInvalidCityOfDestinationFormat_ThrowsFlightCodeException()
@@ -262,29 +264,27 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
             Assert.ThrowsException<FlightCodeException>(
                 () => sut.Save(flight.FlightId, flight));
         }
-        //[TestMethod]
-        //public void Save_WithExistingFlightCode_ThrowsFlightCodeException()
-        //{
-        //    // Arrange
+        [TestMethod]
+        public void Save_WithExistingFlightCode_ThrowsFlightCodeException()
+        {
+            // Arrange
 
-        //    string existingFlightCode = "PHLMNL01010101";
+            string existingFlightCode = "PHLMNL18012600";
 
-        //    mockFlightRepository
-        //       .Setup(c => c.Retrieve());
+            mockFlightRepository
+                .Setup(c => c.FlightRetrieve(existingFlightCode))
+                .Returns(flight);
 
-        //    mockFlightRepository
-        //        .Setup(c => c.Retrieve(existingFlightCode))
-        //        .Returns(flight);
+            // Act
 
-        //    // Act
-
-        //    // Assert
-
-        //    mockFlightRepository
-        //       .Verify(c => c.Create(flight), Times.Never());
-        //    Assert.ThrowsException<FlightCodeException>(
-        //        () => sut.Save(flight.FlightId, flight));
-
-        //}
+            // Assert
+            Assert.ThrowsException<FlightCodeException>(
+                () => sut.Save(flight.FlightId, flight));
+            mockFlightRepository
+               .Verify(c => c.Create(flight), Times.Never());
+            mockFlightRepository
+                .Verify(c => c.FlightRetrieve(existingFlightCode)
+                , Times.Once());
+        }
     }
 }

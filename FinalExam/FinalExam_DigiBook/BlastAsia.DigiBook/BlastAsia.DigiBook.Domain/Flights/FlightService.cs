@@ -11,9 +11,8 @@ namespace BlastAsia.DigiBook.Domain.Flights
     {
         private IFlightRepository flightRepository;
         private int incNum;
-        //private string flightCodeRejex = @"^([A-Z]{3})([A-Z]{3})(\d{2})(\d{2})(\d{2})(\d{2})$";
+        private string flightCodeRejex = @"^([A-Z]{3})([A-Z]{3})(\d{2})(\d{2})(\d{2})(\d{2})$";
         private string LetterRejex = @"^([A-Z]{3})$";
-        private string NumberRejex = @"^(\d{2})$";
 
         public FlightService(IFlightRepository flightRepository)
         {
@@ -54,11 +53,26 @@ namespace BlastAsia.DigiBook.Domain.Flights
             {
                 throw new DateAndTimeException("ETA should be greater than date today");
             }
+            if (flight.ExpectedTimeOfDeparture < DateTime.Today)
+            {
+                throw new DateAndTimeException("ETD should be greater than date today");
+            }
             if (!Regex.IsMatch(flight.CityOfOrigin, LetterRejex))
             {
-                throw new FlightCodeException("Invalid Flight Code Format");
+                throw new FlightCodeException("Invalid City of Origin Format");
             }
             if (!Regex.IsMatch(flight.CityOfDestination, LetterRejex))
+            {
+                throw new FlightCodeException("Invalid City of Destination Format");
+            }
+            flight.FlightCode = this.flightCodeChecker(flight);
+            var foundFlightCode = flightRepository.FlightRetrieve(flight.FlightCode);
+
+            if (foundFlightCode != null)
+            {
+                throw new FlightCodeException("Non unique Flight Code");
+            }
+            if(!Regex.IsMatch(flight.FlightCode, flightCodeRejex))
             {
                 throw new FlightCodeException("Invalid Flight Code Format");
             }
@@ -95,6 +109,17 @@ namespace BlastAsia.DigiBook.Domain.Flights
                 result = flightRepository
                     .Update(flight.FlightId, flight);
             }
+            return result;
+        }
+        public string flightCodeChecker(Flight flight)
+        {
+            var etd = flight.ExpectedTimeOfDeparture ?? DateTime.Today;
+            var result = "";
+
+            result = string.Concat(flight.CityOfOrigin, flight.CityOfDestination, etd.ToString("yy")
+                    , etd.ToString("MM"), etd.ToString("dd")
+                    , incNum.ToString().PadLeft(2, '0'));
+
             return result;
         }
     }

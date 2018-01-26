@@ -6,5 +6,7 @@ namespace BlastAsia.DigiBook.Domain.Flights
     public interface IFlightRepository : IRepository<Flight>
     {
         Pagination<Flight> Retrieve(int pageNo, int numRec, string filterValue);
+
+        Flight FlightRetrieve(string flighCode);
     }
 }

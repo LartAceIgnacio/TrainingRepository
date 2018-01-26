@@ -12,12 +12,18 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
             : base(context)
         {
         }
+
+        public Flight FlightRetrieve(string flighCode)
+        {
+            return context.Set<Flight>().FirstOrDefault(x => x.FlightCode.ToLower().Contains(flighCode.ToLower()));
+        }
+
         public Pagination<Flight> Retrieve(int pageNo, int numRec, string filterValue)
         {
             Pagination<Flight> result = new Pagination<Flight>();
             if (string.IsNullOrEmpty(filterValue))
             {
-                result.Results = context.Set<Flight>().OrderBy(x => x.FlightCode)
+                result.Results = context.Set<Flight>().OrderBy(x => x.ExpectedTimeOfDeparture)
                     .Skip(pageNo).Take(numRec).ToList();
 
                 if (result.Results.Count > 0)
@@ -35,7 +41,7 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
                     .Where(x => x.CityOfOrigin.ToLower().Contains(filterValue.ToLower()) ||
                     x.CityOfDestination.ToLower().Contains(filterValue.ToLower()) ||
                     x.FlightCode.ToLower().Contains(filterValue.ToLower()))
-                    .OrderBy(x => x.FlightCode)
+                    .OrderBy(x => x.ExpectedTimeOfDeparture)
                     .Skip(pageNo).Take(numRec).ToList();
 
                 if (result.Results.Count > 0)
