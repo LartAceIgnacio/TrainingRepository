@@ -51,9 +51,9 @@
             <input id="confirmPassword" class="ui-g-12 ui-md-6" 
                 formControlName="PasswordConfirm" placeholder="Confirm password" type="password"/> 
             <div class="ui-g-12 ui-md-4">
-                <div class= "ui-corner-all" *ngIf="!form.controls['PasswordConfirm'].valid&&form.controls['PasswordConfirm'].dirty">
+                <div class= "ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['PasswordConfirm'].valid&&form.controls['PasswordConfirm'].dirty">
                     <i class="fa fa-close"></i>
-                    Confirm your password
+                    Password mismatch.
                 </div>
             </div>
             </div>

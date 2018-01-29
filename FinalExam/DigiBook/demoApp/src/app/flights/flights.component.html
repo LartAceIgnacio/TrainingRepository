@@ -1,14 +1,14 @@
 <div class="content-margin">
   <p-breadcrumb [model]="brFlight" [home]="home"></p-breadcrumb>
   <div class="ui-g">
-    <p-dataTable #dt [globalFilter]="gb" [value]="flightList" [rows]="10" [paginator]="true" [pageLinks]="5"
-      [responsive]="true" (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
-      <p-header> 
+    <p-dataTable #dt [globalFilter]="gb" [value]="flightList" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true"
+      (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
+      <p-header>
         <div class="ui-helper-clearfix">
-            List of Flights
-            <button type="button" pButton class="float-left" (click)="addFlight()" icon="fa-plus"></button>
-            <button class="float-right" pButton type="button" icon="fa-search" (click)="searchFlight()"></button>
-            <input class="float-right" #gb type="text" pInputText size="25" placeholder="Search" [(ngModel)]="searchFilter">
+          List of Flights
+          <button type="button" pButton class="float-left" (click)="addFlight()" icon="fa-plus"></button>
+          <button class="float-right" pButton type="button" icon="fa-search" (click)="searchFlight()"></button>
+          <input class="float-right" #gb type="text" pInputText size="25" placeholder="Search" [(ngModel)]="searchFilter">
         </div>
       </p-header>
       <p-column>
@@ -25,66 +25,88 @@
     </p-dataTable>
   </div>
 
-  <form [formGroup] = "flightForm">
-    <p-dialog header="Flight Details" [(visible)]="display" [responsive]="true" [width]="700" showEffect="fade" modal="modal" *ngIf="selectedFlight">
+  <form [formGroup]="flightForm">
+    <p-dialog header="Flight Details" [(visible)]="display" [responsive]="true" [width]="700" showEffect="fade" modal="modal"
+      *ngIf="selectedFlight">
       <div class="ui-g">
         <div class="ui-g-12 ui-md-8">
           <label class="ui-g-12 ui-md-6" for="eta">Expected Time of Arrival*: </label>
-          <p-calendar class="ui-g-12 ui-md-6" formControlName="eta" [minDate]="invalidDates" [showTime]="true" [(ngModel)]="selectedFlight.eta" [showIcon]="true"></p-calendar>
+          <p-calendar class="ui-g-12 ui-md-6" formControlName="eta" [minDate]="invalidDates" [showTime]="true" [(ngModel)]="selectedFlight.eta"
+            [showIcon]="true"></p-calendar>
         </div>
         <div class="ui-g-12 ui-md-4">
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!flightForm.controls['eta'].valid&&flightForm.controls['eta'].dirty">
-            <i class="fa fa-close"></i>
-            Expected Date And Time of Arrival is required.
+            <i class="fa fa-close"></i> Expected Date And Time of Arrival is required.
           </div>
         </div>
       </div>
       <div class="ui-g">
         <div class="ui-g-12 ui-md-8">
           <label class="ui-g-12 ui-md-6" for="etd">Expected Time of Departure*: </label>
-          <p-calendar class="ui-g-12 ui-md-6" formControlName="etd" [minDate]="invalidDates" [showTime]="true" [(ngModel)]="selectedFlight.etd" [showIcon]="true"></p-calendar>
+          <p-calendar class="ui-g-12 ui-md-6" formControlName="etd" [minDate]="invalidDates" [showTime]="true" [(ngModel)]="selectedFlight.etd"
+            [showIcon]="true"></p-calendar>
         </div>
         <div class="ui-g-12 ui-md-4">
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!flightForm.controls['etd'].valid&&flightForm.controls['etd'].dirty">
-            <i class="fa fa-close"></i>
-            Expected Date And Time of Departure is required.
+            <i class="fa fa-close"></i> Expected Date And Time of Departure is required.
           </div>
         </div>
       </div>
       <div class="ui-g">
         <div class="ui-g-12 ui-md-8">
           <label class="ui-g-12 ui-md-6" for="cityOfOrigin">City of Origin*: </label>
-          <p-dropdown class="ui-g-12 ui-md-6" [options]="cities" editable="true" [(ngModel)]="selectedFlight.cityOfOrigin" formControlName="cityoforigin" placeholder="Select a City"></p-dropdown>
+          <p-dropdown class="ui-g-12 ui-md-6" [options]="cities" [(ngModel)]="selectedFlight.cityOfOrigin" formControlName="cityoforigin"
+            placeholder="Select a City" filter="true">
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align:middle">{{item.label}}</span>
+            </ng-template>
+            <ng-template let-city pTemplate="item">
+              <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                <div style="font-size:14px;float:right;margin-top:4px">{{city.label}}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
         </div>
         <div class="ui-g-12 ui-md-4">
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!flightForm.controls['cityoforigin'].valid&&flightForm.controls['cityoforigin'].dirty">
-            <i class="fa fa-close"></i>
-            City of Origin is required.
+            <i class="fa fa-close"></i> City of Origin is required.
           </div>
         </div>
       </div>
       <div class="ui-g">
         <div class="ui-g-12 ui-md-8">
           <label class="ui-g-12 ui-md-6" for="cityofdestination">City of Destination*: </label>
-          <p-dropdown class="ui-g-12 ui-md-6" [options]="cities" editable="true" [(ngModel)]="selectedFlight.cityOfDestination" formControlName="cityofdestination" placeholder="Select a City"></p-dropdown>
+          <p-dropdown class="ui-g-12 ui-md-6" [options]="cities" [(ngModel)]="selectedFlight.cityOfDestination" formControlName="cityofdestination"
+            placeholder="Select a City" filter="true">
+            <ng-template let-item pTemplate="selectedItem">
+              <span style="vertical-align:middle">{{item.label}}</span>
+            </ng-template>
+            <ng-template let-city pTemplate="item">
+              <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                <div style="font-size:14px;float:right;margin-top:4px">{{city.label}}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
         </div>
         <div class="ui-g-12 ui-md-4">
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!flightForm.controls['cityofdestination'].valid&&flightForm.controls['cityofdestination'].dirty">
-            <i class="fa fa-close"></i>
-            City of Destination is required.
+            <i class="fa fa-close"></i> City of Destination is required.
           </div>
         </div>
       </div>
       <div class="nav-button" *ngIf="isDelete == false&&isNewFlight==true">
         <br><br><br><br><br><br><br><br>
-        <button class="nav-button" pButton icon="fa-check" type="button" (click)="saveAndNewFlight()" [disabled]="!flightForm.valid" label="Save and New"></button>
+        <button class="nav-button" pButton icon="fa-check" type="button" (click)="saveAndNewFlight()" [disabled]="!flightForm.valid"
+          label="Save and New"></button>
         <button class="nav-button" pButton icon="fa-check" type="button" (click)="saveFlight()" [disabled]="!flightForm.valid" label="Save"></button>
-        <button class="ui-button-warning nav-button" pButton icon="fa-ban" type="button" (click)="cancelFlight()" label="Cancel" [disabled]="!flightForm.dirty"></button>
+        <button class="ui-button-warning nav-button" pButton icon="fa-ban" type="button" (click)="cancelFlight()" label="Cancel"
+          [disabled]="!flightForm.dirty"></button>
       </div>
       <div class="nav-button" *ngIf="isDelete == false&&isNewFlight==false">
         <br><br><br><br><br><br><br><br>
         <button class="nav-button" pButton icon="fa-check" type="button" (click)="saveFlight()" [disabled]="!flightForm.dirty" label="Save"></button>
-        <button class="ui-button-warning nav-button" pButton icon="fa-ban" type="button" (click)="cancelFlight()" label="Cancel" [disabled]="!flightForm.dirty" ></button>
+        <button class="ui-button-warning nav-button" pButton icon="fa-ban" type="button" (click)="cancelFlight()" label="Cancel"
+          [disabled]="!flightForm.dirty"></button>
       </div>
       <div class="nav-button" *ngIf="isDelete == true">
         <br><br><br><br><br><br><br><br>

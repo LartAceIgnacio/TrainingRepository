@@ -28,7 +28,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Flights
             };
             mockFlightRepository = new Mock<IFlightRepository>();
             sut = new FlightService(mockFlightRepository.Object);
-            existingCode = "MNLLGN18012401";
+            existingCode = "MNLLGN18012901";
         }
 
         [TestCleanup]
