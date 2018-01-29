@@ -18,3 +18,6 @@
 .float-right{
     float: right;
 }
+.title-center h1{
+    text-align: center;
+}
