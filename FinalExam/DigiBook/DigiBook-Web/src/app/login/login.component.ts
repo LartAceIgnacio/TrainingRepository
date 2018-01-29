@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
                     + this.authService.getAuth()!.token
                 );
                 */
-                this.router.navigate(["/"]);
+                this.router.navigate(["/dashboard"]);
             },
             err => {
                 // login failed

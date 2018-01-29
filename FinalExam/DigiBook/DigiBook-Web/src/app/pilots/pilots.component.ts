@@ -50,6 +50,7 @@ export class PilotsComponent implements OnInit {
   constructor(private globalService: GlobalService, private fb: FormBuilder, private confirmationService: ConfirmationService) { }
 
   @ViewChild('dt') public dataTable: DataTable;
+  
   ngOnInit() {
     this.pilotForm = this.fb.group({
       'firstName': new FormControl('', Validators.required),

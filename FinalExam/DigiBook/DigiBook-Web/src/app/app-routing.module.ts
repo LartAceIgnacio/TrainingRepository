@@ -19,8 +19,8 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent},
     { path: 'user', component: UserComponent },
     { path: 'pilot', component: PilotsComponent },
-    { path: '', redirectTo: '/dashboard', pathMatch:'full'},
-    { path: '**', redirectTo: '/dashboard', pathMatch:'full'}
+    { path: '', redirectTo: '/login', pathMatch:'full'},
+    { path: '**', redirectTo: '/login', pathMatch:'full'}
   ]
  
 @NgModule({

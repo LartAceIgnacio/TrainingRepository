@@ -1,60 +1,7 @@
-<!-- <div class="login-container">
-  <img id="login-img" class="login-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-  <h2 class="login-title">{{title}}</h2>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
-      <div *ngIf="form.errors?.auth"
-          class="error-panel help-block ui-message ui-messages-error ui-corner-all">
-          {{form.errors.auth}}
-      </div>
-
-      <div class="ui-g ui-fluid" [ngClass]="{ 'has-error has-feedback' : hasError('Username') }">
-            <div class="ui-g-12">
-                <div class="ui-inputgroup">
-                    <span class="ui-inputgroup-addon"><i class="fa fa-user fa-lg"></i></span>
-                    <input type="text" class="txtbox" formControlName="Username" pInputText placeholder="Username or Email address"/>
-                </div>
-                <span *ngIf="hasError('Username')" class="glyphicon glyphicon-remove form-control-feedback"
-                           aria-hidden="true"></span>
-                <div *ngIf="hasError('Username')" class="help-block ui-message ui-messages-error ui-corner-all">
-                        Please insert a valid username or e-mail address.
-                </div>
-            </div>
-      </div>
-      <div class="ui-g ui-fluid" [ngClass]="{ 'has-error has-feedback' :hasError('Password') }">
-            <div class="ui-g-12 ">
-                <div class="ui-inputgroup">
-                    <span class="ui-inputgroup-addon"><i class="fa fa-lock fa-lg"></i></span>
-                    <input class="txtbox" type="password" formControlName="Password" pInputText placeholder="Password">
-                </div>
-                <span *ngIf="hasError('Password')" class="glyphicon glyphicon-remove form-control-feedback"
-                aria-hidden="true"></span>
-             <div *ngIf="hasError('Password')" class="help-block ui-message ui-messages-error ui-corner-all">
-                 Please insert a password.
-             </div>
-            </div>
-      </div>
-            <div class="checkbox">
-                <p-checkbox name="remember" value="remember"></p-checkbox>Remember me
-            </div>
-    <button pButton type="submit" [disabled]="form.invalid" class="ui-button-primary btn-signin"  label="Sign In">
-    </button>
-</form>
-<div class="login-link">
-<a href="#">
-    Forgot the password?
-</a>
-</div>
-<div class="login-link">
-    <a [routerLink]="['/user']">
-        Don't have an account? Click here to create one!
-    </a>
-</div>
-</div> -->
-
-<section id="wrapper" class="login-register login-sidebar"  style="background-image:url(../assets/images/background/login-register.jpg);">
+<section id="wrapper" class="login-register login-sidebar"  style="background-image:url(../assets/images/background/login.jpg);">
  <div class="login-box card">
    <div class="card-body">
-       <form class="form-horizontal form-material" id="loginform" [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+       <form class="form-horizontal form-material" [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
        <a href="javascript:void(0)" class="text-center db"><img src="../assets/images/logo-icon.png" alt="Home" /><br/><img src="../assets/images/logo-text.png" alt="Home" /></a>
 
        <div class="form-group m-t-40">
@@ -91,7 +38,7 @@
          </div>
        </div>
      </form>
-     <form class="form-horizontal" id="recoverform" action="index.html">
+     <!-- <form class="form-horizontal" id="recoverform" action="index.html">
        <div class="form-group ">
          <div class="col-xs-12">
            <h3>Recover Password</h3>
@@ -108,7 +55,7 @@
            <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Reset</button>
          </div>
        </div>
-     </form>
+     </form> -->
    </div>
  </div>
 </section>

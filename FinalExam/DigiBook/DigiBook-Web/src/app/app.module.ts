@@ -30,6 +30,8 @@ import { RegisterComponent } from './register/register.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { PilotsComponent } from './pilots/pilots.component';
 import { AppRoutingModule } from './app-routing.module';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { AppRoutingModule } from './app-routing.module';
     UserComponent,
     StatisticsComponent,
     PilotsComponent,
+    NavbarComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,

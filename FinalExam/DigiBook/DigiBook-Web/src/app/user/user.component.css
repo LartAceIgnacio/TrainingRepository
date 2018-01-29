@@ -1,4 +1,7 @@
 
-div input{
+/* div input{
     margin-bottom:15px;
+} */
+.registerForm{
+    height:100vh;
 }

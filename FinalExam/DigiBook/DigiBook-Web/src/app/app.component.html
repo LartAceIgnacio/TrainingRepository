@@ -1,22 +1,26 @@
- <header class="ui-g" *ngIf="this.auth.isLoggedIn()">
+ <!-- <header class="ui-g" *ngIf="this.auth.isLoggedIn()">
     <div class="ui-g-12 ui-md-12">
         <p-menubar [model]="header">
             <button class="btn" pButton *ngIf="!this.auth.isLoggedIn()" [routerLinkActive]="['link-active']"
             [routerLink]="['/login']" label="Login" icon="fa-sign-in"></button>
             <button class="btn" pButton *ngIf="!this.auth.isLoggedIn()" [routerLinkActive]="['link-active']"
             [routerLink]="['/user']" label="Register" icon="fa-sign-in"></button>
-            <button class="btn" pButton *ngIf="this.auth.isLoggedIn()" (click)="this.auth.logout()"
+            <button class="btn" pButton *ngIf="this.auth.isLoggedIn()" (click)="this.auth.logout()" [routerLink]="['/login']"
              label="Logout" icon="fa-sign-out"></button>
         </p-menubar>
     </div>
-</header>
+</header> -->
+<app-navbar></app-navbar>
 
 <div class="ui-g">
-    <div id="sidenav" class="ui-g-12 ui-md-2">
-        <p-menu *ngIf="this.auth.isLoggedIn()" [model]="items"></p-menu>
-    </div>
-    <div class="ui-g-12 ui-md-10">
-         <router-outlet></router-outlet>
-    </div>
+    <app-sidebar  *ngIf="this.auth.isLoggedIn()"></app-sidebar>
+    <!-- <div id="sidenav" *ngIf="this.auth.isLoggedIn()" class="ui-g-12 ui-md-2">
+        <p-menu  [model]="items"></p-menu>
+    </div> -->
+    <div class="page-wrapper">
+            <div class="container-fluid">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
 </div>
-<app-login *ngIf="!this.auth.isLoggedIn()"></app-login>
+
