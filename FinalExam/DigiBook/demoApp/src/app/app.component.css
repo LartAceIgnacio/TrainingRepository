@@ -1,18 +1,19 @@
 #header {
-    height: 60px;
+    height: 80px;
     background-color:black;
     padding: 10px;
     color: white;
-    position: fixed;
     width: 100%;
+    position: fixed;
+    top:0;
 }
 #top-logo {
     float: left;
-    font-family: Arial Black;
-    margin-left: 20px;
-}
-#top-logo h2 {
+    font-family: Verdana;
+    color:  white;
+    margin-left: 40px;
     line-height: 60px;
+    font-size: 20px;
 }
 #top-menu {
     line-height: 60px;
@@ -26,11 +27,4 @@
 #top-menu ul li a {
     text-decoration: none;
     color:white;
-}
-h2 a{
-    text-decoration: none;
-    color:white;
-}
-.full-height{
-    background: white;
 }

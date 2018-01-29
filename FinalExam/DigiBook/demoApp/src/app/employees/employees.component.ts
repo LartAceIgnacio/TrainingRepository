@@ -17,7 +17,7 @@ import { DataTable } from "primeng/components/datatable/datatable";
   selector: 'app-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.css'],
-  providers:[EmployeeService, ConfirmationService, GlobalService]
+  providers:[ConfirmationService, GlobalService]
 })
 export class EmployeesComponent implements OnInit {
 
@@ -32,6 +32,7 @@ export class EmployeesComponent implements OnInit {
   display: boolean;
   msgs: Message[] = [];
   isDelete: boolean = false;
+  componentName: string = "Employees";
 
   // Pagination
   searchFilter: string = "";
@@ -40,11 +41,10 @@ export class EmployeesComponent implements OnInit {
   paginationResult: PaginationResult<Employee>;
   // end pagination
 
-  constructor(private employeeService: EmployeeService,
+  constructor(private employeeService: GlobalService,
     private http:HttpClient,
     private fb: FormBuilder,
-    private confirmationService: ConfirmationService,
-    private globalService: GlobalService) { }
+    private confirmationService: ConfirmationService) { }
 
   @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
@@ -79,6 +79,7 @@ export class EmployeesComponent implements OnInit {
     this.isDelete = false;
     this.display = true;
     this.userform.markAsPristine();
+    this.userform.enable();
     this.isNewEmployee = true;
     this.selectedEmployee = new EmployeeClass();
   }
@@ -86,14 +87,14 @@ export class EmployeesComponent implements OnInit {
   saveEmployee(){
     let tmpEmployeeList = [...this.employeeList];
     if(this.isNewEmployee){
-      this.employeeService.postEmployees(this.selectedEmployee).then(employee => {
+      this.employeeService.addRecord<Employee>(this.componentName, this.selectedEmployee).then(employee => {
         tmpEmployeeList.push(employee);
         this.employeeList=tmpEmployeeList;
         this.selectedEmployee=null;
       });
     }    
     else{
-      this.employeeService.putEmployees(this.selectedEmployee).then(employee =>{
+      this.employeeService.updateRecord<Employee>(this.componentName, this.selectedEmployee.employeeId, this.selectedEmployee).then(employee =>{
         tmpEmployeeList[this.employeeList.indexOf(this.selectedEmployee)] = this.selectedEmployee;
         this.employeeList=tmpEmployeeList;
         this.selectedEmployee=null;
@@ -107,7 +108,7 @@ export class EmployeesComponent implements OnInit {
 
     let tmpEmployeeList = [...this.employeeList];
 
-    this.employeeService.postEmployees(this.selectedEmployee).then(employee => {
+    this.employeeService.addRecord<Employee>(this.componentName,this.selectedEmployee).then(employee => {
       tmpEmployeeList.push(employee);
       this.employeeList=tmpEmployeeList;
     });
@@ -163,7 +164,7 @@ export class EmployeesComponent implements OnInit {
       accept: () => {
         let index = this.findSelectedEmployeeIndex();
         this.employeeList = this.employeeList.filter((val,i) => i!=index);
-        this.employeeService.deleteEmployees(this.selectedEmployee.employeeId);
+        this.employeeService.deleteRecord<Employee>(this.componentName, this.selectedEmployee.employeeId);
         this.selectedEmployee = null;
       }
     });
@@ -173,6 +174,8 @@ export class EmployeesComponent implements OnInit {
     this.isDelete = false;
     this.selectedEmployee=Employee;
     this.cloneEmployee = this.cloneRecord(this.selectedEmployee);
+    this.userform.markAsPristine();
+    this.userform.enable();
     this.display=true;
     this.isNewEmployee = false;
   }
@@ -188,7 +191,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   paginate(event) {
-    this.globalService.getRecordWithPagination<PaginationResult<Employee>>("Employees", event.first, event.rows,
+    this.employeeService.getRecordWithPagination<PaginationResult<Employee>>(this.componentName, event.first, event.rows,
       this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
           this.paginationResult = paginationResult;
           this.employeeList = this.paginationResult.results;

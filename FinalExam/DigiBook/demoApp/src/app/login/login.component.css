@@ -1,4 +1,4 @@
-.login-container {
+;.login-container {
     max-width: 600px;
     padding: 5px;
     margin: 0 0 25px 0;
@@ -73,7 +73,6 @@
         width: 100%;
     }
 }
-
 .content-margin{
     top: 120px;
     left: 0;
@@ -82,4 +81,7 @@
     position: absolute;
     margin: auto;
     width: 60%;
+}
+.title-center h1{
+    text-align: center;
 }

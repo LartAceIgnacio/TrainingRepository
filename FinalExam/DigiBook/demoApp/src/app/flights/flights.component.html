@@ -1,7 +1,5 @@
 <div class="content-margin">
-
   <p-breadcrumb [model]="brFlight" [home]="home"></p-breadcrumb>
-
   <div class="ui-g">
     <p-dataTable #dt [globalFilter]="gb" [value]="flightList" [rows]="10" [paginator]="true" [pageLinks]="5"
       [responsive]="true" (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">

@@ -86,7 +86,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpDelete]
         [Authorize]
-        [Route("api/Appointments")]
+        [Route("api/Appointments/{id}")]
         public IActionResult DeleteAppointment(Guid id)
         {
             var appointmentToDelete = this.appointmentRepository.Retrieve(id);
@@ -100,7 +100,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpPut]
         [Authorize]
-        [Route("api/Appointments")]
+        [Route("api/Appointments/{id}")]
         public IActionResult UpdateAppointment([FromBody] Appointment appointment, Guid id)
         {
             try
@@ -130,7 +130,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpPatch]
         [Authorize]
-        [Route("api/Appointments")]
+        [Route("api/Appointments/{id}")]
         public IActionResult PatchAppointment([FromBody]JsonPatchDocument patchAppointment, Guid id)
         {
             if (patchAppointment == null)

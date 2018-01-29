@@ -1,133 +1,131 @@
-<div class="content-margin">
-<p-breadcrumb [model]="brEmployee" [home]="home"></p-breadcrumb>
+<section class="content-margin">
+    <p-breadcrumb [model]="brEmployee" [home]="home"></p-breadcrumb>
 
-  <div class="ui-g">
-    <p-dataTable #dt [value]="employeeList" [rows]="6" [paginator]="true" [pageLinks]="5" [responsive]="true" 
-        (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
-        <p-header>
-            <button type="button" pButton class="float-left" (click)="addEmployee()" icon="fa-plus"></button>
-            Employees
-            <div class="float-right">
-                <input #gb type="text" pInputText size="25" placeholder="Search" [(ngModel)]="searchFilter">
-                <button pButton type="button" icon="fa-search" (click)="searchEmployee()"></button>
+    <div class="ui-g">
+        <p-dataTable #dt [value]="employeeList" [rows]="6" [paginator]="true" [pageLinks]="5" [responsive]="true" (onLazyLoad)="paginate($event)"
+            [lazy]="true" [totalRecords]="totalRecords">
+            <p-header>
+                <button type="button" pButton class="float-left" (click)="addEmployee()" icon="fa-plus"></button> Employees
+                <div class="float-right">
+                    <input #gb type="text" pInputText size="25" placeholder="Search" [(ngModel)]="searchFilter">
+                    <button pButton type="button" icon="fa-search" (click)="searchEmployee()"></button>
+                </div>
+            </p-header>
+            <p-column>
+                <ng-template let-Employee="rowData" pTemplate="body">
+                    <button type="button" pButton (click)="editEmployee(Employee)" icon="fa-pencil"></button>
+                    <button class="ui-button-danger" type="button" pButton (click)="confirmDelete(Employee)" icon="fa-times"></button>
+                </ng-template>
+            </p-column>
+            <p-column field="firstName" header="First Name" [sortable]="true"></p-column>
+            <p-column field="lastName" header="Last Name" [sortable]="true"></p-column>
+            <p-column field="mobilePhone" header="Mobile Number" [sortable]="true"></p-column>
+            <p-column field="emailAddress" header="Email Address" [sortable]="true"></p-column>
+            <p-column field="officePhone" header="Office Phone Number" [sortable]="true"></p-column>
+            <p-column field="extension" header="Extension" [sortable]="true"></p-column>
+        </p-dataTable>
+    </div>
+
+    <br>
+
+    <form [formGroup]="userform">
+        <p-dialog header="Employee Details" [(visible)]="display" [responsive]="true" showEffect="fade" modal="modal" *ngIf="selectedEmployee">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <h3><label class="ui-g-12 ui-md-4" for="employeeName">Employee Name</label></h3>
+                </div>
             </div>
-        </p-header>
-        <p-column>
-            <ng-template let-Employee="rowData" pTemplate="body">
-                <button type="button" pButton (click)="editEmployee(Employee)" icon="fa-pencil"></button>
-                <button class="ui-button-danger" type="button" pButton (click)="confirmDelete(Employee)" icon="fa-times"></button>
-            </ng-template>
-        </p-column>
-        <p-column field="firstName" header="First Name" [sortable]="true"></p-column>
-        <p-column field="lastName" header="Last Name" [sortable]="true"></p-column>
-        <p-column field="mobilePhone" header="Mobile Number" [sortable]="true"></p-column>
-        <p-column field="emailAddress" header="Email Address" [sortable]="true"></p-column>
-        <p-column field="officePhone" header="Office Phone Number" [sortable]="true"></p-column>
-        <p-column field="extension" header="Extension" [sortable]="true"></p-column>
-    </p-dataTable>
-  </div>
 
-<br>
-
-<form [formGroup]="userform">
-<p-dialog header="Employee Details" [(visible)]="display" [responsive]="true" showEffect="fade" modal="modal" *ngIf="selectedEmployee">
-    <div class="ui-g">
-        <div class="ui-g-12">
-            <h3><label class="ui-g-12 ui-md-4" for="employeeName">Employee Name</label></h3>
-        </div>
-    </div>
-
-    <div class="ui-g">
-      <div class="ui-g-12 ui-md-6">
-          <label class="ui-g-12 ui-md-4" for="firstName">First Name*: </label>
-          <input class="ui-g-12 ui-md-8" pInputText id="firstName" formControlName="firstname" placeholder="Enter First Name" [(ngModel)]="selectedEmployee.firstName">
-      </div>
-      <div class="ui-g-12 ui-md-6">
-        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty">
-            <i class="fa fa-close"></i>
-            Firstname is required
-        </div>
-      </div>
-    </div>
-
-    <div class="ui-g">
-      <div class="ui-g-12 ui-md-6">
-          <label class="ui-g-12 ui-md-4" for="lastName">Last Name*: </label>
-          <input class="ui-g-12 ui-md-8" pInputText id="lastName" formControlName="lastname" placeholder="Enter Last Name" [(ngModel)]="selectedEmployee.lastName">
-      </div>
-      <div class="ui-g-12 ui-md-6">
-        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty">
-            <i class="fa fa-close"></i>
-            Firstname is required
-        </div>
-      </div>
-    </div>
-
-    <div class="ui-g">
-        <div class="ui-g-12">
-            <h3><label class="ui-g-12 ui-md-6" for="employeeDetails">Contact Details</label></h3>
-        </div>
-    </div>
-
-    <div class="ui-g">
-        <div class="ui-g-12 ui-md-6">
-            <label class="ui-g-12 ui-md-4" for="mobilePhone">Mobile Phone*: </label>
-            <input class="ui-g-12 ui-md-8" pInputText id="mobilePhone" formControlName="mobilePhone" placeholder="Enter Mobile Number" [(ngModel)]="selectedEmployee.mobilePhone">
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['mobilePhone'].valid&&userform.controls['mobilePhone'].dirty">
-                <i class="fa fa-close"></i>
-                Mobile Phone is required
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6">
+                    <label class="ui-g-12 ui-md-4" for="firstName">First Name*: </label>
+                    <input class="ui-g-12 ui-md-8" pInputText id="firstName" formControlName="firstname" placeholder="Enter First Name" [(ngModel)]="selectedEmployee.firstName">
+                </div>
+                <div class="ui-g-12 ui-md-6">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['firstname'].valid&&userform.controls['firstname'].dirty">
+                        <i class="fa fa-close"></i> Firstname is required
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="ui-g">
-        <div class="ui-g-12 ui-md-6">
-            <label class="ui-g-12 ui-md-4" for="address">Email Address*: </label>
-            <input class="ui-g-12 ui-md-8" pInputText id="emailAddress" formControlName="emailAddress" placeholder="Enter Email Address" [(ngModel)]="selectedEmployee.emailAddress">
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['emailAddress'].valid&&userform.controls['emailAddress'].dirty">
-                <i class="fa fa-close"></i>
-                Email Address is required
-            </div>
-          </div>
-    </div>
 
-    <div class="ui-g">
-        <div class="ui-g-12 ui-md-6">
-            <label class="ui-g-12 ui-md-4" for="officePhone">Office Phone*: </label>
-            <input class="ui-g-12 ui-md-8" pInputText id="officePhone" formControlName="officePhone" placeholder="Enter Office Phone Number" [(ngModel)]="selectedEmployee.officePhone">
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['officePhone'].valid&&userform.controls['officePhone'].dirty">
-                <i class="fa fa-close"></i>
-                Office Phone Number is required
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6">
+                    <label class="ui-g-12 ui-md-4" for="lastName">Last Name*: </label>
+                    <input class="ui-g-12 ui-md-8" pInputText id="lastName" formControlName="lastname" placeholder="Enter Last Name" [(ngModel)]="selectedEmployee.lastName">
+                </div>
+                <div class="ui-g-12 ui-md-6">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['lastname'].valid&&userform.controls['lastname'].dirty">
+                        <i class="fa fa-close"></i> Firstname is required
+                    </div>
+                </div>
             </div>
-          </div>
 
-        <div class="ui-g-12 ui-md-6">
-            <label class="ui-g-12 ui-md-4" for="extension">Extension*: </label>
-            <input class="ui-g-12 ui-md-8" pInputText id="extension" formControlName="extension" placeholder="Enter Extension" [(ngModel)]="selectedEmployee.extension">
-        </div>
-        <div class="ui-g-12 ui-md-6">
-            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['extension'].valid&&userform.controls['extension'].dirty">
-                <i class="fa fa-close"></i>
-                Extension is required
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <h3><label class="ui-g-12 ui-md-6" for="employeeDetails">Contact Details</label></h3>
+                </div>
             </div>
-          </div>
-    </div>
-    <div *ngIf="isDelete == false">
-        <br>
-        <button pButton icon="fa-check" type="button" (click)="saveAndNewEmployee()" [disabled]="!userform.valid" label="Save and New" *ngIf="isNewEmployee==true"></button>
-        <button pButton icon="fa-check" type="button" (click)="saveEmployee()" [disabled]="!userform.valid" label="Save"></button>
-        <button class="ui-button-warning" pButton icon="fa-ban" type="button" (click)="cancelEmployee()" label="Cancel" [disabled]="!userform.dirty" *ngIf="isNewEmployee==false"></button>
-    </div>
-    <div class="ui-g" *ngIf="isDelete == true"> 
-        <button class="ui-button-danger" pButton icon="fa-ban" type="button" (click)="deleteEmployee()" label="Delete"></button>
-    </div>
-</p-dialog>
-</form>
 
-<p-confirmDialog></p-confirmDialog>
-</div>
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6">
+                    <label class="ui-g-12 ui-md-4" for="mobilePhone">Mobile Phone*: </label>
+                    <input class="ui-g-12 ui-md-8" pInputText id="mobilePhone" formControlName="mobilePhone" placeholder="Enter Mobile Number"
+                        [(ngModel)]="selectedEmployee.mobilePhone">
+                </div>
+                <div class="ui-g-12 ui-md-6">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['mobilePhone'].valid&&userform.controls['mobilePhone'].dirty">
+                        <i class="fa fa-close"></i> Mobile Phone is required
+                    </div>
+                </div>
+            </div>
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6">
+                    <label class="ui-g-12 ui-md-4" for="address">Email Address*: </label>
+                    <input class="ui-g-12 ui-md-8" pInputText id="emailAddress" formControlName="emailAddress" placeholder="Enter Email Address"
+                        [(ngModel)]="selectedEmployee.emailAddress">
+                </div>
+                <div class="ui-g-12 ui-md-6">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['emailAddress'].valid&&userform.controls['emailAddress'].dirty">
+                        <i class="fa fa-close"></i> Email Address is required
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6">
+                    <label class="ui-g-12 ui-md-4" for="officePhone">Office Phone*: </label>
+                    <input class="ui-g-12 ui-md-8" pInputText id="officePhone" formControlName="officePhone" placeholder="Enter Office Phone Number"
+                        [(ngModel)]="selectedEmployee.officePhone">
+                </div>
+                <div class="ui-g-12 ui-md-6">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['officePhone'].valid&&userform.controls['officePhone'].dirty">
+                        <i class="fa fa-close"></i> Office Phone Number is required
+                    </div>
+                </div>
+
+                <div class="ui-g-12 ui-md-6">
+                    <label class="ui-g-12 ui-md-4" for="extension">Extension*: </label>
+                    <input class="ui-g-12 ui-md-8" pInputText id="extension" formControlName="extension" placeholder="Enter Extension" [(ngModel)]="selectedEmployee.extension">
+                </div>
+                <div class="ui-g-12 ui-md-6">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['extension'].valid&&userform.controls['extension'].dirty">
+                        <i class="fa fa-close"></i> Extension is required
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="isDelete == false">
+                <br>
+                <button pButton icon="fa-check" type="button" (click)="saveAndNewEmployee()" [disabled]="!userform.valid" label="Save and New"
+                    *ngIf="isNewEmployee==true"></button>
+                <button pButton icon="fa-check" type="button" (click)="saveEmployee()" [disabled]="!userform.valid" label="Save"></button>
+                <button class="ui-button-warning" pButton icon="fa-ban" type="button" (click)="cancelEmployee()" label="Cancel" [disabled]="!userform.dirty"
+                    *ngIf="isNewEmployee==false"></button>
+            </div>
+            <div class="ui-g" *ngIf="isDelete == true">
+                <button class="ui-button-danger" pButton icon="fa-ban" type="button" (click)="deleteEmployee()" label="Delete"></button>
+            </div>
+        </p-dialog>
+    </form>
+
+    <p-confirmDialog></p-confirmDialog>
+<section>

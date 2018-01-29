@@ -13,3 +13,8 @@
 .float-right{
     float: right;
 }
+.content-margin{
+    margin-top: 90px;
+    margin-left: 240px;
+    margin-right: 10px;
+}

@@ -17,13 +17,14 @@ import { GlobalService } from "../services/globalservice";
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.css'],
-  providers: [ContactService, ConfirmationService, GlobalService]
+  providers: [ConfirmationService, GlobalService]
 })
 export class ContactsComponent implements OnInit {
   contactList: Contact[];
   selectedContact: Contact;
   cloneContact: Contact;
   isNewContact: boolean;
+  componentName : string = "Contacts";
 
   contactForm: FormGroup;
 
@@ -37,11 +38,10 @@ export class ContactsComponent implements OnInit {
   paginationResult: PaginationResult<Contact>;
   totalRecords: number = 0;
 
-  constructor(private contactService: ContactService,
+  constructor(private contactService: GlobalService,
     private http: HttpClient,
     private fb: FormBuilder,
-    private confirmationService: ConfirmationService,
-    private globalService: GlobalService) { }
+    private confirmationService: ConfirmationService) { }
 
   @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
@@ -69,7 +69,7 @@ export class ContactsComponent implements OnInit {
   }
 
   paginate(event) {
-    this.globalService.getRecordWithPagination<PaginationResult<Contact>>("Contacts", event.first, event.rows,
+    this.contactService.getRecordWithPagination<PaginationResult<Contact>>(this.componentName, event.first, event.rows,
       this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
         this.paginationResult = paginationResult;
         this.contactList = this.paginationResult.results;
@@ -93,6 +93,7 @@ export class ContactsComponent implements OnInit {
 
   addContact() {
     this.contactForm.markAsPristine();
+    this.contactForm.enable();
     this.display = true;
     this.isNewContact = true;
     this.isDelete = false;
@@ -103,14 +104,14 @@ export class ContactsComponent implements OnInit {
   saveContact() {
     let tmpContactList = [...this.contactList];
     if (this.isNewContact) {
-      this.contactService.postContacts(this.selectedContact).then(contact => {
+      this.contactService.addRecord<Contact>(this.componentName,this.selectedContact).then(contact => {
         tmpContactList.push(contact);
         this.contactList = tmpContactList;
         this.selectedContact = null;
       });
     }
     else {
-      this.contactService.putContacts(this.selectedContact).then(contact => {
+      this.contactService.updateRecord<Contact>(this.componentName,this.selectedContact.contactId,this.selectedContact).then(contact => {
         tmpContactList[this.contactList.indexOf(this.selectedContact)] = this.selectedContact;
         this.contactList = tmpContactList;
         this.selectedContact = null;
@@ -124,7 +125,7 @@ export class ContactsComponent implements OnInit {
 
     this.contactForm.markAsPristine();
 
-    this.contactService.postContacts(this.selectedContact).then(contact => {
+    this.contactService.addRecord<Contact>(this.componentName,this.selectedContact).then(contact => {
       tmpContactList.push(contact);
       this.contactList = tmpContactList;
     });
@@ -180,7 +181,7 @@ export class ContactsComponent implements OnInit {
         //Actual logic to perform a confirmation
         let index = this.findSelectedContactIndex();
         this.contactList = this.contactList.filter((val, i) => i != index);
-        this.contactService.deleteContacts(this.selectedContact.contactId);
+        this.contactService.deleteRecord<Contact>(this.componentName,this.selectedContact.contactId);
         this.selectedContact = null;
       },
       reject: () => {
@@ -191,11 +192,11 @@ export class ContactsComponent implements OnInit {
 
   editContact(Contact: Contact) {
     this.contactForm.markAsPristine();
+    this.contactForm.enable();
     this.selectedContact = Contact;
     this.cloneContact = this.cloneRecord(this.selectedContact);
     this.isDelete = false;
     this.display = true;
-    this.contactForm.enable();
     this.isNewContact = false;
   }
 

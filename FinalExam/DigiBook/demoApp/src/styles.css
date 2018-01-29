@@ -8,20 +8,10 @@
     padding: 0;
     position: fixed;
     width: 230px;
-    margin-top: 80px;
     margin-left: 0px;
+    top: 80px;
 }
 .ui-menuitem .ui-menuitem-link{
     padding: 10px;
     border-bottom: 1px solid #B0AEAE;
-}
-.content-margin{
-    margin-top:70px;
-}
-.left-nav{
-    float: left;
-}
-.right-content{
-    float: left;
-    margin-left: 240px;
 }

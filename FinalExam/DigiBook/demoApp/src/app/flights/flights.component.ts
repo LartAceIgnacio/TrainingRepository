@@ -23,6 +23,7 @@ export class FlightsComponent implements OnInit {
   selectedFlight: Flight;
   cloneFlight: Flight;
   isNewFlight: boolean;
+  componentName: string = "Flights";
 
   flightForm: FormGroup
   display: boolean;
@@ -87,7 +88,7 @@ export class FlightsComponent implements OnInit {
 
   paginate(event){
     this.globalservice.getRecordWithPagination<PaginationResult<Flight>>(
-      "Flights", event.first, event.rows, this.searchFilter.length ==1? "" :
+      this.componentName, event.first, event.rows, this.searchFilter.length ==1? "" :
       this.searchFilter).then(paginationResult =>{
         this.paginationResult = paginationResult;
         this.flightList = this.paginationResult.results;
@@ -125,7 +126,7 @@ export class FlightsComponent implements OnInit {
 
     let tmpFlightList = [...this.flightList];
 
-    this.globalservice.addRecord<Flight>("Flights", this.selectedFlight).then(flights =>{
+    this.globalservice.addRecord<Flight>(this.componentName, this.selectedFlight).then(flights =>{
       flights.eta = new Date(flights.eta).toLocaleString();
       flights.etd = new Date(flights.etd).toLocaleString();
       tmpFlightList.push(flights);
@@ -141,7 +142,7 @@ export class FlightsComponent implements OnInit {
   saveFlight(){
     let tmpFlightList = [...this.flightList];
     if (this.isNewFlight) {
-      this.globalservice.addRecord<Flight>("Flights", this.selectedFlight).then(flights =>{
+      this.globalservice.addRecord<Flight>(this.componentName, this.selectedFlight).then(flights =>{
         flights.eta = new Date(flights.eta).toLocaleString();
         flights.etd = new Date(flights.etd).toLocaleString();
         tmpFlightList.push(flights);
@@ -152,7 +153,7 @@ export class FlightsComponent implements OnInit {
       });
     } 
     else {
-      this.globalservice.updateRecord<Flight>("Flights",this.selectedFlight.flightId,this.selectedFlight)
+      this.globalservice.updateRecord<Flight>(this.componentName,this.selectedFlight.flightId,this.selectedFlight)
       .then(flights =>{
         this.selectedFlight.eta = new Date(this.selectedFlight.eta).toLocaleString();
         this.selectedFlight.etd = new Date(this.selectedFlight.etd).toLocaleString();
@@ -235,7 +236,7 @@ export class FlightsComponent implements OnInit {
         let tmpFlightList = [...this.flightList];
         let index = this.findSelectedFlightIndex();
         this.flightList = this.flightList.filter((val,i) => i!=index);
-        this.globalservice.deleteRecord<Flight>("Flights", this.selectedFlight.flightId);
+        this.globalservice.deleteRecord<Flight>(this.componentName, this.selectedFlight.flightId);
         this.msgs = [];
         this.msgs.push({severity:'info', summary:'Record Deleted', detail:'Flight record deleted.'});
         this.selectedFlight = null;

@@ -26,13 +26,14 @@ import { DataTable } from "primeng/components/datatable/datatable";
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.css'],
-  providers: [GlobalService, AppointmentService, ContactService, EmployeeService, ConfirmationService]
+  providers: [GlobalService, ContactService, EmployeeService, ConfirmationService]
 })
 export class AppointmentsComponent implements OnInit {
   appointmentList: Appointment[];
   selectedAppointment: Appointment;
   cloneAppointment: Appointment;
   isNewAppointment: boolean;
+  componentName : string = "Appointments";
 
   guestList: Contact[];
   selectedGuest: Contact;
@@ -54,13 +55,12 @@ export class AppointmentsComponent implements OnInit {
   paginationResult: PaginationResult<Appointment>;
   ctr: number = 0;
 
-  constructor(private appointmentService: AppointmentService,
+  constructor(private appointmentService: GlobalService,
     private contactService: ContactService,
     private employeeService: EmployeeService,
     private http: HttpClient,
     private fb: FormBuilder,
-    private confirmationService: ConfirmationService,
-    private globalService: GlobalService) { }
+    private confirmationService: ConfirmationService) { }
 
   @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
@@ -87,13 +87,12 @@ export class AppointmentsComponent implements OnInit {
       this.guestList = contacts
       this.employeeService.getEmployees().then(employees => {
         this.hostList = employees
-        this.globalService.getRecordWithPagination<PaginationResult<Appointment>>("Appointments", event.first, event.rows,
+        this.appointmentService.getRecordWithPagination<PaginationResult<Appointment>>(this.componentName, event.first, event.rows,
           this.searchFilter.length == 1 ? "" : this.searchFilter).then(paginationResult => {
             this.paginationResult = paginationResult;
             this.appointmentList = this.paginationResult.results;
             this.totalRecords = this.paginationResult.totalRecords;
             for (let i = 0; i < this.appointmentList.length; i++) {
-              console.log(paginationResult);
               this.appointmentList[i].guestName = this.guestList.find(id => id.contactId == this.appointmentList[i].guestId).firstName;
               this.appointmentList[i].hostName = this.hostList.find(id => id.employeeId == this.appointmentList[i].hostId).firstName;
               this.appointmentList[i].appointmentDate = new Date(this.appointmentList[i].appointmentDate).toLocaleDateString();
@@ -135,7 +134,7 @@ export class AppointmentsComponent implements OnInit {
     this.selectedAppointment.hostId = this.selectedHost.employeeId;
 
     if (this.isNewAppointment) {
-      this.appointmentService.postAppointments(this.selectedAppointment).then(appointment => {
+      this.appointmentService.addRecord<Appointment>(this.componentName, this.selectedAppointment).then(appointment => {
         appointment.guestName = this.guestList.find(id => id.contactId == appointment.guestId).firstName;
         appointment.hostName = this.hostList.find(id => id.employeeId == appointment.hostId).firstName;
         tmpAppointmentList.push(appointment);
@@ -144,7 +143,7 @@ export class AppointmentsComponent implements OnInit {
       });
     }
     else {
-      this.appointmentService.putAppointments(this.selectedAppointment).then(appointment => {
+      this.appointmentService.updateRecord(this.componentName,this.selectedAppointment.appointmentId,this.selectedAppointment).then(appointment => {
         console.log(appointment);
         tmpAppointmentList[this.appointmentList.indexOf(this.selectedAppointment)] = appointment;
         this.appointmentList = tmpAppointmentList;
@@ -194,7 +193,7 @@ export class AppointmentsComponent implements OnInit {
       accept: () => {
         let index = this.findSelectedAppointmentIndex();
         this.appointmentList = this.appointmentList.filter((val, i) => i != index);
-        this.appointmentService.deleteAppointments(this.selectedAppointment.appointmentId);
+        this.appointmentService.deleteRecord<Appointment>(this.componentName,this.selectedAppointment.appointmentId);
         this.selectedAppointment = null;
       }
     });
@@ -207,7 +206,7 @@ export class AppointmentsComponent implements OnInit {
     this.selectedAppointment.hostId = this.selectedHost.employeeId;
 
     tmpAppointmentList.push(this.selectedAppointment);
-    this.appointmentService.postAppointments(this.selectedAppointment).then(appointment => {
+    this.appointmentService.addRecord<Appointment>(this.componentName,this.selectedAppointment).then(appointment => {
       tmpAppointmentList[this.appointmentList.indexOf(this.selectedAppointment)] = appointment;
       this.appointmentList = tmpAppointmentList;
     });

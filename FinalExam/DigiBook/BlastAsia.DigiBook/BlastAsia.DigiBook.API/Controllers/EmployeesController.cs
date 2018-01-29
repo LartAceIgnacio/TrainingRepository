@@ -89,7 +89,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpDelete]
         [Authorize]
-        [Route("api/Employees")]
+        [Route("api/Employees/{id}")]
         public IActionResult DeleteEmployee(Guid id)
         {
             var employeeToDelete = this.employeeRepository.Retrieve(id);
@@ -103,7 +103,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpPut]
         [Authorize]
-        [Route("api/Employees")]
+        [Route("api/Employees/{id}")]
         public IActionResult UpdateEmployee(
             [FromBody]
             Employee employee, Guid id)
@@ -135,7 +135,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpPatch]
         [Authorize]
-        [Route("api/Employees")]
+        [Route("api/Employees/{id}")]
         public IActionResult PatchEmployee(
             [FromBody]JsonPatchDocument patchedEmployee, Guid id)
         {

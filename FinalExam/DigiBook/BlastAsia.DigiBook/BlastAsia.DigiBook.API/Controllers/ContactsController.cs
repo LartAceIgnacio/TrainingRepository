@@ -93,7 +93,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpDelete]
         [Authorize]
-        [Route("api/Contacts")]
+        [Route("api/Contacts/{id}")]
         public IActionResult DeleteContact(Guid id)
         {
             var contactToDelete = this.contactRepository.Retrieve(id);
@@ -107,7 +107,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpPut]
         [Authorize]
-        [Route("api/Contacts")]
+        [Route("api/Contacts/{id}")]
         public IActionResult UpdateContact(
             [FromBody]
             Contact contact, Guid id)
@@ -139,7 +139,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpPatch]
         [Authorize]
-        [Route("api/Contacts")]
+        [Route("api/Contacts/{id}")]
         public IActionResult PatchContact(
             [FromBody]JsonPatchDocument patchedContact, Guid id)
         {

@@ -1,31 +1,22 @@
 <header id="header">
     <div id="top-logo">
-        <h2><i class="fa fa-book" aria-hidden="true"></i> 
-           DigiBook
-        </h2>
+        <i class="fa fa-book" aria-hidden="true"></i> DigiBook
     </div>
     <div id="top-menu">
         <ul>
-            <li *ngIf="!this.auth.isLoggedIn()"[routerLinkActive]="['link-active']"> <a [routerLink]="['/login']">
+            <li *ngIf="!this.auth.isLoggedIn()" [routerLinkActive]="['link-active']"> <a [routerLink]="['/login']">
               <span class='glyphicon glyphicon-log-in'></span> Login / Register
           </a></li>
             <li *ngIf="this.auth.isLoggedIn()"><a (click)="this.auth.logout()" [routerLink]="['/login']">
               <span class='glyphicon glyphicon-log-out'></span> 
               Logout
           </a></li>
-          <li>
-         
-          </li>
-          </ul>
+        </ul>
     </div>
 </header>
-
-<div id="content-margin">
-     <div *ngIf="this.auth.isLoggedIn()" class="full-height">
-         <!-- <p-menu [model]="menuItems"></p-menu> -->
-         <p-menu [model]="menuItems"></p-menu>
-     </div>
-     <div class="right-content">
-        <router-outlet></router-outlet>
-     </div>
- </div>
+<section *ngIf="this.auth.isLoggedIn()">
+    <p-menu [model]="menuItems"></p-menu>
+</section>
+<div class="content-margin">
+    <router-outlet></router-outlet>
+</div>
