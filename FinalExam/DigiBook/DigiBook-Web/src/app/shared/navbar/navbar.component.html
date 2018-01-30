@@ -1,4 +1,4 @@
-<header class="topbar">
+<header class="topbar"  *ngIf="this.auth.isLoggedIn()">
   <nav class="navbar top-navbar navbar-expand-md navbar-light">
       <!-- ============================================================== -->
       <!-- Logo -->
@@ -47,8 +47,8 @@
                               <div class="dw-user-box">
                                   <div class="u-img"><img src="../assets/images/users/1.jpg" alt="user"></div>
                                   <div class="u-text">
-                                      <h4>Steave Jobs</h4>
-                                      <p class="text-muted">varun@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
+                                      <h4>Eugene Ravina</h4>
+                                      <p class="text-muted">eugeneravina@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
                               </div>
                           </li>
                           <li role="separator" class="divider"></li>

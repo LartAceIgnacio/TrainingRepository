@@ -105,6 +105,7 @@ constructor(private globalService: GlobalService, private fb: FormBuilder, priva
     this.selectedContact = new Contactclass;
     this.displayDialog = true;
     this.contactForm.enable();
+    this.delete = false;
   }
   editContact(contacts : Contact){
     this.contactForm.enable();

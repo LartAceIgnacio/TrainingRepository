@@ -12,6 +12,7 @@ export class AuthService {
   authKey: string = "auth";
   clientId: string = "DigiBookWeb";
   baseUrl: string = `${API_URL}/`;
+  displayName: string = "";
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: any) { }
 
@@ -25,7 +26,7 @@ export class AuthService {
       grant_type: "password",
       scope: "offline_access profile email"
     };
-
+    this.displayName = username;
     return this.getAuthFromServer(url, data);
   }
 

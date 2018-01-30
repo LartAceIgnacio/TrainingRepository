@@ -1,9 +1,10 @@
-
+<div class="page-wrapper">
+    <div class="container-fluid">
 <p-breadcrumb [model]="breadcrumb"></p-breadcrumb>
 <p-panel class="ui-g-12" header="AppointmentDetail">
     
  <p-dataTable #dt [value]="appointmentList" selectionMode="single" [(selection)]="selectedAppointment" (onRowSelect)="onRowSelect($event)" 
- [paginator]="true" [rows]="10" [responsive]="true"  [loading]="loading" loadingIcon="fa-refresh" [pageLinks]="5" 
+ [paginator]="true" [rows]="10" [responsive]="true"  [loading]="loading" [pageLinks]="5" 
  [totalRecords]="totalRecords" (onLazyLoad)="paginate($event)" [lazy]="true">
      <p-header>           
         <span> 
@@ -110,7 +111,7 @@
             <div class="ui-grid-row">
                     <div class="ui-grid-col-4"><label for="appointmentDate">Date</label></div>
                     <div class="ui-grid-col-8">
-                            <p-calendar [(ngModel)]="selectedDateOfBirth" formControlName="appointmentDate" [showIcon]="true" [disabledDates]="invalidDates"></p-calendar>
+                            <p-calendar [(ngModel)]="selectedDate" formControlName="appointmentDate" [showIcon]="true" [disabledDates]="invalidDates"></p-calendar>
                         <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!appointmentForm.controls['appointmentDate'].valid&&appointmentForm.controls['appointmentDate'].dirty">
                             <i class="fa fa-close"></i>
                             Appointment Date is required
@@ -121,7 +122,7 @@
     <footer>
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"> 
              <button type="button" pButton icon="fa-check" (click)="delAppointment()"  *ngIf="delete==true" label="Delete"></button> 
-            <button type="button" pButton icon="fa-close" (click)="cancelAppointment()"  *ngIf="delete==false" [disabled]="!appointmentForm.dirty" label="Cancel"></button>
+            <button type="button" pButton icon="fa-close" (click)="cancelAppointment()"   [disabled]="!appointmentForm.dirty" label="Cancel"></button>
             <button type="button" pButton icon="fa-check" (click)="saveAppointment()" [disabled]="!appointmentForm.valid"  label="Save"></button>
             <button type="button" pButton icon="fa-close" (click)="saveAndNewAppointment()" *ngIf="isNewAppointment==true" [disabled]="!appointmentForm.valid" label="Save & New"></button>     
         </div>
@@ -133,4 +134,5 @@
 </p-panel>
 
 <p-growl [value]="msgs" life="3000"></p-growl>
-  
+</div>
+</div>

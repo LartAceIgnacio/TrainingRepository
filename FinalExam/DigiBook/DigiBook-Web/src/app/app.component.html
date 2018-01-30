@@ -11,16 +11,11 @@
     </div>
 </header> -->
 <app-navbar></app-navbar>
+<app-sidebar *ngIf="this.auth.isLoggedIn()"></app-sidebar>
 
-<div class="ui-g">
-    <app-sidebar  *ngIf="this.auth.isLoggedIn()"></app-sidebar>
-    <!-- <div id="sidenav" *ngIf="this.auth.isLoggedIn()" class="ui-g-12 ui-md-2">
-        <p-menu  [model]="items"></p-menu>
-    </div> -->
-    <div class="page-wrapper">
-            <div class="container-fluid">
-                <router-outlet></router-outlet>
-            </div>
-        </div>
-</div>
+   
+            <router-outlet></router-outlet>
+        <!-- </div>
+   </div> -->
+
 

@@ -1,4 +1,5 @@
-
+<div class="page-wrapper">
+        <div class="container-fluid">
 <p-breadcrumb [model]="breadcrumb"></p-breadcrumb>
 <div class="row page-titles">
         <div class="col-md-5 col-8 align-self-center">
@@ -153,7 +154,7 @@
         <footer>
             <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"> 
             <button type="button" pButton icon="fa-check" (click)="delContact()"  *ngIf="delete==true" label="Delete"></button>             
-            <button type="button" pButton icon="fa-close" (click)="cancelContact()" *ngIf="delete==false" [disabled]="!contactForm.dirty" label="Cancel"></button>
+            <button type="button" pButton icon="fa-close" (click)="cancelContact()"  [disabled]="!contactForm.dirty" label="Cancel"></button>
             <button type="button" pButton icon="fa-check" (click)="saveContact()"  [disabled]="!contactForm.valid" label="Save"></button>
             <button type="button" pButton icon="fa-close" (click)="saveAndNewContact()" *ngIf="isNewContact==true" [disabled]="!contactForm.valid" label="Save & New"></button>     
             </div>
@@ -165,3 +166,5 @@
          </p-panel>
 
 <p-growl [value]="msgs" life="3000"></p-growl>
+</div>
+</div>

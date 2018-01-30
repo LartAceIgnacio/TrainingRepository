@@ -11,14 +11,16 @@ import { DataTable } from 'primeng/components/datatable/datatable';
 import { GlobalService } from '../services/global.service';
 import { Pilot } from '../domain/pilot';
 import { Pilotclass } from '../domain/pilotclass';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-pilots',
   templateUrl: './pilots.component.html',
   styleUrls: ['./pilots.component.css'],
-  providers:[GlobalService, ConfirmationService]
+  providers:[GlobalService, ConfirmationService,DatePipe]
 })
 export class PilotsComponent implements OnInit {
+  [x: string]: any;
 
   indexSelected: number;
   isNewPilot: boolean;
@@ -47,7 +49,8 @@ export class PilotsComponent implements OnInit {
   pilotForm: FormGroup;
   breadcrumb: MenuItem[];
 
-  constructor(private globalService: GlobalService, private fb: FormBuilder, private confirmationService: ConfirmationService) { }
+  constructor(private globalService: GlobalService, private fb: FormBuilder, private confirmationService: ConfirmationService,
+              private datePipe: DatePipe) { }
 
   @ViewChild('dt') public dataTable: DataTable;
   
@@ -107,13 +110,16 @@ export class PilotsComponent implements OnInit {
     this.isNewPilot = false;
     this.delete = false;
     this.selectedPilot = pilots;
-    //this.clonePilot = this.cloneRecord(this.selectedPilot);
+    this.selectedDateOfBirth = this.selectedPilot.dateOfBirth;
+    this.selectedDateActivated = this.selectedPilot.dateActivated;
     this.displayDialog = true;
   }
   savePilot() {
     let tmpPilotList = [...this.pilotList];
     this.selectedPilot.dateOfBirth = this.selectedDateOfBirth;
     this.selectedPilot.dateActivated  = this.selectedDateActivated;
+    this.selectedPilot.dateOfBirth = this.datePipe.transform(this.selectedDateOfBirth, 'MM/dd/yyyy');
+    this.selectedPilot.dateActivated = this.datePipe.transform(this.selectedDateActivated, 'MM/dd/yyyy');
 
     if(this.isNewPilot){
         this.globalService.addData<Pilot>(this.serviceName,this.selectedPilot).then(pilots => {

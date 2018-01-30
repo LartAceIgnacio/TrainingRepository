@@ -13,12 +13,13 @@ import { Message } from 'primeng/components/common/api';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { GlobalService } from '../services/global.service';
 import { Pagination } from '../domain/pagination';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.css'],
-  providers:[GlobalService,ConfirmationService]
+  providers:[GlobalService,ConfirmationService,DatePipe]
 })
 export class AppointmentsComponent implements OnInit {
   clonedSelectedAppointment: Appointment;
@@ -52,7 +53,7 @@ export class AppointmentsComponent implements OnInit {
   appointment: Appointment = new Appointmentclass();
 
   constructor(private globalService: GlobalService, private fb: FormBuilder, 
-              private confirmationService: ConfirmationService) { }
+              private confirmationService: ConfirmationService, private datePipe: DatePipe) { }
               
   @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
@@ -125,11 +126,11 @@ export class AppointmentsComponent implements OnInit {
 
   setCurrentPage(n: number) {
     this.dataTable.reset();
-    let paging = {
-      first: ((n - 1) * this.dataTable.rows),
-      rows: this.dataTable.rows
-    };
-    this.dataTable.paginate();
+    // let paging = {
+    //   first: ((n - 1) * this.dataTable.rows),
+    //   rows: this.dataTable.rows
+    // };
+    // this.dataTable.paginate();
   }
 
   addAppointment() {
@@ -138,42 +139,50 @@ export class AppointmentsComponent implements OnInit {
      this.selectedGuest = new Contactclass;
      this.selectedHost = new Employeeclass;
     this.displayDialog = true;
+    this.appointmentForm.enable();
+    this.delete = false;
   }
   editAppointment(Appointment : Appointment){
     this.isNewAppointment = false;
     this.selectedAppointment = Appointment;
     this.cloneAppointment = this.cloneRecord(this.selectedAppointment);
-
+    this.delete = false;
     this.selectedGuest = this.guestList.find(x => x.contactId == this.selectedAppointment.guestId);
     this.selectedHost = this.hostList.find(x => x.employeeId == this.selectedAppointment.hostId);
-    this.selectedAppointment.appointmentDate = new Date(this.selectedAppointment.appointmentDate).toLocaleDateString();
+    this.selectedDate = this.selectedAppointment.appointmentDate;
 
     this.displayDialog = true;
+    this.appointmentForm.enable();
   }
 
   saveAppointment() {
     let tmpAppointmentList = [...this.appointmentList];
     this.selectedAppointment.guestId = this.selectedGuest.contactId;
     this.selectedAppointment.hostId = this.selectedHost.employeeId;
-    this.selectedAppointment.appointmentDate = this.selectedDate;
+    this.selectedAppointment.appointmentDate = this.datePipe.transform(this.selectedDate, 'MM/dd/yyyy');
 
     if(this.isNewAppointment){  
       this.globalService.addData<Appointment>(this.serviceName,this.selectedAppointment).then(appointments => {
         tmpAppointmentList.push(appointments);
         this.appointmentList = tmpAppointmentList;
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary:'Success', detail:'Added Appointment'});
-        this.selectedAppointment = null;
+        
       });
+      
+      this.msgs = [];
+      this.msgs.push({severity:'info', summary:'Success', detail:'Added Appointment'});
+      this.selectedAppointment = null;
+      this.dataTable.reset();
     }else{
-        this.globalService.updateData<Appointment>(this.serviceName,this.selectedAppointment.appointmentId, this.selectedAppointment).then(appointments => {
+        this.globalService.updateData<Appointment>(this.serviceName,this.selectedAppointment.appointmentId, this.selectedAppointment).then(appointments => {     
           tmpAppointmentList[this.indexOfAppointment] = this.selectedAppointment;
           this.appointmentList = tmpAppointmentList;
-          this.msgs = [];
-          this.msgs.push({severity:'warn', summary:'Modified', detail:'Modified Appointment Details'});
-          this.selectedAppointment = null;
+          
         });
+        this.msgs = [];
+        this.msgs.push({severity:'warn', summary:'Modified', detail:'Modified Appointment Details'});
+        this.selectedAppointment = null;
     }
+    
     this.appointmentForm.markAsPristine();
     this.selectedAppointment = null;
   }
@@ -190,6 +199,7 @@ export class AppointmentsComponent implements OnInit {
       this.msgs = [];
       this.msgs.push({severity:'info', summary:'Success', detail:'Added Appointment'});
     }
+    this.dataTable.reset();
   }
 
   deleteAppointment(Appointment : Appointment){
