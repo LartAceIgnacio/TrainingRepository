@@ -8,12 +8,14 @@ import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms"
 import { FlightClass } from "../domain/FlightClass";
 import {Message} from 'primeng/components/common/api';
 import {MessageService} from 'primeng/components/common/messageservice';
+import { AuthService } from "../services/auth.service";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-flights',
   templateUrl: './flights.component.html',
   styleUrls: ['./flights.component.css'],
-  providers: [GlobalService, ConfirmationService, MessageService]
+  providers: [GlobalService, ConfirmationService, MessageService, DatePipe]
 })
 export class FlightsComponent implements OnInit {
 
@@ -38,12 +40,17 @@ export class FlightsComponent implements OnInit {
   cities: SelectItem[];
   msgs: Message[] = [];
 
+  expectedArrival: Date;
+  expectedDeparture: Date;
+
   constructor(
     private globalservice: GlobalService,
     private http: HttpClient,
     private fb:FormBuilder,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private auth: AuthService,
+    private datePipe: DatePipe
   ) { 
   }
 
@@ -53,8 +60,8 @@ export class FlightsComponent implements OnInit {
     this.home = {icon: 'fa fa-home', routerLink: '/dashboard'}
 
     this.flightForm = this.fb.group({
-      'cityoforigin': new FormControl('', Validators.required),
-      'cityofdestination': new FormControl('', Validators.required),
+      'cityoforigin': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3),Validators.maxLength(3)])),
+      'cityofdestination': new FormControl('', Validators.compose([Validators.required, Validators.minLength(3),Validators.maxLength(3)])),
       'eta' : new FormControl('', Validators.required),
       'etd' : new FormControl('', Validators.required)
     });
@@ -115,6 +122,8 @@ export class FlightsComponent implements OnInit {
   addFlight(){
     this.isDelete = false;
     this.display = true;
+    this.expectedArrival = null;
+    this.expectedDeparture = null;
     this.flightForm.markAsPristine();
     this.flightForm.enable();
     this.isNewFlight = true;
@@ -127,6 +136,10 @@ export class FlightsComponent implements OnInit {
     let tmpFlightList = [...this.flightList];
 
     this.globalservice.addRecord<Flight>(this.componentName, this.selectedFlight).then(flights =>{
+      this.expectedArrival = flights.eta;
+      this.expectedDeparture = flights.etd;
+      flights.eta = this.datePipe.transform(this.expectedArrival,'M/d/yyyy, h:mm:ss a');
+      flights.etd = this.datePipe.transform(this.expectedDeparture,'M/d/yyyy, h:mm:ss a');
       flights.eta = new Date(flights.eta).toLocaleString();
       flights.etd = new Date(flights.etd).toLocaleString();
       tmpFlightList.push(flights);
@@ -141,15 +154,18 @@ export class FlightsComponent implements OnInit {
 
   saveFlight(){
     let tmpFlightList = [...this.flightList];
+    this.selectedFlight.eta = this.datePipe.transform(this.expectedArrival, 'M/d/yyyy h:mm:ss a');
+    this.selectedFlight.etd = this.datePipe.transform(this.expectedDeparture, 'M/d/yyyy h:mm:ss a');
     if (this.isNewFlight) {
       this.globalservice.addRecord<Flight>(this.componentName, this.selectedFlight).then(flights =>{
-        flights.eta = new Date(flights.eta).toLocaleString();
-        flights.etd = new Date(flights.etd).toLocaleString();
+        flights.eta = this.datePipe.transform(flights.eta, 'M/d/yyyy, h:mm:ss a');
+        flights.etd = this.datePipe.transform(flights.etd, 'M/d/yyyy, h:mm:ss a');
         tmpFlightList.push(flights);
         this.flightList=tmpFlightList;
         this.msgs = [];
         this.msgs.push({severity:'success', summary:'Success!', detail:'Flight record added.'});
         this.selectedFlight = null;
+        // this.dataTable.reset();
       });
     } 
     else {
@@ -162,6 +178,7 @@ export class FlightsComponent implements OnInit {
         this.msgs = [];
         this.msgs.push({severity:'success', summary:'Success!', detail:'Flight record updated.'});
         this.selectedFlight=null;
+        // this.dataTable.reset();
       });
     }
     this.isNewFlight = false;
@@ -185,6 +202,11 @@ export class FlightsComponent implements OnInit {
     this.isNewFlight = false;
     this.selectedFlight.eta = new Date(this.selectedFlight.eta);
     this.selectedFlight.etd = new Date(this.selectedFlight.etd);
+
+    this.expectedArrival = this.selectedFlight.eta;
+    this.expectedDeparture = this.selectedFlight.etd;
+    this.selectedFlight.eta = this.datePipe.transform(this.expectedArrival, 'M/d/yyyy, h:mm:ss a');
+    this.selectedFlight.etd = this.datePipe.transform(this.expectedDeparture, 'M/d/yyyy, h:mm:ss a');
   }
 
   findSelectedFlightIndex(): number{
@@ -225,6 +247,11 @@ export class FlightsComponent implements OnInit {
     this.isNewFlight = false;
     this.selectedFlight.eta = new Date(this.selectedFlight.eta);
     this.selectedFlight.etd = new Date(this.selectedFlight.etd);
+
+    this.expectedArrival = this.selectedFlight.eta;
+    this.expectedDeparture = this.selectedFlight.etd;
+    this.selectedFlight.eta = this.datePipe.transform(this.expectedArrival, 'M/d/yyyy, h:mm:ss a');
+    this.selectedFlight.etd = this.datePipe.transform(this.expectedDeparture, 'M/d/yyyy, h:mm:ss a');
   }
 
   deleteFlight(){
@@ -240,6 +267,7 @@ export class FlightsComponent implements OnInit {
         this.msgs = [];
         this.msgs.push({severity:'info', summary:'Record Deleted', detail:'Flight record deleted.'});
         this.selectedFlight = null;
+        // this.dataTable.reset();
       }
     });
   }

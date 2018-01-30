@@ -5,7 +5,7 @@
         <p-dataTable #dt [value]="employeeList" [rows]="6" [paginator]="true" [pageLinks]="5" [responsive]="true" (onLazyLoad)="paginate($event)"
             [lazy]="true" [totalRecords]="totalRecords">
             <p-header>
-                <button type="button" pButton class="float-left" (click)="addEmployee()" icon="fa-plus"></button> Employees
+                <button [disabled]="!this.auth.isLoggedIn()" type="button" pButton class="float-left" (click)="addEmployee()" icon="fa-plus"></button> Employees
                 <div class="float-right">
                     <input #gb type="text" pInputText size="25" placeholder="Search" [(ngModel)]="searchFilter">
                     <button pButton type="button" icon="fa-search" (click)="searchEmployee()"></button>
@@ -13,8 +13,8 @@
             </p-header>
             <p-column>
                 <ng-template let-Employee="rowData" pTemplate="body">
-                    <button type="button" pButton (click)="editEmployee(Employee)" icon="fa-pencil"></button>
-                    <button class="ui-button-danger" type="button" pButton (click)="confirmDelete(Employee)" icon="fa-times"></button>
+                    <button [disabled]="!this.auth.isLoggedIn()" type="button" pButton (click)="editEmployee(Employee)" icon="fa-pencil"></button>
+                    <button [disabled]="!this.auth.isLoggedIn()" class="ui-button-danger" type="button" pButton (click)="confirmDelete(Employee)" icon="fa-times"></button>
                 </ng-template>
             </p-column>
             <p-column field="firstName" header="First Name" [sortable]="true"></p-column>

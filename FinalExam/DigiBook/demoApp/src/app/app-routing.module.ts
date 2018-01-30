@@ -13,7 +13,7 @@ import { DepartmentsComponent } from "./departments/departments.component";
 import { FlightsComponent } from "./flights/flights.component";
 
 const routes: Routes = [
-    { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'appointments', component: AppointmentsComponent },
     { path: 'contacts', component: ContactsComponent },

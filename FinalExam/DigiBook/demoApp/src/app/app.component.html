@@ -14,9 +14,10 @@
         </ul>
     </div>
 </header>
-<section *ngIf="this.auth.isLoggedIn()">
+
+<section>
     <p-menu [model]="menuItems"></p-menu>
 </section>
-<div class="content-margin">
+<div>
     <router-outlet></router-outlet>
 </div>

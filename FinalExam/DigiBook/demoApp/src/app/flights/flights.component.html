@@ -4,17 +4,18 @@
     <p-dataTable #dt [globalFilter]="gb" [value]="flightList" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true"
       (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
       <p-header>
-        <div class="ui-helper-clearfix">
-          List of Flights
-          <button type="button" pButton class="float-left" (click)="addFlight()" icon="fa-plus"></button>
-          <button class="float-right" pButton type="button" icon="fa-search" (click)="searchFlight()"></button>
-          <input class="float-right" #gb type="text" pInputText size="25" placeholder="Search" [(ngModel)]="searchFilter">
-        </div>
+          <button type="button" [disabled]="!this.auth.isLoggedIn()" pButton class="float-left" (click)="addFlight()" icon="fa-plus"></button>
+          Flights
+          <div class="ui-inputgroup float-right">
+            <input #gb type="text" pInputText size="25" placeholder="Search" [(ngModel)]="searchFilter">
+            <button pButton type="button" icon="fa-search" (click)="searchFlight()"></button>
+          </div>
       </p-header>
       <p-column>
         <ng-template let-Flight="rowData" pTemplate="body">
-          <button type="button" pButton (click)="editFlight(Flight)" icon="fa-pencil"></button>
-          <button class="ui-button-danger" type="button" pButton (click)="confirmDelete(Flight)" icon="fa-times"></button>
+          <button [disabled]="!this.auth.isLoggedIn()" type="button" pButton (click)="editFlight(Flight)" icon="fa-pencil"></button>
+          <button [disabled]="!this.auth.isLoggedIn()" class="ui-button-danger" type="button" pButton (click)="confirmDelete(Flight)"
+            icon="fa-times"></button>
         </ng-template>
       </p-column>
       <p-column field="flightCode" header="Flight Code" [sortable]="true"></p-column>
@@ -31,7 +32,7 @@
       <div class="ui-g">
         <div class="ui-g-12 ui-md-8">
           <label class="ui-g-12 ui-md-6" for="eta">Expected Time of Arrival*: </label>
-          <p-calendar class="ui-g-12 ui-md-6" formControlName="eta" [minDate]="invalidDates" [showTime]="true" [(ngModel)]="selectedFlight.eta"
+          <p-calendar class="ui-g-12 ui-md-6" formControlName="eta" [minDate]="invalidDates" [showTime]="true" [(ngModel)]="expectedArrival"
             [showIcon]="true"></p-calendar>
         </div>
         <div class="ui-g-12 ui-md-4">
@@ -43,7 +44,7 @@
       <div class="ui-g">
         <div class="ui-g-12 ui-md-8">
           <label class="ui-g-12 ui-md-6" for="etd">Expected Time of Departure*: </label>
-          <p-calendar class="ui-g-12 ui-md-6" formControlName="etd" [minDate]="invalidDates" [showTime]="true" [(ngModel)]="selectedFlight.etd"
+          <p-calendar class="ui-g-12 ui-md-6" formControlName="etd" [minDate]="invalidDates" [showTime]="true" [(ngModel)]="expectedDeparture"
             [showIcon]="true"></p-calendar>
         </div>
         <div class="ui-g-12 ui-md-4">
@@ -69,7 +70,9 @@
         </div>
         <div class="ui-g-12 ui-md-4">
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!flightForm.controls['cityoforigin'].valid&&flightForm.controls['cityoforigin'].dirty">
-            <i class="fa fa-close"></i> City of Origin is required.
+            <i class="fa fa-close"></i>
+            <span *ngIf="userform.controls['cityofdestination'].errors['required']"> City of Origin is required.</span>
+            <span *ngIf="userform.controls['cityofdestination'].errors['minlength']&&userform.controls['cityofdestination'].errors['maxlength']"> 3 characters only.</span>
           </div>
         </div>
       </div>
@@ -90,7 +93,9 @@
         </div>
         <div class="ui-g-12 ui-md-4">
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!flightForm.controls['cityofdestination'].valid&&flightForm.controls['cityofdestination'].dirty">
-            <i class="fa fa-close"></i> City of Destination is required.
+            <i class="fa fa-close"></i>
+            <span *ngIf="userform.controls['cityofdestination'].errors['required']"> City of Destination is required.</span>
+            <span *ngIf="userform.controls['cityofdestination'].errors['minlength']&&userform.controls['cityofdestination'].errors['maxlength']"> 3 characters only.</span>
           </div>
         </div>
       </div>

@@ -40,6 +40,8 @@ import { DepartmentsComponent } from './departments/departments.component';
 import { FlightsComponent } from './flights/flights.component';
 import {Message} from 'primeng/components/common/api';
 import {MessageService} from 'primeng/components/common/messageservice';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
 
 @NgModule({
@@ -56,7 +58,9 @@ import {MessageService} from 'primeng/components/common/messageservice';
     RegisterComponent,
     ReservationsComponent,
     DepartmentsComponent,
-    FlightsComponent
+    FlightsComponent,
+    NavbarComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

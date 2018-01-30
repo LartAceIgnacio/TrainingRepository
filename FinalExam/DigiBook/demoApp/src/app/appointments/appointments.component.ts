@@ -21,6 +21,7 @@ import { EmployeeClass } from "../domain/EmployeeClass";
 import { PaginationResult } from "../domain/paginationresult";
 import { GlobalService } from "../services/globalservice";
 import { DataTable } from "primeng/components/datatable/datatable";
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: 'app-appointments',
@@ -60,7 +61,8 @@ export class AppointmentsComponent implements OnInit {
     private employeeService: EmployeeService,
     private http: HttpClient,
     private fb: FormBuilder,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService,
+    private auth:AuthService) { }
 
   @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
@@ -137,6 +139,7 @@ export class AppointmentsComponent implements OnInit {
       this.appointmentService.addRecord<Appointment>(this.componentName, this.selectedAppointment).then(appointment => {
         appointment.guestName = this.guestList.find(id => id.contactId == appointment.guestId).firstName;
         appointment.hostName = this.hostList.find(id => id.employeeId == appointment.hostId).firstName;
+        appointment.appointmentDate = new Date(appointment.appointmentDate).toLocaleDateString();
         tmpAppointmentList.push(appointment);
         this.appointmentList = tmpAppointmentList;
         this.selectedAppointment = null;
@@ -144,8 +147,8 @@ export class AppointmentsComponent implements OnInit {
     }
     else {
       this.appointmentService.updateRecord(this.componentName,this.selectedAppointment.appointmentId,this.selectedAppointment).then(appointment => {
-        console.log(appointment);
         tmpAppointmentList[this.appointmentList.indexOf(this.selectedAppointment)] = appointment;
+        appointment.appointmentDate = new Date(appointment.appointmentDate).toLocaleDateString();
         this.appointmentList = tmpAppointmentList;
         this.selectedAppointment = null;
         this.isNewAppointment = false;

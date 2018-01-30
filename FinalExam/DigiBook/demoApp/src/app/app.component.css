@@ -9,7 +9,7 @@
 }
 #top-logo {
     float: left;
-    font-family: Verdana;
+    font-family: Poppins;
     color:  white;
     margin-left: 40px;
     line-height: 60px;
@@ -18,7 +18,7 @@
 #top-menu {
     line-height: 60px;
     float: right;
-    font-family: Verdana;
+    font-family: Poppins;
     margin-right: 40px;
 }
 #top-menu ul{

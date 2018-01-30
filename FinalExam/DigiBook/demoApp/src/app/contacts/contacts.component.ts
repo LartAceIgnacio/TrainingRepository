@@ -12,6 +12,7 @@ import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms'
 import { PaginationResult } from "../domain/paginationresult";
 import { DataTable } from "primeng/components/datatable/datatable";
 import { GlobalService } from "../services/globalservice";
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: 'app-contacts',
@@ -41,7 +42,9 @@ export class ContactsComponent implements OnInit {
   constructor(private contactService: GlobalService,
     private http: HttpClient,
     private fb: FormBuilder,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService,
+    private auth:AuthService
+  ) { }
 
   @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {

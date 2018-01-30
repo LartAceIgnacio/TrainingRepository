@@ -5,13 +5,13 @@
     <p-dataTable #dt [value]="appointmentList" [rows]="5" [paginator]="true" [pageLinks]="5" [responsive]="true" (onLazyLoad)="paginate($event)"
       [lazy]="true" [totalRecords]="totalRecords">
       <p-header>
-        <button type="button" pButton class="float-left" (click)="addAppointment()" icon="fa-plus"></button> 
+        <button [disabled]="!this.auth.isLoggedIn()" type="button" pButton class="float-left" (click)="addAppointment()" icon="fa-plus"></button> 
         Appointments
       </p-header>
       <p-column>
         <ng-template let-Appointment="rowData" pTemplate="body">
-          <button type="button" pButton (click)="editAppointment(Appointment)" icon="fa-pencil"></button>
-          <button class="ui-button-danger" type="button" pButton (click)="confirmDelete(Appointment)" icon="fa-times"></button>
+          <button [disabled]="!this.auth.isLoggedIn()" type="button" pButton (click)="editAppointment(Appointment)" icon="fa-pencil"></button>
+          <button [disabled]="!this.auth.isLoggedIn()" class="ui-button-danger" type="button" pButton (click)="confirmDelete(Appointment)" icon="fa-times"></button>
         </ng-template>
       </p-column>
       <p-column field="appointmentDate" header="Appointment Date" [sortable]="true"></p-column>
