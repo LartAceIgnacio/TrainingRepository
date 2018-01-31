@@ -1,4 +1,4 @@
-<header id="header">
+<header *ngIf="this.auth.isLoggedIn()" id="header">
     <div id="top-logo">
         <i class="fa fa-book" aria-hidden="true"></i> DigiBook
     </div>
@@ -15,7 +15,7 @@
     </div>
 </header>
 
-<section>
+<section *ngIf="this.auth.isLoggedIn()">
     <p-menu [model]="menuItems"></p-menu>
 </section>
 <div>

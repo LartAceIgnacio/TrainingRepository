@@ -1,12 +1,16 @@
-<section class="content-margin">
+<div *ngIf="!this.auth.isLoggedIn()">
+    <app-errorpage></app-errorpage>
+</div>
+
+<section *ngIf="this.auth.isLoggedIn()" class="content-margin">
     <p-breadcrumb [model]="brEmployee" [home]="home"></p-breadcrumb>
 
     <div class="ui-g">
-        <p-dataTable #dt [value]="employeeList" [rows]="6" [paginator]="true" [pageLinks]="5" [responsive]="true" (onLazyLoad)="paginate($event)"
-            [lazy]="true" [totalRecords]="totalRecords">
+        <p-dataTable #dt [globalFilter]="gb" [value]="employeeList" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true"
+            (onLazyLoad)="paginate($event)" [lazy]="true" [totalRecords]="totalRecords">
             <p-header>
-                <button [disabled]="!this.auth.isLoggedIn()" type="button" pButton class="float-left" (click)="addEmployee()" icon="fa-plus"></button> Employees
-                <div class="float-right">
+                <button [disabled]="!this.auth.isLoggedIn()" type="button" pButton class="float-left" (click)="addEmployee()" icon="fa-plus"></button>                Employees
+                <div class=" ui-inputgroup float-right">
                     <input #gb type="text" pInputText size="25" placeholder="Search" [(ngModel)]="searchFilter">
                     <button pButton type="button" icon="fa-search" (click)="searchEmployee()"></button>
                 </div>
@@ -14,7 +18,8 @@
             <p-column>
                 <ng-template let-Employee="rowData" pTemplate="body">
                     <button [disabled]="!this.auth.isLoggedIn()" type="button" pButton (click)="editEmployee(Employee)" icon="fa-pencil"></button>
-                    <button [disabled]="!this.auth.isLoggedIn()" class="ui-button-danger" type="button" pButton (click)="confirmDelete(Employee)" icon="fa-times"></button>
+                    <button [disabled]="!this.auth.isLoggedIn()" class="ui-button-danger" type="button" pButton (click)="confirmDelete(Employee)"
+                        icon="fa-times"></button>
                 </ng-template>
             </p-column>
             <p-column field="firstName" header="First Name" [sortable]="true"></p-column>
@@ -113,19 +118,21 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="isDelete == false">
-                <br>
-                <button pButton icon="fa-check" type="button" (click)="saveAndNewEmployee()" [disabled]="!userform.valid" label="Save and New"
-                    *ngIf="isNewEmployee==true"></button>
-                <button pButton icon="fa-check" type="button" (click)="saveEmployee()" [disabled]="!userform.valid" label="Save"></button>
-                <button class="ui-button-warning" pButton icon="fa-ban" type="button" (click)="cancelEmployee()" label="Cancel" [disabled]="!userform.dirty"
-                    *ngIf="isNewEmployee==false"></button>
-            </div>
-            <div class="ui-g" *ngIf="isDelete == true">
-                <button class="ui-button-danger" pButton icon="fa-ban" type="button" (click)="deleteEmployee()" label="Delete"></button>
-            </div>
+            <p-footer>
+                <div *ngIf="isDelete == false">
+                    <br>
+                    <button pButton icon="fa-check" type="button" (click)="saveAndNewEmployee()" [disabled]="!userform.valid" label="Save and New"
+                        *ngIf="isNewEmployee==true"></button>
+                    <button pButton icon="fa-check" type="button" (click)="saveEmployee()" [disabled]="!userform.valid" label="Save"></button>
+                    <button class="ui-button-warning" pButton icon="fa-ban" type="button" (click)="cancelEmployee()" label="Cancel" [disabled]="!userform.dirty"
+                        *ngIf="isNewEmployee==false"></button>
+                </div>
+                <div class="ui-g" *ngIf="isDelete == true">
+                    <button class="ui-button-danger" pButton icon="fa-ban" type="button" (click)="deleteEmployee()" label="Delete"></button>
+                </div>
+            </p-footer>
         </p-dialog>
     </form>
 
     <p-confirmDialog></p-confirmDialog>
-<section>
+</section>

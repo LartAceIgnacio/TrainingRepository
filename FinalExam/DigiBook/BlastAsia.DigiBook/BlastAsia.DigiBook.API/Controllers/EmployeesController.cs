@@ -28,6 +28,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpGet, ActionName("GetEmployeesWithPagination")]
+        [Authorize]
         [Route("api/Employees/{page}/{record}")]
         public IActionResult GetEmployeesWithPagination(int page, int record, string filter)
         {
@@ -45,6 +46,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpGet, ActionName("GetEmployees")]
+        [Authorize]
         [Route("api/Employees")]
         public IActionResult GetEmployees(Guid? id)
         {

@@ -22,12 +22,13 @@ import { PaginationResult } from "../domain/paginationresult";
 import { GlobalService } from "../services/globalservice";
 import { DataTable } from "primeng/components/datatable/datatable";
 import { AuthService } from "../services/auth.service";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.css'],
-  providers: [GlobalService, ContactService, EmployeeService, ConfirmationService]
+  providers: [GlobalService, ContactService, EmployeeService, ConfirmationService, DatePipe]
 })
 export class AppointmentsComponent implements OnInit {
   appointmentList: Appointment[];
@@ -47,6 +48,7 @@ export class AppointmentsComponent implements OnInit {
 
   display: boolean;
   isDelete: boolean;
+  invalidDates: Date;
 
   appointmentForm: FormGroup;
 
@@ -55,6 +57,7 @@ export class AppointmentsComponent implements OnInit {
   totalRecords: number = 0;
   paginationResult: PaginationResult<Appointment>;
   ctr: number = 0;
+  appointmentDate: Date;
 
   constructor(private appointmentService: GlobalService,
     private contactService: ContactService,
@@ -62,7 +65,9 @@ export class AppointmentsComponent implements OnInit {
     private http: HttpClient,
     private fb: FormBuilder,
     private confirmationService: ConfirmationService,
-    private auth:AuthService) { }
+    private auth:AuthService,
+    private datePipe: DatePipe
+  ) { }
 
   @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {
@@ -82,6 +87,9 @@ export class AppointmentsComponent implements OnInit {
     ]
     this.home = { icon: 'fa fa-home', routerLink: '/dashboard' };
     this.isDelete = false;
+    this.invalidDates = new Date();
+    let yesterday = new Date();
+    this.invalidDates.setDate(yesterday.getDate());
   }
 
   paginate(event) {
@@ -105,13 +113,6 @@ export class AppointmentsComponent implements OnInit {
   }
 
   searchAppointment() {
-    if (this.dateFilter != null && (this.dateFilter[0] != null || this.dateFilter[1] != null)) {
-      this.searchFilter = this.dateFilter[0] + "," + this.dateFilter[1]
-      if (this.searchFilter.length > 0) {
-        this.searchFilter = this.searchFilter.replace(/\//g, "%2F");
-      }
-    }
-
     this.setCurrentPage(1);
   }
 
@@ -121,6 +122,7 @@ export class AppointmentsComponent implements OnInit {
 
   addAppointment() {
     this.isDelete = false;
+    this.appointmentDate = null;
     this.appointmentForm.enable();
     this.appointmentForm.markAsPristine();
     this.isNewAppointment = true;
@@ -134,12 +136,14 @@ export class AppointmentsComponent implements OnInit {
     let tmpAppointmentList = [...this.appointmentList];
     this.selectedAppointment.guestId = this.selectedGuest.contactId;
     this.selectedAppointment.hostId = this.selectedHost.employeeId;
+    this.selectedAppointment.appointmentDate = this.datePipe.transform(this.appointmentDate, 'M/d/yyyy');
 
     if (this.isNewAppointment) {
       this.appointmentService.addRecord<Appointment>(this.componentName, this.selectedAppointment).then(appointment => {
         appointment.guestName = this.guestList.find(id => id.contactId == appointment.guestId).firstName;
         appointment.hostName = this.hostList.find(id => id.employeeId == appointment.hostId).firstName;
-        appointment.appointmentDate = new Date(appointment.appointmentDate).toLocaleDateString();
+        appointment.appointmentDate = this.datePipe.transform(this.appointmentDate, 'M/d/yyyy');
+        // appointment.appointmentDate = new Date(appointment.appointmentDate).toLocaleDateString();
         tmpAppointmentList.push(appointment);
         this.appointmentList = tmpAppointmentList;
         this.selectedAppointment = null;
@@ -230,6 +234,9 @@ export class AppointmentsComponent implements OnInit {
     this.selectedAppointment.appointmentDate = new Date(this.selectedAppointment.appointmentDate);
     this.selectedGuest = this.guestList.find(x => x.contactId == this.selectedAppointment.guestId);
     this.selectedHost = this.hostList.find(x => x.employeeId == this.selectedAppointment.hostId);
+
+    this.appointmentDate = this.selectedAppointment.appointmentDate;
+    this.selectedAppointment.appointmentDate = this.datePipe.transform(this.appointmentDate, 'M/d/yyyy');
   }
 
   confirmDelete(Appointment: Appointment) {

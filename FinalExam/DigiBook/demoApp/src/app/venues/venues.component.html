@@ -1,46 +1,52 @@
-<p-breadcrumb [model]="brVenue" [home]="home"></p-breadcrumb>
+<div *ngIf="!this.auth.isLoggedIn()">
+  <app-errorpage></app-errorpage>
+</div>
 
-<p-panel header="Venue List">
-  <div class="ui-g">
-    <p-dataTable [value]="venueList" selectionMode="single" [(selection)]="selectedVenue" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows] = "10" [responsive]="true">
-      <p-header>Venues</p-header>
-      <p-column field="venueName" header="Venue Name" [sortable]="true"></p-column>
-      <p-column field="description" header="Description" [sortable]="true"></p-column>
-    </p-dataTable>
-    <footer>
-      <div class="ui-helper-clearfix" style="width:100%">
-        <button type="button" pButton icon="fa-plus" style="float:left" (click)="addVenue()" label="Add Venue"></button>
-        <button class = "ui-button-danger"type="button" pButton icon="fa-times" (click)="deleteVenue()" label="Delete"></button>
+<section *ngIf="this.auth.isLoggedIn()">
+  <p-breadcrumb [model]="brVenue" [home]="home"></p-breadcrumb>
+
+  <p-panel header="Venue List">
+    <div class="ui-g">
+      <p-dataTable [value]="venueList" selectionMode="single" [(selection)]="selectedVenue" (onRowSelect)="onRowSelect($event)"
+        [paginator]="true" [rows]="10" [responsive]="true">
+        <p-header>Venues</p-header>
+        <p-column field="venueName" header="Venue Name" [sortable]="true"></p-column>
+        <p-column field="description" header="Description" [sortable]="true"></p-column>
+      </p-dataTable>
+      <footer>
+        <div class="ui-helper-clearfix" style="width:100%">
+          <button type="button" pButton icon="fa-plus" style="float:left" (click)="addVenue()" label="Add Venue"></button>
+          <button class="ui-button-danger" type="button" pButton icon="fa-times" (click)="deleteVenue()" label="Delete"></button>
+        </div>
+      </footer>
+    </div>
+  </p-panel>
+
+  <br>
+
+  <form [formGroup]="venueform">
+    <p-panel header="Venue Details" *ngIf="selectedVenue">
+      <div class="ui-g">
+        <div class="ui-g-12 ui-md-6">
+          <label class="ui-g-12 ui-md-4" for="venueName">Venue Name: </label>
+          <input class="ui-g-12 ui-md-8" pInputText formControlName="venuename" placeholder="Enter Venue Name" [(ngModel)]="selectedVenue.venueName">
+        </div>
+        <div class="ui-g-12 ui-md-6">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!venueform.controls['venuename'].valid&&venueform.controls['venuename'].dirty">
+            <i class="fa fa-close"></i> Venue Name is required. max length(50)
+          </div>
+        </div>
       </div>
-    </footer>
-  </div>
-</p-panel>
-
-<br>
-
-<form [formGroup]="venueform">
-<p-panel header="Venue Details" *ngIf="selectedVenue">
-  <div class="ui-g">
-    <div class="ui-g-12 ui-md-6">
-      <label class="ui-g-12 ui-md-4" for="venueName">Venue Name: </label>
-      <input class="ui-g-12 ui-md-8" pInputText formControlName="venuename" placeholder="Enter Venue Name" [(ngModel)]="selectedVenue.venueName">
-    </div>
-    <div class="ui-g-12 ui-md-6">
-      <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!venueform.controls['venuename'].valid&&venueform.controls['venuename'].dirty">
-          <i class="fa fa-close"></i>
-          Venue Name is required. max length(50)
+      <div class="ui-g">
+        <div class="ui-g-12 ui-md-6">
+          <label class="ui-g-12 ui-md-4" for="description">Description</label>
+          <textarea rows="5" cols="30" id="description" pInputTextarea formControlName="description" [(ngModel)]="selectedVenue.description"></textarea>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="ui-g">
-    <div class="ui-g-12 ui-md-6">
-      <label class="ui-g-12 ui-md-4" for="description">Description</label>
-      <textarea rows="5" cols="30" id="description" pInputTextarea formControlName="description" [(ngModel)] = "selectedVenue.description"></textarea>
-    </div>
-  </div>
-  <div class="ui-g">
-    <button pButton icon="fa-check" type="button" (click)="saveVenue()" [disabled]="!venueform.valid" label="Save"></button>
-    <button class="ui-button-warning" pButton icon="fa-ban" type="button" (click)="cancelVenue()" label="Cancel"></button>
-  </div>
-</p-panel>
-</form>
+      <div class="ui-g">
+        <button pButton icon="fa-check" type="button" (click)="saveVenue()" [disabled]="!venueform.valid" label="Save"></button>
+        <button class="ui-button-warning" pButton icon="fa-ban" type="button" (click)="cancelVenue()" label="Cancel"></button>
+      </div>
+    </p-panel>
+  </form>
+</section>

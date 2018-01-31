@@ -1,4 +1,8 @@
-<div class="content-margin">
+<div *ngIf="!this.auth.isLoggedIn()">
+  <app-errorpage></app-errorpage>
+</div>
+
+<div *ngIf="this.auth.isLoggedIn()" class="content-margin">
   <p-breadcrumb [model]="brFlight" [home]="home"></p-breadcrumb>
   <div class="ui-g">
     <p-dataTable #dt [globalFilter]="gb" [value]="flightList" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true"
@@ -100,7 +104,7 @@
         </div>
       </div>
       <div class="nav-button" *ngIf="isDelete == false&&isNewFlight==true">
-        <br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br>
         <button class="nav-button" pButton icon="fa-check" type="button" (click)="saveAndNewFlight()" [disabled]="!flightForm.valid"
           label="Save and New"></button>
         <button class="nav-button" pButton icon="fa-check" type="button" (click)="saveFlight()" [disabled]="!flightForm.valid" label="Save"></button>
@@ -108,13 +112,13 @@
           [disabled]="!flightForm.dirty"></button>
       </div>
       <div class="nav-button" *ngIf="isDelete == false&&isNewFlight==false">
-        <br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br>
         <button class="nav-button" pButton icon="fa-check" type="button" (click)="saveFlight()" [disabled]="!flightForm.dirty" label="Save"></button>
         <button class="ui-button-warning nav-button" pButton icon="fa-ban" type="button" (click)="cancelFlight()" label="Cancel"
           [disabled]="!flightForm.dirty"></button>
       </div>
       <div class="nav-button" *ngIf="isDelete == true">
-        <br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br>
         <button class="ui-button-danger" pButton icon="fa-ban" type="button" (click)="deleteFlight()" label="Delete"></button>
       </div>
     </p-dialog>

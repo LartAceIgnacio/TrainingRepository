@@ -13,6 +13,7 @@ export class RegisterComponent {
     title: string;
     form: FormGroup;
     baseUrl: string = API_URL;
+    emailFormat: string = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
     constructor(private router: Router,
         private fb: FormBuilder,
@@ -27,7 +28,7 @@ export class RegisterComponent {
             Username: ['', Validators.required],
             Email: ['',
                 [Validators.required,
-                Validators.email] ],
+                Validators.email, Validators.pattern(this.emailFormat)]],
             Password: ['', Validators.required],
             PasswordConfirm: ['', Validators.required],
             DisplayName: ['', Validators.required]

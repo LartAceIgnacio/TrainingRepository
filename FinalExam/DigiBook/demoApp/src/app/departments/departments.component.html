@@ -1,3 +1,7 @@
+<div *ngIf="!this.auth.isLoggedIn()">
+  <app-errorpage></app-errorpage>
+</div>
+
 <div class="content-margin">
   <p>
     departments works!

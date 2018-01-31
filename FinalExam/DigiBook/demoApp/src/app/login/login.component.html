@@ -77,7 +77,7 @@
                 <div class="form-group m-t-40">
                     <div class="col-xs-12">
                         <input class="form-control" formControlName="Username" type="text" required="" placeholder="Username">
-                        <div *ngIf="hasError('Username')" class="ui-message ui-messages-error ui-corner-all help-block">
+                        <div *ngIf="hasError('Username')" class="help-block">
                             Please insert a valid username or e-mail address.
                         </div>
                     </div>
@@ -85,23 +85,14 @@
                 <div class="form-group">
                     <div class="col-xs-12">
                         <input class="form-control" formControlName="Password" type="password" required="" placeholder="Password">
-                        <div *ngIf="hasError('Password')" class="ui-message ui-messages-error ui-corner-all help-block">
+                        <div *ngIf="hasError('Password')" class="help-block">
                             Please insert a password.
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <!-- <div class="checkbox checkbox-primary pull-left p-t-0">
-                            <input id="checkbox-signup" type="checkbox">
-                            <label for="checkbox-signup"> Remember me </label>
-                        </div>
-                        <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a>                         -->
-                    </div>
-                </div>
                 <div class="form-group text-center m-t-20">
                     <div class="col-xs-12">
-                        <button class="btn btn-info btn-signin btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Log In</button>
+                        <button class="btn btn-info btn-signin btn-lg btn-block text-uppercase waves-effect waves-light" [disabled]="form.invalid" type="submit">Log In</button>
                     </div>
                 </div>
                 <!-- <div class="row">

@@ -8,6 +8,7 @@ import { PaginationResult } from "../domain/paginationresult";
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
 import { ReservationClass } from "../domain/ReservationClass";
 import { ConfirmDialogModule, ConfirmationService, Message } from 'primeng/primeng';
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: 'app-reservations',
@@ -39,7 +40,9 @@ export class ReservationsComponent implements OnInit {
     private globalservice : GlobalService,
     private http: HttpClient,
     private fb: FormBuilder,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService,
+    private auth: AuthService
+  ) { }
 
   @ViewChild('dt') public dataTable: DataTable;
   ngOnInit() {

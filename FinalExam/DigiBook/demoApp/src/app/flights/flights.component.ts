@@ -134,14 +134,13 @@ export class FlightsComponent implements OnInit {
     this.flightForm.markAsPristine();
 
     let tmpFlightList = [...this.flightList];
+    this.selectedFlight.eta = this.datePipe.transform(this.expectedArrival, 'M/d/yyyy h:mm:ss a');
+    this.selectedFlight.etd = this.datePipe.transform(this.expectedDeparture, 'M/d/yyyy h:mm:ss a');
+    console.log(this.selectedFlight.eta, this.selectedFlight.etd);
 
     this.globalservice.addRecord<Flight>(this.componentName, this.selectedFlight).then(flights =>{
-      this.expectedArrival = flights.eta;
-      this.expectedDeparture = flights.etd;
       flights.eta = this.datePipe.transform(this.expectedArrival,'M/d/yyyy, h:mm:ss a');
       flights.etd = this.datePipe.transform(this.expectedDeparture,'M/d/yyyy, h:mm:ss a');
-      flights.eta = new Date(flights.eta).toLocaleString();
-      flights.etd = new Date(flights.etd).toLocaleString();
       tmpFlightList.push(flights);
       this.flightList = tmpFlightList;
     });
@@ -163,7 +162,7 @@ export class FlightsComponent implements OnInit {
         tmpFlightList.push(flights);
         this.flightList=tmpFlightList;
         this.msgs = [];
-        this.msgs.push({severity:'success', summary:'Success!', detail:'Flight record added.'});
+        this.msgs.push({severity:'success', summary:'Success!', detail: flights.flightCode+' Flight record added.'});
         this.selectedFlight = null;
         // this.dataTable.reset();
       });

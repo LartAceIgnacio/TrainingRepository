@@ -31,6 +31,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpGet, ActionName("GetContactsWithPagination")]
+        [Authorize]
         [Route("api/Contacts/{page}/{record}")]
         public IActionResult GetContactsWithPagination(int page, int record, string filter)
         {
@@ -48,6 +49,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpGet, ActionName("GetContacts")]
+        [Authorize]
         [Route("api/Contacts")]
         public IActionResult GetContacts(Guid? id)
         {

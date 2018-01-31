@@ -6,6 +6,7 @@ using BlastAsia.DigiBook.API.Utils;
 using BlastAsia.DigiBook.Domain.Models;
 using BlastAsia.DigiBook.Domain.Models.Reservations;
 using BlastAsia.DigiBook.Domain.Reservations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
@@ -28,6 +29,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpGet, ActionName("GetReservationsWithPagination")]
+        [Authorize]
         [Route("api/Reservations/{page}/{record}")]
         public IActionResult GetReservationsWithPagination(int page, int record, string filter)
         {
@@ -44,6 +46,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpGet, ActionName("GetReservations")]
+        [Authorize]
         [Route("api/Reservations")]
         public IActionResult GetReservations(Guid? id)
         {
@@ -63,6 +66,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("api/Reservations")]
         public IActionResult CreateReservation([FromBody] Reservation reservation)
         {
@@ -85,6 +89,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("api/Reservations/{id}")]
         public IActionResult DeleteReservation(Guid id)
         {
@@ -98,6 +103,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("api/Reservations/{id}")]
         public IActionResult UpdateReservation([FromBody] Reservation reservation, Guid id)
         {
@@ -123,6 +129,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPatch]
+        [Authorize]
         [Route("api/Reservations/{id}")]
         public IActionResult PatchReservation([FromBody] JsonPatchDocument patchedReservation, Guid id)
         {

@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { UIChart } from 'primeng/primeng';
 import { Observable } from 'rxjs';
+import { AuthService } from "../services/auth.service";
 
 const DEFAULT_COLORS = ['#3366CC', '#DC3912', '#FF9900', '#109618', '#990099',
 '#3B3EAC', '#0099C6', '#DD4477', '#66AA00', '#B82E2E',
@@ -85,7 +86,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       }
     ]
   }
-  constructor() {
+  constructor(
+    private auth: AuthService
+  ) {
    
   }
 

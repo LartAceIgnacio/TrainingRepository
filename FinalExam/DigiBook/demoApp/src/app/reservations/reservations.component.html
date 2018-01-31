@@ -1,4 +1,8 @@
-<div class="content-margin">
+<div *ngIf="!this.auth.isLoggedIn()">
+  <app-errorpage></app-errorpage>
+</div>
+
+<div *ngIf="this.auth.isLoggedIn()" class="content-margin">
   <p-breadcrumb [model]="brReservation" [home]="home"></p-breadcrumb>
 
   <div class="ui-g">

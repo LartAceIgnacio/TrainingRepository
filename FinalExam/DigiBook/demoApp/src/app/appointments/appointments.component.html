@@ -1,17 +1,25 @@
-<div class="content-margin">
+<div *ngIf="!this.auth.isLoggedIn()">
+  <app-errorpage></app-errorpage>
+</div>
+
+<div *ngIf="this.auth.isLoggedIn()" class="content-margin">
   <p-breadcrumb [model]="brAppointment" [home]="home"></p-breadcrumb>
 
   <div class="ui-g">
-    <p-dataTable #dt [value]="appointmentList" [rows]="5" [paginator]="true" [pageLinks]="5" [responsive]="true" (onLazyLoad)="paginate($event)"
+    <p-dataTable #dt [globalFilter]="gb" [value]="appointmentList" [rows]="10" [paginator]="true" [pageLinks]="5" [responsive]="true" (onLazyLoad)="paginate($event)"
       [lazy]="true" [totalRecords]="totalRecords">
       <p-header>
-        <button [disabled]="!this.auth.isLoggedIn()" type="button" pButton class="float-left" (click)="addAppointment()" icon="fa-plus"></button> 
-        Appointments
+        <button [disabled]="!this.auth.isLoggedIn()" type="button" pButton class="float-left" (click)="addAppointment()" icon="fa-plus"></button>        Appointments
+        <div class="ui-inputgroup float-right">
+          <input #gb type="text" pInputText size="25" placeholder="Search" [(ngModel)]="searchFilter">
+          <button pButton type="button" icon="fa-search"></button>
+        </div>
       </p-header>
       <p-column>
         <ng-template let-Appointment="rowData" pTemplate="body">
           <button [disabled]="!this.auth.isLoggedIn()" type="button" pButton (click)="editAppointment(Appointment)" icon="fa-pencil"></button>
-          <button [disabled]="!this.auth.isLoggedIn()" class="ui-button-danger" type="button" pButton (click)="confirmDelete(Appointment)" icon="fa-times"></button>
+          <button [disabled]="!this.auth.isLoggedIn()" class="ui-button-danger" type="button" pButton (click)="confirmDelete(Appointment)"
+            icon="fa-times"></button>
         </ng-template>
       </p-column>
       <p-column field="appointmentDate" header="Appointment Date" [sortable]="true"></p-column>
@@ -30,7 +38,7 @@
       <div class="ui-g">
         <div class="ui-g-12 ui-md-7">
           <label for="appointmentDate">Appointment Date*: </label>
-          <p-calendar [(ngModel)]="selectedAppointment.appointmentDate" formControlName="appointmentdate" [showIcon]="true"></p-calendar>
+          <p-calendar [minDate]="invalidDates" [(ngModel)]="appointmentDate" formControlName="appointmentdate" [showIcon]="true"></p-calendar>
         </div>
         <div class="ui-g-12 ui-md-5">
           <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!appointmentForm.controls['appointmentdate'].valid&&appointmentForm.controls['appointmentdate'].dirty">

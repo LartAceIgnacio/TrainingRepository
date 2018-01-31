@@ -11,19 +11,20 @@ import { RegisterComponent } from "./user/register.component";
 import { ReservationsComponent } from "./reservations/reservations.component";
 import { DepartmentsComponent } from "./departments/departments.component";
 import { FlightsComponent } from "./flights/flights.component";
+import { CanActivateRouteGuard } from "./services/can-activate-route.guard";
 
 const routes: Routes = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'dashboard', component: DashboardComponent },
-    { path: 'appointments', component: AppointmentsComponent },
-    { path: 'contacts', component: ContactsComponent },
-    { path: 'employees', component: EmployeesComponent },
-    { path: 'venues', component: VenuesComponent },
+    { path: '', component: LoginComponent },
+    { path: 'dashboard', component: DashboardComponent, canActivate: [CanActivateRouteGuard] },
+    { path: 'appointments', component: AppointmentsComponent, canActivate: [CanActivateRouteGuard] },
+    { path: 'contacts', component: ContactsComponent, canActivate: [CanActivateRouteGuard] },
+    { path: 'employees', component: EmployeesComponent, canActivate: [CanActivateRouteGuard] },
+    { path: 'venues', component: VenuesComponent, canActivate: [CanActivateRouteGuard] },
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent },
-    { path: 'reservations', component: ReservationsComponent },
-    { path: 'departments', component: DepartmentsComponent },
-    { path: 'flights', component: FlightsComponent}
+    { path: 'reservations', component: ReservationsComponent, canActivate: [CanActivateRouteGuard] },
+    { path: 'departments', component: DepartmentsComponent, canActivate: [CanActivateRouteGuard] },
+    { path: 'flights', component: FlightsComponent, canActivate: [CanActivateRouteGuard]}
   ];
  
 @NgModule({

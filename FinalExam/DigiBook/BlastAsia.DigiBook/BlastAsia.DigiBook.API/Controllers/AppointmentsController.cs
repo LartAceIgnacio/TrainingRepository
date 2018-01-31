@@ -28,6 +28,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpGet, ActionName("GetAppointmentsWithPagination")]
+        [Authorize]
         [Route("api/Appointments/{page}/{record}")]
         public IActionResult GetAppointmentsWithPagination(int page, int record, string filter)
         {
@@ -45,6 +46,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpGet, ActionName("GetAppointments")]
+        [Authorize]
         [Route("api/Appointments")]
         public IActionResult GetAppointments(Guid? id)
         {

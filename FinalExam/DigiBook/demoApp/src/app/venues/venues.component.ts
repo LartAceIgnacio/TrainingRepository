@@ -7,6 +7,7 @@ import {VenueClass} from '../domain/VenueClass';
 import {BreadcrumbModule,MenuItem} from 'primeng/primeng';
 
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: 'app-venues',
@@ -26,9 +27,12 @@ export class VenuesComponent implements OnInit {
   brVenue: MenuItem[];
   home: MenuItem;
 
-  constructor(private venueService:VenueService,
+  constructor(
+    private venueService:VenueService,
     private http:HttpClient,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private auth: AuthService
+  ) { }
 
   ngOnInit() {
     this.venueService.getVenues().then(venues => this.venueList = venues);

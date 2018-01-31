@@ -6,6 +6,7 @@ using BlastAsia.DigiBook.API.Utils;
 using BlastAsia.DigiBook.Domain.Flights;
 using BlastAsia.DigiBook.Domain.Models;
 using BlastAsia.DigiBook.Domain.Models.Flights;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
@@ -27,6 +28,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpGet, ActionName("GetFlightsWithPagination")]
+        [Authorize]
         [Route("api/Flights/{page}/{record}")]
         public IActionResult GetFlightsWithPagination(int page, int record, string filter)
         {
@@ -43,6 +45,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpGet, ActionName("GetFlightsWithFlightCode")]
+        [Authorize]
         [Route("api/Flights/{code}")]
         public IActionResult GetFlightsWithFlightCode(string code)
         {
@@ -60,6 +63,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpGet, ActionName("GetFlights")]
+        [Authorize]
         [Route("api/Flights")]
         public IActionResult GetFlights(Guid? id)
         {
@@ -77,6 +81,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("api/Flights")]
         public IActionResult CreateFlight([FromBody]Flight flight)
         {
@@ -96,6 +101,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("api/Flights/{id}")]
         public IActionResult DeleteFlight(Guid id)
         {
@@ -109,6 +115,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("api/Flights/{id}")]
         public IActionResult UpdateFlight([FromBody]Flight flight, Guid id)
         {
@@ -135,6 +142,7 @@ namespace BlastAsia.DigiBook.API.Controllers
         }
 
         [HttpPatch]
+        [Authorize]
         [Route("api/Flights/{id}")]
         public IActionResult PatchFlight([FromBody] JsonPatchDocument patchedFlight, Guid id)
         {

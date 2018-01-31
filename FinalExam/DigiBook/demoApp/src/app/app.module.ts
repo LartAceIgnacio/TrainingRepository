@@ -42,6 +42,9 @@ import {Message} from 'primeng/components/common/api';
 import {MessageService} from 'primeng/components/common/messageservice';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { ErrorpageComponent } from './shared/errorpage/errorpage.component';
+import { CanActivateRouteGuard } from "./services/can-activate-route.guard";
+
 
 
 @NgModule({
@@ -60,7 +63,8 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
     DepartmentsComponent,
     FlightsComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    ErrorpageComponent
   ],
   imports: [
     BrowserModule,
@@ -101,7 +105,8 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthResponseInterceptor,
       multi: true
-    }
+    }, 
+    CanActivateRouteGuard
   ],
   bootstrap: [AppComponent]
 })
