@@ -113,12 +113,19 @@ export class AppointmentsComponent implements OnInit {
         });
     }
   }
-  searchAppointment() {
-    if (this.dateFilter != null && (this.dateFilter[0] != null || this.dateFilter[1] != null)) {
-      this.searchFilter = this.dateFilter[0].toLocaleDateString() + "," + this.dateFilter[1].toLocaleDateString();
-      if (this.searchFilter.length > 0) {
-        this.searchFilter = this.searchFilter.replace(/\//g, "%2F");
-      }
+  // searchAppointments() {
+  //   if (this.dateFilter != null && (this.dateFilter[0] != null || this.dateFilter[1] != null)) {
+  //     this.searchFilter = this.dateFilter[0].toLocaleDateString() + "," + this.dateFilter[1].toLocaleDateString();
+  //     if (this.searchFilter.length > 0) {
+  //       this.searchFilter = this.searchFilter.replace(/\//g, "%2F");
+  //     }
+  //   }
+
+  //   this.setCurrentPage(1);
+  // }
+  searchAppointments() {
+    if (this.searchFilter.length != 1) {
+      this.setCurrentPage(1);
     }
 
     this.setCurrentPage(1);

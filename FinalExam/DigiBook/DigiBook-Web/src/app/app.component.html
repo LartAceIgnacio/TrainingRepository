@@ -10,12 +10,10 @@
         </p-menubar>
     </div>
 </header> -->
-<app-navbar></app-navbar>
-<app-sidebar *ngIf="this.auth.isLoggedIn()"></app-sidebar>
+    <app-navbar ></app-navbar>
 
-   
-            <router-outlet></router-outlet>
-        <!-- </div>
-   </div> -->
+<app-sidebar ></app-sidebar>
+
+<router-outlet></router-outlet>
 
 

@@ -17,7 +17,7 @@ const appRoutes: Routes = [
     { path: 'appointments', component: AppointmentsComponent},
     { path: 'venues', component: VenuesComponent},
     { path: 'login', component: LoginComponent},
-    { path: 'user', component: UserComponent },
+    { path: 'register', component: UserComponent },
     { path: 'pilot', component: PilotsComponent },
     { path: '', redirectTo: '/login', pathMatch:'full'},
     { path: '**', redirectTo: '/login', pathMatch:'full'}

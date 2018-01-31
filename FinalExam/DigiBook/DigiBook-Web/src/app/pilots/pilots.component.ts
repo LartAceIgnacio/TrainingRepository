@@ -104,6 +104,9 @@ export class PilotsComponent implements OnInit {
     this.selectedPilot = new Pilotclass;
     this.displayDialog = true;
     this.pilotForm.enable();
+    this.selectedDateOfBirth = this.selectedPilot.dateOfBirth;
+    this.selectedDateActivated = this.selectedPilot.dateActivated;
+    this.delete = false;
   }
   editPilot(pilots : Pilot){
     this.pilotForm.enable();
@@ -116,8 +119,7 @@ export class PilotsComponent implements OnInit {
   }
   savePilot() {
     let tmpPilotList = [...this.pilotList];
-    this.selectedPilot.dateOfBirth = this.selectedDateOfBirth;
-    this.selectedPilot.dateActivated  = this.selectedDateActivated;
+
     this.selectedPilot.dateOfBirth = this.datePipe.transform(this.selectedDateOfBirth, 'MM/dd/yyyy');
     this.selectedPilot.dateActivated = this.datePipe.transform(this.selectedDateActivated, 'MM/dd/yyyy');
 
@@ -126,6 +128,7 @@ export class PilotsComponent implements OnInit {
           tmpPilotList.push(pilots);
           this.pilotList = tmpPilotList;
           this.selectedPilot=null;
+          this.dataTable.reset();
         });
         this.submitted = true;
         this.msgs = [];
@@ -152,6 +155,8 @@ export class PilotsComponent implements OnInit {
     this.pilotForm.markAsPristine();
     let tmpPilotList = [...this.pilotList];
     tmpPilotList.push(this.selectedPilot);
+    this.selectedDateOfBirth = this.selectedPilot.dateOfBirth;
+    this.selectedDateActivated = this.selectedPilot.dateActivated;
 
     if(this.isNewPilot){
       this.globalService.addData<Pilot>(this.serviceName,this.selectedPilot);

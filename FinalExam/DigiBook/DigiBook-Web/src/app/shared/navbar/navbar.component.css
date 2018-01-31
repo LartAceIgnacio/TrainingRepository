@@ -2,5 +2,8 @@
 .navbar-header .navbar-brand span{
     color:#fff;
     line-height: 2.5rem;
-    padding-left: 20px;
+    padding-left: 10px;
+}
+.navbar-header .navbar-brand b img {
+    padding-left:15px;
 }
