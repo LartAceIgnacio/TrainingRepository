@@ -139,7 +139,13 @@ export class AppointmentsComponent implements OnInit {
     // };
     // this.dataTable.paginate();
   }
+  // keyPressFunction(event) {
+  //   if (this.searchFilter.length != 1) {
+  //     this.setCurrentPage(1);
+  //   }
 
+  //   this.setCurrentPage(1);
+  // }
   addAppointment() {
     this.isNewAppointment = true;
      this.selectedAppointment = new Appointmentclass;

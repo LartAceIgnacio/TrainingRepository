@@ -32,6 +32,7 @@ import { PilotsComponent } from './pilots/pilots.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { CanActivateRouteGuard } from './services/can-activate-route.guard';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
               provide: HTTP_INTERCEPTORS,
               useClass: AuthResponseInterceptor,
               multi: true
-            }
+            },
+    CanActivateRouteGuard
   ],
   bootstrap: [AppComponent]
 })

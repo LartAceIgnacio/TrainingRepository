@@ -21,7 +21,7 @@ export class AppComponent  {
   ngOnInit():void  {
     
       this.items = [
-        {label: 'Dashboard', icon: 'fa-home', routerLink:['/dashboard']},
+        {label: 'Dashboard', icon: 'fa-home', routerLink:['/dashboard'] },
         {label: 'Employees', icon: 'fa-users', routerLink:['/employees']},
         {label: 'Contacts', icon: 'fa-phone', routerLink:['/contacts']},
         {label: 'Appointments', icon: 'fa-address-book', routerLink:['/appointments']},

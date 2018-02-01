@@ -123,9 +123,9 @@ namespace BlastAsia.DigiBook.API.Controllers
 
                 return Ok(existingPilot);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 

@@ -72,7 +72,7 @@
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4">  <label  for="dateOfBirth">Date Of Birth</label></div>
                 <div class="ui-grid-col-8">
-                    <p-calendar [(ngModel)]="selectedDateOfBirth" formControlName="dateOfBirth" [showIcon]="true" [disabledDates]="invalidDates"></p-calendar>
+                    <p-calendar [(ngModel)]="selectedDateOfBirth" formControlName="dateOfBirth" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:1996" [showIcon]="true" [disabledDates]="invalidDates"></p-calendar>
                     <!-- <input pInputText id="dateOfBirth" formControlName="dateOfBirth" [(ngModel)]="selectedPilot.dateOfBirth" /> -->
                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!pilotForm.controls['dateOfBirth'].valid&&pilotForm.controls['dateOfBirth'].dirty">
                             <i class="fa fa-close"></i>
