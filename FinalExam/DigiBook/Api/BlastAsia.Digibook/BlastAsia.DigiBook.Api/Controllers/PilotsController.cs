@@ -60,9 +60,9 @@ namespace BlastAsia.DigiBook.Api.Controllers
                 var result = this.pilotService.Save(pilot.PilotId, pilot);
                 return CreatedAtAction("GetPilots", new { id = pilot.PilotId }, result);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 

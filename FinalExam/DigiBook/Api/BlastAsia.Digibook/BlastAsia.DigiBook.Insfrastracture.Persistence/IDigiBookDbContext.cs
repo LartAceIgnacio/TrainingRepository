@@ -8,9 +8,9 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence
 {
     public interface IDigiBookDbContext
     {
-        DbSet<TEntity> Set<TEntity>() where TEntity : class;
+        DbSet<TEntity> Set <TEntity>() where TEntity : class;
 
-        EntityEntry<TEntity> Update<TEntity>(TEntity entity) where TEntity : class;
+        EntityEntry<TEntity> Update <TEntity>(TEntity entity) where TEntity : class;
 
         int SaveChanges();
 

@@ -153,7 +153,7 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
             var newAppointment = sut.Create(appointment);
             var pageNumber = 1;
             var recordNumber = 5;
-            var date = newAppointment.AppointmentDate;
+            var date = "Em";
             // act 
             var found = sut.Retrieve(pageNumber, recordNumber, date);
             // assert
@@ -170,7 +170,7 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
             var newAppointment = sut.Create(appointment);
             var pageNumber = 1;
             var recordNumber = 5;
-            DateTime? date = null;
+            string date = null;
             // act 
             var found = sut.Retrieve(pageNumber, recordNumber, date);
             // assert
@@ -187,7 +187,7 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
             var newAppointment = sut.Create(appointment);
             var pageNumber = -1;
             var recordNumber = 5;
-            DateTime? date = newAppointment.AppointmentDate;
+            string date = "em";
 
             // act 
             var found = sut.Retrieve(pageNumber, recordNumber, date);
@@ -204,7 +204,7 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Test
             var newAppointment = sut.Create(appointment);
             var pageNumber = 1;
             var recordNumber = -5;
-            DateTime? date = newAppointment.AppointmentDate;
+           string date = "em";
             // act 
             var found = sut.Retrieve(pageNumber, recordNumber, date);
             // assert

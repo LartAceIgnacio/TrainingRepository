@@ -8,7 +8,7 @@ namespace BlastAsia.DigiBook.Domain.Appointments
     public interface IAppointmentRepository
         : IRepository<Appointment>
     {
-        Pagination<Appointment> Retrieve(int pageNumber, int recordNumber, DateTime? keyWord);
+        Pagination<Appointment> Retrieve(int pageNumber, int recordNumber, string keyWord);
        // IEnumerable<Appointment> Retrieve(DateTime date);
     }
 }

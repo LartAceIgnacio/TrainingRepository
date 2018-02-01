@@ -120,21 +120,21 @@ namespace BlastAsia.DigiBook.Api.Test
             // arrange
             var pageNumber = 1;
             var recordNumber = 3;
-            DateTime? date = DateTime.Now;
+            string key = "emem";
 
             mockRepo
                 .Setup(
-                    r => r.Retrieve(pageNumber, recordNumber, date)
+                    r => r.Retrieve(pageNumber, recordNumber, key)
                 )
                 .Returns(new Pagination<Appointment>());
 
             // act 
-            var result = sut.GetAppointment(pageNumber, recordNumber, date);
+            var result = sut.GetAppointment(pageNumber, recordNumber, key);
 
             // assert
             mockRepo
                 .Verify(
-                    r => r.Retrieve(pageNumber, recordNumber, date), Times.Once
+                    r => r.Retrieve(pageNumber, recordNumber, key), Times.Once
                 );
 
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
@@ -147,22 +147,22 @@ namespace BlastAsia.DigiBook.Api.Test
             // arrange
             var pageNumber = -1;
             var recordNumber = 3;
-            DateTime? date = DateTime.Now;
+            string key = "asd";
 
 
             mockRepo
                 .Setup(
-                    r => r.Retrieve(pageNumber, recordNumber, date)
+                    r => r.Retrieve(pageNumber, recordNumber, key)
                 )
                 .Returns(new Pagination<Appointment>());
 
             // act 
-            var result = sut.GetAppointment(pageNumber, recordNumber, date);
+            var result = sut.GetAppointment(pageNumber, recordNumber, key);
 
             // assert
             mockRepo
                 .Verify(
-                    r => r.Retrieve(pageNumber, recordNumber, date), Times.Once
+                    r => r.Retrieve(pageNumber, recordNumber, key), Times.Once
                 );
 
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
@@ -175,21 +175,21 @@ namespace BlastAsia.DigiBook.Api.Test
             // arrange
             var pageNumber = 1;
             var recordNumber = -3;
-            DateTime? date = DateTime.Now;
+            string key = "asd";
 
             mockRepo
                 .Setup(
-                    r => r.Retrieve(pageNumber, recordNumber, date)
+                    r => r.Retrieve(pageNumber, recordNumber, key)
                 )
                 .Returns(new Pagination<Appointment>());
 
             // act 
-            var result = sut.GetAppointment(pageNumber, recordNumber, date);
+            var result = sut.GetAppointment(pageNumber, recordNumber, key);
 
             // assert
             mockRepo
                 .Verify(
-                    r => r.Retrieve(pageNumber, recordNumber, date), Times.Once
+                    r => r.Retrieve(pageNumber, recordNumber, key), Times.Once
                 );
 
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
@@ -202,21 +202,21 @@ namespace BlastAsia.DigiBook.Api.Test
             // arrange
             var pageNumber = 1;
             var recordNumber = 3;
-            DateTime? date = null;
+            string key = null;
 
             mockRepo
                 .Setup(
-                    r => r.Retrieve(pageNumber, recordNumber, date)
+                    r => r.Retrieve(pageNumber, recordNumber, key)
                 )
                 .Returns(new Pagination<Appointment>());
 
             // act 
-            var result = sut.GetAppointment(pageNumber, recordNumber, date);
+            var result = sut.GetAppointment(pageNumber, recordNumber, key);
 
             // assert
             mockRepo
                 .Verify(
-                    r => r.Retrieve(pageNumber, recordNumber, date), Times.Once
+                    r => r.Retrieve(pageNumber, recordNumber, key), Times.Once
                 );
 
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
@@ -334,7 +334,7 @@ namespace BlastAsia.DigiBook.Api.Test
 
 
         [TestMethod]
-        public void UpdateAppointment_WithNullAppointment_ShouldReturnBadRequest()
+        public void UpkeyAppointment_WithNullAppointment_ShouldReturnBadRequest()
         {
             // arrange
             appointment = null;
@@ -358,7 +358,7 @@ namespace BlastAsia.DigiBook.Api.Test
         }
 
         [TestMethod]
-        public void UpdateAppointment_WithNonExistingAppointmentid_ShouldReturnNotFoundResult()
+        public void UpkeyAppointment_WithNonExistingAppointmentid_ShouldReturnNotFoundResult()
         {
             // act
             var result = sut.UpdateAppointment(appointment, nonExistingId);
@@ -377,7 +377,7 @@ namespace BlastAsia.DigiBook.Api.Test
         }
 
         [TestMethod]
-        public void UpdateAppointment_WithValidData_ShouldReturnOkResult()
+        public void UpkeyAppointment_WithValidData_ShouldReturnOkResult()
         {
             // act
             var result = sut.UpdateAppointment(appointment, existingId);

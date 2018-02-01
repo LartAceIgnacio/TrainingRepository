@@ -40,16 +40,6 @@ namespace BlastAsia.DigiBook.Api
         public void ConfigureServices(IServiceCollection services)
         {
             // v2 ========
-
-            services.AddEntityFrameworkSqlServer();
-
-            services.AddDbContext<DigiBookDbContext>(
-                    option => option.UseSqlServer
-                    (
-                        Configuration.GetConnectionString("DefaultConnection")
-                    )
-                );
-
             #region Security
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
@@ -118,6 +108,7 @@ namespace BlastAsia.DigiBook.Api
             #endregion
 
             // v1 ==========
+            #region Cors
             services.AddCors(config =>
             {
                 config.AddPolicy("DemoAppDay2", policy =>
@@ -128,23 +119,23 @@ namespace BlastAsia.DigiBook.Api
 
                 });
             });
+            #endregion
 
-            #region Swagger
-            services.AddSwaggerGen(
-                    c =>
-                    {
-                        c.SwaggerDoc(
-                                "v1",
-                                 new Info { Title = "Digibook API" }
-                            );
-                    }
+            #region DbContext
+            services.AddEntityFrameworkSqlServer();
+
+            services.AddDbContext<DigiBookDbContext>(
+                    option => option.UseSqlServer
+                    (
+                        Configuration.GetConnectionString("DefaultConnection")
+                    )
                 );
-
-
-
             #endregion
 
             #region Db
+            //services.AddTransient = Repo
+            //services.AddScoped = Service
+
             services.AddScoped<IDigiBookDbContext, DigiBookDbContext>();
             // contact
             services.AddTransient<IContactService, ContactService>();
@@ -163,6 +154,20 @@ namespace BlastAsia.DigiBook.Api
             services.AddScoped<IPilotRepository, PilotRepository>();
             #endregion
 
+            #region Swagger
+            services.AddSwaggerGen(
+                    c =>
+                    {
+                        c.SwaggerDoc(
+                                "v1",
+                                 new Info { Title = "Digibook API" }
+                            );
+                    }
+                );
+
+
+
+            #endregion
 
             services.AddMvc();
 
@@ -171,13 +176,17 @@ namespace BlastAsia.DigiBook.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            #region Cors
             app.UseCors("DemoAppDay2");
+
+            #endregion
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+            #region Swagger
             app.UseSwagger();
             app.UseSwaggerUI(
                     c =>
@@ -189,6 +198,7 @@ namespace BlastAsia.DigiBook.Api
                     }
 
                 );
+            #endregion
 
             app.UseAuthentication();
             app.UseMvc();

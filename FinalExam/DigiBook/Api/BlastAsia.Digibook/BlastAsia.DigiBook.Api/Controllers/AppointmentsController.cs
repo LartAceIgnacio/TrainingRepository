@@ -47,7 +47,7 @@ namespace BlastAsia.DigiBook.Api.Controllers
 
         [HttpGet]
         [Route("api/Appointments/{pageNumber}/{recordNumber}/")]
-        public IActionResult GetAppointment(int pageNumber, int recordNumber, DateTime? query)
+        public IActionResult GetAppointment(int pageNumber, int recordNumber, string query)
         {
             try
             {

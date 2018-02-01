@@ -272,7 +272,7 @@ namespace BlastAsia.DigiBook.Api.Test
                 r => r.Save(pilot.PilotId, pilot), Times.Once()
             );
 
-            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
 
         }
 

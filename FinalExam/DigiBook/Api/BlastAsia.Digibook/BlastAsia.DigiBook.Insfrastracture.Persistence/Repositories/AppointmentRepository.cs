@@ -18,7 +18,7 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Repositories
             this.context = context;
         }
 
-        public Pagination<Appointment> Retrieve(int pageNumber, int recordNumber, DateTime? date)
+        public Pagination<Appointment> Retrieve(int pageNumber, int recordNumber, string key)
         {
 
             Pagination<Appointment> result = new Pagination<Appointment>
@@ -40,7 +40,7 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Repositories
                 return result;
             }
 
-            if (date == null)
+            if (key == null)
             {
                 result.Result = this.context.Set<Appointment>().OrderBy(c => c.AppointmentDate).Skip(pageNumber)
                                                   .Take(recordNumber)
@@ -49,10 +49,12 @@ namespace BlastAsia.DigiBook.Infrastracture.Persistence.Repositories
             }
             else
             {
-                result.Result = this.context.Set<Appointment>().Where(r => r.AppointmentDate == date).OrderBy(c => c.AppointmentDate)
-                                                  .Skip(pageNumber)
-                                                  .Take(recordNumber)
-                                                  .ToList();
+                result.Result = this.context.Set<Appointment>()
+                    .Where(r => r.Guest.LastName.Contains(key) || r.Guest.FirstName.Contains(key) || r.Host.FirstName.Contains(key) || r.Host.LastName.Contains(key))
+                    .OrderBy(c => c.AppointmentDate)
+                    .Skip(pageNumber)
+                    .Take(recordNumber)
+                    .ToList();
                 result.TotalCount = result.Result.Count();
                 return result;
             }

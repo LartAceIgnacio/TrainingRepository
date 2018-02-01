@@ -89,7 +89,7 @@ namespace BlastAsia.DigiBook.Insfrastracture.Persistence
             #endregion
 
 
-            #region Employee
+            #region Contacts
 
             modelBuilder.Entity<Contact>().ToTable("Contacts");
 
