@@ -73,6 +73,9 @@ export class AppointmentsComponent implements OnInit {
   // tslint:disable-next-line:no-inferrable-types
   ctr: number = 0;
 
+  // tslint:disable-next-line:no-inferrable-types
+  rexExpTimeFormat: string = '^([0-1]?[0-9]|[2][0-3]):([0-5][0-9])(:[0-5][0-9])?$';
+
   constructor(private globalService: GlobalService,
     private confirmationService: ConfirmationService,
     private fb: FormBuilder) {
@@ -101,11 +104,11 @@ export class AppointmentsComponent implements OnInit {
     this.home = { icon: 'fa fa-home' };
 
     this.userform = this.fb.group({
-      'appointmnetdate': new FormControl('', Validators.required),
+      'appointmentdate': new FormControl('', Validators.required),
       'guestname': new FormControl('', Validators.required),
       'hostname': new FormControl('', Validators.required),
-      'starttime': new FormControl('', Validators.required),
-      'endtime': new FormControl('', Validators.required),
+      'starttime': new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.rexExpTimeFormat)])),
+      'endtime': new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.rexExpTimeFormat)])),
       'iscancelled': new FormControl(''),
       'isdone': new FormControl(''),
       'notes': new FormControl('')
@@ -130,8 +133,6 @@ export class AppointmentsComponent implements OnInit {
     this.appointment = this.cloneAppointment(clickAppointment);
     this.selectedAppointment = clickAppointment;
     this.displayDialog = true;
-
-    this.appointment.appointmentDate = new Date(this.selectedAppointment.appointmentDate).toLocaleDateString();
     this.selectedContact = this.contactList.find(x => x.contactId === this.selectedAppointment.guestId);
     this.selectedEmployee = this.employeeList.find(x => x.employeeId === this.selectedAppointment.hostId);
   }
@@ -153,26 +154,48 @@ export class AppointmentsComponent implements OnInit {
     this.appointment.hostId = this.selectedEmployee.employeeId;
 
     if (this.newAppointment) {
-      this.globalService.addSomething('Appointments', this.appointment);
-      this.appointment.guestName = this.contactList.find(id => id.contactId === this.appointment.guestId).firstName;
-      this.appointment.hostName = this.employeeList.find(id => id.employeeId === this.appointment.hostId).firstName;
-      appointments.push(this.appointment);
+      this.globalService.addSomething('Appointments', this.appointment).then(
+        data => {
+          this.appointment = data;
+          this.appointment.appointmentDate =  new Date(this.appointment.appointmentDate).toLocaleDateString();
+          this.appointment.guestName = this.contactList.find(id => id.contactId === this.appointment.guestId).firstName + ' ' +
+          this.contactList.find(id => id.contactId === this.appointment.guestId).lastName;
+          this.appointment.hostName = this.employeeList.find(id => id.employeeId === this.appointment.hostId).firstName + ' ' +
+          this.employeeList.find(id => id.employeeId === this.appointment.hostId).lastName ;
+          appointments.push(this.appointment);
+          this.appointments = appointments;
+          this.appointment = new AppointmentClass;
+          // console.log('before :' + this.totalRecords);
+          // this.totalRecords++;
+          // console.log('add :' + this.totalRecords);
+          this.dataTable.reset();
+        }
+      );
     } else {
-      this.appointment.guestId = this.selectedContact.contactId;
-      this.appointment.hostId = this.selectedEmployee.employeeId;
-      this.globalService.updateSomething('Appointments', this.appointment.appointmentId, this.appointment);
-      this.appointment.guestName = this.contactList.find(id => id.contactId === this.appointment.guestId).firstName;
-      this.appointment.hostName = this.employeeList.find(id => id.employeeId === this.appointment.hostId).firstName;
-      appointments[this.findSelectedAppointmentIndex()] = this.appointment;
+      this.globalService.updateSomething('Appointments', this.appointment.appointmentId, this.appointment).then(
+        data => {
+          this.appointment = data;
+          this.appointment.appointmentDate =  new Date(this.appointment.appointmentDate).toLocaleDateString();
+          this.appointment.guestName = this.contactList.find(id => id.contactId === this.appointment.guestId).firstName + ' ' +
+          this.contactList.find(id => id.contactId === this.appointment.guestId).lastName;
+          this.appointment.hostName = this.employeeList.find(id => id.employeeId === this.appointment.hostId).firstName + ' ' +
+          this.employeeList.find(id => id.employeeId === this.appointment.hostId).lastName ;
+          appointments[this.findSelectedAppointmentIndex()] = this.appointment;
+          this.appointments = appointments;
+        }
+      );
     }
 
     if (this.isNewAppointment) {
-      this.appointments = appointments;
+      // this.appointments = appointments;
+      this.selectedEmployee = null;
+      this.selectedContact = null;
+      this.userform.markAsPristine();
       this.newAppointment = true;
       this.selectedAppointment = null;
-      this.appointment = new AppointmentClass;
+      // this.appointment = new AppointmentClass;
     } else {
-      this.appointments = appointments;
+      // this.appointments = appointments;
       this.appointment = null;
       this.displayDialog = false;
       // this.setCurrentPage(1);
@@ -185,6 +208,7 @@ export class AppointmentsComponent implements OnInit {
   }
 
   delete(clickContact: Contact) {
+    this.userform.markAsPristine();
     this.userform.disable();
     this.isDelete = true;
     this.onRowSelect(clickContact);
@@ -200,6 +224,8 @@ export class AppointmentsComponent implements OnInit {
         this.appointments = this.appointments.filter((val, i) => i !== index);
         this.appointment = null;
         this.displayDialog = false;
+        this.totalRecords--;
+        this.dataTable.reset();
       }
     });
   }

@@ -114,22 +114,36 @@ export class ContactsComponent implements OnInit {
 
     const contacts = [...this.contacts];
     if (this.newContact) {
-      this.globalService.addSomething('Contacts', this.contact);
-      contacts.push(this.contact);
+      this.globalService.addSomething('Contacts', this.contact).then(
+        data => {
+          this.contact = data;
+          contacts.push(this.contact);
+          this.contacts = contacts;
+          this.contact = new ContactClass();
+          this.dataTable.reset();
+          // this.userform.markAsPristine();
+        }
+      );
+
     } else {
-      this.globalService.updateSomething('Contacts', this.contact.contactId, this.contact);
-      contacts[this.findSelectedContactIndex()] = this.contact;
+      this.globalService.updateSomething('Contacts', this.contact.contactId, this.contact).then(
+        data => {
+          this.contact = data;
+          contacts[this.findSelectedContactIndex()] = this.contact;
+          this.contacts = contacts;
+        }
+      );
     }
 
     if (this.isNewContact) {
       this.userform.markAsPristine();
-      this.contacts = contacts;
+      // this.contacts = contacts;
       this.newContact = true;
       this.selectedContact = null;
-      this.contact = new ContactClass();
+
 
     } else {
-      this.contacts = contacts;
+      // this.contacts = contacts;
       this.contact = null;
       this.displayDialog = false;
       // this.setCurrentPage(1);
@@ -157,6 +171,7 @@ export class ContactsComponent implements OnInit {
         this.contacts = this.contacts.filter((val, i) => i !== index);
         this.contact = null;
         this.displayDialog = false;
+        this.dataTable.reset();
       }
     });
   }

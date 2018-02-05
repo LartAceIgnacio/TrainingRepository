@@ -1,4 +1,4 @@
-<form  [formGroup]="
+<!-- <form  [formGroup]="
 " (ngSubmit)="onSubmit()" class="register-form">
   <p-panel header="Reigstration">
 
@@ -26,12 +26,64 @@
     </div>
 
     <footer>
-      <!-- <button type="submit" class="btn btn-md btn-success btn-block btn-signin">
-        Register
-      </button> -->
+
       <button pButton type="submit" label="Register"></button>
       <button pButton type="button" class="ui-button-warning" (click)="onBack()" label="Cancel"></button>
       
     </footer>
   </p-panel>
-</form>
+</form> -->
+
+<section id="wrapper" class="login-register login-sidebar" style="background-image:url(../assets/images/background/login-register.jpg);">
+  <div class="login-box card">
+    <div class="card-body">
+      <form  [formGroup]="form" (ngSubmit)="onSubmit()" class="register-form">
+      
+        <h1>DigiBook</h1>
+        <h3 class="box-title m-t-40 m-b-0">Register Now</h3>
+        <small>Create your account and enjoy</small>
+        <div class="form-group m-t-20">
+          <div class="col-xs-12">
+            <input class="form-control" formControlName="DisplayName" type="text" required="" placeholder="DisplayName">
+          </div>
+        </div>
+        <div class="form-group ">
+          <div class="col-xs-12">
+            <input class="form-control" formControlName="Email" type="text" required="" placeholder="Email">
+          </div>
+        </div>
+        <div class="form-group m-t-20">
+          <div class="col-xs-12">
+            <input class="form-control" formControlName="Username" type="text" required="" placeholder="Username">
+          </div>
+        </div>
+        
+        <div class="form-group ">
+          <div class="col-xs-12">
+            <input class="form-control" formControlName="Password" type="password" required="" placeholder="Password">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-12">
+            <input class="form-control" formControlName="PasswordConfirm" type="password" required="" placeholder="Confirm Password">
+          </div>
+        </div>
+        
+        <div class="form-group text-center m-t-20">
+          <div class="col-xs-12">
+            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Sign Up</button>
+          </div>
+        </div>
+        <div class="form-group m-b-0">
+          <div class="col-sm-12 text-center">
+            <p>Already have an account?
+              <a [routerLink]="['/login']" class="text-info m-l-5">
+                <b>Sign In</b>
+              </a>
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

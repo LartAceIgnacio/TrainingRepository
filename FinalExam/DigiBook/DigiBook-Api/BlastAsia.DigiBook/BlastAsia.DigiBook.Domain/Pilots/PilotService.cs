@@ -70,10 +70,14 @@ namespace BlastAsia.DigiBook.Domain.Pilots
 
             var findAll = pilotRepository.Retrieve().ToList();
 
-            if (findAll.Where(x => x.PilotCode.Equals(pilot.PilotCode)).Any())
+            if (pilotId == Guid.Empty)
             {
-                throw new UniquePilotCodeRequiredException("Pilot code must be unique");
+                if (findAll.Where(x => x.PilotCode.Equals(pilot.PilotCode)).Any())
+                {
+                    throw new UniquePilotCodeRequiredException("Pilot code must be unique");
+                }
             }
+            
 
             var found = pilotRepository.Retrieve(pilot.PilotId);
 

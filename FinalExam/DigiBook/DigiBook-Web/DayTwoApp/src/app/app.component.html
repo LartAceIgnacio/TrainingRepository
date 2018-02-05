@@ -1,29 +1,25 @@
-<header class="main-header">
+<!-- <header class="main-header">
   <h2>
     <i class="fa fa-book" aria-hidden="true"></i>&nbsp;DigiBook</h2>
   <div id="left-header">
-    <ul>
-      <li *ngIf="!this.auth.isLoggedIn()" [routerLinkActive]="['link-active']">
-        <a [routerLink]="['/login']">
-          <span class='glyphicon glyphicon-log-in'></span> Login / Register
-        </a>
-        <button pButton type="button" label="Login" class="ui-button-secondary"></button>
-      </li>
-      <li *ngIf="this.auth.isLoggedIn()">
-        <a (click)="this.auth.logout()">
-          <span class='glyphicon glyphicon-log-out'></span> Logout
-        </a>
-      </li>
-    </ul>
+    
+    <button *ngIf="this.auth.isLoggedIn()" pButton type="button" (click)="this.auth.logout()" [routerLink]="['/login']" label="Log out"
+      class="ui-button-warning"></button>
   </div>
-</header>
+</header> -->
 
-
-<div class="ui-g">
-  <div *ngIf="this.auth.isLoggedIn()" class="ui-g-12 ui-md-2">
-    <p-menu [model]="menuItems" ></p-menu>
-  </div>
-  <div class="ui-g-12 ui-md-10">
-    <router-outlet></router-outlet>
-  </div>
+<div id="main-wrapper">
+  <router-outlet></router-outlet>
 </div>
+
+<!-- <div class=""> -->
+<!-- <div *ngIf="this.auth.isLoggedIn()" >
+    <p-menu [model]="menuItems"></p-menu>
+  </div> -->
+<!-- <div class="page-wrapper">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div> -->

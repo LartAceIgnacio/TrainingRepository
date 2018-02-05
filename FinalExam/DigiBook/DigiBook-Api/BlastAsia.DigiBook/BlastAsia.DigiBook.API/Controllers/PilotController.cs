@@ -4,6 +4,7 @@ using BlastAsia.DigiBook.API.Utils;
 using BlastAsia.DigiBook.Domain.Models;
 using BlastAsia.DigiBook.Domain.Models.Pilots;
 using BlastAsia.DigiBook.Domain.Pilots;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -63,8 +64,9 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpPost]
         [Route("api/Pilots")]
+        [Authorize]
         public IActionResult CreatePilot([FromBody] Pilot pilot)
-        {
+            {
             try
             {
                 if(pilot == null)
@@ -116,6 +118,7 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpDelete]
         [Route("api/Pilots/{id}")]
+        [Authorize]
         public object DeletePilot(Guid id)
         {
             var found = pilotRepository.Retrieve(id);
@@ -132,11 +135,37 @@ namespace BlastAsia.DigiBook.API.Controllers
 
         [HttpPut]
         [Route("api/Pilots/{id}")]
+        [Authorize]
         public object UpdatePilot([FromBody] Pilot pilot, Guid id)
         {
             if (pilot == null)
             {
                 return BadRequest();
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(pilot.MiddleName))
+                {
+                    pilotCodeName = pilot.FirstName.Substring(0, 2).ToUpper() + pilot.LastName.Substring(0, 4).ToUpper();
+                    pilotCodeYear = pilot.DateActivated.Value.ToString("yy") +
+                        pilot.DateActivated.Value.Month.ToString().PadLeft(2, '0') +
+                        pilot.DateActivated.Value.Day.ToString().PadLeft(2, '0');
+
+                    pilot.PilotCode = pilotCodeName + pilotCodeYear;
+                }
+                else
+                {
+                    pilotCodeName = pilot.FirstName.Substring(0, 2).ToUpper() +
+                        pilot.MiddleName.Substring(0, 2).ToUpper() +
+                        pilot.LastName.Substring(0, 4).ToUpper();
+                    pilotCodeYear = pilot.DateActivated.Value.ToString("yy") +
+                        pilot.DateActivated.Value.Month.ToString().PadLeft(2, '0') +
+                        pilot.DateActivated.Value.Day.ToString().PadLeft(2, '0');
+
+                    pilot.PilotCode = pilotCodeName + pilotCodeYear;
+
+                }
+
             }
 
             var oldPilot = this.pilotRepository.Retrieve(id);

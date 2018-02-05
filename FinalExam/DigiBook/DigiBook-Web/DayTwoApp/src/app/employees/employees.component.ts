@@ -9,6 +9,7 @@ import { ViewChild } from '@angular/core';
 import { PaginationResult } from '../domain/paginationresult';
 import { GlobalService } from '../services/globalservice';
 
+
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
@@ -110,20 +111,34 @@ export class EmployeesComponent implements OnInit {
 
     const employees = [...this.employees];
     if (this.newEmployee) {
-      this.globalService.addSomething<Employee>('Employees', this.employee);
-      employees.push(this.employee);
-    } else {
-      this.globalService.updateSomething('Employees', this.employee.employeeId, this.employee);
-      employees[this.findSelectedEmployeeIndex()] = this.employee;
-    }
-    if (this.isNewEmployee) {
-      this.employees = employees;
-      this.newEmployee = true;
-      this.selectedEmployee = null;
-      this.employee = new EmployeeClass();
+      this.globalService.addSomething<Employee>('Employees', this.employee).then(
+        data => {
+          this.employee = data;
+          employees.push(this.employee);
+          this.employees = employees;
+          this.employee = new EmployeeClass();
+          this.dataTable.reset();
+        }
+      );
 
     } else {
-      this.employees = employees;
+      this.globalService.updateSomething('Employees', this.employee.employeeId, this.employee).then(
+        data => {
+          this.employee = data;
+          employees[this.findSelectedEmployeeIndex()] = this.employee;
+          this.employees = employees;
+        }
+      );
+    }
+    if (this.isNewEmployee) {
+      this.userform.markAsPristine();
+      // this.employees = employees;
+      this.newEmployee = true;
+      this.selectedEmployee = null;
+
+    } else {
+      this.userform.markAsPristine();
+      // this.employees = employees;
       this.employee = null;
       this.displayDialog = false;
       // this.setCurrentPage(1);
@@ -149,6 +164,7 @@ export class EmployeesComponent implements OnInit {
         this.employees = this.employees.filter((val, i) => i !== index);
         this.employee = null;
         this.displayDialog = false;
+        this.dataTable.reset();
       }
     });
   }

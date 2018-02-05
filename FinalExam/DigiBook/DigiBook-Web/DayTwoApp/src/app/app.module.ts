@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // tslint:disable-next-line:max-line-length
-import { MenuModule, DataTableModule, SharedModule, ButtonModule, InputTextModule, PanelModule, DialogModule, InputTextareaModule, CalendarModule, ToggleButtonModule, DropdownModule, BreadcrumbModule, ConfirmDialogModule, SelectButtonModule, ChartModule } from 'primeng/primeng';
+import { MenuModule, DataTableModule, SharedModule, ButtonModule, InputTextModule, PanelModule, DialogModule, InputTextareaModule, CalendarModule, ToggleButtonModule, DropdownModule, BreadcrumbModule, ConfirmDialogModule, SelectButtonModule, ChartModule, KeyFilterModule } from 'primeng/primeng';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -28,6 +28,8 @@ import { RegisterComponent } from './register/register.component';
 import { AuthResponseInterceptor} from './services/auth-response-interceptor';
 import { StatisticComponent } from './statistic/statistic.component';
 import { PilotsComponent } from './pilots/pilots.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
 
 
@@ -43,6 +45,8 @@ import { PilotsComponent } from './pilots/pilots.component';
     RegisterComponent,
     StatisticComponent,
     PilotsComponent,
+    NavbarComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +70,8 @@ import { PilotsComponent } from './pilots/pilots.component';
     ConfirmDialogModule,
     ReactiveFormsModule,
     SelectButtonModule,
-    ChartModule
+    ChartModule,
+    KeyFilterModule
 
   ],
   providers: [AuthService,

@@ -1,4 +1,4 @@
-*{
+/* *{
     margin: 0;
 }
 .main-header {
@@ -20,7 +20,7 @@
 
 .ui-menu {
     width: 15.5em;
-}
+} */
 
 .header-table-left {
     float: left;
@@ -32,3 +32,4 @@
 .ui-datepicker td a{
     color: white;
 }
+

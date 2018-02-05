@@ -1,0 +1,59 @@
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- User profile -->
+        <div class="user-profile" style="background: url(../assets/images/background/user-info.jpg) no-repeat;">
+            <!-- User profile image -->
+            <div class="profile-img">
+                <img src="../assets/images/users/profile.png" alt="user" /> </div>
+
+        </div>
+        <!-- End User profile text-->
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <!-- <ul id="sidebarnav"> -->
+            <ul>
+
+                <li>
+                    <a class="waves-effect waves-dark"  routerLink="/dashboard" aria-expanded="false">
+                        <i class="mdi mdi-gauge"></i>
+                        <span class="hide-menu">Dashboard </span>
+                    </a>
+                </li>
+                <li>
+                    <a  class="waves-effect waves-dark" [routerLink]="['/appointments']" aria-expanded="false">
+                        <i class="mdi mdi-account-box"></i>
+                        <span class="hide-menu">Appointment </span>
+                    </a>
+                </li>
+                <li>
+                    <a  class="waves-effect waves-dark" [routerLink]="['/contacts']" aria-expanded="false">
+                        <i class="mdi mdi-account"></i>
+                        <span class="hide-menu">Contact </span>
+                    </a>
+                </li>
+                <li>
+                    <a  class="waves-effect waves-dark" [routerLink]="['/employees']" aria-expanded="false">
+                        <i class="mdi mdi-account-multiple"></i>
+                        <span class="hide-menu">Employee </span>
+                    </a>
+                </li>
+                <li>
+                    <a  class="waves-effect waves-dark" [routerLink]="['/pilots']" aria-expanded="false">
+                        <i class="mdi mdi-airplane"></i>
+                        <span class="hide-menu">Pilot </span>
+                    </a>
+                </li>
+                <li>
+                    <a  class="waves-effect waves-dark" [routerLink]="['/venues']" aria-expanded="false">
+                        <i class="mdi mdi-apple-keyboard-command"></i>
+                        <span class="hide-menu">Venue </span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+
+</aside>

@@ -103,23 +103,35 @@ export class VenuesComponent implements OnInit {
 
     const venues = [...this.venues];
     if (this.newVenue) {
-      this.globalService.addSomething('Venues', this.venue);
-      venues.push(this.venue);
+      this.globalService.addSomething('Venues', this.venue).then(
+        data => {
+          this.venue = data;
+          venues.push(this.venue);
+          this.venues = venues;
+          this.dataTable.reset();
+        }
+      );
+
     } else {
-      this.globalService.updateSomething('Venues', this.venue.venueId, this.venue);
-      venues[this.findSelectedVenueIndex()] = this.venue;
+      this.globalService.updateSomething('Venues', this.venue.venueId, this.venue).then(
+        data => {
+          this.venue = data;
+          venues[this.findSelectedVenueIndex()] = this.venue;
+          this.venues = venues;
+        }
+      );
     }
 
     if (this.isNewVenue) {
       this.userform.markAsPristine();
-      this.venues = venues;
+      // this.venues = venues;
       this.newVenue = true;
       this.selectedVenue = null;
       this.venue = new VenueClass();
 
     }else {
       this.userform.markAsPristine();
-      this.venues = venues;
+      // this.venues = venues;
       this.venue = null;
       this.displayDialog = false;
       // this.setCurrentPage(1);
@@ -147,6 +159,7 @@ export class VenuesComponent implements OnInit {
         this.venues = this.venues.filter((val, i) => i !== index);
         this.venue = null;
         this.displayDialog = false;
+        this.dataTable.reset();
       }
     });
   }

@@ -33,14 +33,18 @@ namespace BlastAsia.DigiBook.Infrastructure.Persistence.Repositories
             else
             {
                 result.Results = context.Set<Pilot>().Where(x => x.FirstName.ToLower().Contains(filterValue.ToLower()) ||
-                    x.LastName.ToLower().Contains(filterValue.ToLower()))
+                    x.LastName.ToLower().Contains(filterValue.ToLower()) ||
+                    x.MiddleName.ToLower().Contains(filterValue.ToLower()) ||
+                    x.PilotCode.ToLower().Contains(filterValue.ToLower()))
                     .OrderBy(x => x.FirstName).ThenBy(x => x.LastName)
                     .Skip(pageNo).Take(numRec).ToList();
 
                 if (result.Results.Count > 0)
                 {
                     result.TotalRecords = context.Set<Pilot>().Where(x => x.FirstName.ToLower().Contains(filterValue.ToLower()) ||
-                        x.LastName.ToLower().Contains(filterValue.ToLower())).Count();
+                        x.LastName.ToLower().Contains(filterValue.ToLower()) ||
+                    x.MiddleName.ToLower().Contains(filterValue.ToLower()) ||
+                    x.PilotCode.ToLower().Contains(filterValue.ToLower())).Count();
                     result.PageNo = pageNo;
                     result.RecordPage = numRec;
                 }

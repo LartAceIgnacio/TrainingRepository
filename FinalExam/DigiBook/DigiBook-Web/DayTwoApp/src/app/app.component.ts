@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/primeng';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { CanActivate, Router } from '@angular/router';
+import { RouterLink } from '@angular/router/src/directives/router_link';
+
 
 @Component({
   selector: 'app-root',
@@ -13,21 +15,23 @@ export class AppComponent {
   title = 'app';
   menuItems: MenuItem[];
 
-  constructor(public auth: AuthService, private router: Router) {}
+  constructor(public auth: AuthService, private router: Router) { }
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit(): void {
 
     this.menuItems = [
-      {label: 'Dashboard', icon: 'fa fa-home', routerLink: ['/dashboard']},
-      {label: 'Employees', icon: 'fa fa-users', routerLink: ['/employees']},
-      {label: 'Contacts', icon: 'fa fa-user-o', routerLink: ['/contacts']},
-      {label: 'Venues', icon: 'fa fa-map-marker', routerLink: ['/venues']},
-      {label: 'Appointments', icon: 'fa fa-map-marker', routerLink: ['/appointments']},
-      {label: 'Pilots', icon: 'fa fa-plane', routerLink: ['/pilots']},
-      { label: 'Login', icon: 'fa-lock', routerLink: ['/login'] },
+      { label: 'Dashboard', icon: 'fa fa-home', routerLink: ['/dashboard'] },
+      { label: 'Employees', icon: 'fa fa-users', routerLink: ['/employees'] },
+      { label: 'Contacts', icon: 'fa fa-user-o', routerLink: ['/contacts'] },
+      { label: 'Venues', icon: 'fa fa-map-marker', routerLink: ['/venues'] },
+      { label: 'Appointments', icon: 'fa fa-map-marker', routerLink: ['/appointments'] },
+      { label: 'Pilots', icon: 'fa fa-plane', routerLink: ['/pilots'] },
     ];
 
+    if (!this.auth.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    }
   }
 }
 

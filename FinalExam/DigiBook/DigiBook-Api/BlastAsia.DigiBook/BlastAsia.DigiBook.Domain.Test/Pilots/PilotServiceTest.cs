@@ -171,6 +171,7 @@ namespace BlastAsia.DigiBook.Domain.Test.Pilots
         public void Save_WithNotValidPilotCode_ThrowsValidPilotCodeRequiredException(string message)
         {
             //Arrange
+            pilot.PilotId = nonExistingId;
             pilot.PilotCode = message;
 
             //Act

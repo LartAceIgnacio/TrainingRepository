@@ -47,6 +47,16 @@ export class PilotsComponent implements OnInit {
 
   paginationResult: PaginationResult<Pilot>;
 
+  today: Date = new Date();
+
+  // tslint:disable-next-line:no-inferrable-types
+  minAge: number = 21;
+
+  maxYear: Date = new Date(this.today.getFullYear() - this.minAge, this.today.getMonth(), this.today.getDate());
+
+  // tslint:disable-next-line:no-inferrable-types
+  yearRange = '1950 :' + this.maxYear.getFullYear();
+
   constructor(private globalService: GlobalService, private confirmationService: ConfirmationService, private fb: FormBuilder) { }
 
   @ViewChild('dt') public dataTable: DataTable;
@@ -73,7 +83,7 @@ export class PilotsComponent implements OnInit {
       'middlename': new FormControl(''),
       'lastname': new FormControl('', Validators.compose([Validators.required, Validators.maxLength(60)])),
       'dateofbirth': new FormControl('', Validators.required),
-      'yearsofexperience': new FormControl('', Validators.required),
+      'yearsofexperience': new FormControl('', Validators.compose([Validators.required, Validators.min(10)])),
       'dateactivated': new FormControl('', Validators.required)
     });
 
@@ -114,25 +124,42 @@ export class PilotsComponent implements OnInit {
 
     const pilots = [...this.pilots];
     if (this.newPilot) {
-      this.globalService.addSomething('Pilots', this.pilot);
-      pilots.push(this.pilot);
+      this.globalService.addSomething('Pilots', this.pilot).then(data => {
+        this.pilot = data;
+        this.pilot.dateOfBirth = new Date(this.pilot.dateOfBirth).toLocaleDateString();
+        this.pilot.dateActivated = new Date(this.pilot.dateActivated).toLocaleDateString();
+        pilots.push(this.pilot);
+        // this.totalRecords = this.totalRecords + 1;
+        this.pilots = pilots;
+        this.dataTable.reset();
+
+      });
     } else {
-      this.globalService.updateSomething('Pilots', this.pilot.pilotId, this.pilot);
-      pilots[this.findSelectedContactIndex()] = this.pilot;
+      this.globalService.updateSomething('Pilots', this.pilot.pilotId, this.pilot).then(
+        data => {
+          this.pilot = data;
+          pilots[this.findSelectedContactIndex()] = this.pilot;
+          this.pilots = pilots;
+          this.pilot = null;
+          this.dataTable.reset();
+        }
+      );
     }
 
     if (this.isNewPilot) {
       this.userform.markAsPristine();
-      this.pilots = pilots;
+      this.pilot = null;
+      // this.pilots = pilots;
       this.newPilot = true;
       this.selectedPilot = null;
       this.pilot = new PilotClass();
+      // this.dataTable.reset();
 
     } else {
-      this.pilots = pilots;
       this.pilot = null;
+      this.userform.markAsPristine();
       this.displayDialog = false;
-      // this.setCurrentPage(1);
+
     }
 
   }
@@ -157,6 +184,7 @@ export class PilotsComponent implements OnInit {
         this.pilots = this.pilots.filter((val, i) => i !== index);
         this.pilot = null;
         this.displayDialog = false;
+        this.dataTable.reset();
       }
     });
   }
@@ -189,7 +217,7 @@ export class PilotsComponent implements OnInit {
     // event.pageCount = Total number of pages
     // tslint:disable-next-line:max-line-length
     this.globalService.getSomethingWithPagination<PaginationResult<Pilot>>('Pilots', event.first, event.rows, this.searchFilter.length === 1 ? '' : this.searchFilter)
-    .then(paginationResult =>
+      .then(paginationResult =>
       // tslint:disable-next-line:one-line
       {
         console.log(paginationResult);
@@ -198,10 +226,10 @@ export class PilotsComponent implements OnInit {
         this.totalRecords = this.paginationResult.totalRecords;
         for (let i = 0; i < this.pilots.length; i++) {
           this.pilots[i].dateCreated = this.pilots[i].dateCreated == null ? null :
-           new Date(this.pilots[i].dateCreated).toLocaleDateString();
+            new Date(this.pilots[i].dateCreated).toLocaleDateString();
 
-           this.pilots[i].dateOfBirth = new Date(this.pilots[i].dateOfBirth).toLocaleDateString();
-           this.pilots[i].dateActivated = new Date(this.pilots[i].dateActivated).toLocaleDateString();
+          this.pilots[i].dateOfBirth = new Date(this.pilots[i].dateOfBirth).toLocaleDateString();
+          this.pilots[i].dateActivated = new Date(this.pilots[i].dateActivated).toLocaleDateString();
         }
       });
   }
