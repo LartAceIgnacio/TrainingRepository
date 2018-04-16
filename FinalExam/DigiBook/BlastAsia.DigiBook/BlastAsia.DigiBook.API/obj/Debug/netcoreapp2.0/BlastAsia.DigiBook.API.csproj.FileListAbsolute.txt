@@ -36,3 +36,4 @@ C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiB
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.API\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.AssemblyInfo.cs
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.API\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.dll
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.API\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.pdb
+C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.API\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.API.csproj.CopyComplete

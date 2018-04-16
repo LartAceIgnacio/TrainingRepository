@@ -20,3 +20,4 @@ C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiB
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.AssemblyInfo.cs
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.dll
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
+C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.csproj.CopyComplete
