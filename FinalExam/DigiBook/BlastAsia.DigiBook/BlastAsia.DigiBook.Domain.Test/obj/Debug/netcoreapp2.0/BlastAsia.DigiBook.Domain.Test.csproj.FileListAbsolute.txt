@@ -36,9 +36,10 @@ C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiB
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.pdb
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.Persistence.pdb
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb
-C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.csprojResolveAssemblyReference.cache
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.csproj.CoreCompileInputs.cache
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.AssemblyInfoInputs.cache
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.AssemblyInfo.cs
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.dll
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.pdb
+C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.csprojAssemblyReference.cache
+C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Domain.Test\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Domain.Test.csproj.CopyComplete

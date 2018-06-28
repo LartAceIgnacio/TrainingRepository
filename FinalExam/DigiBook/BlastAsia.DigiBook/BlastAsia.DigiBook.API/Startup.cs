@@ -126,7 +126,10 @@ namespace BlastAsia.DigiBook.API
             services.AddCors(config => {
                 config.AddPolicy("demoApp", policy =>
                 {
-                    policy.AllowAnyMethod();
+                    //policy.AllowAnyMethod();
+                    policy.AllowAnyHeader();
+                    policy.AllowAnyOrigin();
+                    policy.AllowCredentials();
                     policy.AllowAnyMethod();
                     policy.WithOrigins("http://localhost:4200");
 

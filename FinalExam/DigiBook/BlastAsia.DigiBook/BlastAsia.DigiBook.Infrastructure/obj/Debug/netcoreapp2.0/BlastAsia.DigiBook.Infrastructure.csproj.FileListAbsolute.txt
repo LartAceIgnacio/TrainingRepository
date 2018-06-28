@@ -10,9 +10,9 @@ C:\Users\eravina\documents\visual studio 2017\Projects\BlastAsia.DigiBook\BlastA
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.deps.json
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure\bin\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb
-C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.csprojResolveAssemblyReference.cache
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.csproj.CoreCompileInputs.cache
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.AssemblyInfoInputs.cache
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.AssemblyInfo.cs
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.dll
 C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.pdb
+C:\Users\eravina\Documents\TrainingRepository\FinalExam\DigiBook\BlastAsia.DigiBook\BlastAsia.DigiBook.Infrastructure\obj\Debug\netcoreapp2.0\BlastAsia.DigiBook.Infrastructure.csprojAssemblyReference.cache
